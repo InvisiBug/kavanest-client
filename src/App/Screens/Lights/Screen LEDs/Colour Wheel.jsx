@@ -30,9 +30,9 @@ class ScreenLEDs extends React.Component {
 
   colourUpdate = rgb => {
     var cache = JSON.parse(localStorage.getItem("Screen LEDs"));
-    console.log(cache.ambientMode);
+    // console.log(cache.ambientMode);
 
-    console.log("Here");
+    // console.log("Here");
 
     this.setState({ colour: rgb });
 

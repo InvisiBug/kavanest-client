@@ -36,6 +36,10 @@ const navButtons = [
   {
     name: "MQTT",
     icon: Code
+  },
+  {
+    name: "Diagnostics",
+    icon: Gear
   }
 ];
 

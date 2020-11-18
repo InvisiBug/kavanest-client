@@ -24,7 +24,7 @@ const Heating = () => {
       <Boost />
       <ActiveIndicator />
       <OnOff />
-      <Schedule />
+      {/* <Schedule /> */}
       <RadiatorFan />
     </div>
   );

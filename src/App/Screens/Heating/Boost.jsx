@@ -18,7 +18,7 @@ const Boost = () => {
   return (
     <OnOffControl
       title={"Boost"}
-      pos={[20, 20]}
+      pos={[20, 50]}
       onAction={() => fetch("/api/ci/boost/on")}
       offAction={() => fetch("/api/ci/boost/off")}
       state={deviceData.boostTime > now ? true : false}

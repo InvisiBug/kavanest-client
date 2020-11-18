@@ -3,12 +3,15 @@ import { useEffect, useState } from "react";
 import AutoOnOff from "../../Ui Library/Controllers/AutoControl";
 
 const RadiatorFan = () => {
-  const [deviceData, setActive] = useState(JSON.parse(localStorage.getItem("Heating Schedule")));
+  const [deviceData, setDeviceData] = useState(JSON.parse(localStorage.getItem("Heating Schedule")));
   const [now, setNow] = useState(new Date().getTime());
+  // Todo, Add heating for connection
+  const [heating, setHeating] = useState(JSON.parse(localStorage.getItem("Heating")));
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setActive(JSON.parse(localStorage.getItem("Heating Schedule")));
+      setDeviceData(JSON.parse(localStorage.getItem("Heating Schedule")));
+      setHeating(JSON.parse(localStorage.getItem("Heating")));
       setNow(new Date().getTime());
     }, 100);
 
@@ -18,14 +21,14 @@ const RadiatorFan = () => {
   return (
     <AutoOnOff
       title={"Heating"}
-      pos={[85, 20]}
+      pos={[85, 50]}
       onAction={() => fetch("api/ci/on")}
       offAction={() => fetch("api/ci/off")}
       autoAction={() => fetch("/api/ci/manual/off")}
       manualAction={() => fetch("/api/ci/manual/on")}
       auto={deviceData.auto}
       state={deviceData.heatingTime > now ? true : false}
-      connection={true}
+      connection={heating.isConnected}
     />
   );
 };
