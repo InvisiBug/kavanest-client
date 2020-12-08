@@ -21,7 +21,7 @@ const RadiatorFan = () => {
   return (
     <AutoOnOff
       title={"Heating"}
-      pos={[85, 25]}
+      pos={[85, 10]}
       onAction={() => fetch("api/ci/on")}
       offAction={() => fetch("api/ci/off")}
       autoAction={() => fetch("/api/ci/manual/off")}
