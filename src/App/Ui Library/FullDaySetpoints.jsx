@@ -11,7 +11,7 @@ const container = css`
   position: absolute;
   transform: translate(-50%, -50%);
   height: 450px;
-  width: 30%;
+  width: 20%;
 
   top: 70%;
   left: 50%;

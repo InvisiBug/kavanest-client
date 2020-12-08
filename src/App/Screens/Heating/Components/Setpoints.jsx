@@ -26,11 +26,11 @@ const Boost = () => {
 
   return (
     <>
-      <FullDaySetpoints title={"Living Room"} data={livingRoom} pos={[10, 40]} upAction={up} downAction={down} />
-      <FullDaySetpoints title={"Kitchen"} data={kitchen} pos={[50, 40]} upAction={up} downAction={down} />
-      <FullDaySetpoints title={"Study"} data={study} pos={[90, 40]} upAction={up} downAction={down} />
-      <FullDaySetpoints title={"Liams Room"} data={liamsRoom} pos={[30, 85]} upAction={up} downAction={down} />
-      <FullDaySetpoints title={"our Room"} data={ourRoom} pos={[70, 85]} upAction={up} downAction={down} />
+      <FullDaySetpoints title={"Living Room"} data={livingRoom} pos={[8, 50]} upAction={up} downAction={down} />
+      <FullDaySetpoints title={"Kitchen"} data={kitchen} pos={[29, 50]} upAction={up} downAction={down} />
+      <FullDaySetpoints title={"Liams Room"} data={liamsRoom} pos={[50, 50]} upAction={up} downAction={down} />
+      <FullDaySetpoints title={"Study"} data={study} pos={[71, 50]} upAction={up} downAction={down} />
+      <FullDaySetpoints title={"our Room"} data={ourRoom} pos={[92, 50]} upAction={up} downAction={down} />
     </>
   );
 };
