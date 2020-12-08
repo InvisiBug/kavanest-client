@@ -2,11 +2,12 @@
 import React from "react";
 import { jsx, css } from "@emotion/core";
 
-import Boost from "./Boost";
-import ActiveIndicator from "./ActiveIndicator";
-import OnOff from "./OnOff";
-import Schedule from "./Schedule";
-import RadiatorFan from "./RadiatorFan";
+import Boost from "./Components/Boost";
+import ActiveIndicator from "./Components/ActiveIndicator";
+import OnOff from "./Components/OnOff";
+import Schedule from "./Components/Schedule";
+import RadiatorFan from "./Components/RadiatorFan";
+import Setpoints from "./Components/Setpoints";
 
 const container = css`
   position: absolute;
@@ -26,6 +27,7 @@ const Heating = () => {
       <OnOff />
       {/* <Schedule /> */}
       <RadiatorFan />
+      <Setpoints />
     </div>
   );
 };

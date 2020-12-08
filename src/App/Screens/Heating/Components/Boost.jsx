@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import OnOffControl from "../../Ui Library/Controllers/SimpleControl";
+import OnOffControl from "../../../Ui Library/Controllers/SimpleControl";
 
 const Boost = () => {
   const [deviceData, setDeviceData] = useState(JSON.parse(localStorage.getItem("Heating Schedule")));
@@ -18,7 +18,7 @@ const Boost = () => {
   return (
     <OnOffControl
       title={"Boost"}
-      pos={[20, 50]}
+      pos={[20, 25]}
       onAction={() => fetch("/api/ci/boost/on")}
       offAction={() => fetch("/api/ci/boost/off")}
       state={deviceData.boostTime > now ? true : false}

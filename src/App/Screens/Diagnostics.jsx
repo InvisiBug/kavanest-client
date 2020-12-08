@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React, { useEffect, useState } from "react";
 import { jsx, css } from "@emotion/core";
+import RadiatorValves from "./Heating/RadiatorValves";
 
 const container = css`
   position: absolute;
@@ -33,43 +34,14 @@ const Diagnostics = () => {
 
   return (
     <div css={container}>
-      <table>
-        <thead>
-          <tr>
-            <th colspan="2">Radiator Valves</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Living Room</td>
-            <td>{environmentalData.radiatorValves.livingRoom.isOpen ? "Open" : "Closed"}</td>
-          </tr>
-          <tr>
-            <td>Kitchen</td>
-            <td>{environmentalData.radiatorValves.kitchen.isOpen ? "Open" : "Closed"}</td>
-          </tr>
-          <tr>
-            <td>Liam's Room</td>
-            <td>{environmentalData.radiatorValves.liamsRoom.isOpen ? "Open" : "Closed"}</td>
-          </tr>
-          <tr>
-            <td>Study</td>
-            <td>{environmentalData.radiatorValves.study.isOpen ? "Open" : "Closed"}</td>
-          </tr>
-          <tr>
-            <td>Our Room</td>
-            <td>{environmentalData.radiatorValves.ourRoom.isOpen ? "Open" : "Closed"}</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div css={test}>
+      <RadiatorValves environmentalData={environmentalData} />
+      {/* <div css={test}>
         <h4>Living Room Radiator Valve: {environmentalData.radiatorValves.livingRoom.isOpen ? "Open" : "Closed"}</h4>
         <h4>Kitchen Radiator Valve: {environmentalData.radiatorValves.kitchen.isOpen ? "Open" : "Closed"}</h4>
         <h4>Liams Room Radiator Valve: {environmentalData.radiatorValves.liamsRoom.isOpen ? "Open" : "Closed"}</h4>
         <h4>Study Radiator Valve: {environmentalData.radiatorValves.study.isOpen ? "Open" : "Closed"} </h4>
         <h4>Our Room Radiator Valve: {environmentalData.radiatorValves.ourRoom.isOpen ? "Open" : "Closed"}</h4>
-      </div>
+      </div> */}
     </div>
   );
 };

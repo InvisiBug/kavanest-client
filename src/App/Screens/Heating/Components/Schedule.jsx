@@ -2,7 +2,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { jsx, css } from "@emotion/core";
-import MySlider from "../../Ui Library/Slider";
+import MySlider from "../../../Ui Library/Slider";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
@@ -35,7 +35,7 @@ const dateCol = css`
   text-align: center;
 `;
 
-const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]; // TODO Put inside helpers file
 
 const Schedule = () => {
   const [schedule, setSchedule] = useState(JSON.parse(localStorage.getItem("Heating Schedule")));

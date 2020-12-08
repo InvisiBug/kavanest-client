@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import AutoOnOff from "../../Ui Library/Controllers/AutoControl";
+import AutoOnOff from "../../../Ui Library/Controllers/AutoControl";
 
 const RadiatorFan = () => {
   const [deviceData, setDeviceData] = useState(JSON.parse(localStorage.getItem("Heating Schedule")));
@@ -21,7 +21,7 @@ const RadiatorFan = () => {
   return (
     <AutoOnOff
       title={"Heating"}
-      pos={[85, 50]}
+      pos={[85, 25]}
       onAction={() => fetch("api/ci/on")}
       offAction={() => fetch("api/ci/off")}
       autoAction={() => fetch("/api/ci/manual/off")}
