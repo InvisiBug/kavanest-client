@@ -67,9 +67,15 @@ const setpointRow = css`
   justify-content: space-around;
 `;
 
+const time = css`
+  opacity: 0.7;
+`;
+
 const arrow = css`
   height: 20px;
+  opacity: 0.5;
 `;
+
 const FullDaySetpoints = ({ data, title, pos, upAction, downAction }) => {
   return (
     <div
@@ -86,7 +92,7 @@ const FullDaySetpoints = ({ data, title, pos, upAction, downAction }) => {
         {data.map((setpoint, index) => (
           <div css={setpointTime} key={index}>
             <div css={setpointRow}>
-              <div>{`${index}:00`}</div>
+              <div css={time}>{`${index}:00`}</div>
 
               <div>
                 <img css={arrow} src={ArrowDown} alt="" onClick={() => downAction(index, camelRoomName(title))} />

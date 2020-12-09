@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import FullDaySetpoints from "../../../Ui Library/FullDaySetpoints";
 
-const Boost = () => {
+const Setpoints = () => {
   const [setpoints, setSetpoints] = useState(JSON.parse(localStorage.getItem("Environmental Data")).setpoints);
   const { kitchen, liamsRoom, livingRoom, ourRoom, study } = setpoints;
 
@@ -13,15 +13,32 @@ const Boost = () => {
     return () => clearTimeout(timer);
   }, [setpoints]);
 
-  // console.log(setpoints);
-  // console.log(kitchen);
+  const up = (time, room) => {
+    let newVal = setpoints[room];
+    newVal[time] = newVal[time] + 1;
 
-  const up = (time, title) => {
-    console.log(`${time} ${title} Up Pressed`);
+    fetch("/api/ci/setpoints", {
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      body: JSON.stringify({
+        room: room,
+        vals: newVal
+      })
+    });
   };
 
-  const down = (time, title) => {
-    console.log(`${time} ${title} Down Pressed`);
+  const down = (time, room) => {
+    let newVal = setpoints[room];
+    newVal[time] = newVal[time] - 1;
+
+    fetch("/api/ci/setpoints", {
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      body: JSON.stringify({
+        room: room,
+        vals: newVal
+      })
+    });
   };
 
   return (
@@ -30,9 +47,9 @@ const Boost = () => {
       <FullDaySetpoints title={"Kitchen"} data={kitchen} pos={[29, 50]} upAction={up} downAction={down} />
       <FullDaySetpoints title={"Liams Room"} data={liamsRoom} pos={[50, 50]} upAction={up} downAction={down} />
       <FullDaySetpoints title={"Study"} data={study} pos={[71, 50]} upAction={up} downAction={down} />
-      <FullDaySetpoints title={"our Room"} data={ourRoom} pos={[92, 50]} upAction={up} downAction={down} />
+      <FullDaySetpoints title={"Our Room"} data={ourRoom} pos={[92, 50]} upAction={up} downAction={down} />
     </>
   );
 };
 
-export default Boost;
+export default Setpoints;
