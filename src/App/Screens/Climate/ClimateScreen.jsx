@@ -9,7 +9,7 @@ import Year from "./Charts/Year";
 
 import TimescaleSelection from "./Charts/Timescale";
 import Rooms from "./Rooms.jsx";
-import SensorInfo from "./SensorInfo.jsx";
+// import SensorInfo from "./SensorInfo.jsx";
 
 class Climate extends React.Component {
   constructor(props) {
@@ -60,7 +60,7 @@ class Climate extends React.Component {
 
         {this.state.ourRoomGraphs ? <TimescaleSelection changeTimeScale={this.changeTimeScale} currentTimeScale={this.state.timescale} /> : null}
 
-        {this.state.ourRoomGraphs ? <SensorInfo room={this.state.room} /> : null}
+        {/* {this.state.ourRoomGraphs ? <SensorInfo room={this.state.room} /> : null} */}
       </div>
     );
   }

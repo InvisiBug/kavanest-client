@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { jsx, css } from "@emotion/core";
 import HeatingSensor from "../../Ui Library/HeatingSensor";
 import FloorPlanPicture from "./Floor Plan.png";
+import RadiatorDot from "../../Ui Library/RadiatorDot";
 
 const floorPlanPictureContainer = css`
   position: absolute;
@@ -31,28 +32,35 @@ const floorPlanPicture = css`
 const rooms = [
   {
     name: "Living Room",
-    pos: [72, 20.5]
+    // pos: [72, 20.5],
+    pos: [20.5, 72],
+    radiatorPos: [21, 62]
   },
   {
     name: "Kitchen",
-    pos: [36, 19]
-  },
-  {
-    name: "Liams Room",
-    pos: [72, 51]
+    pos: [19, 36],
+    radiatorPos: [21, 26]
   },
   {
     name: "Study",
-    pos: [36, 49.5]
+    pos: [49.5, 36],
+    radiatorPos: [48, 41.5]
+  },
+  {
+    name: "Liams Room",
+    pos: [51, 72],
+    radiatorPos: [50, 62]
   },
   {
     name: "Our Room",
-    pos: [55, 86]
-  },
-  {
-    name: "Outside",
-    pos: [10, 86]
+    pos: [86, 55],
+    radiatorPos: [85, 40]
   }
+  // {
+  // name: "Outside",
+  // pos: [10, 86],
+  // radiatorPos: [50, 50]
+  // }
 ];
 
 const FirstFloor = (blurFactor, showGraph) => {
@@ -61,7 +69,10 @@ const FirstFloor = (blurFactor, showGraph) => {
       <img src={FloorPlanPicture} alt="floorplanPic" css={floorPlanPicture} />
 
       {rooms.map(room => (
-        <HeatingSensor datapoint={room.name} key={room.name} pos={room.pos} showGraph={showGraph} />
+        <div key={room.name}>
+          <HeatingSensor datapoint={room.name} pos={room.pos} showGraph={showGraph} />
+          <RadiatorDot datapoint={room.name} pos={room.radiatorPos} />
+        </div>
       ))}
     </div>
   );

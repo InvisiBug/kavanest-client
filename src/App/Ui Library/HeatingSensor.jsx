@@ -69,8 +69,8 @@ const HeatingSensor = ({ showGraph, pos, datapoint }) => {
     <div
       style={{
         color: deviceData.isConnected ? "white" : "orangeRed",
-        top: `${pos[0]}%`,
-        left: `${pos[1]}%`
+        top: `${pos[1]}%`,
+        left: `${pos[0]}%`
       }}
       css={container}
       onClick={() => console.log("Clicked")}

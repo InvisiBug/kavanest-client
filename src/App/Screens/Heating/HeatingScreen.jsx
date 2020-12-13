@@ -8,6 +8,7 @@ import OnOff from "./Components/OnOff";
 import Schedule from "./Components/Schedule";
 import RadiatorFan from "./Components/RadiatorFan";
 import Setpoints from "./Components/Setpoints";
+import RoomOverrides from "./Components/RoomOverrides";
 
 const container = css`
   position: absolute;
@@ -28,6 +29,7 @@ const Heating = () => {
       {/* <Schedule /> */}
       <RadiatorFan />
       <Setpoints />
+      <RoomOverrides />
     </div>
   );
 };

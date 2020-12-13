@@ -3,14 +3,16 @@ import React, { useEffect, useState } from "react";
 import { jsx, css } from "@emotion/core";
 import ArrowDown from "../Ui Library/Icons/ArrowDown.png";
 import ArrowUp from "../Ui Library/Icons/ArrowUp.png";
-import ModuleHeader from "../Ui Library/ModuleHeader";
+import ModuleHeader from "./ModuleHeader";
+import HeatingSensor from "./HeatingSensor";
+import RadiatorDot from "./RadiatorDot";
 
 import { camelRoomName } from "../Helpers/Functions";
 
 const container = css`
   position: absolute;
   transform: translate(-50%, -50%);
-  height: 450px;
+  height: 500px;
   width: 20%;
 
   top: 70%;
@@ -36,12 +38,12 @@ const header = css`
 
 const tableBox = css`
   position: absolute;
-  transform: translate(-50%, -50%);
-  top: 57%;
+  transform: translateX(-50%);
+  top: 100px;
   left: 50%;
 
   width: 100%;
-  height: 90%;
+  height: 400px;
 
   /* border: 1px solid red; */
 
@@ -74,6 +76,9 @@ const time = css`
 const arrow = css`
   height: 20px;
   opacity: 0.5;
+  :active {
+    opacity: 1;
+  }
 `;
 
 const FullDaySetpoints = ({ data, title, pos, upAction, downAction }) => {
@@ -88,6 +93,10 @@ const FullDaySetpoints = ({ data, title, pos, upAction, downAction }) => {
       <div css={header}>
         <ModuleHeader>{title}</ModuleHeader>
       </div>
+
+      <HeatingSensor datapoint={title} pos={[40, 15]} />
+      <RadiatorDot datapoint={title} pos={[70, 15]} />
+
       <div css={tableBox}>
         {data.map((setpoint, index) => (
           <div css={setpointTime} key={index}>

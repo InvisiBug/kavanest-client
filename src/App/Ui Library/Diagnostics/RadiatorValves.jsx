@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { useEffect, useState } from "react";
 import { jsx, css } from "@emotion/core";
-import ModuleHeader from "../../Ui Library/ModuleHeader";
+import ModuleHeader from "../ModuleHeader";
 
 const RadiatorValves = ({ environmentalData }) => {
   const container = css`
