@@ -1,29 +1,38 @@
 import React from "react";
 import { useEffect, useState } from "react";
-// import FullDaySetpoints from "../../../Ui Library/FullDaySetpoints";
 import AutoControl from "../../../Ui Library/Controllers/AutoControl";
 
 const rooms = [
   {
     name: "Living Room",
-    pos: [8, 90]
+    pos: [8, 90],
+    onAction: "",
+    offAction: ""
   },
   {
     name: "Kitchen",
-    pos: [29, 90]
+    pos: [29, 90],
+    onAction: "",
+    offAction: ""
   },
   {
     name: "Liams Room",
-    pos: [50, 90]
+    pos: [50, 90],
+    onAction: "",
+    offAction: ""
   },
   {
     name: "Study",
-    pos: [71, 90]
+    pos: [71, 90],
+    onAction: "",
+    offAction: ""
   },
 
   {
     name: "Our Room",
-    pos: [92, 90]
+    pos: [92, 90],
+    onAction: "",
+    offAction: ""
   }
 ];
 
@@ -35,7 +44,7 @@ const RoomOverrides = () => {
           <AutoControl
             title={room.name}
             pos={room.pos}
-            onAction={() => fetch()}
+            onAction={() => fetch(room.onAction)}
             offAction={() => fetch()}
             autoAction={() => fetch()}
             manualAction={() => fetch()}

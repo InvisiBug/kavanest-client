@@ -95,7 +95,7 @@ const FullDaySetpoints = ({ data, title, pos, upAction, downAction }) => {
       </div>
 
       <HeatingSensor datapoint={title} pos={[40, 15]} />
-      <RadiatorDot datapoint={title} pos={[70, 15]} />
+      <RadiatorDot datapoint={title} pos={[70, 14.5]} />
 
       <div css={tableBox}>
         {data.map((setpoint, index) => (

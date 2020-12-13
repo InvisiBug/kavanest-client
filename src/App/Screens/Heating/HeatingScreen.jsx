@@ -23,7 +23,7 @@ const container = css`
 const Heating = () => {
   return (
     <div css={container}>
-      <Boost />
+      {/* <Boost /> */}
       <ActiveIndicator />
       <OnOff />
       {/* <Schedule /> */}

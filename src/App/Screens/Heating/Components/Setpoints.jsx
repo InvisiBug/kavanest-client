@@ -80,11 +80,3 @@ const Setpoints = () => {
 };
 
 export default Setpoints;
-
-{
-  /* <FullDaySetpoints title={"Living Room"} data={livingRoom} pos={[8, 50]} upAction={up} downAction={down} />
-<FullDaySetpoints title={"Kitchen"} data={kitchen} pos={[29, 50]} upAction={up} downAction={down} />
-<FullDaySetpoints title={"Liams Room"} data={liamsRoom} pos={[50, 50]} upAction={up} downAction={down} />
-<FullDaySetpoints title={"Study"} data={study} pos={[71, 50]} upAction={up} downAction={down} />
-<FullDaySetpoints title={"Our Room"} data={ourRoom} pos={[92, 50]} upAction={up} downAction={down} /> */
-}

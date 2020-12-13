@@ -4,8 +4,8 @@ import NavBar from "./NavBar/NavBar.jsx";
 import { jsx, css } from "@emotion/core";
 
 // Modules
-import DateBox from "./Date and Time.jsx";
-import Dots from "./Dots";
+import DateBox from "./Ui Library/Date and Time";
+import Dots from "./Ui Library/Dots";
 
 // Screens
 import Lights from "./Screens/Lights/LightsScreen.jsx";
@@ -13,7 +13,7 @@ import Computer from "./Screens/Computer/ComputerScreen.jsx";
 import Climate from "./Screens/Climate/ClimateScreen.jsx";
 import Heating from "./Screens/Heating/HeatingScreen.jsx";
 import Logger from "./Cache Loaders/MqttLogger";
-import Diagnostics from "./Screens/Diagnostics";
+import Diagnostics from "./Screens/Diagnostics/DiagnosticsScreen";
 
 // Cache Loader
 // import TemperatureGraphsDataCollector from "./Cache Loaders/TemperatureGraphsDataCollector";
@@ -91,6 +91,7 @@ const App = () => {
       <div css={background} />
 
       {/* {navigator.platform === "MacIntel" && <Dots css={dots} />} */}
+      {/* <Dots style={{ zIndex: "0" }} /> */}
       <div css={windowContainer}>
         {/* {navigator.platform === "Win32" && <Dots />} */}
         <NavBar style={navBar} changeScreen={changeScreen} screen={screen} />

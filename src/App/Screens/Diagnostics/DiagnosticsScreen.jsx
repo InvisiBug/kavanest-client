@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { useEffect, useState } from "react";
 import { jsx, css } from "@emotion/core";
-import RadiatorValves from "../Ui Library/Diagnostics/RadiatorValves";
+import RadiatorValves from "../../Ui Library/Diagnostics/RadiatorValves";
 
 const container = css`
   position: absolute;
