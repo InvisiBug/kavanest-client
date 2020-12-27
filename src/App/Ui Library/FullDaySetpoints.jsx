@@ -25,7 +25,7 @@ const container = css`
 
   font-family: Arial;
 
-  color: white;
+  color: #ffffff;
 `;
 
 const header = css`
@@ -45,26 +45,18 @@ const tableBox = css`
   width: 100%;
   height: 400px;
 
-  /* border: 1px solid red; */
-
   display: flex;
-  /* justify-content: space-around; */
+
   flex-direction: column;
   flex-wrap: wrap;
 `;
 
 const setpointTime = css`
-  /* width: 50%; */
   margin: 0 10px 0 10px;
-  /* border: 1px solid black; */
-  /* align-items:center */
   height: 33px;
 `;
 
 const setpointRow = css`
-  /* border: 1px solid green; */
-  /* height: 10%; */
-
   display: flex;
   justify-content: space-around;
 `;
@@ -82,6 +74,8 @@ const arrow = css`
 `;
 
 const FullDaySetpoints = ({ data, title, pos, upAction, downAction }) => {
+  const hour = new Date().getHours();
+
   return (
     <div
       css={container}
@@ -107,7 +101,7 @@ const FullDaySetpoints = ({ data, title, pos, upAction, downAction }) => {
                 <img css={arrow} src={ArrowDown} alt="" onClick={() => downAction(index, camelRoomName(title))} />
               </div>
 
-              <div>{setpoint}</div>
+              <div style={{ color: index === hour ? "lime" : "" }}>{setpoint}</div>
 
               <div>
                 <img css={arrow} src={ArrowUp} alt="" onClick={() => upAction(index, camelRoomName(title))} />
