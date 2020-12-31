@@ -5,7 +5,7 @@ import Header from "../ModuleHeader";
 import Button from "../Button";
 import { offColour, onColour } from "../Constants";
 
-const AutoControl = ({
+const ClimateControl = ({
   title = "New Auto Control",
   pos = [50, 50],
   onAction,
@@ -16,6 +16,13 @@ const AutoControl = ({
   state = false,
   connection = false
 }) => {
+  const header = css`
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 12%;
+    left: 50%;
+  `;
+
   const Container = css`
     position: absolute;
     transform: translate(-50%, -50%);
@@ -31,13 +38,6 @@ const AutoControl = ({
     background: rgba(50, 50, 50, 0.1);
 
     font-family: Arial;
-  `;
-
-  const header = css`
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 12%;
-    left: 50%;
   `;
 
   const autoManuaButtons = css`
@@ -74,11 +74,11 @@ const AutoControl = ({
 
       <div css={autoManuaButtons}>
         <Button isActive={!auto} handleClick={manualAction} activeColour={offColour}>
-          Manual
+          Schedule
         </Button>
 
         <Button isActive={auto} handleClick={autoAction} activeColour={onColour}>
-          Auto
+          Zoned
         </Button>
       </div>
 
@@ -95,4 +95,4 @@ const AutoControl = ({
   );
 };
 
-export default AutoControl;
+export default ClimateControl;

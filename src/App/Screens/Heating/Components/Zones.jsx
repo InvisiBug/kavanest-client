@@ -2,8 +2,9 @@ import React from "react";
 import { useEffect, useState } from "react";
 import FullDaySetpoints from "../../../Ui Library/FullDaySetpoints";
 
-const Setpoints = () => {
+const Zones = () => {
   const [setpoints, setSetpoints] = useState(JSON.parse(localStorage.getItem("Environmental Data")).setpoints);
+  const [auto, setAuto] = useState(JSON.parse(localStorage.getItem("Environmental Data")).climateControl.isAuto);
   const { kitchen, liamsRoom, livingRoom, ourRoom, study } = setpoints;
 
   const rooms = [
@@ -38,6 +39,7 @@ const Setpoints = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setSetpoints(JSON.parse(localStorage.getItem("Environmental Data")).setpoints);
+      setAuto(JSON.parse(localStorage.getItem("Environmental Data")).climateControl.isAuto);
     }, 100);
     return () => clearTimeout(timer);
   }, [setpoints]);
@@ -73,10 +75,18 @@ const Setpoints = () => {
   return (
     <>
       {rooms.map(room => (
-        <FullDaySetpoints title={room.name} data={room.data} pos={room.pos} upAction={up} downAction={down} key={room.name} />
+        <FullDaySetpoints
+          myStyle={auto ? { opacity: 1 } : { opacity: 0.5 }}
+          title={room.name}
+          data={room.data}
+          pos={room.pos}
+          upAction={up}
+          downAction={down}
+          key={room.name}
+        />
       ))}
     </>
   );
 };
 
-export default Setpoints;
+export default Zones;

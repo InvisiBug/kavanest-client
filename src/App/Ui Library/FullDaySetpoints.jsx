@@ -73,12 +73,12 @@ const arrow = css`
   }
 `;
 
-const FullDaySetpoints = ({ data, title, pos, upAction, downAction }) => {
+const FullDaySetpoints = ({ data, title, pos, upAction, downAction, myStyle }) => {
   const hour = new Date().getHours();
 
   return (
     <div
-      css={container}
+      css={[container, myStyle]}
       style={{
         top: `${pos[1]}%`,
         left: `${pos[0]}%`

@@ -38,11 +38,12 @@ const dateCol = css`
 const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]; // TODO Put inside helpers file
 
 const Schedule = () => {
-  const [schedule, setSchedule] = useState(JSON.parse(localStorage.getItem("Heating Schedule")));
+  const [schedule, setSchedule] = useState(JSON.parse(localStorage.getItem("Environmental Data")).heatingSchedule);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setSchedule(JSON.parse(localStorage.getItem("Heating Schedule")));
+      setSchedule(JSON.parse(localStorage.getItem("Environmental Data")).heatingSchedule);
+      // console.log("here");
     }, 100);
     return () => clearTimeout(timer);
   }, [schedule]);

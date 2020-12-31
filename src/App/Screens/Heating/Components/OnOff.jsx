@@ -1,33 +1,38 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import AutoOnOff from "../../../Ui Library/Controllers/AutoControl";
+import AutoControl from "../../../Ui Library/Controllers/AutoControl";
 
 const RadiatorFan = () => {
   const [deviceData, setDeviceData] = useState(JSON.parse(localStorage.getItem("Environmental Data")));
-  const [now, setNow] = useState(new Date().getTime());
-  // Todo, Add heating for connection
   const [heating, setHeating] = useState(JSON.parse(localStorage.getItem("Heating")));
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setDeviceData(JSON.parse(localStorage.getItem("Environmental Data")));
       setHeating(JSON.parse(localStorage.getItem("Heating")));
-      setNow(new Date().getTime());
     }, 100);
 
     return () => clearTimeout(timer);
   }, [deviceData]);
 
   return (
-    <AutoOnOff
-      title={"Climate Control"}
+    <AutoControl
+      title={"Heating"}
       pos={[65, 10]}
       onAction={() => fetch("api/ci/on")}
       offAction={() => fetch("api/ci/off")}
-      autoAction={() => fetch("/api/ci/manual/off")}
-      manualAction={() => fetch("/api/ci/manual/on")}
-      auto={deviceData.climateControl.isAuto}
-      state={deviceData.climateControl.isOn}
+      autoAction={() => fetch("/api/ci/auto")}
+      manualAction={() => fetch("/api/ci/manual")}
+      auto={deviceData.heatingMode === "zones" ? (deviceData.climateControl.isAuto ? true : false) : deviceData.heatingSchedule.auto ? true : false}
+      state={
+        deviceData.heatingMode === "zones"
+          ? deviceData.heatingSchedule.heatingTime > new Date()
+            ? true
+            : false
+          : deviceData.heatingSchedule.heatingTime > new Date()
+          ? true
+          : false
+      }
       connection={heating.isConnected}
     />
   );

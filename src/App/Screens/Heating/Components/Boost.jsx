@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import OnOffControl from "../../../Ui Library/Controllers/SimpleControl";
 
 const Boost = () => {
-  const [deviceData, setDeviceData] = useState(JSON.parse(localStorage.getItem("Heating Schedule")));
+  const [deviceData, setDeviceData] = useState(JSON.parse(localStorage.getItem("Environmental Data")));
   const [now, setNow] = useState(new Date().getTime());
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDeviceData(JSON.parse(localStorage.getItem("Heating Schedule")));
+      setDeviceData(JSON.parse(localStorage.getItem("Environmental Data")));
       setNow(new Date().getTime());
     }, 100);
 
@@ -18,10 +18,10 @@ const Boost = () => {
   return (
     <OnOffControl
       title={"Boost"}
-      pos={[20, 10]}
+      pos={[50, 29]}
       onAction={() => fetch("/api/ci/boost/on")}
       offAction={() => fetch("/api/ci/boost/off")}
-      state={deviceData.boostTime > now ? true : false}
+      state={deviceData.heatingSchedule.boostTime > now ? true : false}
       connection={true}
     />
   );

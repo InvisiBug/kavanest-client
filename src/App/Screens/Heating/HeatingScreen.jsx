@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { jsx, css } from "@emotion/core";
 
 import Boost from "./Components/Boost";
@@ -7,8 +7,9 @@ import ActiveIndicator from "./Components/ActiveIndicator";
 import OnOff from "./Components/OnOff";
 import Schedule from "./Components/Schedule";
 import RadiatorFan from "./Components/RadiatorFan";
-import Setpoints from "./Components/Setpoints";
+import Zones from "./Components/Zones";
 import RoomOverrides from "./Components/RoomOverrides";
+import Mode from "./Components/Mode";
 
 const container = css`
   position: absolute;
@@ -21,15 +22,33 @@ const container = css`
 `;
 
 const Heating = () => {
+  const [environmentalData, setEnvironmentalData] = useState(JSON.parse(localStorage.getItem("Environmental Data")));
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setEnvironmentalData(JSON.parse(localStorage.getItem("Environmental Data")));
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [environmentalData]);
+
   return (
     <div css={container}>
-      {/* <Boost /> */}
       <ActiveIndicator />
       <OnOff />
-      {/* <Schedule /> */}
       <RadiatorFan />
-      <Setpoints />
-      <RoomOverrides />
+      <Mode />
+
+      {environmentalData.heatingMode === "zones" ? (
+        <>
+          <Zones />
+          <RoomOverrides />
+        </>
+      ) : (
+        <>
+          <Schedule />
+          <Boost />
+        </>
+      )}
     </div>
   );
 };
