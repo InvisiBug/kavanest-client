@@ -4,7 +4,7 @@ import { jsx, css } from "@emotion/core";
 
 import Boost from "./Components/Boost";
 import ActiveIndicator from "./Components/ActiveIndicator";
-import OnOff from "./Components/OnOff";
+import Manual from "./Components/Manual";
 import Schedule from "./Components/Schedule";
 import RadiatorFan from "./Components/RadiatorFan";
 import Zones from "./Components/Zones";
@@ -31,24 +31,26 @@ const Heating = () => {
     return () => clearTimeout(timer);
   }, [environmentalData]);
 
+  const renderChoice = () => {
+    switch (environmentalData.heatingMode) {
+      case "zones":
+        return <Zones />;
+      case "schedule":
+        return [<Schedule />, <Boost />];
+      case "manual":
+        return <Manual />;
+      default:
+    }
+  };
+
   return (
     <div css={container}>
       <ActiveIndicator />
-      <OnOff />
+      {/* <Manual /> */}
       <RadiatorFan />
       <Mode />
 
-      {environmentalData.heatingMode === "zones" ? (
-        <>
-          <Zones />
-          <RoomOverrides />
-        </>
-      ) : (
-        <>
-          <Schedule />
-          <Boost />
-        </>
-      )}
+      {renderChoice()}
     </div>
   );
 };

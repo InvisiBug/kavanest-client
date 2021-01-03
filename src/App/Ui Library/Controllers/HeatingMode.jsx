@@ -5,11 +5,19 @@ import Header from "../ModuleHeader";
 import Button from "../Button";
 import { onColour } from "../Constants";
 
-const HeatingMode = ({ title = "New Simple Control", pos = [50, 50], zonesAction, scheduleAction, mode = "Zoned", connection = true }) => {
+const HeatingMode = ({
+  title = "New Simple Control",
+  pos = [50, 50],
+  zonesAction,
+  scheduleAction,
+  manualAction,
+  mode = "zones",
+  connection = true
+}) => {
   const Container = css`
     position: absolute;
     transform: translate(-50%, -50%);
-    height: 175px;
+    height: 245px;
     width: 175px;
 
     top: ${pos[1]}%;
@@ -26,21 +34,28 @@ const HeatingMode = ({ title = "New Simple Control", pos = [50, 50], zonesAction
   const header = css`
     position: absolute;
     transform: translate(-50%, -50%);
-    top: 12%;
+    top: 25px;
     left: 50%;
   `;
 
   const zonesButton = css`
     position: absolute;
     transform: translate(-50%, -50%);
-    top: 40%;
+    top: 75px;
     left: 50%;
   `;
 
   const scheduleButton = css`
     position: absolute;
     transform: translate(-50%, -50%);
-    top: 75%;
+    top: 135px;
+    left: 50%;
+  `;
+
+  const manualButton = css`
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 195px;
     left: 50%;
   `;
 
@@ -61,7 +76,12 @@ const HeatingMode = ({ title = "New Simple Control", pos = [50, 50], zonesAction
           Schedule
         </Button>
       </div>
-      {/* </div> */}
+
+      <div css={manualButton}>
+        <Button isActive={mode === "manual" ? true : false} handleClick={manualAction} activeColour={onColour}>
+          Manual
+        </Button>
+      </div>
     </div>
   );
 };

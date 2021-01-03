@@ -54,6 +54,11 @@ let inactiveStyles = css`
   border: ${offColour};
 `;
 
+let disconnected = css`
+  background-color: #7a7a7a;
+  border: #7a7a7a;
+`;
+
 // const datapoint = "Our Room";
 const RadiatorDot = ({ pos, datapoint }) => {
   const [deviceData, setDeviceData] = useState(localStorageParser(`Environmental Data`).radiatorValves[camelRoomName(datapoint)]);
@@ -68,7 +73,7 @@ const RadiatorDot = ({ pos, datapoint }) => {
   // console.log(deviceData);
   return (
     <div
-      css={[baseStyle, deviceData.isOpen ? activeStyles : inactiveStyles]}
+      css={[baseStyle, deviceData.isOpen ? activeStyles : inactiveStyles, deviceData.isConnected ? null : disconnected]}
       style={{
         top: `${pos[1]}%`,
         left: `${pos[0]}%`

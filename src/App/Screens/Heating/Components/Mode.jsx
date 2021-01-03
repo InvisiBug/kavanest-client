@@ -19,6 +19,7 @@ const Boost = () => {
       pos={[10, 10]}
       zonesAction={() => fetch("api/ci/mode/zones")}
       scheduleAction={() => fetch("api/ci/mode/schedule")}
+      manualAction={() => fetch("api/ci/mode/manual")}
       mode={environmentalData.heatingMode}
     />
   );

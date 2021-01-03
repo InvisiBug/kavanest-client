@@ -9,8 +9,8 @@ const container = css`
   transform: translate(-50%, -50%);
   height: 64px;
   width: 64px;
-  top: 4%;
-  left: 50%;
+  top: 10%;
+  left: 57%;
   opacity: 0.8;
 `;
 

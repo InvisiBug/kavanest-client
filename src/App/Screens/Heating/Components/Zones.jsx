@@ -4,7 +4,7 @@ import FullDaySetpoints from "../../../Ui Library/FullDaySetpoints";
 
 const Zones = () => {
   const [setpoints, setSetpoints] = useState(JSON.parse(localStorage.getItem("Environmental Data")).setpoints);
-  const [auto, setAuto] = useState(JSON.parse(localStorage.getItem("Environmental Data")).climateControl.isAuto);
+  const [auto, setAuto] = useState(JSON.parse(localStorage.getItem("Environmental Data")).heatingZones.isAuto);
   const { kitchen, liamsRoom, livingRoom, ourRoom, study } = setpoints;
 
   const rooms = [
@@ -39,7 +39,7 @@ const Zones = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setSetpoints(JSON.parse(localStorage.getItem("Environmental Data")).setpoints);
-      setAuto(JSON.parse(localStorage.getItem("Environmental Data")).climateControl.isAuto);
+      setAuto(JSON.parse(localStorage.getItem("Environmental Data")).heatingZones.isAuto);
     }, 100);
     return () => clearTimeout(timer);
   }, [setpoints]);

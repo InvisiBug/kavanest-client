@@ -11,7 +11,7 @@ const container = css`
   transform: translate(-50%, -50%);
   height: 570px;
   width: 100%;
-  top: 70%;
+  top: 60%;
   left: 50%;
 
   border: 1px solid rgba(255, 255, 255, 0.2);
