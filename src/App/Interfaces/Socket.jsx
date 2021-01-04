@@ -3,8 +3,9 @@ import openSocket from "socket.io-client";
 import { localStorageSaver, localStorageParser } from "../../Helpers/localStorageDriver";
 
 const Socket = () => {
-  const socket = openSocket("http://192.168.1.46:5001"); // Deployment
+  // const socket = openSocket("http://192.168.1.46:5001"); // Deployment
   // const socket = openSocket("http://localhost:5001"); // Production
+  const socket = openSocket("http://192.168.1.11:5001"); // Production (Depends on ip address, used for mobile production)
 
   const devices = [
     "Living Room Heating Sensor",

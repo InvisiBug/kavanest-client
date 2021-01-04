@@ -20,6 +20,7 @@ import Diagnostics from "./Screens/Diagnostics/DiagnosticsScreen";
 import Socket from "./Interfaces/Socket";
 import backgroundImage from "../App/Backgrounds/Red.jpg";
 import { useState } from "react";
+import MobileSite from "./MobileSite/MobileSite.jsx";
 
 const background = css`
   position: absolute;
@@ -49,23 +50,15 @@ const windowContainer = css`
 const navBar = css`
   height: 100%;
   width: 10%;
-  /* top: 0px; */
-  /* left: 0px; */
   max-width: 120px;
 
   background: rgba(255, 255, 255, 0.05);
   border-right: 1px solid grey;
-  /* border: 5px solid green; */
 `;
 
 const screenContainer = css`
   position: relative;
-  /* transform: translate(-100%, -50%); */
   height: 100%;
-  /* width: 100%; */
-  /* top: 50%; */
-  /* left: 100%; */
-  /* border: 1px solid red; */
   flex-grow: 1;
 `;
 
@@ -77,6 +70,7 @@ const dots = css`
 
 const App = () => {
   const [screen, setScreen] = useState(JSON.parse(localStorage.getItem("screen")));
+  const [mobile, setMobile] = useState(navigator.appVersion.search("Android") > 0);
 
   const changeScreen = newScreen => {
     setScreen(newScreen);
@@ -89,31 +83,35 @@ const App = () => {
       <Socket />
 
       <div css={background} />
-
-      {/* {navigator.platform === "MacIntel" && <Dots css={dots} />} */}
-      {/* <Dots style={{ zIndex: "0" }} /> */}
-      <div css={windowContainer}>
-        {/* {navigator.platform === "Win32" && <Dots />} */}
-        <NavBar style={navBar} changeScreen={changeScreen} screen={screen} />
-
-        <div css={screenContainer}>
-          <DateBox />
-
-          {screen === "Computer" ? (
-            <Computer />
-          ) : screen === "Lights" ? (
-            <Lights />
-          ) : screen === "Climate" ? (
-            <Climate />
-          ) : screen === "Heating" ? (
-            <Heating />
-          ) : screen === "MQTT" ? (
-            <Logger />
-          ) : screen === "Diagnostics" ? (
-            <Diagnostics />
-          ) : null}
+      {mobile ? (
+        <div css={windowContainer}>
+          <MobileSite />
         </div>
-      </div>
+      ) : (
+        <>
+          <div css={windowContainer}>
+            <NavBar style={navBar} changeScreen={changeScreen} screen={screen} />
+
+            <div css={screenContainer}>
+              <DateBox />
+
+              {screen === "Computer" ? (
+                <Computer />
+              ) : screen === "Lights" ? (
+                <Lights />
+              ) : screen === "Climate" ? (
+                <Climate />
+              ) : screen === "Heating" ? (
+                <Heating />
+              ) : screen === "MQTT" ? (
+                <Logger />
+              ) : screen === "Diagnostics" ? (
+                <Diagnostics />
+              ) : null}
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };
