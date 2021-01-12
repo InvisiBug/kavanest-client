@@ -29,10 +29,13 @@ const floorPlanPicture = css`
   left: 50%;
 `;
 
+const blur = css`
+  filter: blur(20px);
+`;
+
 const rooms = [
   {
     name: "Living Room",
-    // pos: [72, 20.5],
     pos: [20.5, 72],
     radiatorPos: [21, 62]
   },
@@ -63,14 +66,14 @@ const rooms = [
   // }
 ];
 
-const FirstFloor = (blurFactor, showGraph) => {
+const FirstFloor = ({ blurred, showGraph }) => {
   return (
-    <div style={{ filter: blurFactor }} css={floorPlanPictureContainer}>
+    <div css={[floorPlanPictureContainer, blurred ? blur : null]}>
       <img src={FloorPlanPicture} alt="floorplanPic" css={floorPlanPicture} />
 
       {rooms.map(room => (
         <div key={room.name}>
-          <HeatingSensor datapoint={room.name} pos={room.pos} showGraph={showGraph} />
+          <HeatingSensor datapoint={room.name} pos={room.pos} showGraph={() => showGraph(room.name)} />
           <RadiatorDot datapoint={room.name} pos={room.radiatorPos} />
         </div>
       ))}

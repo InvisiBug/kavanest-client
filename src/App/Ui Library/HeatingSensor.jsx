@@ -16,7 +16,7 @@ const container = css`
   background: rgba(50, 50, 50, 0.2);
   font-family: Arial;
   font-size: 15px;
-  /* cursor: pointer; */
+  cursor: pointer;
   user-select: none;
 
   display: flex;
@@ -73,7 +73,7 @@ const HeatingSensor = ({ showGraph, pos, datapoint }) => {
         left: `${pos[0]}%`
       }}
       css={container}
-      onClick={() => console.log("Clicked")}
+      onClick={showGraph}
     >
       <p css={tempText}>{deviceData.temperature || "Nan"}°C</p>
       <p css={humidityText}>{deviceData.humidity || "Nan"}%</p>
