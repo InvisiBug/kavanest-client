@@ -25,6 +25,11 @@ const Climate = () => {
     setBlurred(false);
   };
 
+  const changeTimeScale = value => {
+    console.log("boop");
+    setTimescale(value);
+  };
+
   return (
     <div>
       <Rooms blurred={blurred} showGraph={showGraph} />
@@ -33,15 +38,15 @@ const Climate = () => {
         timescale === "Day" ? (
           <Day room={room} closeGraph={() => hideGraph()} />
         ) : timescale === "Week" ? (
-          <Week room={room} closeGraph={setGraphs(false)} />
+          <Week room={room} closeGraph={() => hideGraph()} />
         ) : timescale === "Month" ? (
-          <Month room={room} closeGraph={setGraphs(false)} />
+          <Month room={room} closeGraph={() => hideGraph()} />
         ) : timescale === "Year" ? (
-          <Year room={room} closeGraph={setGraphs(false)} />
+          <Year room={room} closeGraph={() => hideGraph()} />
         ) : null
       ) : null}
 
-      {/* {graphs ? <TimescaleSelection changeTimeScale={this.changeTimeScale} currentTimeScale={timescale} /> : null} */}
+      {graphs ? <TimescaleSelection changeTimeScale={changeTimeScale} currentTimeScale={timescale} /> : null}
       {/* {ourRoomGraphs ? <SensorInfo room={room} /> : null} */}
     </div>
   );

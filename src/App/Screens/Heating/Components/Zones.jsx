@@ -10,28 +10,28 @@ const Zones = () => {
   const rooms = [
     {
       name: "Living Room",
-      pos: [8, 50],
+      pos: [8, 60],
       data: livingRoom
     },
     {
       name: "Kitchen",
-      pos: [29, 50],
+      pos: [29, 60],
       data: kitchen
     },
     {
       name: "Liams Room",
-      pos: [50, 50],
+      pos: [50, 60],
       data: liamsRoom
     },
     {
       name: "Study",
-      pos: [71, 50],
+      pos: [71, 60],
       data: study
     },
 
     {
       name: "Our Room",
-      pos: [92, 50],
+      pos: [92, 60],
       data: ourRoom
     }
   ];

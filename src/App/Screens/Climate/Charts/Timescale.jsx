@@ -1,40 +1,42 @@
-// Components
-import React from "react";
-import Container from "react-bootstrap/Container";
+/** @jsx jsx */
+import React, { useEffect, useState } from "react";
+import { jsx, css } from "@emotion/core";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
 // Buttons
 import TimeScaleButtons from "../../../Helpers/Button";
 
-class Timescale extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const timescaleButtonsContainer = css`
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 92.5%;
+  left: 50%;
+  width: 50%;
+`;
 
-  render() {
-    return (
-      <div className="timescaleButtonsContainer">
-        <Row>
-          <Col md={3} style={{ display: "flex", justifyContent: "center" }}>
-            <TimeScaleButtons name="Day" isActive={this.props.currentTimeScale === "Day"} onClick={() => this.props.changeTimeScale("Day")} />
-          </Col>
+const Timescale = ({ changeTimeScale, currentTimeScale }) => {
+  return (
+    <div css={timescaleButtonsContainer}>
+      <Row>
+        <Col md={3} style={{ display: "flex", justifyContent: "center" }}>
+          <TimeScaleButtons name="Day" isActive={currentTimeScale === "Day" ? true : false} onClick={() => changeTimeScale("Day")} />
+        </Col>
 
-          <Col md={3} style={{ display: "flex", justifyContent: "center" }}>
-            <TimeScaleButtons name="Week" isActive={this.props.currentTimeScale === "Week"} onClick={() => this.props.changeTimeScale("Week")} />
-          </Col>
+        <Col md={3} style={{ display: "flex", justifyContent: "center" }}>
+          <TimeScaleButtons name="Week" isActive={currentTimeScale === "Week" ? true : false} onClick={() => changeTimeScale("Week")} />
+        </Col>
 
-          <Col md={3} style={{ display: "flex", justifyContent: "center" }}>
-            <TimeScaleButtons name="Month" isActive={this.props.currentTimeScale === "Month"} onClick={() => this.props.changeTimeScale("Month")} />
-          </Col>
+        <Col md={3} style={{ display: "flex", justifyContent: "center" }}>
+          <TimeScaleButtons name="Month" isActive={currentTimeScale === "Month" ? true : false} onClick={() => changeTimeScale("Month")} />
+        </Col>
 
-          <Col md={3} style={{ display: "flex", justifyContent: "center" }}>
-            <TimeScaleButtons name="Year" isActive={this.props.currentTimeScale === "Year"} onClick={() => this.props.changeTimeScale("Year")} />
-          </Col>
-        </Row>
-      </div>
-    );
-  }
-}
+        <Col md={3} style={{ display: "flex", justifyContent: "center" }}>
+          <TimeScaleButtons name="Year" isActive={currentTimeScale === "Year" ? true : false} onClick={() => changeTimeScale("Year")} />
+        </Col>
+      </Row>
+    </div>
+  );
+};
 
 export default Timescale;

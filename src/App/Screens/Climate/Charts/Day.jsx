@@ -17,11 +17,6 @@ const graphModule = css`
   color: white;
   font-family: "Arial";
   font-size: 15px;
-
-  /* display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center; */
 `;
 
 const humidityTicks = [40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100];
