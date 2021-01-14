@@ -6,6 +6,7 @@ const Socket = () => {
   const socket = openSocket("http://192.168.1.46:5001"); // Deployment
   // const socket = openSocket("http://localhost:5001"); // Production, laptop only
   // const socket = openSocket("http://192.168.1.11:5001"); // Production, phone and laptop
+  //test
 
   const devices = [
     "Living Room Heating Sensor",
