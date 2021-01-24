@@ -25,7 +25,7 @@ const RadiatorFan = () => {
         connection={true}
         onAction={() => fetch("api/ci/on")}
         offAction={() => fetch("api/ci/off")}
-        state={deviceData.heatingManual.heatingTime > new Date()}
+        state={new Date() < deviceData.heatingSchedule.heatingTime}
       />
 
       <ValveControl
@@ -37,18 +37,18 @@ const RadiatorFan = () => {
         state={deviceData.radiatorValves.livingRoom.isOpen ? true : false}
       />
 
-      <ValveControl
+      {/* <ValveControl
         title={"Kitchen"}
         pos={[x, y + 15]}
         connection={true}
         onAction={() => fetch("/api/radiatorValves/kitchen/open")}
         offAction={() => fetch("/api/radiatorValves/kitchen/close")}
         state={deviceData.radiatorValves.kitchen.isOpen ? true : false}
-      />
+      /> */}
 
       <ValveControl
         title={"Liams Room"}
-        pos={[x, y + 2 * 15]}
+        pos={[x, y + 1 * 15]}
         connection={true}
         onAction={() => fetch("/api/radiatorValves/liamsRoom/open")}
         offAction={() => fetch("/api/radiatorValves/liamsRoom/close")}
@@ -57,7 +57,7 @@ const RadiatorFan = () => {
 
       <ValveControl
         title={"Study"}
-        pos={[x, y + 3 * 15]}
+        pos={[x, y + 2 * 15]}
         connection={true}
         onAction={() => fetch("/api/radiatorValves/study/open")}
         offAction={() => fetch("/api/radiatorValves/study/close")}
@@ -66,7 +66,7 @@ const RadiatorFan = () => {
 
       <ValveControl
         title={"Our Room"}
-        pos={[x, y + 4 * 15]}
+        pos={[x, y + 3 * 15]}
         connection={true}
         onAction={() => fetch("/api/radiatorValves/ourRoom/open")}
         offAction={() => fetch("/api/radiatorValves/ourRoom/close")}

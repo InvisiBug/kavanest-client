@@ -73,12 +73,12 @@ const arrow = css`
   }
 `;
 
-const FullDaySetpoints = ({ data, title, pos, upAction, downAction, myStyle }) => {
+const FullDaySetpoints = ({ data, title, pos, upAction, downAction }) => {
   const hour = new Date().getHours();
 
   return (
     <div
-      css={[container, myStyle]}
+      css={[container]}
       style={{
         top: `${pos[1]}%`,
         left: `${pos[0]}%`
@@ -96,13 +96,10 @@ const FullDaySetpoints = ({ data, title, pos, upAction, downAction, myStyle }) =
           <div css={setpointTime} key={index}>
             <div css={setpointRow}>
               <div css={time}>{`${index}:00`}</div>
-
               <div>
                 <img css={arrow} src={ArrowDown} alt="" onClick={() => downAction(index, camelRoomName(title))} />
               </div>
-
               <div style={{ color: index === hour ? "lime" : "" }}>{setpoint}</div>
-
               <div>
                 <img css={arrow} src={ArrowUp} alt="" onClick={() => upAction(index, camelRoomName(title))} />
               </div>

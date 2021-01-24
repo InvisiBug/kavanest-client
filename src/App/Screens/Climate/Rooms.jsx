@@ -39,11 +39,11 @@ const rooms = [
     pos: [20.5, 72],
     radiatorPos: [21, 62]
   },
-  {
-    name: "Kitchen",
-    pos: [19, 36],
-    radiatorPos: [21, 26]
-  },
+  // {
+  //   name: "Kitchen",
+  //   pos: [19, 36]
+  //   radiatorPos: [21, 26]
+  // },
   {
     name: "Study",
     pos: [49.5, 36],
@@ -70,6 +70,9 @@ const FirstFloor = ({ blurred, showGraph }) => {
   return (
     <div css={[floorPlanPictureContainer, blurred ? blur : null]}>
       <img src={FloorPlanPicture} alt="floorplanPic" css={floorPlanPicture} />
+
+      {/* Special case */}
+      <HeatingSensor datapoint={"Kitchen"} pos={[19, 36]} showGraph={() => showGraph("Kitchen")} />
 
       {rooms.map(room => (
         <div key={room.name}>

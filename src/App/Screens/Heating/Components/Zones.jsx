@@ -7,31 +7,33 @@ const Zones = () => {
   const [auto, setAuto] = useState(JSON.parse(localStorage.getItem("Environmental Data")).heatingZones.isAuto);
   const { kitchen, liamsRoom, livingRoom, ourRoom, study } = setpoints;
 
+  const xpos = 18;
+
   const rooms = [
     {
       name: "Living Room",
-      pos: [8, 60],
+      pos: [xpos, 60],
       data: livingRoom
     },
-    {
-      name: "Kitchen",
-      pos: [29, 60],
-      data: kitchen
-    },
+    // {
+    //   name: "Kitchen",
+    //   pos: [29, 60],
+    //   data: kitchen
+    // },
     {
       name: "Liams Room",
-      pos: [50, 60],
+      pos: [xpos + 21, 60],
       data: liamsRoom
     },
     {
       name: "Study",
-      pos: [71, 60],
+      pos: [xpos + 2 * 21, 60],
       data: study
     },
 
     {
       name: "Our Room",
-      pos: [92, 60],
+      pos: [xpos + 3 * 21, 60],
       data: ourRoom
     }
   ];
@@ -75,15 +77,7 @@ const Zones = () => {
   return (
     <>
       {rooms.map(room => (
-        <FullDaySetpoints
-          myStyle={auto ? { opacity: 1 } : { opacity: 0.5 }}
-          title={room.name}
-          data={room.data}
-          pos={room.pos}
-          upAction={up}
-          downAction={down}
-          key={room.name}
-        />
+        <FullDaySetpoints title={room.name} data={room.data} pos={room.pos} upAction={up} downAction={down} key={room.name} />
       ))}
     </>
   );
