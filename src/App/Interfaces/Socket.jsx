@@ -35,7 +35,7 @@ const Socket = () => {
     return null;
   });
 
-  let logLength = 20;
+  let logLength = 25;
 
   var log = [];
   if (localStorageParser("Mqtt")) {
@@ -47,6 +47,7 @@ const Socket = () => {
       log[i] = log[i + 1];
     }
     log[logLength - 1] = payload;
+    // log[logLength - 1] = "Boop";
 
     localStorageSaver("Mqtt", log);
   });

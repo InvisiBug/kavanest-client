@@ -1,15 +1,7 @@
 /** @jsx jsx */
 import React, { useEffect, useState } from "react";
 import { jsx, css } from "@emotion/core";
-
-import Boost from "./Components/Boost";
-import ActiveIndicator from "./Components/ActiveIndicator";
-import Manual from "./Components/Manual";
-import Schedule from "./Components/Schedule";
-import RadiatorFan from "./Components/RadiatorFan";
-import Zones from "./Components/Zones";
-import RoomOverrides from "./Components/RoomOverrides";
-import Mode from "./Components/Mode";
+import { Boost, ActiveIndicator, Manual, Schedule, RadiatorFan, Zones, Mode, RoomOverrides } from "./Components/Index";
 
 const container = css`
   position: absolute;
@@ -31,7 +23,7 @@ const Heating = () => {
     return () => clearTimeout(timer);
   }, [environmentalData]);
 
-  const renderChoice = () => {
+  const renderMode = () => {
     switch (environmentalData.heatingMode) {
       case "zones":
         return <Zones />;
@@ -50,7 +42,7 @@ const Heating = () => {
       <RadiatorFan />
       <Mode />
 
-      {renderChoice()}
+      {renderMode()}
     </div>
   );
 };

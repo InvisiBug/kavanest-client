@@ -12,7 +12,7 @@ import Lights from "./Screens/Lights/LightsScreen.jsx";
 import Computer from "./Screens/Computer/ComputerScreen.jsx";
 import Climate from "./Screens/Climate/ClimateScreen.jsx";
 import Heating from "./Screens/Heating/HeatingScreen.jsx";
-import Logger from "./Cache Loaders/MqttLogger";
+import Logger from "./Screens/MQTT/MqttLogger";
 import Diagnostics from "./Screens/Diagnostics/DiagnosticsScreen";
 
 // Cache Loader

@@ -58,10 +58,6 @@ const RadiatorValves = ({ environmentalData }) => {
             <td>{environmentalData.radiatorValves.livingRoom.isOpen ? "Open" : "Closed"}</td>
           </tr>
           <tr css={row}>
-            <td>Kitchen</td>
-            <td>{environmentalData.radiatorValves.kitchen.isOpen ? "Open" : "Closed"}</td>
-          </tr>
-          <tr css={row}>
             <td>Liam's Room</td>
             <td>{environmentalData.radiatorValves.liamsRoom.isOpen ? "Open" : "Closed"}</td>
           </tr>
