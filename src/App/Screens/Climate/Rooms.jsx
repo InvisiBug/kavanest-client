@@ -39,11 +39,11 @@ const rooms = [
     pos: [20.5, 72],
     radiatorPos: [21, 62]
   },
-  // {
-  //   name: "Kitchen",
-  //   pos: [19, 36]
-  //   radiatorPos: [21, 26]
-  // },
+  {
+    name: "Kitchen",
+    pos: [19, 36]
+    // radiatorPos: [21, 26]
+  },
   {
     name: "Study",
     pos: [49.5, 36],
@@ -61,7 +61,7 @@ const rooms = [
   }
   // {
   // name: "Outside",
-  // pos: [10, 86],
+  // pos: [10, 86]
   // radiatorPos: [50, 50]
   // }
 ];
@@ -71,13 +71,10 @@ const FirstFloor = ({ blurred, showGraph }) => {
     <div css={[floorPlanPictureContainer, blurred ? blur : null]}>
       <img src={FloorPlanPicture} alt="floorplanPic" css={floorPlanPicture} />
 
-      {/* Special case */}
-      <HeatingSensor datapoint={"Kitchen"} pos={[19, 36]} showGraph={() => showGraph("Kitchen")} />
-
       {rooms.map(room => (
         <div key={room.name}>
           <HeatingSensor datapoint={room.name} pos={room.pos} showGraph={() => showGraph(room.name)} />
-          <RadiatorDot datapoint={room.name} pos={room.radiatorPos} />
+          {room.radiatorPos ? <RadiatorDot datapoint={room.name} pos={room.radiatorPos} /> : null}
         </div>
       ))}
     </div>

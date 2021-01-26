@@ -5,6 +5,8 @@ import Week from "./Charts/Week";
 import Month from "./Charts/Month";
 import Year from "./Charts/Year";
 
+import { localStorageSaver } from "../../../Helpers/localStorageDriver";
+
 import TimescaleSelection from "./Charts/Timescale";
 import Rooms from "./Rooms.jsx";
 
@@ -26,7 +28,7 @@ const Climate = () => {
   };
 
   const changeTimeScale = value => {
-    console.log("boop");
+    localStorageSaver("Timescale", value);
     setTimescale(value);
   };
 
