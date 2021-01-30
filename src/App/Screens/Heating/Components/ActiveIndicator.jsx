@@ -10,7 +10,7 @@ const container = css`
   height: 64px;
   width: 64px;
   top: 10%;
-  left: 57%;
+  left: 50%;
   opacity: 0.8;
 `;
 

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { jsx, css } from "@emotion/core";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts";
 import Cross from "./Close.png";
+import { camelRoomName } from "../../../Helpers/Functions";
 
 const graphModule = css`
   position: absolute;
@@ -45,6 +46,7 @@ const Day = ({ room, closeGraph }) => {
             newArray.push({
               hour: data[i].timestamp.Hour,
               temperature: data[i].temperature,
+              setpoint: JSON.parse(localStorage.getItem("Environmental Data")).setpoints[camelRoomName(room)][data[i].timestamp.Hour - 1],
               humidity: data[i].humidity
             });
           }
@@ -56,13 +58,13 @@ const Day = ({ room, closeGraph }) => {
       });
   };
 
-  useEffect(() => fetchData(room), []);
+  useEffect(() => fetchData(room), []); // Prevents repeated requests
 
   return (
     <div css={graphModule}>
       <img src={Cross} alt="" className="closeIcon" onClick={closeGraph} />
       <p className="temperatureTitle">Temperature (°C)</p>
-      <p className="humidityTitle">Humidity (%)</p>
+      {/* <p className="humidityTitle">Humidity (%)</p> */}
       <p className="xAxisTitle">Time (Hour)</p>
       <ResponsiveContainer width="100%" height="90%">
         <LineChart data={data} margin={{ top: 10, right: 30, left: 30, bottom: 0 }}>
@@ -71,10 +73,23 @@ const Day = ({ room, closeGraph }) => {
           <XAxis tick={{ fill: "white" }} tickSize={0} dataKey="hour" interval={0} stroke="white" />
 
           <YAxis yAxisId="left" tick={{ fill: "white" }} ticks={temperatureTicks} domain={[0, 25]} stroke="#a19ee8" />
-          <YAxis yAxisId="right" tick={{ fill: "white" }} ticks={humidityTicks} domain={[40, 100]} stroke="#82ca9d" orientation="right" />
+          {/* <YAxis yAxisId="right" tick={{ fill: "white" }} ticks={humidityTicks} domain={[40, 100]} stroke="#82ca9d" orientation="right" /> */}
 
           <Line yAxisId="left" isAnimationActive={false} type="monotone" dataKey="temperature" stroke="#a19ee8" strokeWidth={3} dot={false} />
-          <Line yAxisId="right" isAnimationActive={false} type="monotone" dataKey="humidity" stroke="#82ca9d" strokeWidth={3} dot={false} />
+
+          <Line
+            yAxisId="left"
+            borderDash={[10, 5]}
+            isAnimationActive={false}
+            type="monotone"
+            dataKey="setpoint"
+            stroke="#e8bf9e"
+            strokeWidth={3}
+            strokeDasharray="5 5"
+            dot={false}
+          />
+
+          {/* <Line yAxisId="right" isAnimationActive={false} type="monotone" dataKey="humidity" stroke="#82ca9d" strokeWidth={3} dot={false} /> */}
         </LineChart>
       </ResponsiveContainer>
     </div>

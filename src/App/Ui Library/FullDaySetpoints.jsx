@@ -73,7 +73,7 @@ const arrow = css`
   }
 `;
 
-const FullDaySetpoints = ({ data, title, pos, upAction, downAction }) => {
+const FullDaySetpoints = ({ data, title, pos, upAction, downAction, showGraph }) => {
   const hour = new Date().getHours();
 
   return (
@@ -88,7 +88,7 @@ const FullDaySetpoints = ({ data, title, pos, upAction, downAction }) => {
         <ModuleHeader>{title}</ModuleHeader>
       </div>
 
-      <HeatingSensor datapoint={title} pos={[40, 15]} />
+      <HeatingSensor datapoint={title} pos={[40, 15]} showGraph={showGraph} />
       <RadiatorDot datapoint={title} pos={[70, 14.5]} />
 
       <div css={tableBox}>

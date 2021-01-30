@@ -47,7 +47,6 @@ const Socket = () => {
       log[i] = log[i + 1];
     }
     log[logLength - 1] = payload;
-    // log[logLength - 1] = "Boop";
 
     localStorageSaver("Mqtt", log);
   });
