@@ -77,7 +77,15 @@ const Zones = () => {
   return (
     <>
       {rooms.map(room => (
-        <FullDaySetpoints title={room.name} data={room.data} pos={room.pos} upAction={up} downAction={down} key={room.name} />
+        <FullDaySetpoints
+          title={room.name}
+          data={room.data}
+          pos={room.pos}
+          upAction={up}
+          downAction={down}
+          key={room.name}
+          showGraph={() => console.log(room)}
+        />
       ))}
     </>
   );

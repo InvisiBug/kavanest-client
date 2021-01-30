@@ -11,7 +11,6 @@ const RadiatorFan = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setDeviceData(JSON.parse(localStorage.getItem("Environmental Data")));
-      console.log(deviceData.radiatorValves.ourRoom.isOpen);
     }, 100);
 
     return () => clearTimeout(timer);
@@ -21,11 +20,11 @@ const RadiatorFan = () => {
     <>
       <SimpleControl
         title={"Manual Control"}
-        pos={[80, 10]}
+        pos={[30, 10]}
         connection={true}
         onAction={() => fetch("api/ci/on")}
         offAction={() => fetch("api/ci/off")}
-        state={new Date() < deviceData.heatingSchedule.heatingTime}
+        state={new Date() < deviceData.heatingTimers.heating}
       />
 
       <ValveControl

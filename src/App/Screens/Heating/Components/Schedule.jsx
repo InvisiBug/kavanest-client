@@ -71,7 +71,7 @@ const Schedule = () => {
             <p className="dayText">{day.charAt(0).toUpperCase() + day.slice(1).substring(0, 2)}</p>
           </Col>
           <Col>
-            <MySlider enabled={schedule.auto} vals={schedule[day]} day={day} update={updateSchedule} />
+            <MySlider enabled={true} vals={schedule[day]} day={day} update={updateSchedule} />
           </Col>
         </Row>
       ))}

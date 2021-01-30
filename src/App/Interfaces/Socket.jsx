@@ -3,8 +3,8 @@ import openSocket from "socket.io-client";
 import { localStorageSaver, localStorageParser } from "../../Helpers/localStorageDriver";
 
 const Socket = () => {
-  // const socket = openSocket("http://192.168.1.46:5001"); // Deployment
-  const socket = openSocket("http://localhost:5001"); // Production, laptop only
+  const socket = openSocket("http://192.168.1.46:5001"); // Deployment
+  // const socket = openSocket("http://localhost:5001"); // Production, laptop only
   // const socket = openSocket("http://192.168.1.11:5001"); // Production, phone and laptop
 
   const devices = [
@@ -47,7 +47,6 @@ const Socket = () => {
       log[i] = log[i + 1];
     }
     log[logLength - 1] = payload;
-    // log[logLength - 1] = "Boop";
 
     localStorageSaver("Mqtt", log);
   });

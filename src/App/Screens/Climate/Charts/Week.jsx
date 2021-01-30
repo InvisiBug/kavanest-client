@@ -56,7 +56,7 @@ const Week = ({ room, closeGraph }) => {
       });
   };
 
-  fetchData(room);
+  useEffect(() => fetchData(room), []); // Prevents repeated requests
 
   return (
     <div css={graphModule}>
