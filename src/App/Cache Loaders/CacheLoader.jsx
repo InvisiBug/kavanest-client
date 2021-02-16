@@ -1,4 +1,4 @@
-// Components
+// * The fetch stuff in here is fine to not use
 import React from "react";
 
 class LocalStorageUpdater extends React.Component {
@@ -21,8 +21,8 @@ class LocalStorageUpdater extends React.Component {
 
   getBitcoin = () => {
     fetch("http://api.coindesk.com/v1/bpi/currentprice.json")
-      .then(response => response.text())
-      .then(response => {
+      .then((response) => response.text())
+      .then((response) => {
         try {
           var resJSON = JSON.parse(response);
           localStorage.setItem("bitcoin", parseFloat(resJSON.bpi.GBP.rate.replace(/,/g, "") * 0.97).toFixed());
@@ -34,8 +34,8 @@ class LocalStorageUpdater extends React.Component {
 
   getWeatherForecast = () => {
     fetch("/api/weather/get/forecast")
-      .then(response => response.text())
-      .then(response => {
+      .then((response) => response.text())
+      .then((response) => {
         try {
           JSON.parse(response);
           localStorage.setItem("futureWeatherData", response);
@@ -47,15 +47,15 @@ class LocalStorageUpdater extends React.Component {
 
   getCurrentWeather() {
     fetch("/api/weather/get/current")
-      .then(response => response.text())
-      .then(response => {
+      .then((response) => response.text())
+      .then((response) => {
         try {
           var weatherData = JSON.parse(response);
 
           var deviceData = {
             isConnected: true,
             temperature: Math.round(weatherData.currently.apparentTemperature * 10) / 10,
-            humidity: Math.ceil(weatherData.currently.humidity * 100)
+            humidity: Math.ceil(weatherData.currently.humidity * 100),
           };
 
           localStorage.setItem("Outside Heating Sensor", JSON.stringify(deviceData));

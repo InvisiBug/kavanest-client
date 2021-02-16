@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import HeatingMode from "../../../Ui Library/Controllers/HeatingMode";
+import { apiFetch } from "../../../../Helpers/fetch";
 
 const Boost = () => {
   const [environmentalData, setEnvironmentalData] = useState(JSON.parse(localStorage.getItem("Environmental Data")));
@@ -17,9 +18,9 @@ const Boost = () => {
     <HeatingMode
       title="Heating Mode"
       pos={[10, 10]}
-      zonesAction={() => fetch("api/ci/mode/zones")}
-      scheduleAction={() => fetch("api/ci/mode/schedule")}
-      manualAction={() => fetch("api/ci/mode/manual")}
+      zonesAction={() => apiFetch("/api/ci/mode/zones")}
+      scheduleAction={() => apiFetch("/api/ci/mode/schedule")}
+      manualAction={() => apiFetch("/api/ci/mode/manual")}
       mode={environmentalData.heatingMode}
     />
   );

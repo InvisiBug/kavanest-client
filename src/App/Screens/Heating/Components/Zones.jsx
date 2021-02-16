@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { apiPost } from "../../../../Helpers/fetch";
 import FullDaySetpoints from "../../../Ui Library/FullDaySetpoints";
 
 const Zones = () => {
@@ -13,7 +14,7 @@ const Zones = () => {
     {
       name: "Living Room",
       pos: [xpos, 60],
-      data: livingRoom
+      data: livingRoom,
     },
     // {
     //   name: "Kitchen",
@@ -23,19 +24,19 @@ const Zones = () => {
     {
       name: "Liams Room",
       pos: [xpos + 21, 60],
-      data: liamsRoom
+      data: liamsRoom,
     },
     {
       name: "Study",
       pos: [xpos + 2 * 21, 60],
-      data: study
+      data: study,
     },
 
     {
       name: "Our Room",
       pos: [xpos + 3 * 21, 60],
-      data: ourRoom
-    }
+      data: ourRoom,
+    },
   ];
 
   useEffect(() => {
@@ -50,13 +51,9 @@ const Zones = () => {
     let newVal = setpoints[room];
     newVal[time] = newVal[time] + 1;
 
-    fetch("/api/ci/setpoints", {
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
-      body: JSON.stringify({
-        room: room,
-        vals: newVal
-      })
+    apiPost("/api/ci/setpoints", {
+      room: room,
+      vals: newVal,
     });
   };
 
@@ -64,19 +61,15 @@ const Zones = () => {
     let newVal = setpoints[room];
     newVal[time] = newVal[time] - 1;
 
-    fetch("/api/ci/setpoints", {
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
-      body: JSON.stringify({
-        room: room,
-        vals: newVal
-      })
+    apiPost("/api/ci/setpoints", {
+      room: room,
+      vals: newVal,
     });
   };
 
   return (
     <>
-      {rooms.map(room => (
+      {rooms.map((room) => (
         <FullDaySetpoints
           title={room.name}
           data={room.data}

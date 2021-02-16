@@ -2,6 +2,7 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
 import Button from "../../../Helpers/Button";
+import { apiFetch } from "../../../../Helpers/fetch";
 
 class FadeButton extends React.Component {
   constructor() {
@@ -9,7 +10,7 @@ class FadeButton extends React.Component {
 
     this.state = {
       titleColour: "white",
-      mode: false
+      mode: false,
     };
   }
 
@@ -32,14 +33,14 @@ class FadeButton extends React.Component {
   fade = () => {
     if (this.state.mode == 0 || this.state.mode == 1 || this.state.mode == 2) {
       this.setState({ mode: 3 });
-      fetch("/api/screenLEDs/fade/on");
+      apiFetch("/api/screenLEDs/fade/on");
 
       var cache = JSON.parse(localStorage.getItem("Screen LEDs"));
       cache.mode = 3;
       localStorage.setItem("Screen LEDs", JSON.stringify(cache));
     } else if (this.state.mode == 3) {
       this.setState({ mode: 0 });
-      fetch("/api/screenLEDs/colour");
+      apiFetch("/api/screenLEDs/colour");
 
       var cache = JSON.parse(localStorage.getItem("Screen LEDs"));
       cache.mode = 0;

@@ -4,6 +4,7 @@ import { jsx, css } from "@emotion/core";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts";
 import Cross from "./Close.png";
 import { camelRoomName } from "../../../Helpers/Functions";
+import { apiPost } from "../../../../Helpers/fetch";
 
 const graphModule = css`
   position: absolute;
@@ -26,36 +27,28 @@ const temperatureTicks = [0, 5, 10, 15, 20, 25, 30];
 const Day = ({ room, closeGraph }) => {
   const [data, setData] = useState();
 
-  const fetchData = room => {
-    fetch("/api/heatingSensor/historical", {
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
-      body: JSON.stringify({
-        timescale: "day",
-        room: room
-      })
-    })
-      .then(response => response.text())
-      .then(response => {
-        try {
-          var data = JSON.parse(response);
+  const fetchData = (room) => {
+    apiPost("/api/heatingSensor/historical", {
+      timescale: "day",
+      room: room,
+    }).then((data) => {
+      try {
+        var newArray = [];
 
-          var newArray = [];
-
-          for (var i = 0; i < data.length; i++) {
-            newArray.push({
-              hour: data[i].timestamp.Hour,
-              temperature: data[i].temperature,
-              setpoint: JSON.parse(localStorage.getItem("Environmental Data")).setpoints[camelRoomName(room)][data[i].timestamp.Hour - 1],
-              humidity: data[i].humidity
-            });
-          }
-
-          setData(newArray);
-        } catch (error) {
-          console.log(error);
+        for (var i = 0; i < data.length; i++) {
+          newArray.push({
+            hour: data[i].timestamp.Hour,
+            temperature: data[i].temperature,
+            setpoint: JSON.parse(localStorage.getItem("Environmental Data")).setpoints[camelRoomName(room)][data[i].timestamp.Hour - 1],
+            humidity: data[i].humidity,
+          });
         }
-      });
+
+        setData(newArray);
+      } catch (error) {
+        console.log(error);
+      }
+    });
   };
 
   useEffect(() => fetchData(room), []); // Prevents repeated requests

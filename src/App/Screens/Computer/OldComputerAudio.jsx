@@ -7,6 +7,7 @@ import Col from "react-bootstrap/Col";
 // Buttons
 import OnButton from "../../Helpers/On Button";
 import OffButton from "../../Helpers/Off Button";
+import { apiPost } from "../../../Helpers/fetch";
 
 class ComputerPower extends React.Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class ComputerPower extends React.Component {
       subActiveIndex: 0,
       mixerActiveIndex: 0,
       computerAudio: null,
-      titleColour: "white"
+      titleColour: "white",
     };
   }
 
@@ -75,7 +76,7 @@ class ComputerPower extends React.Component {
     }
   };
 
-  powerOn = device => {
+  powerOn = (device) => {
     clearInterval(this.timer1);
     this.timer1 = setInterval(() => {
       this.getComputerAudio();
@@ -87,16 +88,12 @@ class ComputerPower extends React.Component {
     else if (device === "Sub") this.setState({ subActiveIndex: 1 });
     else if (device === "Mixer") this.setState({ mixerActiveIndex: 1 });
 
-    fetch("/api/ComputerAudio/On", {
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
-      body: JSON.stringify({
-        Device: device
-      })
+    apiPost("/api/ComputerAudio/On", {
+      Device: device,
     });
   };
 
-  powerOff = device => {
+  powerOff = (device) => {
     clearInterval(this.timer1);
     this.timer1 = setInterval(() => {
       this.getComputerAudio();
@@ -108,12 +105,8 @@ class ComputerPower extends React.Component {
     else if (device === "Sub") this.setState({ subActiveIndex: 0 });
     else if (device === "Mixer") this.setState({ mixerActiveIndex: 0 });
 
-    fetch("/api/ComputerAudio/Off", {
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
-      body: JSON.stringify({
-        Device: device
-      })
+    apiPost("/api/ComputerAudio/Off", {
+      Device: device,
     });
   };
 
@@ -131,7 +124,7 @@ class ComputerPower extends React.Component {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "Center"
+                justifyContent: "Center",
               }}
             >
               <h4> Master Power </h4>
@@ -152,7 +145,7 @@ class ComputerPower extends React.Component {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "Center"
+                justifyContent: "Center",
               }}
             >
               <h5> Left Speaker </h5>
@@ -173,7 +166,7 @@ class ComputerPower extends React.Component {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "Center"
+                justifyContent: "Center",
               }}
             >
               <h5> Right Speaker </h5>
@@ -194,7 +187,7 @@ class ComputerPower extends React.Component {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "Center"
+                justifyContent: "Center",
               }}
             >
               <h5> Sub </h5>
@@ -215,7 +208,7 @@ class ComputerPower extends React.Component {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "Center"
+                justifyContent: "Center",
               }}
             >
               <h5> Mixer </h5>

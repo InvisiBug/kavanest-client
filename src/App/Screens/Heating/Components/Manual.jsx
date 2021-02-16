@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import SimpleControl from "../../../Ui Library/Controllers/SimpleControl";
 import ValveControl from "../../../Ui Library/Controllers/ValveControl";
+import { apiFetch } from "../../../../Helpers/fetch";
 
 const RadiatorFan = () => {
   const x = 50;
@@ -22,8 +23,8 @@ const RadiatorFan = () => {
         title={"Manual Control"}
         pos={[30, 10]}
         connection={true}
-        onAction={() => fetch("api/ci/on")}
-        offAction={() => fetch("api/ci/off")}
+        onAction={() => apiFetch("api/ci/on")}
+        offAction={() => apiFetch("api/ci/off")}
         state={new Date() < deviceData.heatingTimers.heating}
       />
 
@@ -31,8 +32,8 @@ const RadiatorFan = () => {
         title={"Living Room"}
         pos={[x, y]}
         connection={true}
-        onAction={() => fetch("/api/radiatorValves/livingRoom/open")}
-        offAction={() => fetch("/api/radiatorValves/livingRoom/close")}
+        onAction={() => apiFetch("/api/radiatorValves/livingRoom/open")}
+        offAction={() => apiFetch("/api/radiatorValves/livingRoom/close")}
         state={deviceData.radiatorValves.livingRoom.isOpen ? true : false}
       />
 
@@ -40,8 +41,8 @@ const RadiatorFan = () => {
         title={"Kitchen"}
         pos={[x, y + 15]}
         connection={true}
-        onAction={() => fetch("/api/radiatorValves/kitchen/open")}
-        offAction={() => fetch("/api/radiatorValves/kitchen/close")}
+        onAction={() => apiFetch("/api/radiatorValves/kitchen/open")}
+        offAction={() => apiFetch("/api/radiatorValves/kitchen/close")}
         state={deviceData.radiatorValves.kitchen.isOpen ? true : false}
       /> */}
 
@@ -49,8 +50,8 @@ const RadiatorFan = () => {
         title={"Liams Room"}
         pos={[x, y + 1 * 15]}
         connection={true}
-        onAction={() => fetch("/api/radiatorValves/liamsRoom/open")}
-        offAction={() => fetch("/api/radiatorValves/liamsRoom/close")}
+        onAction={() => apiFetch("/api/radiatorValves/liamsRoom/open")}
+        offAction={() => apiFetch("/api/radiatorValves/liamsRoom/close")}
         state={deviceData.radiatorValves.liamsRoom.isOpen ? true : false}
       />
 
@@ -58,8 +59,8 @@ const RadiatorFan = () => {
         title={"Study"}
         pos={[x, y + 2 * 15]}
         connection={true}
-        onAction={() => fetch("/api/radiatorValves/study/open")}
-        offAction={() => fetch("/api/radiatorValves/study/close")}
+        onAction={() => apiFetch("/api/radiatorValves/study/open")}
+        offAction={() => apiFetch("/api/radiatorValves/study/close")}
         state={deviceData.radiatorValves.study.isOpen ? true : false}
       />
 
@@ -67,8 +68,8 @@ const RadiatorFan = () => {
         title={"Our Room"}
         pos={[x, y + 3 * 15]}
         connection={true}
-        onAction={() => fetch("/api/radiatorValves/ourRoom/open")}
-        offAction={() => fetch("/api/radiatorValves/ourRoom/close")}
+        onAction={() => apiFetch("/api/radiatorValves/ourRoom/open")}
+        offAction={() => apiFetch("/api/radiatorValves/ourRoom/close")}
         state={deviceData.radiatorValves.ourRoom.isOpen ? true : false}
       />
     </>
