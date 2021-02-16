@@ -5,6 +5,7 @@ import { jsx, css } from "@emotion/core";
 import MySlider from "../../../Ui Library/Slider";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { apiPost } from "../../../../Helpers/fetch";
 
 const container = css`
   position: absolute;
@@ -51,21 +52,17 @@ const Schedule = () => {
   const updateSchedule = (newVals, day) => {
     var data = {
       ...schedule,
-      [day]: newVals
+      [day]: newVals,
     };
 
-    fetch("/api/ci/schedule/update", {
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
-      body: JSON.stringify({
-        data
-      })
+    apiPost("/api/ci/schedule/update", {
+      data,
     });
   };
 
   return (
     <div css={container}>
-      {days.map(day => (
+      {days.map((day) => (
         <Row css={slider} key={day}>
           <Col md={{ span: 1, offset: 0 }} css={dateCol}>
             <p className="dayText">{day.charAt(0).toUpperCase() + day.slice(1).substring(0, 2)}</p>

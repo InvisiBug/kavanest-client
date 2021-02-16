@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import OnOffControl from "../../Ui Library/Controllers/SimpleControl";
+import { apiFetch } from "../../../Helpers/fetch";
 
 const deviceName = "Sun";
 const Floodlight = () => {
@@ -17,8 +18,8 @@ const Floodlight = () => {
     <OnOffControl
       title={deviceName}
       pos={[75, 20]}
-      onAction={() => fetch("/api/Sun/On")}
-      offAction={() => fetch("/api/Sun/Off")}
+      onAction={() => apiFetch("/api/Sun/On")}
+      offAction={() => apiFetch("/api/Sun/Off")}
       state={deviceData.isOn}
       connection={deviceData.isConnected}
     />

@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import AutoOnOff from "../../../Ui Library/Controllers/AutoControl";
+import { apiFetch } from "../../../../Helpers/fetch";
 
 const RadiatorFan = () => {
   const [deviceData, setDeviceData] = useState(JSON.parse(localStorage.getItem("Radiator Fan")));
@@ -16,10 +17,10 @@ const RadiatorFan = () => {
     <AutoOnOff
       title={"Radiator Fan"}
       pos={[71, 10]}
-      onAction={() => fetch("/api/RadiatorFan/On")}
-      offAction={() => fetch("/api/RadiatorFan/Off")}
-      autoAction={() => fetch("/api/RadiatorFanAutomatic/On")}
-      manualAction={() => fetch("/api/RadiatorFanAutomatic/off")}
+      onAction={() => apiFetch("/api/RadiatorFan/On")}
+      offAction={() => apiFetch("/api/RadiatorFan/Off")}
+      autoAction={() => apiFetch("/api/RadiatorFanAutomatic/On")}
+      manualAction={() => apiFetch("/api/RadiatorFanAutomatic/off")}
       auto={deviceData.isAutomatic}
       state={deviceData.isOn}
       connection={deviceData.isConnected}

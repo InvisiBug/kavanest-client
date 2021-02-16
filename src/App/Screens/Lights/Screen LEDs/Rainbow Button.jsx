@@ -1,6 +1,6 @@
 // Components
 import React from "react";
-import Container from "react-bootstrap/Container";
+import { apiFetch } from "../../../../Helpers/fetch";
 import Button from "../../../Helpers/Button";
 
 class RainbowButton extends React.Component {
@@ -9,7 +9,7 @@ class RainbowButton extends React.Component {
 
     this.state = {
       titleColour: "white",
-      mode: null
+      mode: null,
     };
   }
 
@@ -30,18 +30,19 @@ class RainbowButton extends React.Component {
   };
 
   rainbow = () => {
-    if (this.state.mode == 0 || this.state.mode == 1 || this.state.mode == 3) {
+    var cache;
+    if (this.state.mode === 0 || this.state.mode === 1 || this.state.mode === 3) {
       this.setState({ mode: 2 });
-      fetch("/api/screenLEDs/rainbow/on");
+      apiFetch("/api/screenLEDs/rainbow/on");
 
-      var cache = JSON.parse(localStorage.getItem("Screen LEDs"));
+      cache = JSON.parse(localStorage.getItem("Screen LEDs"));
       cache.mode = 2;
       localStorage.setItem("Screen LEDs", JSON.stringify(cache));
-    } else if (this.state.mode == 2) {
+    } else if (this.state.mode === 2) {
       this.setState({ mode: 0 });
-      fetch("/api/screenLEDs/colour");
+      apiFetch("/api/screenLEDs/colour");
 
-      var cache = JSON.parse(localStorage.getItem("Screen LEDs"));
+      cache = JSON.parse(localStorage.getItem("Screen LEDs"));
       cache.mode = 0;
       localStorage.setItem("Screen LEDs", JSON.stringify(cache));
     }

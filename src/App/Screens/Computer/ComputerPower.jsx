@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import SimpleControl from "../../Ui Library/Controllers/SimpleControl";
+import { apiFetch } from "../../../Helpers/fetch";
 
 const ComputerPower = () => {
   const [deviceData, setDeviceData] = useState(JSON.parse(localStorage.getItem("Computer Power")));
@@ -16,8 +17,8 @@ const ComputerPower = () => {
     <SimpleControl
       title={"Computer Power"}
       pos={[30, 10]}
-      onAction={() => fetch("/api/ComputerPower/On")}
-      offAction={() => fetch("/api/ComputerPower/Off")}
+      onAction={() => apiFetch("/api/ComputerPower/On")}
+      offAction={() => apiFetch("/api/ComputerPower/Off")}
       state={deviceData.isOn}
       connection={deviceData.isConnected}
     />

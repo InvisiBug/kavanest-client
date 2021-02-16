@@ -1,6 +1,7 @@
 // Components
 import React from "react";
 import Container from "react-bootstrap/Container";
+import { apiPost } from "../../../Helpers/fetch";
 
 import ColourWheel from "../../Ui Library/ColourWheel/ColourWheel";
 
@@ -10,7 +11,7 @@ class TableLamp extends React.Component {
 
     this.state = {
       titleColour: "white",
-      colour: null
+      colour: null,
     };
   }
 
@@ -26,7 +27,7 @@ class TableLamp extends React.Component {
     try {
       this.setState({ titleColour: "white" });
       this.setState({
-        colour: "rgb(" + cache.red + ", " + cache.green + ", " + cache.blue + ")"
+        colour: "rgb(" + cache.red + ", " + cache.green + ", " + cache.blue + ")",
       });
     } catch (error) {
       this.setState({ titleColour: "orangered" });
@@ -35,26 +36,21 @@ class TableLamp extends React.Component {
     // this.forceUpdate(); //didnt work
   };
 
-  colourUpdate = rgb => {
+  colourUpdate = (rgb) => {
     var cache = JSON.parse(localStorage.getItem("Screen LEDs"));
 
     this.setState({ colour: rgb });
 
     var a = rgb.split("(")[1].split(")")[0];
     a = a.split(",");
-    var colours = a.map(function(x) {
+    var colours = a.map(function (x) {
       return parseInt(x);
     });
 
-    fetch("/api/tableLamp/Update", {
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
-      body: JSON.stringify({
-        Node: "ScreenLeds",
-        red: colours[0],
-        green: colours[1],
-        blue: colours[2]
-      })
+    apiPost("/api/tableLamp/Update", {
+      red: colours[0],
+      green: colours[1],
+      blue: colours[2],
     });
   };
 
@@ -71,13 +67,13 @@ class TableLamp extends React.Component {
             radius={125}
             padding={10}
             lineWidth={40}
-            onColourSelected={rgb => this.colourUpdate(rgb)}
+            onColourSelected={(rgb) => this.colourUpdate(rgb)}
             spacers={{
               colour: "whitesmoke",
               shadowColour: "grey",
-              shadowBlur: 0
+              shadowBlur: 0,
             }}
-            onRef={ref => (this.colourWheel = ref)}
+            onRef={(ref) => (this.colourWheel = ref)}
             preset
             presetColour={this.state.colour}
             animated

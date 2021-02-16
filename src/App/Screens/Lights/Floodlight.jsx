@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import SimpleControl from "../../Ui Library/Controllers/SimpleControl";
+import { apiFetch } from "../../../Helpers/fetch";
 
 const FloodLight = () => {
   const [deviceData, setDeviceData] = useState(JSON.parse(localStorage.getItem("Floodlight")));
@@ -16,8 +17,8 @@ const FloodLight = () => {
     <SimpleControl
       title={"Flood Light"}
       pos={[25, 20]}
-      onAction={() => fetch("/api/Plug/On")}
-      offAction={() => fetch("/api/Plug/Off")}
+      onAction={() => apiFetch("/api/Plug/On")}
+      offAction={() => apiFetch("/api/Plug/Off")}
       state={deviceData.isOn}
       connection={deviceData.isConnected}
     />

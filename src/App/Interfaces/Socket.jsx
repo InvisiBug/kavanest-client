@@ -3,8 +3,9 @@ import openSocket from "socket.io-client";
 import { localStorageSaver, localStorageParser } from "../../Helpers/localStorageDriver";
 
 const Socket = () => {
-  const socket = openSocket("http://192.168.1.46:5001"); // Deployment
-  // const socket = openSocket("http://localhost:5001"); // Production, laptop only
+  // const socket = openSocket("http://192.168.1.46:5001"); // Deployment
+  const socket = openSocket("http://localhost:5001"); // Production, laptop only (docker for now)
+  // const socket = openSocket("http://kavanet-controller:5001"); // Docker (Not Working)
   // const socket = openSocket("http://192.168.1.11:5001"); // Production, phone and laptop
 
   const devices = [
@@ -25,11 +26,11 @@ const Socket = () => {
     "Heating Schedule",
     "Heating",
     "Sun",
-    "Environmental Data"
+    "Environmental Data",
   ];
 
-  devices.map(device => {
-    socket.on(device, deviceData => {
+  devices.map((device) => {
+    socket.on(device, (deviceData) => {
       localStorageSaver(device, deviceData);
     });
     return null;
@@ -42,7 +43,7 @@ const Socket = () => {
     log = localStorageParser("Mqtt");
   }
 
-  socket.on("MQTT Messages", payload => {
+  socket.on("MQTT Messages", (payload) => {
     for (let i = 0; i < logLength; i++) {
       log[i] = log[i + 1];
     }

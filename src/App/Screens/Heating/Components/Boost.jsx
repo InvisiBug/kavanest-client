@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import OnOffControl from "../../../Ui Library/Controllers/SimpleControl";
+import { apiFetch } from "../../../../Helpers/fetch";
 
 const Boost = () => {
   const [deviceData, setDeviceData] = useState(JSON.parse(localStorage.getItem("Environmental Data")));
@@ -19,8 +20,8 @@ const Boost = () => {
     <OnOffControl
       title={"Boost"}
       pos={[30, 10]}
-      onAction={() => fetch("/api/ci/boost/on")}
-      offAction={() => fetch("/api/ci/boost/off")}
+      onAction={() => apiFetch("/api/ci/boost/on")}
+      offAction={() => apiFetch("/api/ci/boost/off")}
       state={deviceData.heatingTimers.boost > now ? true : false}
       connection={true}
     />

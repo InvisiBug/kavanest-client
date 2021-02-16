@@ -1,53 +1,54 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import AutoControl from "../../../Ui Library/Controllers/AutoControl";
+import { apiFetch } from "../../../../Helpers/fetch";
 
 const rooms = [
   {
     name: "Living Room",
     pos: [8, 90],
     onAction: "",
-    offAction: ""
+    offAction: "",
   },
   {
     name: "Kitchen",
     pos: [29, 90],
     onAction: "",
-    offAction: ""
+    offAction: "",
   },
   {
     name: "Liams Room",
     pos: [50, 90],
     onAction: "",
-    offAction: ""
+    offAction: "",
   },
   {
     name: "Study",
     pos: [71, 90],
     onAction: "",
-    offAction: ""
+    offAction: "",
   },
 
   {
     name: "Our Room",
     pos: [92, 90],
     onAction: "",
-    offAction: ""
-  }
+    offAction: "",
+  },
 ];
 
 const RoomOverrides = () => {
   return (
     <>
-      {rooms.map(room => (
+      {rooms.map((room) => (
         <div key={room.name}>
           <AutoControl
             title={room.name}
             pos={room.pos}
-            onAction={() => fetch(room.onAction)}
-            offAction={() => fetch()}
-            autoAction={() => fetch()}
-            manualAction={() => fetch()}
+            onAction={() => apiFetch(room.onAction)}
+            offAction={() => apiFetch()}
+            autoAction={() => apiFetch()}
+            manualAction={() => apiFetch()}
             auto={true}
             state={true}
             connection={true}
@@ -62,10 +63,10 @@ export default RoomOverrides;
 
 // title={"Heating"}
 // pos={[85, 10]}
-// onAction={() => fetch("api/ci/on")}
-// offAction={() => fetch("api/ci/off")}
-// autoAction={() => fetch("/api/ci/manual/off")}
-// manualAction={() => fetch("/api/ci/manual/on")}
+// onAction={() => apiFetch("api/ci/on")}
+// offAction={() => apiFetch("api/ci/off")}
+// autoAction={() => apiFetch("/api/ci/manual/off")}
+// manualAction={() => apiFetch("/api/ci/manual/on")}
 // auto={deviceData.auto}
 // state={deviceData.heatingTime > now ? true : false}
 // connection={heating.isConnected}

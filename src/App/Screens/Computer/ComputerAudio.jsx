@@ -33,7 +33,7 @@ const ComputerAudio = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "Center"
+                justifyContent: "Center",
               }}
             >
               <h4> Master Power </h4>
@@ -54,7 +54,7 @@ const ComputerAudio = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "Center"
+                justifyContent: "Center",
               }}
             >
               <h5> Left Speaker </h5>
@@ -75,7 +75,7 @@ const ComputerAudio = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "Center"
+                justifyContent: "Center",
               }}
             >
               <h5> Right Speaker </h5>
@@ -96,7 +96,7 @@ const ComputerAudio = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "Center"
+                justifyContent: "Center",
               }}
             >
               <h5> Sub </h5>
@@ -117,7 +117,7 @@ const ComputerAudio = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "Center"
+                justifyContent: "Center",
               }}
             >
               <h5> Mixer </h5>
