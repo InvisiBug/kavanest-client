@@ -69,9 +69,7 @@ const navBar = css`
 // `;
 
 const App = () => {
-  const [screen, setScreen] = useState(
-    JSON.parse(`${localStorage.getItem("screen")}`)
-  );
+  const [screen, setScreen] = useState(JSON.parse(`${localStorage.getItem("screen")}`));
   // const [mobile, setMobile] = useState(navigator.appVersion.search("Android") > 0);
   // const changeScreen = (newScreen) => {
   //   setScreen(newScreen);
@@ -84,11 +82,7 @@ const App = () => {
       <div css={background} />
 
       <div css={windowContainer}>
-        <NavBar
-          style={navBar}
-          changeScreen={() => console.log("")}
-          screen={screen}
-        />
+        <NavBar style={navBar} changeScreen={() => console.log("")} screen={screen} />
       </div>
     </>
   );
