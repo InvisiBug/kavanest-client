@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-// import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 // import NavBar from "./NavBar/NavBar.jsx";
 // import { jsx, css } from "@emotion/core";
 
@@ -77,18 +77,21 @@ const App = () => {
   // };
   // return <h1>Hello</h1>;
 
-  return (
-    <MyMessage message={"Hello"}/>
-  )
+  return <MyMessage message={"Hello"} />;
 };
 
 interface Props {
-  message: string
+  message: string;
 }
 
-const MyMessage: React.FC<Props>= ({ message }) => {
-  return <h1>i shall speak! my message is: {message}</h1>;
-}
+const MyMessage: React.FC<Props> = ({ message }) => {
+  // const MyMessage = ({ message }) => {
+  return (
+    <>
+      <h1>i shall speak! my message is: {message}</h1>
+    </>
+  );
+};
 
 export default App;
 
