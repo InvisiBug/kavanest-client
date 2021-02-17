@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from "react";
 // import NavBar from "./NavBar/NavBar.jsx";
-// import { jsx, css } from "@emotion/core";
+import { jsx, css } from "@emotion/react";
 
 // // Modules
 // import DateBox from "./Ui Library/Date and Time";
@@ -18,23 +18,23 @@ import React, { useState, useEffect } from "react";
 // // Cache Loader
 // // import TemperatureGraphsDataCollector from "./Cache Loaders/TemperatureGraphsDataCollector";
 // import Socket from "./Interfaces/Socket";
-// import backgroundImage from "../App/Backgrounds/Red.jpg";
+import backgroundImage from "../App/Backgrounds/Red.jpg";
 // import { useState } from "react";
 // import MobileSite from "./MobileSite/MobileSite.jsx";
 
-// const background = css`
-//   position: absolute;
-//   transform: translate(-50%, -50%);
-//   height: 100%;
-//   width: 100%;
-//   top: 50%;
-//   left: 50%;
+const background = css`
+  position: absolute;
+  transform: translate(-50%, -50%);
+  height: 100%;
+  width: 100%;
+  top: 50%;
+  left: 50%;
 
-//   background: url(${backgroundImage});
+  background: url(${backgroundImage});
 
-//   background-repeat: no-repeat;
-//   background-size: cover;
-// `;
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
 
 // const windowContainer = css`
 //   position: absolute;
@@ -77,7 +77,12 @@ const App = () => {
   // };
   // return <h1>Hello</h1>;
 
-  return <MyMessage message={"Hello"} />;
+  return (
+    <>
+      <div css={background} />
+      <MyMessage message={"Hello"} />
+    </>
+  );
 };
 
 interface Props {
