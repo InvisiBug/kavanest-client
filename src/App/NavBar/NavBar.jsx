@@ -19,34 +19,34 @@ const navButtons = [
   // },
   {
     name: "Computer",
-    icon: Computer
+    icon: Computer,
   },
   {
     name: "Lights",
-    icon: Bulb
+    icon: Bulb,
   },
   {
     name: "Climate",
-    icon: Sun
+    icon: Sun,
   },
   {
     name: "Heating",
-    icon: Heating
+    icon: Heating,
   },
   {
     name: "MQTT",
-    icon: Code
+    icon: Code,
   },
-  {
-    name: "Diagnostics",
-    icon: Gear
-  }
+  // {
+  //   name: "Diagnostics",
+  //   icon: Gear
+  // }
 ];
 
 const NavBar = ({ style, screen, changeScreen }) => {
   return (
     <div css={style}>
-      {navButtons.map(button => (
+      {navButtons.map((button) => (
         <NavButton name={button.name} selection={screen} icon={button.icon} key={Math.random()} handleClick={() => changeScreen(button.name)} />
       ))}
     </div>
