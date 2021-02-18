@@ -83,6 +83,7 @@ const App = () => {
 
       <div css={windowContainer}>
         <NavBar style={navBar} changeScreen={() => console.log("")} screen={screen} />
+        <MyMessage message={"me"} />
       </div>
     </>
   );
