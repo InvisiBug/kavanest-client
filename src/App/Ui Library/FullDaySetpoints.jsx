@@ -9,6 +9,49 @@ import RadiatorDot from "./RadiatorDot";
 
 import { camelRoomName } from "../Helpers/Functions";
 
+const FullDaySetpoints = ({ title, pos, upAction, downAction, showGraph }) => {
+  const hour = new Date().getHours();
+
+  const [setpoints, setSetpoints] = useState(JSON.parse(localStorage.getItem("Environmental Data")).setpoints);
+  const data = setpoints[camelRoomName(title)];
+
+  return (
+    <div
+      css={[container]}
+      style={{
+        top: `${pos[1]}%`,
+        left: `${pos[0]}%`,
+      }}
+    >
+      <div css={header}>
+        <ModuleHeader>{title}</ModuleHeader>
+      </div>
+      <HeatingSensor datapoint={title} pos={[40, 15]} showGraph={showGraph} />
+      <RadiatorDot datapoint={title} pos={[70, 14.5]} />
+      <div css={tableBox}>
+        {data.map((setpoint, index) => (
+          <div css={setpointTime} key={index}>
+            <div css={setpointRow}>
+              <div css={time}>{`${index}:00`}</div>
+              <div>
+                <img css={arrow} src={ArrowDown} alt="" onClick={() => downAction(index, camelRoomName(title))} />
+              </div>
+              <div style={{ color: index === hour ? "lime" : "" }}>{setpoint}</div>
+              <div>
+                <img css={arrow} src={ArrowUp} alt="" onClick={() => upAction(index, camelRoomName(title))} />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default FullDaySetpoints;
+
+//
+
 const container = css`
   position: absolute;
   transform: translate(-50%, -50%);
@@ -72,43 +115,3 @@ const arrow = css`
     opacity: 1;
   }
 `;
-
-const FullDaySetpoints = ({ data, title, pos, upAction, downAction, showGraph }) => {
-  const hour = new Date().getHours();
-
-  return (
-    <div
-      css={[container]}
-      style={{
-        top: `${pos[1]}%`,
-        left: `${pos[0]}%`
-      }}
-    >
-      <div css={header}>
-        <ModuleHeader>{title}</ModuleHeader>
-      </div>
-
-      <HeatingSensor datapoint={title} pos={[40, 15]} showGraph={showGraph} />
-      <RadiatorDot datapoint={title} pos={[70, 14.5]} />
-
-      <div css={tableBox}>
-        {data.map((setpoint, index) => (
-          <div css={setpointTime} key={index}>
-            <div css={setpointRow}>
-              <div css={time}>{`${index}:00`}</div>
-              <div>
-                <img css={arrow} src={ArrowDown} alt="" onClick={() => downAction(index, camelRoomName(title))} />
-              </div>
-              <div style={{ color: index === hour ? "lime" : "" }}>{setpoint}</div>
-              <div>
-                <img css={arrow} src={ArrowUp} alt="" onClick={() => upAction(index, camelRoomName(title))} />
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default FullDaySetpoints;

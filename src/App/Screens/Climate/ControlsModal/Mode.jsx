@@ -17,7 +17,7 @@ const Mode = () => {
   return (
     <HeatingMode
       title="Heating Mode"
-      pos={[10, 10]}
+      pos={[10, 19.5]}
       zonesAction={() => apiFetch("/api/ci/mode/zones")}
       scheduleAction={() => apiFetch("/api/ci/mode/schedule")}
       manualAction={() => apiFetch("/api/ci/mode/manual")}

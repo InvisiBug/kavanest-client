@@ -1,56 +1,41 @@
-// Components
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
 import React, { useState, useEffect } from "react";
-import Day from "./Charts/Day";
-import Week from "./Charts/Week";
-import Month from "./Charts/Month";
-import Year from "./Charts/Year";
+import OpenControls from "./OpenControls";
+import RoomModal from "./RoomModal";
 
-import { localStorageSaver } from "../../../Helpers/localStorageDriver";
-
-import TimescaleSelection from "./Charts/Timescale";
-import Rooms from "./Rooms.jsx";
+import Rooms from "./FloorPlan.jsx";
+import ControlsModal from "./ControlsModal";
+import ActiveIndicator from "./ControlsModal/ActiveIndicator";
 
 const Climate = () => {
-  const [graphs, setGraphs] = useState(false);
-  const [timescale, setTimescale] = useState(JSON.parse(localStorage.getItem("Timescale")));
-  const [room, setRoom] = useState("kitchen");
-  const [blurred, setBlurred] = useState(false);
+  const [roomModal, setRoomModal] = useState(false);
+  const [controlsModal, setControlsModal] = useState(false);
+  const [room, setRoom] = useState();
 
-  const showGraph = room => {
-    setBlurred(true);
-    setGraphs(true);
+  const showRoomModal = (room) => {
+    setRoomModal(true);
     setRoom(room);
   };
 
-  const hideGraph = () => {
-    setGraphs(false);
-    setBlurred(false);
+  const closeModal = () => {
+    setRoomModal(false);
+    setControlsModal(false);
   };
 
-  const changeTimeScale = value => {
-    localStorageSaver("Timescale", value);
-    setTimescale(value);
+  const showControlsModal = () => {
+    setControlsModal(true);
+    console.log("re");
   };
 
   return (
-    <div>
-      <Rooms blurred={blurred} showGraph={showGraph} />
-
-      {graphs ? (
-        timescale === "Day" ? (
-          <Day room={room} closeGraph={() => hideGraph()} />
-        ) : timescale === "Week" ? (
-          <Week room={room} closeGraph={() => hideGraph()} />
-        ) : timescale === "Month" ? (
-          <Month room={room} closeGraph={() => hideGraph()} />
-        ) : timescale === "Year" ? (
-          <Year room={room} closeGraph={() => hideGraph()} />
-        ) : null
-      ) : null}
-
-      {graphs ? <TimescaleSelection changeTimeScale={changeTimeScale} currentTimeScale={timescale} /> : null}
-      {/* {ourRoomGraphs ? <SensorInfo room={room} /> : null} */}
-    </div>
+    <>
+      <Rooms blurred={roomModal || controlsModal} showGraph={showRoomModal} />
+      <ActiveIndicator blurred={roomModal || controlsModal} />
+      {roomModal || controlsModal ? null : <OpenControls showControlsModal={showControlsModal} />}
+      {roomModal ? <RoomModal room={room} closeModal={closeModal} /> : null}
+      {controlsModal ? <ControlsModal closeModal={closeModal} /> : null}
+    </>
   );
 };
 

@@ -52,7 +52,7 @@ const OnButton = ({ children, size = "m", isActive = true, activeColour, handleC
       css={[
         baseStyle,
         isActive ? activeStyles : inactiveStyles,
-        size === "s" ? smallSize : size === "m" ? mediumSize : size === "l" ? largeSize : null
+        size === "s" ? smallSize : size === "m" ? mediumSize : size === "l" ? largeSize : null,
       ]}
       onClick={handleClick}
     >

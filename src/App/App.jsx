@@ -22,6 +22,54 @@ import backgroundImage from "../App/Backgrounds/Red.jpg";
 import { useState } from "react";
 import MobileSite from "./MobileSite/MobileSite.jsx";
 
+const App = () => {
+  const [screen, setScreen] = useState(JSON.parse(localStorage.getItem("screen")));
+  const [mobile, setMobile] = useState(navigator.appVersion.search("Android") > 0);
+
+  const changeScreen = (newScreen) => {
+    setScreen(newScreen);
+    localStorage.setItem("screen", '"' + newScreen + '"');
+  };
+
+  return (
+    <>
+      {/* <TemperatureGraphsDataCollector/> */}
+      <Socket />
+
+      <div css={background} />
+      {mobile ? (
+        <div css={windowContainer}>
+          <MobileSite />
+        </div>
+      ) : (
+        <div css={windowContainer}>
+          <NavBar style={navBar} changeScreen={changeScreen} screen={screen} />
+
+          <div css={screenContainer}>
+            <DateBox />
+
+            {screen === "Computer" ? (
+              <Computer />
+            ) : screen === "Lights" ? (
+              <Lights />
+            ) : screen === "Climate" ? (
+              <Climate />
+            ) : screen === "Heating" ? (
+              <Heating />
+            ) : screen === "MQTT" ? (
+              <Logger />
+            ) : screen === "Diagnostics" ? (
+              <Diagnostics />
+            ) : null}
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default App;
+
 const background = css`
   position: absolute;
   transform: translate(-50%, -50%);
@@ -67,53 +115,3 @@ const dots = css`
   transform: translate(-50%, -50%);
   background-color: green;
 `;
-
-const App = () => {
-  const [screen, setScreen] = useState(JSON.parse(localStorage.getItem("screen")));
-  const [mobile, setMobile] = useState(navigator.appVersion.search("Android") > 0);
-
-  const changeScreen = newScreen => {
-    setScreen(newScreen);
-    localStorage.setItem("screen", '"' + newScreen + '"');
-  };
-
-  return (
-    <>
-      {/* <TemperatureGraphsDataCollector/> */}
-      <Socket />
-
-      <div css={background} />
-      {mobile ? (
-        <div css={windowContainer}>
-          <MobileSite />
-        </div>
-      ) : (
-        <>
-          <div css={windowContainer}>
-            <NavBar style={navBar} changeScreen={changeScreen} screen={screen} />
-
-            <div css={screenContainer}>
-              <DateBox />
-
-              {screen === "Computer" ? (
-                <Computer />
-              ) : screen === "Lights" ? (
-                <Lights />
-              ) : screen === "Climate" ? (
-                <Climate />
-              ) : screen === "Heating" ? (
-                <Heating />
-              ) : screen === "MQTT" ? (
-                <Logger />
-              ) : screen === "Diagnostics" ? (
-                <Diagnostics />
-              ) : null}
-            </div>
-          </div>
-        </>
-      )}
-    </>
-  );
-};
-
-export default App;
