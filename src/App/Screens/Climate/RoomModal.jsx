@@ -9,8 +9,11 @@ import Year from "./Charts/Year";
 import Timescale from "./Charts/Timescale";
 import FullDaySetpoints from "../../Ui Library/FullDaySetpoints";
 import Cross from "./Charts/Close.png";
+import ModuleHeader from "../../Ui Library/ModuleHeader";
+import HeatingSensor from "../../Ui Library/HeatingSensor";
+import RadiatorDot from "../../Ui Library/RadiatorDot";
 
-const GraphContainer = ({ room, closeModal }) => {
+const RoomModal = ({ room, closeModal }) => {
   const [timescale, setTimescale] = useState("day");
 
   const changeTimescale = (newDay) => {
@@ -23,10 +26,26 @@ const GraphContainer = ({ room, closeModal }) => {
     <>
       <div css={modal}>
         <img src={Cross} alt="" className="closeIcon" onClick={closeModal} />
+
+        {/* Room Controls */}
         <div css={controlsContainer}>
-          {room !== "Kitchen" ? <FullDaySetpoints title={room} pos={[17.5, 50]} upAction={null} downAction={null} /> : null}
+          <div css={header}>
+            <ModuleHeader>{room}</ModuleHeader>
+          </div>
+
+          {room !== "Kitchen" ? (
+            <>
+              <FullDaySetpoints title={room} pos={[17.5, 50]} upAction={null} downAction={null} />
+              <RadiatorDot datapoint={room} pos={[20, 20]} />
+              <HeatingSensor datapoint={room} pos={[13, 20]} clickable={false} />
+            </>
+          ) : (
+            <HeatingSensor datapoint={room} pos={[17.5, 20]} clickable={false} />
+          )}
         </div>
-        <div css={container}>
+
+        {/* Graphs */}
+        <div css={graphContainer}>
           {timescale === "day" ? (
             <Day room={room} closeGraph={null} />
           ) : timescale === "week" ? (
@@ -43,9 +62,17 @@ const GraphContainer = ({ room, closeModal }) => {
   );
 };
 
-export default GraphContainer;
+export default RoomModal;
 
-const container = css`
+const header = css`
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 14%;
+  left: 17.5%;
+  color: blue;
+`;
+
+const graphContainer = css`
   height: 100%;
   width: 65%;
   /* margin-left: 35%; */

@@ -4,14 +4,18 @@ import React, { useState, useEffect } from "react";
 import OpenControls from "./OpenControls";
 import RoomModal from "./RoomModal";
 
-import Rooms from "./FloorPlan.jsx";
-import ControlsModal from "./ControlsModal";
 import ActiveIndicator from "./ControlsModal/ActiveIndicator";
+import ControlsModal from "./ControlsModal";
+import Rooms from "./FloorPlan.jsx";
 
 const Climate = () => {
   const [roomModal, setRoomModal] = useState(false);
   const [controlsModal, setControlsModal] = useState(false);
   const [room, setRoom] = useState();
+
+  // const [roomModal, setRoomModal] = useState(true);
+  // const [controlsModal, setControlsModal] = useState(false);
+  // const [room, setRoom] = useState("Our Room");
 
   const showRoomModal = (room) => {
     setRoomModal(true);
@@ -25,7 +29,6 @@ const Climate = () => {
 
   const showControlsModal = () => {
     setControlsModal(true);
-    console.log("re");
   };
 
   return (

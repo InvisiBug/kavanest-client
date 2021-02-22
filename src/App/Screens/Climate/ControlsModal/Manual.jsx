@@ -5,7 +5,7 @@ import ValveControl from "../../../Ui Library/Controllers/ValveControl";
 import { apiFetch } from "../../../../Helpers/fetch";
 
 const RadiatorFan = () => {
-  const x = 50;
+  const x = 29 + 13;
   const y = 60;
 
   const xOffset = 13;
@@ -25,7 +25,7 @@ const RadiatorFan = () => {
     <>
       <SimpleControl
         title={"Manual Control"}
-        pos={[29, 11.5]}
+        pos={[29 + 13 + 13, 11.5]}
         connection={true}
         onAction={() => apiFetch("/api/ci/on")}
         offAction={() => apiFetch("/api/ci/off")}

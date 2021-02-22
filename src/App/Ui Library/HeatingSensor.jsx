@@ -4,42 +4,7 @@ import { jsx, css } from "@emotion/core";
 import { localStorageParser } from "../../Helpers/localStorageDriver";
 import { camelRoomName } from "../Helpers/Functions";
 
-const container = css`
-  position: absolute;
-  transform: translate(-50%, -50%);
-  height: 45px;
-  width: 110px;
-
-  border-radius: 20px;
-
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(50, 50, 50, 0.2);
-  font-family: Arial;
-  font-size: 15px;
-  cursor: pointer;
-  user-select: none;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-`;
-
-const tempText = css`
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 25;
-`;
-
-const humidityText = css`
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 78%;
-`;
-
-const dataGrabber = datapoint => {
+const dataGrabber = (datapoint) => {
   if (datapoint === "Outside") {
     try {
       return localStorageParser(`Environmental Data`).outside.current;
@@ -55,7 +20,7 @@ const dataGrabber = datapoint => {
   }
 };
 
-const HeatingSensor = ({ showGraph, pos, datapoint }) => {
+const HeatingSensor = ({ showGraph, pos, datapoint, clickable = true }) => {
   const [deviceData, setDeviceData] = useState(dataGrabber(datapoint));
 
   useEffect(() => {
@@ -70,9 +35,9 @@ const HeatingSensor = ({ showGraph, pos, datapoint }) => {
       style={{
         color: deviceData.isConnected ? "white" : "orangeRed",
         top: `${pos[1]}%`,
-        left: `${pos[0]}%`
+        left: `${pos[0]}%`,
       }}
-      css={container}
+      css={[container, clickable ? canClick : null]}
       onClick={showGraph}
     >
       <p css={tempText}>{deviceData.temperature || "Nan"}°C</p>
@@ -82,3 +47,41 @@ const HeatingSensor = ({ showGraph, pos, datapoint }) => {
 };
 
 export default HeatingSensor;
+
+const container = css`
+  position: absolute;
+  transform: translate(-50%, -50%);
+  height: 45px;
+  width: 110px;
+
+  border-radius: 20px;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(50, 50, 50, 0.2);
+  font-family: Arial;
+  font-size: 15px;
+
+  user-select: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+`;
+const canClick = css`
+  cursor: pointer;
+`;
+
+const tempText = css`
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 25;
+`;
+
+const humidityText = css`
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 78%;
+`;

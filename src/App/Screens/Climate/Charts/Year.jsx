@@ -1,24 +1,10 @@
 /** @jsx jsx */
 import React, { useEffect, useState } from "react";
 import { jsx, css } from "@emotion/core";
+import styled from "@emotion/styled";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts";
 import Cross from "./Close.png";
 import { apiPost } from "../../../../Helpers/fetch";
-
-const graphModule = css`
-  position: absolute;
-  transform: translate(-50%, -50%);
-  height: 70%;
-  width: 80%;
-  top: 50%;
-  left: 50%;
-
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(50, 50, 50, 0.1);
-  color: white;
-  font-family: "Arial";
-  font-size: 15px;
-`;
 
 const humidityTicks = [40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100];
 const temperatureTicks = [0, 5, 10, 15, 20, 25, 30];
@@ -75,3 +61,51 @@ const Year = ({ room, closeGraph }) => {
 };
 
 export default Year;
+
+const graphModule = css`
+  height: 80%;
+  width: 90%;
+  margin: 5% 0% 0% 5%;
+  /* position: absolute;
+  transform: translate(-50%, -50%);
+  height: 70%;
+  width: 80%;
+  top: 50%;
+  left: 50%; */
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* background: rgba(50, 50, 50, 0.1); */
+  /* background: red; */
+  color: white;
+  font-family: "Arial";
+  font-size: 15px;
+`;
+
+const TempreatureTitle = styled.p`
+  position: absolute;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  top: 50%;
+  left: 40%;
+  color: #fff;
+  /*font-size: 25px;*/
+  /*text-shadow: -1.5px -1.5px 0 #8884d8, 1.5px -1.5px 0 #8884d8, -1.5px 1.5px 0 #8884d8, 1.5px 1.5px 0 #8884d8;*/
+`;
+
+const HumidityTitle = styled.p`
+  position: absolute;
+  transform: translate(-50%, -50%) rotate(90deg);
+  top: 50%;
+  left: 97.5%;
+  width: 200px;
+  color: #fff;
+  /*font-size: 25px;*/
+  /*text-shadow: -1.5px -1.5px 0 #82ca9d, 1.5px -1.5px 0 #82ca9d, -1.5px 1.5px 0 #82ca9d, 1.5px 1.5px 0 #82ca9d;*/
+`;
+
+const XAxisTitle = styled.p`
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 80%;
+  left: 67%;
+  color: orange;
+`;

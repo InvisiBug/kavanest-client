@@ -12,7 +12,7 @@ class ScreenLEDs extends React.Component {
     super();
 
     this.state = {
-      titleColour: "white"
+      titleColour: "white",
     };
   }
 
@@ -25,7 +25,6 @@ class ScreenLEDs extends React.Component {
   getScreenLEDs = () => {
     var cache = JSON.parse(localStorage.getItem("Screen LEDs"));
     try {
-      var test = cache.test;
       this.setState({ titleColour: "white" });
     } catch (error) {
       this.setState({ titleColour: "orangered" });

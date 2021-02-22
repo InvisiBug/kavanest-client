@@ -25,7 +25,7 @@ const Day = ({ room, closeGraph }) => {
           newArray.push({
             hour: data[i].timestamp.Hour,
             temperature: data[i].temperature,
-            setpoint: JSON.parse(localStorage.getItem("Environmental Data")).setpoints[camelRoomName(room)][data[i].timestamp.Hour - 1],
+            setpoint: JSON.parse(localStorage.getItem("Environmental Data")).setpoints[camelRoomName(room)][data[i].timestamp.Hour],
             humidity: data[i].humidity,
           });
         }
@@ -43,7 +43,7 @@ const Day = ({ room, closeGraph }) => {
     <div css={graphModule}>
       <XAxisTitle>Time (Hour)</XAxisTitle>
       <TempreatureTitle>Temperature (°C)</TempreatureTitle>
-      <HumidityTitle>Humidity (%)</HumidityTitle>
+      {/* <HumidityTitle>Humidity (%)</HumidityTitle> */}
 
       <ResponsiveContainer width="100%" height="90%">
         <LineChart data={data} margin={{ top: 10, right: 30, left: 30, bottom: 0 }}>

@@ -1,41 +1,35 @@
 /** @jsx jsx */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import { jsx, css } from "@emotion/core";
 
 import ColourWheel from "../../Ui Library/ColourWheel/ColourWheel";
 import { apiFetch, apiPost } from "../../../Helpers/fetch";
 
-class DeskLEDs extends React.Component {
-  constructor() {
-    super();
+const DeskLEDs = () => {
+  const [titleColour, setTitleColour] = useState("white");
+  const [colour, setColour] = useState("");
 
-    this.state = {
-      titleColour: "white",
-    };
-  }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      getCurrentColour();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
-  componentWillMount = () => this.getCurrentColour();
-  componentDidMount = () =>
-    (this.timer1 = setInterval(() => {
-      this.getCurrentColour();
-    }, 100 /* 1 * 1000 */));
-  componentWillUnmount = () => clearInterval(this.timer1);
-
-  getCurrentColour = () => {
+  const getCurrentColour = () => {
     var cache = JSON.parse(localStorage.getItem("Desk LEDs"));
     try {
-      this.setState({ titleColour: "white" });
-      this.setState({
-        colour: "rgb(" + cache.red + ", " + cache.green + ", " + cache.blue + ")",
-      });
+      setTitleColour("white");
+      setColour("rgb(" + cache.red + ", " + cache.green + ", " + cache.blue + ")");
     } catch (error) {
-      this.setState({ titleColour: "orangered" });
+      setTitleColour("orangered");
+      setColour("rgb(" + 0 + ", " + 0 + ", " + 0 + ")");
       this.setState({ colour: "rgb(" + 0 + ", " + 0 + ", " + 0 + ")" });
     }
   };
 
-  colourUpdate = (rgb) => {
+  const colourUpdate = (rgb) => {
     var cache = JSON.parse(localStorage.getItem("Desk LEDs"));
 
     this.setState({ colour: rgb });
@@ -55,35 +49,33 @@ class DeskLEDs extends React.Component {
     });
   };
 
-  render() {
-    return (
-      <Container css={deskLEDsModule}>
-        <div css={deskLEDsTitle}>
-          <h2 style={{ color: this.state.titleColour }}>Desk LEDs</h2>
-        </div>
+  return (
+    <Container css={deskLEDsModule}>
+      <div css={deskLEDsTitle}>
+        <h2 style={{ color: titleColour }}>Desk LEDs</h2>
+      </div>
 
-        <div css={deskLEDsColourWheel}>
-          <ColourWheel
-            name={"Canvas 1"}
-            radius={125}
-            padding={10}
-            lineWidth={40}
-            onColourSelected={(rgb) => this.colourUpdate(rgb)}
-            spacers={{
-              colour: "whitesmoke",
-              shadowColour: "grey",
-              shadowBlur: 0,
-            }}
-            onRef={(ref) => (this.colourWheel = ref)}
-            preset
-            presetColour={this.state.colour}
-            animated
-          />
-        </div>
-      </Container>
-    );
-  }
-}
+      <div css={deskLEDsColourWheel}>
+        <ColourWheel
+          name={"Canvas 1"}
+          radius={125}
+          padding={10}
+          lineWidth={40}
+          onColourSelected={(rgb) => colourUpdate(rgb)}
+          spacers={{
+            colour: "whitesmoke",
+            shadowColour: "grey",
+            shadowBlur: 0,
+          }}
+          // onRef={(ref) => (setColourWheel(ref))}
+          preset
+          presetColour={colour}
+          animated
+        />
+      </div>
+    </Container>
+  );
+};
 
 export default DeskLEDs;
 

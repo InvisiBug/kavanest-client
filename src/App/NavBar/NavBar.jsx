@@ -28,10 +28,10 @@ const navButtons = [
     name: "Climate",
     icon: Sun,
   },
-  {
-    name: "Heating",
-    icon: Heating,
-  },
+  // {
+  //   name: "Heating",
+  //   icon: Heating,
+  // },
   {
     name: "MQTT",
     icon: Code,
