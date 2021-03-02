@@ -1,6 +1,7 @@
 {
   "name": "kavanet-lient",
   "private": true,
+  "proxy": "http://localhost:5000",
   "scripts": {
     "start": "react-scripts start",
     "dev": "react-scripts start",
