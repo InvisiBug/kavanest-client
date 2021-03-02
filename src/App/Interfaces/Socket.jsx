@@ -30,12 +30,6 @@ const Socket = () => {
     "Environmental Data",
   ];
 
-  {
-    left:
-      false, 
-      right : 
-      true, sub : true, mixer : true
-    }
   devices.map((device) => {
     socket.on(device, (deviceData) => {
       localStorageSaver(device, deviceData);
