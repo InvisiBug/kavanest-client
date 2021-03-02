@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { jsx, css } from "@emotion/core";
 import { localStorageParser } from "../../Helpers/localStorageDriver";
-import { camelRoomName } from "../Helpers/Functions";
+import { camelRoomName } from "../../Helpers/Functions";
 
 const dataGrabber = (datapoint) => {
   if (datapoint === "Outside") {

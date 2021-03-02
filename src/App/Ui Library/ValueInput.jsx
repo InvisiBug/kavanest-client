@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { jsx, css } from "@emotion/core";
 import { localStorageParser } from "../../Helpers/localStorageDriver";
-import { camelRoomName } from "../Helpers/Functions";
+import { camelRoomName } from "../../Helpers/Functions";
 
 const keyPressed = (e) => {
   console.log(e.target.value);

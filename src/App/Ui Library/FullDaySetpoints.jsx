@@ -7,7 +7,7 @@ import ModuleHeader from "./ModuleHeader";
 import HeatingSensor from "./HeatingSensor";
 import RadiatorDot from "./RadiatorDot";
 
-import { camelRoomName } from "../Helpers/Functions";
+import { camelRoomName } from "../../Helpers/Functions";
 import { apiPost } from "../../Helpers/fetch";
 
 const FullDaySetpoints = ({ title, pos, upAction, downAction, showGraph }) => {
@@ -19,7 +19,6 @@ const FullDaySetpoints = ({ title, pos, upAction, downAction, showGraph }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setSetpoints(JSON.parse(localStorage.getItem("Environmental Data")).setpoints);
-      // setAuto(JSON.parse(localStorage.getItem("Environmental Data")).heatingZones.isAuto);
     }, 100);
     return () => clearTimeout(timer);
   }, [setpoints]);

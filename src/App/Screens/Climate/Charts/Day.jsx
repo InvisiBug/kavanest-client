@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import { jsx, css } from "@emotion/core";
 import styled from "@emotion/styled";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts";
-import Cross from "./Close.png";
-import { camelRoomName } from "../../../Helpers/Functions";
+import { camelRoomName } from "../../../../Helpers/Functions";
 import { apiPost } from "../../../../Helpers/fetch";
 
 const humidityTicks = [40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100];
@@ -40,7 +39,7 @@ const Day = ({ room, closeGraph }) => {
   useEffect(() => fetchData(room), []); // Prevents repeated requests
 
   return (
-    <div css={graphModule}>
+    <Container>
       <XAxisTitle>Time (Hour)</XAxisTitle>
       <TempreatureTitle>Temperature (°C)</TempreatureTitle>
       {/* <HumidityTitle>Humidity (%)</HumidityTitle> */}
@@ -71,12 +70,12 @@ const Day = ({ room, closeGraph }) => {
           {/* <Line yAxisId="right" isAnimationActive={false} type="monotone" dataKey="humidity" stroke="#82ca9d" strokeWidth={3} dot={false} /> */}
         </LineChart>
       </ResponsiveContainer>
-    </div>
+    </Container>
   );
 };
 export default Day;
 
-const graphModule = css`
+const Container = styled.div`
   height: 80%;
   width: 90%;
   margin: 5% 0% 0% 5%;

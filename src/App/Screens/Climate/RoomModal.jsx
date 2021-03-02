@@ -1,6 +1,7 @@
 /** @jsx jsx */
-import { jsx, css } from "@emotion/core";
 import React, { useState, useEffect } from "react";
+import { jsx, css } from "@emotion/core";
+import styled from "@emotion/styled";
 
 import Day from "./Charts/Day";
 import Week from "./Charts/Week";
@@ -24,7 +25,7 @@ const RoomModal = ({ room, closeModal }) => {
   return (
     <>
       <div css={modal}>
-        <img src={Cross} alt="" className="closeIcon" onClick={closeModal} />
+        <CloseIcon src={Cross} alt="" onClick={closeModal} />
 
         {/* Room Controls */}
         <div css={controlsContainer}>
@@ -89,6 +90,18 @@ const controlsContainer = css`
   height: 100%;
   width: 34%;
   /* background-color: green; */
+`;
+
+const CloseIcon = styled.img`
+  position: absolute;
+  transform: translate(-50%, -50%);
+  height: 30px;
+  width: 30px;
+  top: 4%;
+
+  left: 97.6%;
+  opacity: 0.95;
+  z-index: +1;
 `;
 
 const modal = css`

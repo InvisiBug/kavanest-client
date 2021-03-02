@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { jsx, css } from "@emotion/core";
 import ValueInput from "../../../Ui Library/ValueInput";
 import { localStorageParser } from "../../../../Helpers/localStorageDriver";
-import { camelRoomName } from "../../../Helpers/Functions";
+import { camelRoomName } from "../../../../Helpers/Functions";
 import { apiPost } from "../../../../Helpers/fetch";
 
 const Offset = ({ room, pos = [0, 0] }) => {
@@ -14,15 +14,12 @@ const Offset = ({ room, pos = [0, 0] }) => {
     const timer = setTimeout(() => {
       var data = localStorageParser(`Environmental Data`).offsets[camelRoomName(room)];
       setDeviceData(data);
-
-      console.log("Value Input", data);
     }, 500);
     return () => clearTimeout(timer);
   }, [deviceData]);
 
   const keyPressed = (e) => {
     if (e.keyCode === 13) {
-      console.log(camelRoomName(room), e.target.value);
       if (e.target.value < 100 && e.target.value > -100) {
         apiPost("/api/ci/offsets", {
           room: camelRoomName(room),
