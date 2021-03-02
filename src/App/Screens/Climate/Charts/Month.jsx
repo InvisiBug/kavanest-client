@@ -39,7 +39,6 @@ const Month = ({ room, closeGraph }) => {
 
   return (
     <div css={graphModule}>
-      <img src={Cross} alt="" className="closeIcon" onClick={closeGraph} />
       <XAxisTitle>Time (Hour)</XAxisTitle>
       <TempreatureTitle>Temperature (°C)</TempreatureTitle>
       {/* <HumidityTitle>Humidity (%)</HumidityTitle> */}

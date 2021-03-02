@@ -1,32 +1,80 @@
+/** @jsx jsx */
 import React, { useState, useEffect } from "react";
+import { jsx, css } from "@emotion/core";
+import styled from "@emotion/styled";
+import { apiPost } from "../../../../Helpers/fetch";
 
 // Components
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 // Buttons
-import OnButton from "../../Helpers/On Button";
-import OffButton from "../../Helpers/Off Button";
+import OnButton from "../../../Helpers/On Button";
+import OffButton from "../../../Helpers/Off Button";
+
+const Container = styled.div`
+  position: absolute;
+  transform: translate(-50%, -50%);
+  height: 450px;
+  width: 350px;
+  top: 44.5%;
+  left: 65%;
+
+  border-radius: 20px;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(50, 50, 50, 0.1);
+  color: white;
+  font-family: "Arial";
+  font-size: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+`;
+
+const Buttons = styled.div`
+  position: absolute;
+  transform: translate(-50%, -50%);
+  height: 300px;
+  width: 75%;
+  top: 50%;
+  left: 50%;
+`;
+const Title = styled.h3`
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 8%;
+  left: 50%;
+  color: white;
+`;
 
 const ComputerAudio = () => {
   const [deviceData, setDeviceData] = useState(JSON.parse(localStorage.getItem("Computer Audio")));
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDeviceData(JSON.parse(localStorage.getItem("New Computer Audio")));
+      setDeviceData(JSON.parse(localStorage.getItem("Computer Audio")));
     }, 100);
     return () => clearTimeout(timer);
   }, [deviceData]);
 
+  const powerOff = (device) => {
+    apiPost("/api/ComputerAudio/Off", { device: device });
+  };
+
+  const powerOn = (device) => {
+    apiPost("/api/ComputerAudio/On", { device: device });
+  };
+  //className="computerAudioModule"
+
   return (
     <>
-      <Container className="computerAudioModule" style={{ left: "20%", top: "55%" }}>
-        <h3 className="computerAudioTitle" style={{ color: "white" }}>
-          Computer Audio
-        </h3>
+      <Container style={{ left: "50%", top: "55%" }}>
+        <Title>Computer Audio</Title>
 
-        <div className="computerAudioMasterContainer">
+        <Buttons>
           <Row style={{ height: "65px" }}>
             <Col
               md={4}
@@ -40,11 +88,21 @@ const ComputerAudio = () => {
             </Col>
 
             <Col md={4} style={{ display: "flex", alignItems: "center" }}>
-              <OffButton name="Off" index={0} isActive={false} onClick={() => this.powerOff("Master")} />
+              <OffButton
+                name="Off"
+                index={0}
+                isActive={!deviceData.left || !deviceData.right || !deviceData.sub || !deviceData.mixer}
+                onClick={() => powerOff("master")}
+              />
             </Col>
 
             <Col md={4} style={{ display: "flex", alignItems: "center" }}>
-              <OnButton name="On" index={1} isActive={false} onClick={() => this.powerOn("Master")} />
+              <OnButton
+                name="On"
+                index={1}
+                isActive={deviceData.left & deviceData.right & deviceData.sub & deviceData.mixer}
+                onClick={() => powerOn("master")}
+              />
             </Col>
           </Row>
 
@@ -61,11 +119,11 @@ const ComputerAudio = () => {
             </Col>
 
             <Col md={4} style={{ display: "flex", alignItems: "center" }}>
-              <OffButton name="Off" index={0} isActive={!deviceData.left} onClick={() => this.powerOff("Left")} />
+              <OffButton name="Off" index={0} isActive={!deviceData.left} onClick={() => powerOff("left")} />
             </Col>
 
             <Col md={4} style={{ display: "flex", alignItems: "center" }}>
-              <OnButton name="On" index={1} isActive={deviceData.left} onClick={() => this.powerOn("Left")} />
+              <OnButton name="On" index={1} isActive={deviceData.left} onClick={() => powerOn("left")} />
             </Col>
           </Row>
 
@@ -82,11 +140,11 @@ const ComputerAudio = () => {
             </Col>
 
             <Col md={4} style={{ display: "flex", alignItems: "center" }}>
-              <OffButton name="Off" index={0} isActive={!deviceData.right} onClick={() => this.powerOff("Right")} />
+              <OffButton name="Off" index={0} isActive={!deviceData.right} onClick={() => powerOff("right")} />
             </Col>
 
             <Col md={4} style={{ display: "flex", alignItems: "center" }}>
-              <OnButton name="On" index={1} isActive={deviceData.right} onClick={() => this.powerOn("Right")} />
+              <OnButton name="On" index={1} isActive={deviceData.right} onClick={() => powerOn("right")} />
             </Col>
           </Row>
 
@@ -103,11 +161,11 @@ const ComputerAudio = () => {
             </Col>
 
             <Col md={4} style={{ display: "flex", alignItems: "center" }}>
-              <OffButton name="Off" index={0} isActive={!deviceData.sub} onClick={() => this.powerOff("Sub")} />
+              <OffButton name="Off" index={0} isActive={!deviceData.sub} onClick={() => powerOff("sub")} />
             </Col>
 
             <Col md={4} style={{ display: "flex", alignItems: "center" }}>
-              <OnButton name="On" index={1} isActive={deviceData.sub} onClick={() => this.powerOn("Sub")} />
+              <OnButton name="On" index={1} isActive={deviceData.sub} onClick={() => powerOn("sub")} />
             </Col>
           </Row>
 
@@ -124,14 +182,14 @@ const ComputerAudio = () => {
             </Col>
 
             <Col md={4} style={{ display: "flex", alignItems: "center" }}>
-              <OffButton name="Off" index={0} isActive={!deviceData.mixer} onClick={() => this.powerOff("Mixer")} />
+              <OffButton name="Off" index={0} isActive={!deviceData.mixer} onClick={() => powerOff("mixer")} />
             </Col>
 
             <Col md={4} style={{ display: "flex", alignItems: "center" }}>
-              <OnButton name="On" index={1} isActive={deviceData.mixer} onClick={() => this.powerOn("Mixer")} />
+              <OnButton name="On" index={1} isActive={deviceData.mixer} onClick={() => powerOn("mixer")} />
             </Col>
           </Row>
-        </div>
+        </Buttons>
       </Container>
     </>
   );

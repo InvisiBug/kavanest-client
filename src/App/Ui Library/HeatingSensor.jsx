@@ -68,6 +68,7 @@ const container = css`
   justify-content: center;
   text-align: center;
 `;
+
 const canClick = css`
   cursor: pointer;
 `;

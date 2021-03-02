@@ -12,6 +12,7 @@ import Cross from "./Charts/Close.png";
 import ModuleHeader from "../../Ui Library/ModuleHeader";
 import HeatingSensor from "../../Ui Library/HeatingSensor";
 import RadiatorDot from "../../Ui Library/RadiatorDot";
+import Offset from "./RoomModal/Offset";
 
 const RoomModal = ({ room, closeModal }) => {
   const [timescale, setTimescale] = useState("day");
@@ -19,8 +20,6 @@ const RoomModal = ({ room, closeModal }) => {
   const changeTimescale = (newDay) => {
     setTimescale(newDay);
   };
-
-  console.log(room);
 
   return (
     <>
@@ -35,12 +34,16 @@ const RoomModal = ({ room, closeModal }) => {
 
           {room !== "Kitchen" ? (
             <>
+              <HeatingSensor datapoint={room} pos={[11.5, 20]} clickable={false} />
+              <RadiatorDot datapoint={room} pos={[17.5, 20]} />
               <FullDaySetpoints title={room} pos={[17.5, 50]} upAction={null} downAction={null} />
-              <RadiatorDot datapoint={room} pos={[20, 20]} />
-              <HeatingSensor datapoint={room} pos={[13, 20]} clickable={false} />
+              <Offset room={room} pos={[23.5, 20]} />
             </>
           ) : (
-            <HeatingSensor datapoint={room} pos={[17.5, 20]} clickable={false} />
+            <>
+              <HeatingSensor datapoint={room} pos={[11.5, 20]} clickable={false} />
+              <Offset room={room} pos={[23.5, 20]} />
+            </>
           )}
         </div>
 

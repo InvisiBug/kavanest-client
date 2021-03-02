@@ -2,9 +2,11 @@
 import React from "react";
 import { jsx, css } from "@emotion/core";
 
-import ComputerPower from "./ComputerPower";
-import OldComputerAudio from "./OldComputerAudio";
-import ComputerAudio from "./ComputerAudio";
+// import ComputerPower from "./ComputerPower";
+// import OldComputerAudio from "./Components/OldComputerAudio";
+// import ComputerAudio from "./ComputerAudio";
+
+import { ComputerPower, OldComputerAudio, ComputerAudio } from "./Components";
 
 const container = css`
   position: absolute;
@@ -22,7 +24,7 @@ class Computer extends React.Component {
     return (
       <div css={container}>
         <ComputerPower />
-        <OldComputerAudio />
+        {/* <OldComputerAudio /> */}
         <ComputerAudio />
       </div>
     );

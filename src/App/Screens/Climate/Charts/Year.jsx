@@ -39,7 +39,6 @@ const Year = ({ room, closeGraph }) => {
 
   return (
     <div css={graphModule}>
-      <img src={Cross} alt="" className="closeIcon" onClick={closeGraph} />
       <p className="temperatureTitle">Temperature (°C)</p>
       <p className="humidityTitle">Humidity (%)</p>
       <p className="xAxisTitle">Time (Hour)</p>
