@@ -5,9 +5,7 @@ import ReactDOM from "react-dom";
 import App from "./App/App.jsx";
 
 // CSS
-import "./CSS/Computer.css";
-import "./CSS/Climate.css";
-import "./CSS/Graphs.css";
+
 import "./CSS/Button.css";
 import "./CSS/Lights.css"; // deffo needed
 

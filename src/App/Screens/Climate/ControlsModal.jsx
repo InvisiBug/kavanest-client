@@ -33,7 +33,7 @@ const ControlsModal = ({ room, closeModal }) => {
   return (
     <>
       <Container>
-        <img src={Cross} alt="" className="closeIcon" onClick={closeModal} />
+        <CloseIcon src={Cross} alt="" onClick={closeModal} />
         <RadiatorFan />
         <Mode />
         {renderMode()}
@@ -60,4 +60,16 @@ const Container = styled.div`
   font-family: "Arial";
   font-size: 15px;
   display: flex;
+`;
+
+const CloseIcon = styled.img`
+  position: absolute;
+  transform: translate(-50%, -50%);
+  height: 30px;
+  width: 30px;
+  top: 4%;
+
+  left: 97.6%;
+  opacity: 0.95;
+  z-index: +1;
 `;

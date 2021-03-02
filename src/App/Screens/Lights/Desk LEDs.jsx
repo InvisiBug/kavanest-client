@@ -46,8 +46,6 @@ class DeskLEDs extends React.Component {
       return parseInt(x);
     });
 
-    console.log(colours);
-
     apiPost("/api/deskLEDs/Update", {
       red: colours[0],
       green: colours[1],

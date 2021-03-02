@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { jsx, css } from "@emotion/core";
 import { onColour, offColour } from "./Constants";
 import { localStorageParser } from "../../Helpers/localStorageDriver";
-import { camelRoomName } from "../Helpers/Functions";
+import { camelRoomName } from "../../Helpers/Functions";
 
 // const floorPlanPictureContainer = css`
 //   position: absolute;
@@ -76,7 +76,7 @@ const RadiatorDot = ({ pos, datapoint }) => {
       css={[baseStyle, deviceData.isOpen ? activeStyles : inactiveStyles, deviceData.isConnected ? null : disconnected]}
       style={{
         top: `${pos[1]}%`,
-        left: `${pos[0]}%`
+        left: `${pos[0]}%`,
       }}
     />
   );
