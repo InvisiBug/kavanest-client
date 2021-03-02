@@ -8,11 +8,83 @@ import HeatingSensor from "./HeatingSensor";
 import RadiatorDot from "./RadiatorDot";
 
 import { camelRoomName } from "../Helpers/Functions";
+import { apiPost } from "../../Helpers/fetch";
+
+const FullDaySetpoints = ({ title, pos, upAction, downAction, showGraph }) => {
+  const hour = new Date().getHours();
+
+  const [setpoints, setSetpoints] = useState(JSON.parse(localStorage.getItem("Environmental Data")).setpoints);
+  const data = setpoints[camelRoomName(title)];
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSetpoints(JSON.parse(localStorage.getItem("Environmental Data")).setpoints);
+      // setAuto(JSON.parse(localStorage.getItem("Environmental Data")).heatingZones.isAuto);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [setpoints]);
+
+  const up = (time, room) => {
+    let newVal = setpoints[room];
+    newVal[time] = newVal[time] + 1;
+
+    apiPost("/api/ci/setpoints", {
+      room: room,
+      vals: newVal,
+    });
+  };
+
+  const down = (time, room) => {
+    let newVal = setpoints[room];
+    newVal[time] = newVal[time] - 1;
+
+    apiPost("/api/ci/setpoints", {
+      room: room,
+      vals: newVal,
+    });
+  };
+
+  return (
+    <div
+      css={[container]}
+      style={{
+        top: `${pos[1]}%`,
+        left: `${pos[0]}%`,
+      }}
+    >
+      {/* <div css={header}>
+        <ModuleHeader>{title}</ModuleHeader>
+      </div>
+      <HeatingSensor datapoint={title} pos={[40, 15]} showGraph={showGraph} />
+      <RadiatorDot datapoint={title} pos={[70, 14.5]} /> */}
+      <div css={tableBox}>
+        {data.map((setpoint, index) => (
+          <div css={setpointTime} key={index}>
+            <div css={setpointRow}>
+              <div css={time}>{`${index}:00`}</div>
+              <div>
+                <img css={arrow} src={ArrowDown} alt="" onClick={() => down(index, camelRoomName(title))} />
+              </div>
+              <div style={{ color: index === hour ? "lime" : "" }}>{setpoint}</div>
+              <div>
+                <img css={arrow} src={ArrowUp} alt="" onClick={() => up(index, camelRoomName(title))} />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default FullDaySetpoints;
+
+//
 
 const container = css`
   position: absolute;
   transform: translate(-50%, -50%);
-  height: 500px;
+  height: 400px;
   width: 20%;
 
   top: 70%;
@@ -39,7 +111,7 @@ const header = css`
 const tableBox = css`
   position: absolute;
   transform: translateX(-50%);
-  top: 100px;
+  top: 2%;
   left: 50%;
 
   width: 100%;
@@ -72,43 +144,3 @@ const arrow = css`
     opacity: 1;
   }
 `;
-
-const FullDaySetpoints = ({ data, title, pos, upAction, downAction, showGraph }) => {
-  const hour = new Date().getHours();
-
-  return (
-    <div
-      css={[container]}
-      style={{
-        top: `${pos[1]}%`,
-        left: `${pos[0]}%`
-      }}
-    >
-      <div css={header}>
-        <ModuleHeader>{title}</ModuleHeader>
-      </div>
-
-      <HeatingSensor datapoint={title} pos={[40, 15]} showGraph={showGraph} />
-      <RadiatorDot datapoint={title} pos={[70, 14.5]} />
-
-      <div css={tableBox}>
-        {data.map((setpoint, index) => (
-          <div css={setpointTime} key={index}>
-            <div css={setpointRow}>
-              <div css={time}>{`${index}:00`}</div>
-              <div>
-                <img css={arrow} src={ArrowDown} alt="" onClick={() => downAction(index, camelRoomName(title))} />
-              </div>
-              <div style={{ color: index === hour ? "lime" : "" }}>{setpoint}</div>
-              <div>
-                <img css={arrow} src={ArrowUp} alt="" onClick={() => upAction(index, camelRoomName(title))} />
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default FullDaySetpoints;

@@ -5,9 +5,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 // Buttons
-import OnButton from "../../Helpers/On Button";
-import OffButton from "../../Helpers/Off Button";
-import { apiPost } from "../../../Helpers/fetch";
+import OnButton from "../../../Helpers/On Button";
+import OffButton from "../../../Helpers/Off Button";
+import { apiPost } from "../../../../Helpers/fetch";
 
 class ComputerPower extends React.Component {
   constructor(props) {

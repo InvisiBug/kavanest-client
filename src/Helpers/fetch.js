@@ -1,12 +1,15 @@
-const controllerAddress = "http://localhost:4000";
+// const controllerAddress = "http://localhost:5000";
+const controllerAddress = "http://192.168.1.46";
 
 export const apiFetch = async (point) => {
-  let response = await fetch(`${controllerAddress}${point}`);
-  try {
-    return await response.json();
-  } catch {
-    return null;
-  }
+  // console.log(point);
+  fetch(`${controllerAddress}${point}`);
+  // let response = await fetch(`${controllerAddress}${point}`);
+  // try {
+  //   return await response.json();
+  // } catch {
+  //   return null;
+  // }
 };
 
 export const apiPost = async (point, body) => {
