@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import HeatingMode from "../../../Ui Library/Controllers/HeatingMode";
-import { apiFetch } from "../../../../Helpers/fetch";
+import HeatingMode from "../../../../Ui Library/Controllers/HeatingMode";
+import { apiFetch } from "../../../../../Helpers/fetch";
 
 const Mode = () => {
   const [environmentalData, setEnvironmentalData] = useState(JSON.parse(localStorage.getItem("Environmental Data")));

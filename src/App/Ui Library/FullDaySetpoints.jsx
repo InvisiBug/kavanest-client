@@ -10,18 +10,26 @@ import RadiatorDot from "./RadiatorDot";
 import { camelRoomName } from "../../Helpers/Functions";
 import { apiPost } from "../../Helpers/fetch";
 
-const FullDaySetpoints = ({ title, pos, upAction, downAction, showGraph }) => {
+const FullDaySetpoints = ({ title, pos, weekday = "weekday" }) => {
   const hour = new Date().getHours();
 
-  const [setpoints, setSetpoints] = useState(JSON.parse(localStorage.getItem("Environmental Data")).setpoints);
+  const [setpoints, setSetpoints] = useState(JSON.parse(localStorage.getItem("Environmental Data")).setpoints[weekday]);
+
+  // const test = JSON.parse(localStorage.getItem("Environmental Data")).setpoints.weekday;
+
+  // console.log(data);
+
+  // useEffect(() => {}, []);
   const data = setpoints[camelRoomName(title)];
+  console.log(data);
+  console.log(weekday);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setSetpoints(JSON.parse(localStorage.getItem("Environmental Data")).setpoints);
+      setSetpoints(JSON.parse(localStorage.getItem("Environmental Data")).setpoints[weekday]);
     }, 100);
     return () => clearTimeout(timer);
-  }, [setpoints]);
+  }, [weekday]);
 
   const up = (time, room) => {
     let newVal = setpoints[room];
@@ -30,6 +38,7 @@ const FullDaySetpoints = ({ title, pos, upAction, downAction, showGraph }) => {
     apiPost("/api/ci/setpoints", {
       room: room,
       vals: newVal,
+      weekday: weekday,
     });
   };
 
@@ -40,6 +49,7 @@ const FullDaySetpoints = ({ title, pos, upAction, downAction, showGraph }) => {
     apiPost("/api/ci/setpoints", {
       room: room,
       vals: newVal,
+      weekday: weekday,
     });
   };
 
@@ -51,11 +61,6 @@ const FullDaySetpoints = ({ title, pos, upAction, downAction, showGraph }) => {
         left: `${pos[0]}%`,
       }}
     >
-      {/* <div css={header}>
-        <ModuleHeader>{title}</ModuleHeader>
-      </div>
-      <HeatingSensor datapoint={title} pos={[40, 15]} showGraph={showGraph} />
-      <RadiatorDot datapoint={title} pos={[70, 14.5]} /> */}
       <div css={tableBox}>
         {data.map((setpoint, index) => (
           <div css={setpointTime} key={index}>

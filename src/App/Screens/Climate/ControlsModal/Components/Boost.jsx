@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import OnOffControl from "../../../Ui Library/Controllers/SimpleControl";
-import { apiFetch } from "../../../../Helpers/fetch";
+import OnOffControl from "../../../../Ui Library/Controllers/SimpleControl";
+import { apiFetch } from "../../../../../Helpers/fetch";
 
 const Boost = () => {
   const [deviceData, setDeviceData] = useState(JSON.parse(localStorage.getItem("Environmental Data")));

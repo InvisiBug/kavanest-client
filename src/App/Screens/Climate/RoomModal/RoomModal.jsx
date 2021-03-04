@@ -3,23 +3,32 @@ import React, { useState, useEffect } from "react";
 import { jsx, css } from "@emotion/core";
 import styled from "@emotion/styled";
 
-import Day from "./Charts/Day";
-import Week from "./Charts/Week";
-import Month from "./Charts/Month";
-import Year from "./Charts/Year";
-import Timescale from "./Charts/Timescale";
-import FullDaySetpoints from "../../Ui Library/FullDaySetpoints";
-import Cross from "./Charts/Close.png";
-import ModuleHeader from "../../Ui Library/ModuleHeader";
-import HeatingSensor from "../../Ui Library/HeatingSensor";
-import RadiatorDot from "../../Ui Library/RadiatorDot";
-import Offset from "./RoomModal/Offset";
+import Day from "../Charts/Day";
+import Week from "../Charts/Week";
+import Month from "../Charts/Month";
+import Year from "../Charts/Year";
+import Timescale from "../Charts/Timescale";
+import FullDaySetpoints from "../../../Ui Library/FullDaySetpoints";
+import Cross from "../Charts/Close.png";
+import ModuleHeader from "../../../Ui Library/ModuleHeader";
+import HeatingSensor from "../../../Ui Library/HeatingSensor";
+import RadiatorDot from "../../../Ui Library/RadiatorDot";
+import Offset from "./Offset";
+
+import Button from "../../../Ui Library/Button";
+import { onColourDull } from "../../../Ui Library/Constants";
 
 const RoomModal = ({ room, closeModal }) => {
   const [timescale, setTimescale] = useState("day");
+  const [weekday, setWeekday] = useState(true);
 
   const changeTimescale = (newDay) => {
     setTimescale(newDay);
+  };
+
+  const updateWeekday = (state) => {
+    setWeekday(state);
+    // console.log(weekday);
   };
 
   return (
@@ -28,7 +37,7 @@ const RoomModal = ({ room, closeModal }) => {
         <CloseIcon src={Cross} alt="" onClick={closeModal} />
 
         {/* Room Controls */}
-        <div css={controlsContainer}>
+        <ControlsContainer>
           <div css={header}>
             <ModuleHeader>{room}</ModuleHeader>
           </div>
@@ -37,8 +46,18 @@ const RoomModal = ({ room, closeModal }) => {
             <>
               <HeatingSensor datapoint={room} pos={[11.5, 20]} clickable={false} />
               <RadiatorDot datapoint={room} pos={[17.5, 20]} />
-              <FullDaySetpoints title={room} pos={[17.5, 50]} upAction={null} downAction={null} />
+              <FullDaySetpoints title={room} weekday={weekday ? "weekday" : "weekend"} pos={[17.5, 59]} />
               <Offset room={room} pos={[23.5, 20]} />
+              <>
+                <div css={selection}>
+                  <Button isActive={weekday} handleClick={() => updateWeekday(true)} activeColour={onColourDull} pos={[20, 20]}>
+                    Weekday
+                  </Button>
+                  <Button isActive={!weekday} handleClick={() => updateWeekday(false)} activeColour={onColourDull}>
+                    Weekend
+                  </Button>
+                </div>
+              </>
             </>
           ) : (
             <>
@@ -46,10 +65,10 @@ const RoomModal = ({ room, closeModal }) => {
               <Offset room={room} pos={[23.5, 20]} />
             </>
           )}
-        </div>
+        </ControlsContainer>
 
         {/* Graphs */}
-        <div css={graphContainer}>
+        <GraphContainer>
           {timescale === "day" ? (
             <Day room={room} closeGraph={null} />
           ) : timescale === "week" ? (
@@ -60,13 +79,24 @@ const RoomModal = ({ room, closeModal }) => {
             <Year room={room} closeGraph={null} />
           ) : null}
           <Timescale currentTimeScale={timescale} changeTimeScale={changeTimescale} />
-        </div>
+        </GraphContainer>
       </div>
     </>
   );
 };
 
 export default RoomModal;
+
+const selection = css`
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 28%;
+  left: 17.5%;
+  width: 260px;
+
+  display: flex;
+  justify-content: space-between;
+`;
 
 const header = css`
   position: absolute;
@@ -76,7 +106,7 @@ const header = css`
   color: blue;
 `;
 
-const graphContainer = css`
+const GraphContainer = styled.div`
   height: 100%;
   width: 65%;
   /* margin-left: 35%; */
@@ -86,7 +116,7 @@ const graphContainer = css`
   /* background-color: red; */
 `;
 
-const controlsContainer = css`
+const ControlsContainer = styled.div`
   height: 100%;
   width: 34%;
   /* background-color: green; */

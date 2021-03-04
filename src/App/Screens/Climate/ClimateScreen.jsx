@@ -2,16 +2,20 @@
 import { jsx, css } from "@emotion/core";
 import React, { useState, useEffect } from "react";
 import ControlsButton from "./OpenControls";
-import RoomModal from "./RoomModal";
+import RoomModal from "./RoomModal/RoomModal";
 
-import ActiveIndicator from "./ControlsModal/ActiveIndicator";
-import ControlsModal from "./ControlsModal";
+import ActiveIndicator from "./ControlsModal/Components/ActiveIndicator";
+import ControlsModal from "./ControlsModal/ControlsModal";
 import Rooms from "./FloorPlan.jsx";
 
 const Climate = () => {
-  const [roomModal, setRoomModal] = useState(false);
+  // const [roomModal, setRoomModal] = useState(false);
+  // const [controlsModal, setControlsModal] = useState(false);
+  // const [room, setRoom] = useState();
+
+  const [roomModal, setRoomModal] = useState(true);
   const [controlsModal, setControlsModal] = useState(false);
-  const [room, setRoom] = useState();
+  const [room, setRoom] = useState("Study");
 
   const showRoomModal = (room) => {
     setRoomModal(true);
