@@ -9,7 +9,7 @@ import { apiPost } from "../../../../Helpers/fetch";
 const humidityTicks = [40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100];
 const temperatureTicks = [0, 5, 10, 15, 20, 25, 30];
 
-const Day = ({ room, closeGraph }) => {
+const Day = ({ room, closeGraph, weekday }) => {
   const [data, setData] = useState();
 
   const fetchData = (room) => {
@@ -24,7 +24,7 @@ const Day = ({ room, closeGraph }) => {
           newArray.push({
             hour: data[i].timestamp.Hour,
             temperature: data[i].temperature,
-            setpoint: JSON.parse(localStorage.getItem("Environmental Data")).setpoints[camelRoomName(room)][data[i].timestamp.Hour],
+            setpoint: JSON.parse(localStorage.getItem("Environmental Data")).setpoints[weekday][camelRoomName(room)][data[i].timestamp.Hour],
             humidity: data[i].humidity,
           });
         }

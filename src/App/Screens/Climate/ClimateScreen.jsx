@@ -9,13 +9,9 @@ import ControlsModal from "./ControlsModal/ControlsModal";
 import Rooms from "./FloorPlan.jsx";
 
 const Climate = () => {
-  // const [roomModal, setRoomModal] = useState(false);
-  // const [controlsModal, setControlsModal] = useState(false);
-  // const [room, setRoom] = useState();
-
-  const [roomModal, setRoomModal] = useState(true);
+  const [roomModal, setRoomModal] = useState(false);
   const [controlsModal, setControlsModal] = useState(false);
-  const [room, setRoom] = useState("Study");
+  const [room, setRoom] = useState();
 
   const showRoomModal = (room) => {
     setRoomModal(true);

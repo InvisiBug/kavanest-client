@@ -20,7 +20,7 @@ import { onColourDull } from "../../../Ui Library/Constants";
 
 const RoomModal = ({ room, closeModal }) => {
   const [timescale, setTimescale] = useState("day");
-  const [weekday, setWeekday] = useState(true);
+  const [weekday, setWeekday] = useState(new Date() === 1 || 2 || 3 || 4 || 5 ? "weekday" : "weekend");
 
   const changeTimescale = (newDay) => {
     setTimescale(newDay);
@@ -33,10 +33,9 @@ const RoomModal = ({ room, closeModal }) => {
 
   return (
     <>
-      <div css={modal}>
+      <Modal>
         <CloseIcon src={Cross} alt="" onClick={closeModal} />
 
-        {/* Room Controls */}
         <ControlsContainer>
           <div css={header}>
             <ModuleHeader>{room}</ModuleHeader>
@@ -46,14 +45,14 @@ const RoomModal = ({ room, closeModal }) => {
             <>
               <HeatingSensor datapoint={room} pos={[11.5, 20]} clickable={false} />
               <RadiatorDot datapoint={room} pos={[17.5, 20]} />
-              <FullDaySetpoints title={room} weekday={weekday ? "weekday" : "weekend"} pos={[17.5, 59]} />
+              <FullDaySetpoints title={room} weekday={weekday} pos={[17.5, 59]} />
               <Offset room={room} pos={[23.5, 20]} />
               <>
                 <div css={selection}>
-                  <Button isActive={weekday} handleClick={() => updateWeekday(true)} activeColour={onColourDull} pos={[20, 20]}>
+                  <Button isActive={weekday === "weekday"} handleClick={() => updateWeekday("weekday")} activeColour={onColourDull} pos={[20, 20]}>
                     Weekday
                   </Button>
-                  <Button isActive={!weekday} handleClick={() => updateWeekday(false)} activeColour={onColourDull}>
+                  <Button isActive={weekday === "weekend"} handleClick={() => updateWeekday("weekend")} activeColour={onColourDull}>
                     Weekend
                   </Button>
                 </div>
@@ -67,10 +66,9 @@ const RoomModal = ({ room, closeModal }) => {
           )}
         </ControlsContainer>
 
-        {/* Graphs */}
         <GraphContainer>
           {timescale === "day" ? (
-            <Day room={room} closeGraph={null} />
+            <Day room={room} weekday={weekday} closeGraph={null} />
           ) : timescale === "week" ? (
             <Week room={room} closeGraph={null} />
           ) : timescale === "month" ? (
@@ -80,7 +78,7 @@ const RoomModal = ({ room, closeModal }) => {
           ) : null}
           <Timescale currentTimeScale={timescale} changeTimeScale={changeTimescale} />
         </GraphContainer>
-      </div>
+      </Modal>
     </>
   );
 };
@@ -134,7 +132,7 @@ const CloseIcon = styled.img`
   z-index: +1;
 `;
 
-const modal = css`
+const Modal = styled.div`
   /* /* background: red; */
   position: absolute;
   transform: translate(-50%, -50%);

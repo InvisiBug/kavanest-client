@@ -3,36 +3,23 @@ import React, { useEffect, useState } from "react";
 import { jsx, css } from "@emotion/core";
 import ArrowDown from "../Ui Library/Icons/ArrowDown.png";
 import ArrowUp from "../Ui Library/Icons/ArrowUp.png";
-import ModuleHeader from "./ModuleHeader";
-import HeatingSensor from "./HeatingSensor";
-import RadiatorDot from "./RadiatorDot";
-
 import { camelRoomName } from "../../Helpers/Functions";
 import { apiPost } from "../../Helpers/fetch";
 
 const FullDaySetpoints = ({ title, pos, weekday = "weekday" }) => {
-  const hour = new Date().getHours();
-
   const [setpoints, setSetpoints] = useState(JSON.parse(localStorage.getItem("Environmental Data")).setpoints[weekday]);
-
-  // const test = JSON.parse(localStorage.getItem("Environmental Data")).setpoints.weekday;
-
-  // console.log(data);
-
-  // useEffect(() => {}, []);
-  const data = setpoints[camelRoomName(title)];
-  console.log(data);
-  console.log(weekday);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setSetpoints(JSON.parse(localStorage.getItem("Environmental Data")).setpoints[weekday]);
     }, 100);
     return () => clearTimeout(timer);
-  }, [weekday]);
+  }, [setpoints, weekday]);
+
+  const data = setpoints[camelRoomName(title)];
 
   const up = (time, room) => {
-    let newVal = setpoints[room];
+    const newVal = setpoints[room];
     newVal[time] = newVal[time] + 1;
 
     apiPost("/api/ci/setpoints", {
@@ -43,7 +30,7 @@ const FullDaySetpoints = ({ title, pos, weekday = "weekday" }) => {
   };
 
   const down = (time, room) => {
-    let newVal = setpoints[room];
+    const newVal = setpoints[room];
     newVal[time] = newVal[time] - 1;
 
     apiPost("/api/ci/setpoints", {
@@ -69,7 +56,7 @@ const FullDaySetpoints = ({ title, pos, weekday = "weekday" }) => {
               <div>
                 <img css={arrow} src={ArrowDown} alt="" onClick={() => down(index, camelRoomName(title))} />
               </div>
-              <div style={{ color: index === hour ? "lime" : "" }}>{setpoint}</div>
+              <div style={{ color: index === new Date().getHours() ? "lime" : "" }}>{setpoint}</div>
               <div>
                 <img css={arrow} src={ArrowUp} alt="" onClick={() => up(index, camelRoomName(title))} />
               </div>
