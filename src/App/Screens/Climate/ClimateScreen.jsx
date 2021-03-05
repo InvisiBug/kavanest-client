@@ -2,10 +2,10 @@
 import { jsx, css } from "@emotion/core";
 import React, { useState, useEffect } from "react";
 import ControlsButton from "./OpenControls";
-import RoomModal from "./RoomModal";
+import RoomModal from "./RoomModal/RoomModal";
 
-import ActiveIndicator from "./ControlsModal/ActiveIndicator";
-import ControlsModal from "./ControlsModal";
+import ActiveIndicator from "./ControlsModal/Components/ActiveIndicator";
+import ControlsModal from "./ControlsModal/ControlsModal";
 import Rooms from "./FloorPlan.jsx";
 
 const Climate = () => {

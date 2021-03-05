@@ -1,8 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import SimpleControl from "../../../Ui Library/Controllers/SimpleControl";
-import ValveControl from "../../../Ui Library/Controllers/ValveControl";
-import { apiFetch } from "../../../../Helpers/fetch";
+import SimpleControl from "../../../../Ui Library/Controllers/SimpleControl";
+import ValveControl from "../../../../Ui Library/Controllers/ValveControl";
+import { apiFetch } from "../../../../../Helpers/fetch";
 
 const RadiatorFan = () => {
   const x = 29 + 13;

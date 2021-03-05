@@ -3,12 +3,8 @@ import { jsx, css } from "@emotion/core";
 import styled from "@emotion/styled";
 import React, { useState, useEffect } from "react";
 
-import Cross from "./Charts/Close.png";
-import Mode from "./ControlsModal/Mode";
-import RadiatorFan from "./ControlsModal/RadiatorFan";
-import Manual from "./ControlsModal/Manual";
-import Schedule from "./ControlsModal/Schedule";
-import Boost from "./ControlsModal/Boost";
+import { Mode, RadiatorFan, Manual, Schedule, Boost } from "./Components";
+import Cross from "../Charts/Close.png";
 
 const ControlsModal = ({ room, closeModal }) => {
   const [environmentalData, setEnvironmentalData] = useState(JSON.parse(localStorage.getItem("Environmental Data")));

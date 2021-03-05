@@ -3,43 +3,40 @@ import React, { useEffect, useState } from "react";
 import { jsx, css } from "@emotion/core";
 import ArrowDown from "../Ui Library/Icons/ArrowDown.png";
 import ArrowUp from "../Ui Library/Icons/ArrowUp.png";
-import ModuleHeader from "./ModuleHeader";
-import HeatingSensor from "./HeatingSensor";
-import RadiatorDot from "./RadiatorDot";
-
 import { camelRoomName } from "../../Helpers/Functions";
 import { apiPost } from "../../Helpers/fetch";
 
-const FullDaySetpoints = ({ title, pos, upAction, downAction, showGraph }) => {
-  const hour = new Date().getHours();
-
-  const [setpoints, setSetpoints] = useState(JSON.parse(localStorage.getItem("Environmental Data")).setpoints);
-  const data = setpoints[camelRoomName(title)];
+const FullDaySetpoints = ({ title, pos, weekday = "weekday" }) => {
+  const [setpoints, setSetpoints] = useState(JSON.parse(localStorage.getItem("Environmental Data")).setpoints[weekday]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setSetpoints(JSON.parse(localStorage.getItem("Environmental Data")).setpoints);
+      setSetpoints(JSON.parse(localStorage.getItem("Environmental Data")).setpoints[weekday]);
     }, 100);
     return () => clearTimeout(timer);
-  }, [setpoints]);
+  }, [setpoints, weekday]);
+
+  const data = setpoints[camelRoomName(title)];
 
   const up = (time, room) => {
-    let newVal = setpoints[room];
+    const newVal = setpoints[room];
     newVal[time] = newVal[time] + 1;
 
     apiPost("/api/ci/setpoints", {
       room: room,
       vals: newVal,
+      weekday: weekday,
     });
   };
 
   const down = (time, room) => {
-    let newVal = setpoints[room];
+    const newVal = setpoints[room];
     newVal[time] = newVal[time] - 1;
 
     apiPost("/api/ci/setpoints", {
       room: room,
       vals: newVal,
+      weekday: weekday,
     });
   };
 
@@ -51,11 +48,6 @@ const FullDaySetpoints = ({ title, pos, upAction, downAction, showGraph }) => {
         left: `${pos[0]}%`,
       }}
     >
-      {/* <div css={header}>
-        <ModuleHeader>{title}</ModuleHeader>
-      </div>
-      <HeatingSensor datapoint={title} pos={[40, 15]} showGraph={showGraph} />
-      <RadiatorDot datapoint={title} pos={[70, 14.5]} /> */}
       <div css={tableBox}>
         {data.map((setpoint, index) => (
           <div css={setpointTime} key={index}>
@@ -64,7 +56,7 @@ const FullDaySetpoints = ({ title, pos, upAction, downAction, showGraph }) => {
               <div>
                 <img css={arrow} src={ArrowDown} alt="" onClick={() => down(index, camelRoomName(title))} />
               </div>
-              <div style={{ color: index === hour ? "lime" : "" }}>{setpoint}</div>
+              <div style={{ color: index === new Date().getHours() ? "lime" : "" }}>{setpoint}</div>
               <div>
                 <img css={arrow} src={ArrowUp} alt="" onClick={() => up(index, camelRoomName(title))} />
               </div>

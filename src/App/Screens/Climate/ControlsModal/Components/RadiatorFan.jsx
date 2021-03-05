@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import AutoOnOff from "../../../Ui Library/Controllers/AutoControl";
-import { apiFetch } from "../../../../Helpers/fetch";
+import AutoOnOff from "../../../../Ui Library/Controllers/AutoControl";
+import { apiFetch } from "../../../../../Helpers/fetch";
 
 const RadiatorFan = () => {
   const [deviceData, setDeviceData] = useState(JSON.parse(localStorage.getItem("Radiator Fan")));
