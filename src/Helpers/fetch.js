@@ -1,5 +1,5 @@
-// const controllerAddress = "http://192.168.1.46"; // Production
-const controllerAddress = "http://localhost:5000"; // Development
+const controllerAddress = "http://192.168.1.46"; // Production
+// const controllerAddress = "http://localhost:5000"; // Development
 
 export const apiFetch = async (point) => {
   // console.log(point);
