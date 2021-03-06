@@ -20,7 +20,7 @@ import { onColourDull } from "../../../Ui Library/Constants";
 
 const RoomModal = ({ room, closeModal }) => {
   const [timescale, setTimescale] = useState("day");
-  const [weekday, setWeekday] = useState(new Date() === 1 || 2 || 3 || 4 || 5 ? "weekday" : "weekend");
+  const [weekday, setWeekday] = useState(new Date().getDay() === 6 || new Date().getDay() === 0 ? "weekend" : "weekday");
 
   const changeTimescale = (newDay) => {
     setTimescale(newDay);
