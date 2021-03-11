@@ -1,0 +1,33 @@
+# Pull oficial base image
+FROM node:14
+
+# Use node users
+USER node
+
+# Make a directory for the app
+RUN mkdir /home/node/app
+
+# Set working directory
+WORKDIR /home/node/app
+
+# add "./app/node_modules.bin" to $PATH
+ENV PATH /home/node/app/node_modules/.bin:$PATH
+
+# copy package.json and package-lock.json to container
+COPY --chown=node:node package*.json ./
+
+# Intall dependencies 
+RUN npm install
+
+# This has permission issues when using node user
+# RUN npm install react-scripts 
+
+# add app
+COPY --chown=node:node . ./
+
+# Expose is handled by the docker compose
+# EXPOSE 4000
+# EXPOSE 5001
+
+#start app
+CMD [ "npm", "start" ]

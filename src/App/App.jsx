@@ -2,6 +2,7 @@
 import React from "react";
 import NavBar from "./NavBar/NavBar.jsx";
 import { jsx, css } from "@emotion/core";
+import styled from "@emotion/styled";
 
 // Modules
 import DateBox from "./Ui Library/Date and Time";
@@ -38,14 +39,14 @@ const App = () => {
 
       <div css={background} />
       {mobile ? (
-        <div css={windowContainer}>
+        <WindowContainer>
           <MobileSite />
-        </div>
+        </WindowContainer>
       ) : (
-        <div css={windowContainer}>
+        <WindowContainer>
           <NavBar style={navBar} changeScreen={changeScreen} screen={screen} />
 
-          <div css={screenContainer}>
+          <ScreenContainer>
             <DateBox />
 
             {screen === "Computer" ? (
@@ -61,8 +62,8 @@ const App = () => {
             ) : screen === "Diagnostics" ? (
               <Diagnostics />
             ) : null}
-          </div>
-        </div>
+          </ScreenContainer>
+        </WindowContainer>
       )}
     </>
   );
@@ -84,7 +85,7 @@ const background = css`
   background-size: cover;
 `;
 
-const windowContainer = css`
+const WindowContainer = styled.div`
   position: absolute;
   transform: translate(-50%, -50%);
   height: 100%;
@@ -92,6 +93,7 @@ const windowContainer = css`
   top: 50%;
   left: 50%;
 
+  /* border: 1px solid red; */
   display: flex;
 `;
 
@@ -104,10 +106,13 @@ const navBar = css`
   border-right: 1px solid grey;
 `;
 
-const screenContainer = css`
+const ScreenContainer = styled.div`
   position: relative;
   height: 100%;
   flex-grow: 1;
+  /* border: 1px solid white; */
+  max-width: 1760px;
+  max-height: 984px;
 `;
 
 const dots = css`

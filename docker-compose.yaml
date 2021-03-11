@@ -4,13 +4,14 @@ services:
     container_name: kavanet-client
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.v2
     image: kavanet-client:latest
     volumes: 
-      - ".:/usr/apps" # copy everything to app inside container
-      - "/usr/apps/node_modules" # Ignore node modules
+      - ".:/home/app" # copy everything to app inside container
+      - "/home/app/node_modules" # Ignore node modules
     ports: # Only needed for inward ports
       - 3001:3000 
+      - 4000:4000
     environment:
       - CHOKIDAR_USEPOLLING=true # Enables hot reloading
     networks:

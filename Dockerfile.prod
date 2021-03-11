@@ -34,5 +34,5 @@ COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
 EXPOSE 5001
 
-# Start Nginx service
+# Start Nginx service (This command is now included in the official nginx container image, not needed here https://stackoverflow.com/a/58502792/7489419)
 CMD ["nginx", "-g", "daemon off;"]
