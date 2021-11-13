@@ -10,6 +10,7 @@ import Heating from "../Ui Library/Icons/Heating.png";
 import Gear from "../Ui Library/Icons/Gear.png";
 import Code from "../Ui Library/Icons/Code.png";
 import NavButton from "../Ui Library/NavButton";
+import Dog from "../Ui Library/Icons/Dog.png";
 
 const navButtons = [
   // {
@@ -35,6 +36,10 @@ const navButtons = [
   {
     name: "MQTT",
     icon: Code,
+  },
+  {
+    name: "Dog",
+    icon: Dog,
   },
   // {
   //   name: "Diagnostics",

@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React from "react";
 import NavBar from "./NavBar/NavBar.jsx";
+import { useState } from "react";
 import { jsx, css } from "@emotion/core";
 import styled from "@emotion/styled";
 
@@ -15,12 +16,12 @@ import Climate from "./Screens/Climate/ClimateScreen.jsx";
 import Heating from "./Screens/Heating/HeatingScreen.jsx";
 import Logger from "./Screens/MQTT/MqttLogger";
 import Diagnostics from "./Screens/Diagnostics/DiagnosticsScreen";
+import Dogs from "./Screens/Dogs/Dogs";
 
 // Cache Loader
 // import TemperatureGraphsDataCollector from "./Cache Loaders/TemperatureGraphsDataCollector";
 import Socket from "./Interfaces/Socket";
 import backgroundImage from "../App/Backgrounds/Red.jpg";
-import { useState } from "react";
 import MobileSite from "./MobileSite/MobileSite.jsx";
 
 const App = () => {
@@ -61,6 +62,8 @@ const App = () => {
               <Logger />
             ) : screen === "Diagnostics" ? (
               <Diagnostics />
+            ) : screen === "Dog" ? (
+              <Dogs />
             ) : null}
           </ScreenContainer>
         </WindowContainer>
