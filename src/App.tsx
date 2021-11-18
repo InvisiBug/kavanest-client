@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MakeRequest from "./components/requestButton";
+import RequestButton from "./components/requestButton";
 import { AxiosResponse } from "axios";
 import ResponseBox from "./components/responseBox";
 
@@ -8,8 +8,8 @@ const App: React.FC = () => {
 
   return (
     <>
-      <div style={{ height: "100vh", width: "100%", backgroundColor: "#2c2c2c" }}>
-        <MakeRequest setData={setData} />
+      <div style={{ height: "100vh", width: "100vw", backgroundColor: "#343434", display: "inline-block" }}>
+        <RequestButton setData={setData} />
         <ResponseBox data={data} />
       </div>
     </>

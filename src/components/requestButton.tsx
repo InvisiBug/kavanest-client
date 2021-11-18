@@ -1,31 +1,23 @@
-import Axios from "axios";
+import Button from "../lib/button";
+import { makeRequest } from "../utils";
 
-const MakeRequest: React.FC<Props> = ({ setData }) => {
+const RequestButton: React.FC<Props> = ({ setData }) => {
   return (
     <>
-      <button
-        onClick={async () => {
-          setData(await makeRequest());
-        }}
-      >
-        Make request
-      </button>
+      <div>
+        <Button
+          handleClick={async () => {
+            setData(await makeRequest(query));
+          }}
+        >
+          Make request
+        </Button>
+      </div>
     </>
   );
 };
 
-export default MakeRequest;
-
-const makeRequest = async () => {
-  // const url: string = "http://localhost:4000/";
-  const url = "https://api.kavanet.io/";
-
-  const test = await Axios.post(url, { query }).then((response) => {
-    return response.data.data;
-  });
-
-  return test;
-};
+export default RequestButton;
 
 const query = `
   query GetAllSensors {
@@ -38,6 +30,7 @@ const query = `
     }
   }
 `;
+
 export type Props = {
   setData: (data: any) => void;
 };
