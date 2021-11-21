@@ -1,7 +1,12 @@
+import React, { useLayoutEffect } from "react";
 import Button from "../lib/button";
 import { makeRequest } from "../utils";
 
 const RequestButton: React.FC<Props> = ({ setData }) => {
+  useLayoutEffect(() => {
+    makeRequest(query).then(setData);
+  }, []);
+
   return (
     <>
       <div>
@@ -19,13 +24,14 @@ const RequestButton: React.FC<Props> = ({ setData }) => {
 
 export default RequestButton;
 
-const query = `
+const query: string = `
   query GetAllSensors {
     getAllSensors {
       room
       rawTemperature
       temperature
       humidity
+      offset
       connected
     }
   }

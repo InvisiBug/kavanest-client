@@ -25,6 +25,13 @@ const MyButton = styled.div`
   cursor: pointer;
   display: grid;
   place-items: center;
+
+  :active {
+    background-color: transparent;
+  }
+  :hover {
+    background-color: maroon;
+  }
 `;
 
 const Text = styled.p`

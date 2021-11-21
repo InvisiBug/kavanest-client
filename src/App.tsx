@@ -8,7 +8,7 @@ const App: React.FC = () => {
 
   return (
     <>
-      <div style={{ height: "100vh", width: "100vw", backgroundColor: "#343434", display: "inline-block" }}>
+      <div style={{ minHeight: "100vh", width: "100vw", backgroundColor: "#343434", display: "inline-block" }}>
         <RequestButton setData={setData} />
         <ResponseBox data={data} />
       </div>
