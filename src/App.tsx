@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import RequestButton from "./components/requestButton";
 import { AxiosResponse } from "axios";
-import ResponseBox from "./components/responseBox";
+import Sensors from "./components/Sensors";
+import Setpoints from "./components/Setpoints";
+import { Layout } from "./lib";
 
 const App: React.FC = () => {
-  const [data, setData] = useState<AxiosResponse | null | void>(null);
-
   return (
     <>
-      <div style={{ minHeight: "100vh", width: "100vw", backgroundColor: "#343434", display: "inline-block" }}>
-        <RequestButton setData={setData} />
-        <ResponseBox data={data} />
-      </div>
+      <Layout>
+        {/* <RequestButton setData={setData} /> */}
+        <Sensors />
+        <Setpoints />
+      </Layout>
     </>
   );
 };

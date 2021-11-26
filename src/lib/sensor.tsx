@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
+
 import { decamelize } from "../utils";
-import { mq, px } from "../lib/mediaQueries";
+import { mq, px } from ".";
 
 // TODO add media queries to scale the container
 
@@ -31,40 +32,17 @@ const Container = styled.div`
   justify-content: space-around;
   margin: auto;
   margin-top: 20px;
+  flex-direction: column;
 
+  min-width: 100vw;
   ${mq("small")} {
-    background-color: red;
-    max-width: ${px("small")}px;
+    /* max-width: 650px; */
+    /* min-width: 650px; */
+    flex-direction: row;
   }
   ${mq("medium")} {
-    background-color: orange;
-    max-width: ${px("medium")}px;
+    min-width: 0px;
   }
-  ${mq("large")} {
-    background-color: orange;
-    max-width: ${px("large")}px;
-  }
-
-  /* @media (min-width: MEDIA_SM) {
-    background-color: red;
-    max-width: 640px;
-  }
-
-  @media (min-width: 768px) {
-    max-width: 768px;
-  }
-
-  @media (min-width: 1024px) {
-    max-width: 1024px;
-  }
-
-  @media (min-width: 1280px) {
-    max-width: 1280px;
-  }
-
-  @media (min-width: 1536px) {
-    max-width: 1536px;
-  } */
 `;
 
 const Offset = styled.p`
@@ -104,10 +82,10 @@ const Connected = styled.p`
 `;
 
 export interface Props {
-  sensor: SensorProps;
+  sensor: SensorData;
 }
 
-interface SensorProps {
+export interface SensorData {
   room: string;
   rawTemperature: number;
   temperature: number;
