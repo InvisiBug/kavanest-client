@@ -1,0 +1,25 @@
+name: kavanest-client
+
+namespace: kavanest
+
+deployment:
+  - name: kavanest-client
+    image: 192.168.1.61:5000/kavanest-client
+    ports:
+    - port: 80
+    env:
+    - name: REACT_APP_URL
+      value: https://api.kavanet.io/
+
+ingress:
+  - name: client.kavanet.io
+    selector: kavanest-client
+    path: /
+    port: 80
+    host: client.kavanet.io
+
+service:
+  loadBalancer:
+    - name: kavanest-client
+      selector: kavanest-client
+      port: 80
