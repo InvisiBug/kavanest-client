@@ -15,7 +15,7 @@ export const Layout: React.FC = ({ children }) => {
 };
 
 const AppWindow = styled.div`
-  background-color: #343434;
+  background-color: #202020;
 
   display: flex;
   min-height: 100vh;

@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useState } from "react";
 import { asyncRequest } from "../utils";
 import Offset from "../lib/offset";
-import { AxiosResponse } from "axios";
 
 const Setpoints: React.FC = () => {
   const [data, setData] = useState<any | null | void>(null);

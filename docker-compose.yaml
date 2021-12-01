@@ -1,0 +1,19 @@
+version: "3.1"
+
+services:
+  kavanest-client:
+    container_name: kavanest-client
+    image: kavanest-client
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - proxynet
+    environment:
+      - REACT_APP_URL=https://api.kavanet.io/
+    ports:
+      - 80:80
+
+networks:
+  proxynet:
+    name: kavanest-devnet

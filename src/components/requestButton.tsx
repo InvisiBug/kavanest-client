@@ -4,7 +4,7 @@ import { makeRequest } from "../utils";
 
 const RequestButton: React.FC<Props> = ({ setData }) => {
   useLayoutEffect(() => {
-    makeRequest(query).then(setData);
+    // makeRequest(query).then(setData);
   }, []);
 
   return (

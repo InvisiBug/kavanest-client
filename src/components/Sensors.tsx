@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useState } from "react";
 import { makeRequest } from "../utils";
 import Sensor from "../lib/sensor";
-import { AxiosResponse } from "axios";
 
 const Sensors: React.FC = () => {
   // const [data, setData] = useState<AxiosResponse | null | void>(null);

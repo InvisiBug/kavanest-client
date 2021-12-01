@@ -1,7 +1,17 @@
 {
-  "name": "my-app",
+  "name": "kavanest-client",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "dev": "react-scripts start",
+    "build": "react-scripts build",
+    "push": "./bin/push.sh",
+    "deploy": "yarn push && ./bin/deploy.sh",
+    "up": "clear && ./bin/start-container.sh",
+    "down": "docker-compose down",
+    "logs": "docker logs simulator -f"
+  },
   "dependencies": {
     "@emotion/react": "^11.6.0",
     "@emotion/styled": "^11.6.0",
@@ -19,13 +29,6 @@
     "react-scripts": "4.0.3",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "dev": "yarn start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
