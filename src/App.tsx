@@ -1,15 +1,17 @@
 import React from "react";
 import { Sensors, Setpoints } from "./components";
 import { Layout } from "./lib";
+import { AppProvider } from "./utils";
 
 const App: React.FC = () => {
   return (
     <>
-      <Layout>
-        test
-        <Sensors />
-        <Setpoints />
-      </Layout>
+      <AppProvider>
+        <Layout>
+          <Sensors />
+          <Setpoints />
+        </Layout>
+      </AppProvider>
     </>
   );
 };

@@ -1,3 +1,4 @@
+#* This commented out stuff uses an nginx config file, not sure its needed
 # FROM arm64v8/nginx
 
 # COPY build/ /usr/share/nginx/html
@@ -7,11 +8,6 @@
 
 FROM arm64v8/nginx
 
-# Copy contense of the build folder to nginex root
 COPY build/ /usr/share/nginx/html
 
-# Open port 80
-# EXPOSE 80
-
-# Start Nginx service
 CMD ["nginx", "-g", "daemon off;"]

@@ -1,9 +1,9 @@
 import React, { useLayoutEffect, useState } from "react";
 import { makeRequest } from "../utils";
 import Sensor from "../lib/sensor";
+import { useAppContext } from "../utils";
 
 const Sensors: React.FC = () => {
-  // const [data, setData] = useState<AxiosResponse | null | void>(null);
   const [data, setData] = useState<any | null | void>(null);
 
   useLayoutEffect(() => {
