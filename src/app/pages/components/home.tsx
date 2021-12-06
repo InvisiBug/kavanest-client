@@ -13,6 +13,9 @@ const Sensors: React.FC = () => {
 
   return (
     <>
+      <h1>Sensors</h1>
+      <p>Heating may be on, I've no idea</p>
+
       {data.getAllSensors.map((sensor: any) => {
         return <Sensor sensor={sensor} key={Math.random()}></Sensor>;
       })}
