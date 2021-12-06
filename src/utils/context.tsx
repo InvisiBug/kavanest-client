@@ -5,6 +5,8 @@ const AppContext = createContext<ContextState | undefined>(undefined);
 export const AppProvider: React.FC<Props> = ({ children }) => {
   const [test, setTest] = useState("Test");
 
+  const [screen, setScreen] = useState("home");
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -12,7 +14,26 @@ export const AppProvider: React.FC<Props> = ({ children }) => {
 
   return (
     <>
-      <AppContext.Provider value={{ test, setTest, username, setUsername, password, setPassword, arr, setArr }}>{children}</AppContext.Provider>
+      <AppContext.Provider
+        value={{
+          test,
+          setTest,
+
+          username,
+          setUsername,
+
+          password,
+          setPassword,
+
+          arr,
+          setArr,
+
+          screen,
+          setScreen,
+        }}
+      >
+        {children}
+      </AppContext.Provider>
     </>
   );
 };
@@ -41,4 +62,7 @@ interface ContextState {
 
   arr: Array<any>;
   setArr: (key: any) => void;
+
+  screen: string;
+  setScreen: (key: string) => void;
 }
