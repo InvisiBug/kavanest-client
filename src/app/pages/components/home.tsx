@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState } from "react";
 import { makeRequest } from "../../utils";
-import Sensor from "../../lib/orgamism/sensor";
+import { Sensor } from "../../orgamism";
 
 const Sensors: React.FC = () => {
   const [data, setData] = useState<any | null | void>(null);
