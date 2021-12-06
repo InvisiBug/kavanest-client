@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import { decamelize } from "../utils";
-import { mq, px } from ".";
+import { decamelize } from "../../utils";
+import { mq, px } from "..";
 
 // TODO add media queries to scale the container
 

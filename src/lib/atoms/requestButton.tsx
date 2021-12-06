@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from "react";
-import Button from "../lib/button";
-import { makeRequest } from "../utils";
+import Button from "./button";
+import { makeRequest } from "../../utils";
 
 const RequestButton: React.FC<Props> = ({ setData }) => {
   useLayoutEffect(() => {

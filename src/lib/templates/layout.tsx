@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Global, css } from "@emotion/react";
-import { mq, px } from "../lib/mediaQueries";
-import { PhoneNav } from "./";
+import { mq, px } from "..";
+import { PhoneNav } from "..";
 
 export const Layout: React.FC = ({ children }) => {
   return (

@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { home, setpoints, switches } from "./icons";
+import { home, setpoints, switches } from "../atoms/icons";
 
-import { useAppContext } from "../utils";
+import { useAppContext } from "../../utils";
 
 const navButtons = [
   {
