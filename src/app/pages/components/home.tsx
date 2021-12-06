@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from "react";
-import { makeRequest, useAppContext } from "../../utils";
+import { makeRequest } from "../../utils";
 import Sensor from "../../lib/orgamism/sensor";
 
 const Sensors: React.FC = () => {
