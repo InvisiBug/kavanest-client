@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Home, Setpoints, Switches } from "./components";
-import { useAppContext } from "../../utils";
+import { useAppContext } from "../utils";
 
 const Screens: React.FC = () => {
   const { screen } = useAppContext();

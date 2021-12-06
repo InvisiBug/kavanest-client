@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useLayoutEffect, useState } from "react";
+import { SetpointRequest } from "../../lib";
+import { asyncRequest } from "../../utils";
 
-const Setpoints: React.FC<Props> = () => {
+const Setpoints: React.FC = () => {
+  const [data, setData] = useState<any | null | void>(null);
+
+  useLayoutEffect(() => {
+    asyncRequest(query, setData);
+  }, []);
+
+  if (!data) return <></>;
+
   return (
     <>
       <h1>Hello from setpoints</h1>
+      <SetpointRequest />
     </>
   );
 };
 
 export default Setpoints;
-export interface Props {}
+
+const query: string = `
+  query GetAllSetpoints {
+    response:getAllSetpoints {
+      room
+      setpoints
+    }
+  }
+`;
