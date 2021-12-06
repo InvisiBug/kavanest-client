@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout } from "./app/lib";
+import { Layout } from "./app/lib/templates";
 import { AppProvider } from "./app/utils";
 import Screens from "./app/pages";
 

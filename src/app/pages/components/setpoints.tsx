@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from "react";
-import { SetpointRequest } from "../../lib";
+import { SetpointRequest } from "../../lib/orgamism";
 import { asyncRequest } from "../../utils";
 
 const Setpoints: React.FC = () => {

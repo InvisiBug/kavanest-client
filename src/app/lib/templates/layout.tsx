@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Global, css } from "@emotion/react";
-import { mq, px } from "..";
-import { PhoneNav } from "..";
+import { mq, px } from "../atoms";
+import { PhoneNav } from "../molecules";
 
 export const Layout: React.FC = ({ children }) => {
   return (
@@ -19,6 +19,8 @@ export const Layout: React.FC = ({ children }) => {
     </>
   );
 };
+
+export default Layout;
 
 const AppWindow = styled.div`
   background-color: #1f1f1f;
