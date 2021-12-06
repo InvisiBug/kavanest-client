@@ -17,10 +17,10 @@ switch (environment) {
 
   case "local":
     apiUrl = process.env.REACT_APP_API_LOCAL ?? "";
-    console.log(apiUrl);
     break;
 
   case "docker":
+    apiUrl = process.env.REACT_APP_API_DOCKER ?? "";
     break;
 }
 
