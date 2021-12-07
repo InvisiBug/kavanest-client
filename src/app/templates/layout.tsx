@@ -45,20 +45,21 @@ const Bottom = styled.div`
 `;
 
 const Container = styled.div`
+  max-width: 90vw;
   margin: auto;
-  ${mq("small")} {
-    background-color: red;
-    min-width: ${px("small")}px;
-    /* min-width: 10px; */
-  }
-  ${mq("medium")} {
-    background-color: orange;
-    min-width: ${px("medium")}px;
-  }
-  ${mq("large")} {
-    background-color: orange;
-    max-width: ${px("large")}px;
-  }
+  /* ${mq("small")} { */
+  /* background-color: red; */
+  /* min-width: ${px("small")}px; */
+  /* min-width: 10px; */
+  /* } */
+  /* ${mq("medium")} { */
+  /* background-color: orange; */
+  /* min-width: ${px("medium")}px; */
+  /* } */
+  /* ${mq("large")} { */
+  /* background-color: orange; */
+  /* max-width: ${px("large")}px; */
+  /* } */
 `;
 
 const globalStyles = css`

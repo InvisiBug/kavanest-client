@@ -32,8 +32,8 @@ export const makeRequest = async (query: string) => {
   return data;
 };
 
-export const asyncRequest = async (query: string, datapoint: any) => {
-  await Axios.post(apiUrl, { query }).then((response) => {
+export const asyncRequest = async (query: string, datapoint: any, variables: any = null) => {
+  await Axios.post(apiUrl, { query, variables }).then((response) => {
     datapoint(response.data.data.response);
   });
 };

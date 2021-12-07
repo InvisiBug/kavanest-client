@@ -11,10 +11,21 @@ const Sensor: React.FC<Props> = ({ sensor: { room, rawTemperature, temperature, 
 
   return (
     <>
-      <Container>
-        <Room>{decamelize(room)}</Room>
-        <Temp>{`${temperature}°C`}</Temp>
-        <Icon src={details ? downArrow : rightArrow} onClick={() => setDetails(!details)}></Icon>
+      <Container onClick={() => setDetails(!details)}>
+        <Header>
+          <Room>{decamelize(room)}</Room>
+          <Temp>{`${temperature}°C`}</Temp>
+          <Icon src={details ? downArrow : rightArrow}></Icon>
+        </Header>
+        {details ? (
+          <Details>
+            <RawTemp>{`Raw Temperature: ${rawTemperature}`}</RawTemp>
+            <Temp>{`Temperature: ${temperature}`}</Temp>
+            <Humidity>{`Humidity: ${humidity}`}</Humidity>
+            <Offset>{`Offset: ${offset}`}</Offset>
+            <Connected>{`Connected: ${connected}`}</Connected>
+          </Details>
+        ) : null}
       </Container>
     </>
   );
@@ -28,12 +39,12 @@ const Container = styled.div`
   border-bottom: 1px solid grey;
 
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   margin: auto;
-  /* margin-top: 20px; */
-
   width: 90vw;
+
+  margin-top: 20px;
+
   /* ${mq("small")} {
     max-width: 650px;
     min-width: 650px;
@@ -45,13 +56,13 @@ const Container = styled.div`
   } */
 `;
 
-const Offset = styled.p`
-  display: item;
-  color: purple;
-  align-self: center;
-`;
-const Icon = styled.img`
-  height: 20px;
+const Header = styled.div`
+  display: flex;
+  /* border: 1px solid red; */
+  width: 90vw;
+  align-items: center;
+  margin: auto;
+  flex-grow: 1;
 `;
 
 const Room = styled.h3`
@@ -61,17 +72,35 @@ const Room = styled.h3`
   flex-grow: 1;
 `;
 
-const RawTemp = styled.p`
-  display: item;
-  color: orange;
-  align-self: center;
-`;
-
 const Temp = styled.p`
   display: item;
   color: white;
   align-self: center;
   margin-right: 20px;
+`;
+
+const Icon = styled.img`
+  height: 20px;
+`;
+
+const Details = styled.div`
+  /* height: 20px; */
+  /* background-color: green; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const Offset = styled.p`
+  display: item;
+  color: purple;
+  align-self: center;
+`;
+
+const RawTemp = styled.p`
+  display: item;
+  color: orange;
+  align-self: center;
 `;
 
 const Humidity = styled.p`
@@ -97,12 +126,4 @@ export interface SensorData {
   humidity: number;
   offset: number;
   connected: boolean;
-}
-
-{
-  /* <RawTemp>{`Raw Temperature: ${rawTemperature}`}</RawTemp>
-        <Temp>{`Temperature: ${temperature}`}</Temp>
-        <Humidity>{`Humidity: ${humidity}`}</Humidity>
-        <Offset>{`Offset: ${offset}`}</Offset>
-        <Connected>{`Connected: ${connected}`}</Connected> */
 }

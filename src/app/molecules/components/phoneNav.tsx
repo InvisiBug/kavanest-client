@@ -45,9 +45,6 @@ const Container = styled.div`
 
 const Icon = styled.img`
   height: 50%;
-  /* border: 1px solid white; */
-  /* margin-top: 20px; */
-  /* margin-bottom: 20px; */
 `;
 
 export interface Props {}

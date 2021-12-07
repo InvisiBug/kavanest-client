@@ -1,22 +1,25 @@
 import React, { useLayoutEffect, useState } from "react";
-import { makeRequest } from "../../utils";
+import { asyncRequest } from "../../utils";
 import { Sensor } from "../../orgamisms";
 
 const Sensors: React.FC = () => {
   const [data, setData] = useState<any | null | void>(null);
+  const [heating, setHeating] = useState<any | null | void>(null);
 
   useLayoutEffect(() => {
-    makeRequest(query).then(setData);
+    asyncRequest(getSensors, setData);
+    asyncRequest(getHeating, setHeating, heatingVariables);
   }, []);
 
   if (!data) return <></>;
+  if (heating === undefined) return <></>;
 
   return (
     <>
       <h1>Sensors</h1>
-      <p>Heating may be on, I've no idea</p>
+      <p>Heating is probably {heating ? "on" : "off"}, I've no idea</p>
 
-      {data.getAllSensors.map((sensor: any) => {
+      {data.map((sensor: any) => {
         return <Sensor sensor={sensor} key={Math.random()}></Sensor>;
       })}
     </>
@@ -25,9 +28,9 @@ const Sensors: React.FC = () => {
 
 export default Sensors;
 
-const query: string = `
+const getSensors: string = `
   query GetAllSensors {
-    getAllSensors {
+    response:getAllSensors {
       room
       rawTemperature
       temperature
@@ -37,3 +40,15 @@ const query: string = `
     }
   }
 `;
+
+const getHeating: string = `
+  query GetPlug($name: String) {
+    response:getPlug(name: $name) {
+      state
+    }
+  },
+  `;
+
+const heatingVariables = {
+  name: "heating",
+};
