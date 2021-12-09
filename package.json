@@ -8,6 +8,8 @@
     "build": "react-scripts build",
     "push": "./bin/push.sh",
     "deploy": "yarn push && ./bin/deploy.sh",
+    "deploy--live": "./bin/deploy--live.sh",
+    "deploy--test": "./bin/deploy--test.sh",
     "up": "clear && ./bin/start-container.sh",
     "down": "docker-compose down",
     "logs": "docker logs simulator -f"
@@ -27,6 +29,7 @@
     "react-dom": "^17.0.2",
     "react-query": "^3.32.3",
     "react-scripts": "4.0.3",
+    "react-transition-group": "^4.4.2",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },

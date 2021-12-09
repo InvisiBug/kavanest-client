@@ -1,15 +1,16 @@
 import React from "react";
-import { Sensors, Setpoints } from "./components";
-import { Layout } from "./lib";
+import { Layout } from "./app/templates";
+import { AppProvider } from "./app/utils";
+import Screens from "./app/";
 
 const App: React.FC = () => {
   return (
     <>
-      <Layout>
-        test
-        <Sensors />
-        <Setpoints />
-      </Layout>
+      <AppProvider>
+        <Layout>
+          <Screens />
+        </Layout>
+      </AppProvider>
     </>
   );
 };

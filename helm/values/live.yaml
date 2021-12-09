@@ -8,7 +8,10 @@ deployment:
     ports:
     - port: 80
     env:
-    - name: REACT_APP_URL
+    - name: REACT_APP_ENVIRONMENT
+      value: live
+
+    - name: REACT_APP_API_LIVE
       value: https://api.kavanet.io/
 
 ingress:
