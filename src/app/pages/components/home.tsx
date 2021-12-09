@@ -9,6 +9,7 @@ const Sensors: React.FC = () => {
   useLayoutEffect(() => {
     asyncRequest(getSensors, setData);
     asyncRequest(getHeating, setHeating, heatingVariables);
+    if (data) console.log(data);
   }, []);
 
   if (!data) return <></>;

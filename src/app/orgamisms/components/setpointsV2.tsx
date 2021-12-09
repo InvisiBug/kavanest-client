@@ -7,32 +7,49 @@ import { mq, px, rightArrow, downArrow } from "../../atoms";
 
 // TODO add media queries to scale the container
 
-const Sensor: React.FC<Props> = ({ sensor: { room, rawTemperature, temperature, humidity, offset, connected } }) => {
+const SetpointsV2: React.FC<Props> = ({ data: { room, setpoints } }) => {
   const [details, setDetails] = useState(false);
+  console.log(setpoints);
+
+  const createSetpoints = () => {
+    const currentSetpoints: any = [];
+    for (let time in setpoints) {
+      currentSetpoints.push(
+        <Details>
+          <Time>{time}</Time>
+          <Temp>{setpoints[time]}°C</Temp>
+        </Details>
+      );
+    }
+    currentSetpoints.push(<Add>add button here</Add>);
+    return currentSetpoints;
+  };
 
   return (
     <>
       <Container>
         <Header onClick={() => setDetails(!details)}>
           <Room>{decamelize(room)}</Room>
-          <Temp>{`${temperature}°C`}</Temp>
+          <div>Weekday</div>
+          <div>Weekend</div>
           <Icon src={details ? downArrow : rightArrow}></Icon>
         </Header>
-        {details ? (
-          <Details>
-            <RawTemp>{`Raw Temperature: ${rawTemperature}`}</RawTemp>
-            <Temp>{`Temperature: ${temperature}`}</Temp>
-            <Humidity>{`Humidity: ${humidity}`}</Humidity>
-            <Offset>{`Offset: ${offset}`}</Offset>
-            <Connected>{`Connected: ${connected}`}</Connected>
-          </Details>
-        ) : null}
+        {details ? createSetpoints() : null}
       </Container>
     </>
   );
 };
 
-export default Sensor;
+// ? setpoints.map((setpoint: any) => {
+//   console.log(setpoint);
+//   return <Details>setpoint.time</Details>;
+// })
+// : null}
+
+export default SetpointsV2;
+const Setpoint = styled.div`
+  display: flex;
+`;
 
 const bounce = keyframes`
   /* from, 20%, 53%, 80%, to {
@@ -133,7 +150,7 @@ const Room = styled.h3`
   flex-grow: 1;
 `;
 
-const Temp = styled.p`
+const Time = styled.p`
   display: item;
   align-self: center;
   margin-right: 20px;
@@ -148,8 +165,10 @@ const Details = styled.div`
   /* background-color: green; */
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  justify-content: space-around;
+  ::last-of-type {
+    margin-bottom: 20px;
+  }
   /* border: 1px solid white; */
   /* animation: ${bounce} 1s; */
   /* animation: ${fade} 2s; */
@@ -162,7 +181,12 @@ const Offset = styled.p`
   align-self: center;
 `;
 
-const RawTemp = styled.p`
+const Temp = styled.p`
+  display: item;
+  align-self: center;
+  margin-right: 20px;
+`;
+const Add = styled.p`
   display: item;
   align-self: center;
 `;
@@ -178,7 +202,7 @@ const Connected = styled.p`
 `;
 
 export interface Props {
-  sensor: SensorData;
+  data: any;
 }
 
 export interface SensorData {
