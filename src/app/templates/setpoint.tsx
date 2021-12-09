@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 
 import { decamelize } from "../utils";
-import { mq, px, rightArrow, downArrow } from "../atoms";
+import { mq, px, rightArrow, downArrow, flame } from "../atoms";
 
 // TODO add media queries to scale the container
 
@@ -16,7 +16,7 @@ const SetpointsV3: React.FC<Props> = ({ data: { room, setpoints, heating } }) =>
       <Container>
         <Header>
           <Room>{decamelize(room)}</Room>
-          <FlameIcon src="https://c.tenor.com/VUH3A7tK-qgAAAAi/dm4uz3-foekoe.gif"></FlameIcon>
+          <FlameIcon src={flame}></FlameIcon>
 
           <Temps>
             <Setpoint heating={true}>Setpoint°C</Setpoint>
