@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState } from "react";
 import { PageTitle } from "../../atoms";
 import { Setpoints } from "../../orgamisms";
 import { asyncRequest } from "../../utils";
-import Switches from "../../templates/switches";
+import { RoomSetpoints } from "../../templates";
 
 const SetpointsPage: React.FC = () => {
   const [data, setData] = useState<any | null | void>(null);
@@ -19,7 +19,7 @@ const SetpointsPage: React.FC = () => {
       if (data[rooms].room === details) {
         return (
           <>
-            <Switches close={() => setDetails(false)} name={data[rooms].room} />
+            <RoomSetpoints close={() => setDetails(false)} name={data[rooms].room} />
           </>
         );
       }

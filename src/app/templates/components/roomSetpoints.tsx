@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect, useEffect } from "react";
 import styled from "@emotion/styled";
-import { asyncRequest, decamelize } from "../utils";
+import { asyncRequest, decamelize } from "../../utils";
 
 const Switches: React.FC<any> = ({ name, close = null }) => {
   const [data, setData] = useState<any | null | void>(null);
