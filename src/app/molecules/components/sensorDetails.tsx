@@ -18,11 +18,19 @@ const ShowDetails: React.FC<Props> = ({ rawTemperature, temperature, humidity, o
 
 export default ShowDetails;
 
+// TODO make this better lol
+
 const Details = styled.div`
-  display: flex;
+  /* border: 1px solid red; */
+  /* display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin-bottom: 20px;
+  justify-content: space-evenly; */
+
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: repeat(2, 1fr);
+
+  /* margin-bottom: 20px; */
 `;
 
 interface Props {
