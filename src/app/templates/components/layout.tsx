@@ -70,5 +70,6 @@ const globalStyles = css`
     box-sizing: border-box;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
+    user-select: none;
   }
 `;

@@ -20,8 +20,9 @@ interface Props {
 }
 
 const Container = styled.div`
-  border: 1px solid red;
+  /* border: 1px solid red; */
   margin-bottom: 1rem;
+
   /* margin-bottom: 0px; */
 `;
 const TitleText = styled.h1`

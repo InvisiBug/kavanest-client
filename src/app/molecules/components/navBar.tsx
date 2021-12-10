@@ -54,6 +54,7 @@ const Container = styled.div`
 
 const Icon = styled.img`
   height: 50%;
+  cursor: pointer;
 `;
 
 export interface Props {}

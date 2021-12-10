@@ -64,7 +64,6 @@ export default Switches;
 export interface Props {}
 const Details = styled.div`
   /* height: 20px; */
-  /* background-color: green; */
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -102,7 +101,7 @@ const PageTitle = styled.div`
 const FlameIcon = styled.img`
   /* height: 50px; */
 
-  object-fit: scale-down;
+  /* object-fit: scale-down; */
   height: 35px;
   margin-right: 2rem;
   margin-top: -12px;
