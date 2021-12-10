@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useState } from "react";
 import { asyncRequest } from "../../utils";
 import { Sensor } from "../../orgamisms";
+import { PageTitle } from "../../atoms";
 
 const Sensors: React.FC = () => {
   const [data, setData] = useState<any | null | void>(null);
@@ -10,15 +11,14 @@ const Sensors: React.FC = () => {
     asyncRequest(getSensors, setData);
     asyncRequest(getHeating, setHeating, heatingVariables);
     if (data) console.log(data);
-  }, []);
+  }, []); // eslint-disable-line
 
   if (!data) return <></>;
   if (heating === undefined) return <></>;
 
   return (
     <>
-      <h1>Sensors</h1>
-      <p>Heating is probably {heating ? "on" : "off"}, I've no idea</p>
+      <PageTitle desc={`Heating is probably ${heating ? "on" : "off"}, I've no idea`}>Sensors</PageTitle>
 
       {data.map((sensor: any) => {
         return <Sensor sensor={sensor} key={Math.random()}></Sensor>;

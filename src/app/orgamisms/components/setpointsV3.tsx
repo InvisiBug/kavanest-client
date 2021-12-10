@@ -17,7 +17,6 @@ const SetpointsV3: React.FC<Props> = ({ data: { room, setpoints, heating }, onCl
         <Header>
           <Room onClick={close}>{decamelize(room)}</Room>
           <FlameIcon src={flame}></FlameIcon>
-
           <Temps>
             <Setpoint heating={false}>Setpoint°C</Setpoint>
             <Temp>Curent°C</Temp>
