@@ -11,7 +11,13 @@ const Switches: React.FC<any> = ({ name, close = null }) => {
     });
   }, []); // eslint-disable-line
 
-  if (!data) return <></>;
+  if (!data) {
+    return (
+      <>
+        <h1>No Data Avilable</h1>
+      </>
+    );
+  }
 
   const createSetpoints = () => {
     const currentSetpoints: any = [];

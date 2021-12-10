@@ -1,1 +1,1 @@
-export { default as PhoneNav } from "./components/phoneNav";
+export { default as PhoneNav } from "./components/navBar";
