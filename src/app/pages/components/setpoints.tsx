@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState } from "react";
 import { PageTitle } from "../../atoms";
-import { Setpoints } from "../../orgamisms";
+import { Setpoint } from "../../orgamisms";
 import { asyncRequest } from "../../utils";
 import { RoomSetpoints } from "../../templates";
 
@@ -14,12 +14,12 @@ const SetpointsPage: React.FC = () => {
 
   if (!data) return <></>;
 
-  const showDetails = () => {
+  const showRoomSetpoints = () => {
     for (let rooms in data) {
       if (data[rooms].room === details) {
         return (
           <>
-            <RoomSetpoints close={() => setDetails(false)} name={data[rooms].room} />
+            <RoomSetpoints close={() => setDetails(false)} name={data[rooms].room} key={Math.random()} />
           </>
         );
       }
@@ -27,29 +27,18 @@ const SetpointsPage: React.FC = () => {
   };
 
   const showAllRooms = (data: any) => {
-    const arr: any = [<PageTitle>Room Setpoints</PageTitle>];
+    const arr: any = [<PageTitle key={Math.random()}>Room Setpoints</PageTitle>];
 
     data.forEach((room: any) => {
-      arr.push(
-        <Setpoints
-          data={room}
-          key={Math.random()}
-          onClick={() => {
-            setDetails(room.room);
-          }}
-          close={() => setDetails(false)}
-        />
-      );
+      arr.push(<Setpoint data={room} key={Math.random()} onClick={() => setDetails(room.room)} close={() => setDetails(false)} />);
     });
     return arr;
   };
 
-  // return <>{details ? showDetails() : showAllRooms(data)}</>;
-
   if (!details) {
     return showAllRooms(data);
   } else {
-    return showDetails();
+    return showRoomSetpoints();
   }
 };
 

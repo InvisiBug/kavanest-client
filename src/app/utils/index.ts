@@ -24,8 +24,8 @@ switch (environment) {
     break;
 }
 
-export const makeRequest = async (query: string) => {
-  const data = await Axios.post(apiUrl, { query }).then((response) => {
+export const makeRequest = async (query: string, variables: any = null) => {
+  const data = await Axios.post(apiUrl, { query, variables }).then((response) => {
     return response.data.data;
   });
 

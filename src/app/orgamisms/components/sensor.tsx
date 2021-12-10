@@ -10,13 +10,9 @@ const Sensor: React.FC<Props> = ({ sensor: { room, rawTemperature, temperature, 
   const showDetails = () => {
     return (
       <>
-        <SensorDetails
-          temperature={temperature}
-          rawTemperature={rawTemperature}
-          humidity={humidity}
-          offset={offset}
-          connected={connected}
-        ></SensorDetails>
+        <div onClick={() => setDetails(!details)}>
+          <SensorDetails temperature={temperature} rawTemperature={rawTemperature} humidity={humidity} offset={offset} connected={connected} />
+        </div>
       </>
     );
   };
@@ -59,6 +55,7 @@ const Header = styled.div`
   margin: auto;
   flex-grow: 1;
   min-height: 0px;
+  cursor: pointer;
 `;
 
 const Temp = styled.div`

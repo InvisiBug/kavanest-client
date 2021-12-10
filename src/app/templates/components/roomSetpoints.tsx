@@ -1,36 +1,41 @@
-import React, { useState, useLayoutEffect, useEffect } from "react";
-import styled from "@emotion/styled";
+import React, { useState, useEffect } from "react";
 import { asyncRequest, decamelize } from "../../utils";
+import styled from "@emotion/styled";
+import { flame } from "../../atoms";
 
 const Switches: React.FC<any> = ({ name, close = null }) => {
   const [data, setData] = useState<any | null | void>(null);
+  const [heating, setHeating] = useState<any | null | void>(null);
 
-  useLayoutEffect(() => {
-    asyncRequest(query, setData, {
+  useEffect(() => {
+    asyncRequest(setpointQuery, setData, {
       room: name,
+    });
+    asyncRequest(query, setHeating, {
+      name: name,
     });
   }, []); // eslint-disable-line
 
-  if (!data) {
-    return <>{/* <h1>No Data Avilable</h1> */}</>;
-  }
+  if (!data || heating === undefined) return <></>;
 
   const createSetpoints = () => {
-    const currentSetpoints: any = [];
+    const setpointsArray: any = [];
+
     for (let time in data.setpoints) {
-      currentSetpoints.push(
-        <Details>
+      setpointsArray.push(
+        <SetpointRow key={Math.random()}>
           <Time>{time}</Time>
           <Temp>{data.setpoints[time]}°C</Temp>
-        </Details>
+        </SetpointRow>
       );
     }
-    currentSetpoints.push(
-      <Details>
+
+    setpointsArray.push(
+      <SetpointRow key={Math.random()}>
         <Add>add button here</Add>
-      </Details>
+      </SetpointRow>
     );
-    return currentSetpoints;
+    return setpointsArray;
   };
 
   return (
@@ -43,36 +48,54 @@ const Switches: React.FC<any> = ({ name, close = null }) => {
           <Top>Setpoint: 20°C</Top>
           <Bottom>Current: 19°C</Bottom>
         </Left>
-        <FlameIcon src="https://c.tenor.com/VUH3A7tK-qgAAAAi/dm4uz3-foekoe.gif"></FlameIcon>
+        {heating && heating.state ? <FlameIcon src={flame}></FlameIcon> : null}
         <Right>Deadzone</Right>
       </Info>
-      <div>{createSetpoints()}</div>
+      {createSetpoints()}
     </>
   );
 };
 
-const query: string = `
-    query GetAllSetpoints($room: String) {
-      response:getSetpoints(room: $room) {
-        room
-        setpoints
-      }
-    }
-  `;
-
 export default Switches;
-export interface Props {}
-const Details = styled.div`
-  /* height: 20px; */
+export interface Props {
+  name: string;
+  close?: () => void;
+}
+
+const setpointQuery: string = `
+  query($room: String) {
+    response:getSetpoints(room: $room) {
+      room
+      setpoints
+    }
+  }
+`;
+
+// const query: string = `
+//   query GetValve($name: String) {
+//     response:getValve(name: $name) {
+//       state
+//       name
+//     }
+//   }
+// `;
+
+const query: string = `
+  query GetValve($name: String) {
+    response:getValve(name: $name) {
+      state
+      name
+    }
+  }
+`;
+
+const SetpointRow = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   ::last-of-type {
     margin-bottom: 20px;
   }
-  /* border: 1px solid white; */
-  /* animation: slide-out-top 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards; */
-  /* transition: all 0.5s ease; */
 `;
 
 const Add = styled.p`
@@ -95,13 +118,9 @@ const Temp = styled.p`
 `;
 
 const PageTitle = styled.div`
-  /* color: red; */
-  /* border: 1px solid red; */
+  cursor: pointer;
 `;
 const FlameIcon = styled.img`
-  /* height: 50px; */
-
-  /* object-fit: scale-down; */
   height: 35px;
   margin-right: 2rem;
   margin-top: -12px;

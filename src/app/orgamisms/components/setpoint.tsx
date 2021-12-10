@@ -1,32 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import styled from "@emotion/styled";
-
 import { decamelize } from "../../utils";
-import { rightArrow, downArrow, flame } from "../../atoms";
+import { rightArrow, flame } from "../../atoms";
+import { asyncRequest, makeRequest } from "../../utils";
 
-const SetpointsV3: React.FC<Props> = ({ data: { room, setpoints, heating }, onClick = null, close = null }) => {
-  const [details, setDetails] = useState(false);
+const Setpoints: React.FC<Props> = ({ data: { room, setpoints }, onClick = null, close = null }) => {
+  const [details, setDetails] = useState<any | null | void>(null);
 
-  console.log(setpoints);
+  useLayoutEffect(() => {
+    if (room) {
+      asyncRequest(query, setDetails, { name: room });
+    }
+  }, []);
+
+  if (!details) return <></>;
 
   return (
     <>
       <Container onClick={onClick}>
         <Header>
+          {/* {details ? <p>{JSON.stringify(details.state)}</p> : console.log("no")} */}
           <Room onClick={close}>{decamelize(room)}</Room>
-          <FlameIcon src={flame}></FlameIcon>
+          {details.state ? <FlameIcon src={flame}></FlameIcon> : null}
           <Temps>
             <Setpoint heating={false}>Setpoint°C</Setpoint>
             <Temp>Curent°C</Temp>
           </Temps>
-          <Icon src={details ? downArrow : rightArrow}></Icon>
+          <Icon src={rightArrow}></Icon>
         </Header>
       </Container>
     </>
   );
 };
 
-export default SetpointsV3;
+export default Setpoints;
 
 export interface Props {
   data: any;
@@ -34,14 +41,14 @@ export interface Props {
   close: any;
 }
 
-export interface SensorData {
-  room: string;
-  rawTemperature: number;
-  temperature: number;
-  humidity: number;
-  offset: number;
-  connected: boolean;
-}
+const query: string = `
+  query GetValve($name: String) {
+    response:getValve(name: $name) {
+      state
+      name
+    }
+  }
+`;
 
 const Setpoint = styled.div`
   color: ${(props: { heating: boolean }) => (props.heating ? `orangered` : null)};
@@ -74,6 +81,7 @@ const Container = styled.div`
   margin: auto;
   /* width: 100vw; */
   min-height: 0px;
+  cursor: pointer;
 `;
 
 const Header = styled.div`

@@ -29,6 +29,7 @@ const Details = styled.div`
   display: grid;
   grid-gap: 5px;
   grid-template-columns: repeat(2, 1fr);
+  cursor: pointer;
 
   /* margin-bottom: 20px; */
 `;
