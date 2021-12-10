@@ -1,10 +1,11 @@
 import React from "react";
+import { PageTitle } from "../../atoms";
 
 const Switches: React.FC<any> = ({ name, close = null }) => {
   return (
     <>
       <div>
-        <h1>Welcome to the swtiches screen</h1>
+        <PageTitle>Welcome to the swtiches screen</PageTitle>
       </div>
     </>
   );

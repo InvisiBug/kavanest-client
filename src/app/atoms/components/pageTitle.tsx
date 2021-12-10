@@ -1,25 +1,35 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-const PageHeader: React.FC<Props> = ({ children, desc }) => {
+const PageTitle: React.FC<Props> = ({ children, desc = null }) => {
   return (
     <>
-      <TitleText>{children}</TitleText>
-      <DescriptionText>{desc}</DescriptionText>
+      <Container>
+        <TitleText>{children}</TitleText>
+        {desc ? <DescriptionText>{desc}</DescriptionText> : null}
+      </Container>
     </>
   );
 };
 
-export default PageHeader;
+export default PageTitle;
 
 interface Props {
   children: string;
-  desc: string;
+  desc?: string | null;
 }
 
+const Container = styled.div`
+  border: 1px solid red;
+  margin-bottom: 1rem;
+  /* margin-bottom: 0px; */
+`;
 const TitleText = styled.h1`
   margin-bottom: 0px;
+
   /* font-size: 1.5rem; */
 `;
 
-const DescriptionText = styled.p``;
+const DescriptionText = styled.p`
+  font-size: 1.2rem;
+`;

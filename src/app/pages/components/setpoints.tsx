@@ -1,7 +1,8 @@
 import React, { useLayoutEffect, useState } from "react";
-import { SetpointsV3 } from "../../orgamisms";
+import { PageTitle } from "../../atoms";
+import { Setpoints } from "../../orgamisms";
 import { asyncRequest } from "../../utils";
-import Switches from "./switches";
+import Switches from "../../templates/switches";
 
 const SetpointsPage: React.FC = () => {
   const [data, setData] = useState<any | null | void>(null);
@@ -26,11 +27,11 @@ const SetpointsPage: React.FC = () => {
   };
 
   const showAllRooms = (data: any) => {
-    const arr: any = [<h1>Room Setpoints</h1>];
+    const arr: any = [<PageTitle>Room Setpoints</PageTitle>];
 
     data.forEach((room: any) => {
       arr.push(
-        <SetpointsV3
+        <Setpoints
           data={room}
           key={Math.random()}
           onClick={() => {

@@ -1,10 +1,11 @@
 import React from "react";
+import { PageTitle } from "../../atoms";
 
 const Home: React.FC = () => {
   return (
     <>
       <div>
-        <h1>Welcome to the home screen</h1>
+        <PageTitle>Welcome to the home screen</PageTitle>
       </div>
     </>
   );
