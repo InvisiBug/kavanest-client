@@ -13,8 +13,7 @@ const Sensors: React.FC = () => {
     if (data) console.log(data);
   }, []); // eslint-disable-line
 
-  if (!data) return <></>;
-  if (heating === undefined) return <></>;
+  if (!data || heating === undefined) return <></>;
 
   return (
     <>
