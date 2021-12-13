@@ -1,42 +1,46 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PageTitle } from "../../atoms";
 import { RoomSetpointSelection } from "../../orgamisms";
 import { asyncRequest } from "../../utils";
 import { RoomSetpoints } from "../../templates";
 
 const SetpointsPage: React.FC = () => {
-  const [data, setData] = useState<any | null | void>(null);
-  const [roomToShow, setRoomToShow] = useState<any | null | void>(false);
+  const [roomWithValve, setRoomWithValve] = useState<any>(null);
+  const [roomToShow, setRoomToShow] = useState<any>(false);
 
-  useLayoutEffect(() => {
-    asyncRequest(query, setData);
+  useEffect(() => {
+    asyncRequest(whereAreTheValves, setRoomWithValve);
   }, []);
 
-  const showAllRooms = (data: any) => {
-    const arr: any = [<PageTitle key={Math.random()}>Room Heating Setpoints</PageTitle>];
+  const showAllRooms = (roomWithValve: any) => {
+    const arr: any = [
+      <PageTitle key={Math.random()} desc={"Each room shown here has a valve"}>
+        Room Heating Setpoints
+      </PageTitle>,
+    ];
 
-    data.forEach((room: any) => {
+    roomWithValve.forEach((room: any) => {
       arr.push(<RoomSetpointSelection data={room} key={Math.random()} onClick={() => setRoomToShow(room.room)} close={() => setRoomToShow(false)} />);
     });
     return arr;
   };
 
   const showRoomSetpoints = (roomToShow: string) => {
-    for (let rooms in data) {
-      if (data[rooms].room === roomToShow) {
+    for (let rooms in roomWithValve) {
+      if (roomWithValve[rooms].room === roomToShow) {
         return (
           <>
-            <RoomSetpoints close={() => setRoomToShow(false)} name={data[rooms].room} key={Math.random()} />
+            <RoomSetpoints close={() => setRoomToShow(false)} room={roomWithValve[rooms].room} key={Math.random()} />
           </>
         );
       }
     }
   };
 
-  if (!data) return <></>;
+  if (!roomWithValve) return <></>;
 
   if (!roomToShow) {
-    return showAllRooms(data);
+    return showAllRooms(roomWithValve);
   } else {
     return showRoomSetpoints(roomToShow);
   }
@@ -44,10 +48,11 @@ const SetpointsPage: React.FC = () => {
 
 export default SetpointsPage;
 
-const query: string = `
-  query GetAllSetpoints {
-    response:getAllSetpoints {
+const whereAreTheValves: string = `
+  query GetValves {
+    response:getValves {
       room
+      state
     }
   }
 `;

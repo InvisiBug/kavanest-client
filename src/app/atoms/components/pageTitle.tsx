@@ -16,7 +16,7 @@ export default PageTitle;
 
 interface Props {
   children: string;
-  desc?: string | null;
+  desc?: string;
 }
 
 const Container = styled.div`
@@ -32,5 +32,6 @@ const TitleText = styled.h1`
 `;
 
 const DescriptionText = styled.p`
-  font-size: 1.2rem;
+  margin-top: 5px;
+  font-size: 1rem;
 `;

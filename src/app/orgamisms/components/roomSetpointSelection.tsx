@@ -4,22 +4,19 @@ import { decamelize } from "../../utils";
 import { rightArrow, flame } from "../../atoms";
 import { asyncRequest } from "../../utils";
 
+/*
+  Each room that has a valve gets a setpoint modifier screen
+*/
 const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = null }) => {
-  const [valve, setValve] = useState<any | null | void>(null);
-  const [setpoint, setSetpoint] = useState<any | null | void>(null);
-  const [sensor, setSensor] = useState<any | null | void>(null);
+  const [valve, setValve] = useState<any>(null);
+  const [sensor, setSensor] = useState<any>(null);
 
   useEffect(() => {
     asyncRequest(query, setValve, { room: room });
-    asyncRequest(setpointQuery, setSetpoint, { room: room });
     asyncRequest(sensorQuery, setSensor, { room: room });
-
-    console.log(room);
   }, []); //eslint-disable-line
 
-  if (!valve || !setpoint || !sensor) return <></>;
-
-  console.log(setpoint);
+  if (!valve || !sensor) return <></>;
 
   return (
     <>
@@ -31,7 +28,6 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
           <Temp>{sensor.temperature}°C</Temp>
         </Vals>
         <Icon src={rightArrow}></Icon>
-        {/* {setpoint ? <pre>{JSON.stringify(setpoint)}</pre> : null} */}
       </Container>
     </>
   );

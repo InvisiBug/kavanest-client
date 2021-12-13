@@ -4,64 +4,73 @@ import styled from "@emotion/styled";
 import { flame, plus } from "../../atoms";
 import { CurrentSetpoint, NewSetpoint } from "../../orgamisms";
 
-const Switches: React.FC<any> = ({ name, close = null }) => {
-  const [data, setData] = useState<any | null>(null);
-  const [heating, setHeating] = useState<any | null | void>(null);
-  const [newSetpoint, setnewSetpoint] = useState<boolean | null | void>(false);
+const Switches: React.FC<any> = ({ room, close = null }) => {
+  const [currentSetpoints, iHazSetpoint] = useState<any | null>(null);
+  const [valves, iHazValve] = useState<any | null | void>(null);
+  const [showNewSetpoint, setShowNewSetpoint] = useState<boolean | null | void>(false);
 
   useEffect(() => {
-    asyncRequest(setpointQuery, setData, {
-      room: name,
+    asyncRequest(setpointsPls, iHazSetpoint, {
+      room,
     });
-    asyncRequest(query, setHeating, {
-      room: name,
+    asyncRequest(valvesPls, iHazValve, {
+      room,
     });
   }, []); // eslint-disable-line
 
-  const newSetpointClosed = () => {
-    setnewSetpoint(false);
-    asyncRequest(setpointQuery, setData, {
-      room: name,
+  const refreshPage = () => {
+    setShowNewSetpoint(false);
+    asyncRequest(setpointsPls, iHazSetpoint, {
+      room,
     });
-    asyncRequest(query, setHeating, {
-      room: name,
+    asyncRequest(valvesPls, iHazValve, {
+      room,
     });
   };
 
   const createSetpoints = () => {
     const setpointsArray: any = [];
 
-    for (let time in data.setpoints) {
+    /* If we dont have setpoints, Show the form to add a new setpoint */
+    if (!currentSetpoints) {
+      return (
+        <SetpointRow key={Math.random()}>
+          {showNewSetpoint ? <NewSetpoint close={refreshPage} room={room} /> : <Add src={plus} onClick={() => setShowNewSetpoint(true)} />}
+        </SetpointRow>
+      );
+    }
+
+    for (let time in currentSetpoints.setpoints) {
       setpointsArray.push(
         <SetpointRow key={Math.random()}>
-          <CurrentSetpoint time={time} temp={data.setpoints[time]} />
+          <CurrentSetpoint time={time} temp={currentSetpoints.setpoints[time]} room={room} close={refreshPage} />
         </SetpointRow>
       );
     }
 
     setpointsArray.push(
       <SetpointRow key={Math.random()}>
-        <SetpointRow key={Math.random()}>
-          {newSetpoint ? <NewSetpoint close={newSetpointClosed} room={data.room} /> : <Add src={plus} onClick={() => setnewSetpoint(true)} />}
-        </SetpointRow>
+        {showNewSetpoint ? <NewSetpoint close={refreshPage} room={room} /> : <Add src={plus} onClick={() => setShowNewSetpoint(true)} />}
       </SetpointRow>
     );
     return setpointsArray;
   };
 
-  if (!data || heating === undefined) return <></>;
+  if (!room || valves === undefined) {
+    return <></>;
+  }
 
   return (
     <>
       <PageTitle onClick={close}>
-        <TitleText>&larr; {decamelize(data.room)}</TitleText>
+        <TitleText>&larr; {decamelize(room)}</TitleText>
       </PageTitle>
       <Info>
         <Left>
           <Top>Setpoint: 20°C</Top>
           <Bottom>Current: 19°C</Bottom>
         </Left>
-        {heating && heating.state ? <FlameIcon src={flame}></FlameIcon> : null}
+        {valves && valves.state ? <FlameIcon src={flame}></FlameIcon> : null}
         <Right>Deadzone</Right>
       </Info>
       {createSetpoints()}
@@ -75,20 +84,18 @@ export interface Props {
   close?: () => void;
 }
 
-const setpointQuery: string = `
+const setpointsPls: string = `
   query($room: String) {
     response:getSetpoints(room: $room) {
-      room
       setpoints
     }
   }
 `;
 
-const query: string = `
+const valvesPls: string = `
   query GetValve($room: String) {
     response:getValve(room: $room) {
       state
-      room
     }
   }
 `;
