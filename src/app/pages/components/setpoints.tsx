@@ -1,44 +1,44 @@
 import React, { useLayoutEffect, useState } from "react";
 import { PageTitle } from "../../atoms";
-import { Setpoint } from "../../orgamisms";
+import { RoomSetpointSelection } from "../../orgamisms";
 import { asyncRequest } from "../../utils";
 import { RoomSetpoints } from "../../templates";
 
 const SetpointsPage: React.FC = () => {
   const [data, setData] = useState<any | null | void>(null);
-  const [details, setDetails] = useState<any | null | void>(false);
+  const [roomToShow, setRoomToShow] = useState<any | null | void>(false);
 
   useLayoutEffect(() => {
     asyncRequest(query, setData);
   }, []);
 
-  if (!data) return <></>;
+  const showAllRooms = (data: any) => {
+    const arr: any = [<PageTitle key={Math.random()}>Room Heating Setpoints</PageTitle>];
 
-  const showRoomSetpoints = () => {
+    data.forEach((room: any) => {
+      arr.push(<RoomSetpointSelection data={room} key={Math.random()} onClick={() => setRoomToShow(room.room)} close={() => setRoomToShow(false)} />);
+    });
+    return arr;
+  };
+
+  const showRoomSetpoints = (roomToShow: string) => {
     for (let rooms in data) {
-      if (data[rooms].room === details) {
+      if (data[rooms].room === roomToShow) {
         return (
           <>
-            <RoomSetpoints close={() => setDetails(false)} name={data[rooms].room} key={Math.random()} />
+            <RoomSetpoints close={() => setRoomToShow(false)} name={data[rooms].room} key={Math.random()} />
           </>
         );
       }
     }
   };
 
-  const showAllRooms = (data: any) => {
-    const arr: any = [<PageTitle key={Math.random()}>Room Setpoints</PageTitle>];
+  if (!data) return <></>;
 
-    data.forEach((room: any) => {
-      arr.push(<Setpoint data={room} key={Math.random()} onClick={() => setDetails(room.room)} close={() => setDetails(false)} />);
-    });
-    return arr;
-  };
-
-  if (!details) {
+  if (!roomToShow) {
     return showAllRooms(data);
   } else {
-    return showRoomSetpoints();
+    return showRoomSetpoints(roomToShow);
   }
 };
 
@@ -48,7 +48,6 @@ const query: string = `
   query GetAllSetpoints {
     response:getAllSetpoints {
       room
-      setpoints
     }
   }
 `;

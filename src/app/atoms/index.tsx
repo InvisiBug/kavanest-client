@@ -1,5 +1,5 @@
 // Icons
-export { home, setpoints, switches, rightArrow, downArrow, flame, sensor } from "./components/icons";
+export { cancel, home, setpoints, switches, rightArrow, downArrow, flame, sensor, plus } from "./components/icons";
 
 // Elements
 export { default as button } from "./components/button";

@@ -1,22 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { asyncRequest, decamelize } from "../../utils";
 import styled from "@emotion/styled";
-import { flame } from "../../atoms";
+import { flame, plus } from "../../atoms";
+import { CurrentSetpoint, NewSetpoint } from "../../orgamisms";
 
 const Switches: React.FC<any> = ({ name, close = null }) => {
-  const [data, setData] = useState<any | null | void>(null);
+  const [data, setData] = useState<any | null>(null);
   const [heating, setHeating] = useState<any | null | void>(null);
+  const [newSetpoint, setnewSetpoint] = useState<boolean | null | void>(false);
 
   useEffect(() => {
     asyncRequest(setpointQuery, setData, {
       room: name,
     });
     asyncRequest(query, setHeating, {
-      name: name,
+      room: name,
     });
   }, []); // eslint-disable-line
 
-  if (!data || heating === undefined) return <></>;
+  const newSetpointClosed = () => {
+    setnewSetpoint(false);
+    asyncRequest(setpointQuery, setData, {
+      room: name,
+    });
+    asyncRequest(query, setHeating, {
+      room: name,
+    });
+  };
 
   const createSetpoints = () => {
     const setpointsArray: any = [];
@@ -24,19 +34,22 @@ const Switches: React.FC<any> = ({ name, close = null }) => {
     for (let time in data.setpoints) {
       setpointsArray.push(
         <SetpointRow key={Math.random()}>
-          <Time>{time}</Time>
-          <Temp>{data.setpoints[time]}°C</Temp>
+          <CurrentSetpoint time={time} temp={data.setpoints[time]} />
         </SetpointRow>
       );
     }
 
     setpointsArray.push(
       <SetpointRow key={Math.random()}>
-        <Add>add button here</Add>
+        <SetpointRow key={Math.random()}>
+          {newSetpoint ? <NewSetpoint close={newSetpointClosed} room={data.room} /> : <Add src={plus} onClick={() => setnewSetpoint(true)} />}
+        </SetpointRow>
       </SetpointRow>
     );
     return setpointsArray;
   };
+
+  if (!data || heating === undefined) return <></>;
 
   return (
     <>
@@ -71,55 +84,37 @@ const setpointQuery: string = `
   }
 `;
 
-// const query: string = `
-//   query GetValve($name: String) {
-//     response:getValve(name: $name) {
-//       state
-//       name
-//     }
-//   }
-// `;
-
 const query: string = `
-  query GetValve($name: String) {
-    response:getValve(name: $name) {
+  query GetValve($room: String) {
+    response:getValve(room: $room) {
       state
-      name
+      room
     }
   }
 `;
 
+const borders: boolean = false;
+
 const SetpointRow = styled.div`
+  border: ${borders ? "1px solid white" : "none"};
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
   ::last-of-type {
     margin-bottom: 20px;
   }
 `;
 
-const Add = styled.p`
-  display: item;
-  align-self: center;
-`;
-
-const Time = styled.p`
-  display: item;
-  align-self: center;
-  margin-right: 20px;
-  font-size: 1.2rem;
-`;
-
-const Temp = styled.p`
-  display: item;
-  align-self: center;
-  margin-right: 20px;
-  font-size: 1.2rem;
+const Add = styled.img`
+  border: ${borders ? "1px solid green" : "none"};
+  height: 1.8rem;
 `;
 
 const PageTitle = styled.div`
   cursor: pointer;
 `;
+
 const FlameIcon = styled.img`
   height: 35px;
   margin-right: 2rem;
@@ -127,14 +122,14 @@ const FlameIcon = styled.img`
 `;
 
 const TitleText = styled.h1`
-  /* border: 1px solid green; */
+  border: ${borders ? "1px solid green" : "none"};
   border-bottom: 1px solid grey;
   padding-bottom: 5px;
   margin-bottom: 0;
 `;
 
 const Info = styled.div`
-  /* border: 1px solid purple; */
+  border: ${borders ? "1px solid purple" : "none"};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -142,12 +137,9 @@ const Info = styled.div`
 `;
 
 const Left = styled.div`
-  /* border: 1px solid white; */
+  border: ${borders ? "1px solid white" : "none"};
   height: 75px;
-  /* width: 75px; */
   margin: 1.5rem 1.5rem 1.5rem;
-  /* margin-bottom: 20px; */
-  /* margin-left: 20px; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;

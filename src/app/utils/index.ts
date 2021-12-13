@@ -35,6 +35,7 @@ export const makeRequest = async (query: string, variables: any = null) => {
 export const asyncRequest = async (query: string, datapoint: any, variables: any = null) => {
   await Axios.post(apiUrl, { query, variables }).then((response) => {
     datapoint(response.data.data.response);
+    return response;
   });
 };
 
