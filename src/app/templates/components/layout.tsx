@@ -71,5 +71,6 @@ const globalStyles = css`
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     user-select: none;
+    scroll;
   }
 `;

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Home, Setpoints, Switches, Sensors } from "./pages";
+import { Home, Setpoints, Switches, Dog, Sensors } from "./pages";
 import { useAppContext } from "./utils";
 
 const Screens: React.FC = () => {
@@ -19,6 +19,9 @@ const Screens: React.FC = () => {
 
       case "setpoints":
         return <Setpoints />;
+
+      case "dog":
+        return <Dog />;
 
       case "switches":
         return <Switches />;

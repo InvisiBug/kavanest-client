@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { home, setpoints, switches, sensor, mq, px } from "../../atoms";
+import { home, setpoints, switches, sensor, mq, px, dog } from "../../atoms";
 
 import { useAppContext } from "../../utils";
 
@@ -20,6 +20,10 @@ const navButtons = [
   {
     name: "switches",
     icon: switches,
+  },
+  {
+    name: "dog",
+    icon: dog,
   },
 ];
 const PhoneNav: React.FC<Props> = () => {
