@@ -48,3 +48,4 @@ export const decamelize = (text: string) => {
 export { default as AppContext } from "./context";
 export { AppProvider } from "./context";
 export { useAppContext } from "./context";
+export { apiUrl };

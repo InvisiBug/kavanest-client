@@ -1,31 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { decamelize } from "../../utils";
 import { rightArrow, flame } from "../../atoms";
-import { asyncRequest } from "../../utils";
+
+import { useQuery, gql } from "@apollo/client";
 
 /*
   Each room that has a valve gets a setpoint modifier screen
 */
 const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = null }) => {
-  const [valve, setValve] = useState<any>(null);
-  const [sensor, setSensor] = useState<any>(null);
+  const { loading, error, data } = useQuery(getValves, { variables: { room } });
 
-  useEffect(() => {
-    asyncRequest(query, setValve, { room: room });
-    asyncRequest(sensorQuery, setSensor, { room: room });
-  }, []); //eslint-disable-line
-
-  if (!valve || !sensor) return <></>;
+  if (loading) return <p>Loading</p>;
+  if (error) return <p>Error</p>;
 
   return (
     <>
       <Container onClick={onClick}>
         <Room onClick={close}>{decamelize(room)}</Room>
-        {valve.state ? <FlameIcon src={flame}></FlameIcon> : null}
+        {data.valve.state ? <FlameIcon src={flame}></FlameIcon> : null}
         <Vals>
           <Setpoint heating={false}>Setpoint°C</Setpoint>
-          <Temp>{sensor.temperature}°C</Temp>
+          <Temp>{data.sensor.temperature}°C</Temp>
         </Vals>
         <Icon src={rightArrow}></Icon>
       </Container>
@@ -41,27 +37,12 @@ export interface Props {
   close: any;
 }
 
-const query: string = `
-  query($room: String) {
-    response:getValve(room: $room) {
+const getValves = gql`
+  query GetValve($room: String) {
+    valve: getValve(room: $room) {
       state
-      room
     }
-  }
-`;
-
-const setpointQuery = `
-  query($room: String) {
-    response:getSetpoints(room: $room) {
-      room
-      setpoints
-    }
-  }
-`;
-
-const sensorQuery = `
-  query($room: String) {
-    response:getSensor(room: $room) {
+    sensor: getSensor(room: $room) {
       temperature
     }
   }

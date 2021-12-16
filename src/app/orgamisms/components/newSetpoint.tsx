@@ -60,14 +60,6 @@ const query = `
   }
 `;
 
-const variables = `
-  "input": {
-    "room": null,
-    "time": null,
-    "temp": null
-  }
-`;
-
 const borders: boolean = false;
 
 const Accept = styled.img`

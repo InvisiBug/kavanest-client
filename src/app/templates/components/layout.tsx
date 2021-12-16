@@ -58,7 +58,7 @@ const Container = styled.div`
   /* } */
   ${mq("large")} {
     /* background-color: orange; */
-    max-width: ${px("medium")}px;
+    max-width: ${px("large")}px;
   }
 `;
 
