@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Text } from "../../../atoms";
+import { Text } from "../../../lib/components/elements";
 
 const ShowDetails: React.FC<Props> = ({ rawTemperature, temperature, humidity, offset, connected }) => {
   return (

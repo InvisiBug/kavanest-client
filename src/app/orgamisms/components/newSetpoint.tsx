@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { plus, cancel } from "../../atoms";
+import { plus, cancel } from "../../lib/components/elements";
 import { makeRequest } from "../../utils";
 import { gql, useMutation } from "@apollo/client";
 

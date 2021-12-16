@@ -1,5 +1,5 @@
 import React from "react";
-import { PageTitle } from "../../atoms";
+import { PageTitle } from "../../lib/components/elements";
 
 const Switches: React.FC<any> = ({ name, close = null }) => {
   return (

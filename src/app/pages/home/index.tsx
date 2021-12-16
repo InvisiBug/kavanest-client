@@ -1,5 +1,5 @@
 import React from "react";
-import { PageTitle } from "../../atoms";
+import { PageTitle } from "../../lib/components/elements";
 
 const Home: React.FC = () => {
   return (

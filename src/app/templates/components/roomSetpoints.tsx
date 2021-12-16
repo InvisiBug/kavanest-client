@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { asyncRequest, decamelize } from "../../utils";
 import styled from "@emotion/styled";
-import { flame, plus } from "../../atoms";
+import { flame, plus } from "../../lib/components/elements";
 import { CurrentSetpoint, NewSetpoint } from "../../orgamisms";
 import { useQuery, gql } from "@apollo/client";
 

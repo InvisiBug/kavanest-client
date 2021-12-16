@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PageTitle } from "../../atoms";
+import { PageTitle } from "../../lib/components/elements";
 import { RoomSetpointSelection } from "../../orgamisms";
 import { asyncRequest } from "../../utils";
 import { RoomSetpoints } from "../../templates";

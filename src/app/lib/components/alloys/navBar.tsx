@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { home, setpoints, switches, sensor, mq, px, dog } from "../../atoms";
+import { home, setpoints, switches, sensor, mq, px, dog } from "../elements";
 
-import { useAppContext } from "../../utils";
+import { useAppContext } from "../../../utils";
 
 const navButtons = [
   {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 
 import { decamelize } from "../../utils";
-import { mq, px, rightArrow, downArrow, flame } from "../../atoms";
+import { mq, px, rightArrow, downArrow, flame } from "../../lib/components/elements";
 
 // TODO add media queries to scale the container
 
