@@ -2,24 +2,14 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { plus, cancel } from "../../atoms";
 import { makeRequest } from "../../utils";
+import { gql, useMutation } from "@apollo/client";
 
 const NewSetpoint: React.FC<Props> = ({ close, room }) => {
   const [mins, setMins] = useState<string | null>(null);
   const [hours, setHours] = useState<string | null>(null);
   const [temp, setTemp] = useState<string>("");
 
-  const addSetpoint = async () => {
-    makeRequest(query, {
-      input: {
-        room,
-        time: `${hours}:${mins}`,
-        temp,
-      },
-    }).then((response) => {
-      console.log(response.response.setpoints);
-      close();
-    });
-  };
+  const [addSetpoint, { data, loading, error }] = useMutation(addSetpointMutation);
 
   return (
     <>
@@ -31,7 +21,21 @@ const NewSetpoint: React.FC<Props> = ({ close, room }) => {
           :
           <MyInput type="text" placeholder="00" inputMode="decimal" onChange={(event) => setMins(("0" + event.target.value).slice(-2))} />
         </Time>
-        <Accept src={plus} onClick={() => addSetpoint()} />
+        <Accept
+          src={plus}
+          onClick={() => {
+            addSetpoint({
+              variables: {
+                input: {
+                  room,
+                  time: `${hours}:${mins}`,
+                  temp,
+                },
+              },
+            });
+            close();
+          }}
+        />
 
         <Cancel src={cancel} onClick={close} />
         <Temp>
@@ -54,6 +58,15 @@ export default NewSetpoint;
 const query = `
   mutation($input: SetpointInput) {
     response:updateSetpoint(input: $input) {
+      room
+      setpoints
+    }
+  }
+`;
+
+const addSetpointMutation = gql`
+  mutation ($input: SetpointInput) {
+    response: updateSetpoint(input: $input) {
       room
       setpoints
     }

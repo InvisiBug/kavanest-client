@@ -3,29 +3,40 @@ import { asyncRequest, decamelize } from "../../utils";
 import styled from "@emotion/styled";
 import { flame, plus } from "../../atoms";
 import { CurrentSetpoint, NewSetpoint } from "../../orgamisms";
+import { useQuery, gql } from "@apollo/client";
 
-const Switches: React.FC<any> = ({ room, close = null }) => {
+const RoomSetpoints: React.FC<any> = ({ room, close = null }) => {
   const [currentSetpoints, iHazSetpoint] = useState<any | null>(null);
   const [valves, iHazValve] = useState<any | null | void>(null);
-  const [showNewSetpoint, setShowNewSetpoint] = useState<boolean | null | void>(false);
+  const [showNewSetpoint, setShowNewSetpoint] = useState<boolean>(false);
 
-  useEffect(() => {
-    asyncRequest(setpointsPls, iHazSetpoint, {
+  const { loading, error, data } = useQuery(request, {
+    variables: {
       room,
-    });
-    asyncRequest(valvesPls, iHazValve, {
-      room,
-    });
-  }, []); // eslint-disable-line
+    },
+  });
+
+  if (data) console.log(data.valve.state);
+
+  // useEffect(() => {
+  //   asyncRequest(setpointsPls, iHazSetpoint, {
+  //     room,
+  //   });
+  //   asyncRequest(valvesPls, iHazValve, {
+  //     room,
+  //   });
+  // }, []); // eslint-disable-line
+  if (loading) return <p>Loading</p>;
+  if (error) return <p>Error</p>;
 
   const refreshPage = () => {
     setShowNewSetpoint(false);
-    asyncRequest(setpointsPls, iHazSetpoint, {
-      room,
-    });
-    asyncRequest(valvesPls, iHazValve, {
-      room,
-    });
+    // asyncRequest(setpointsPls, iHazSetpoint, {
+    //   room,
+    // });
+    // asyncRequest(valvesPls, iHazValve, {
+    //   room,
+    // });
   };
 
   const createSetpoints = () => {
@@ -55,11 +66,6 @@ const Switches: React.FC<any> = ({ room, close = null }) => {
     );
     return setpointsArray;
   };
-
-  if (!room || valves === undefined) {
-    return <></>;
-  }
-
   return (
     <>
       <PageTitle onClick={close}>
@@ -70,7 +76,7 @@ const Switches: React.FC<any> = ({ room, close = null }) => {
           <Top>Setpoint: 20°C</Top>
           <Bottom>Current: 19°C</Bottom>
         </Left>
-        {valves && valves.state ? <FlameIcon src={flame}></FlameIcon> : null}
+        {data.valve.state ? <FlameIcon src={flame}></FlameIcon> : null}
         <Right>Deadzone</Right>
       </Info>
       {createSetpoints()}
@@ -78,7 +84,7 @@ const Switches: React.FC<any> = ({ room, close = null }) => {
   );
 };
 
-export default Switches;
+export default RoomSetpoints;
 export interface Props {
   name: string;
   close?: () => void;
@@ -95,6 +101,17 @@ const setpointsPls: string = `
 const valvesPls: string = `
   query GetValve($room: String) {
     response:getValve(room: $room) {
+      state
+    }
+  }
+`;
+
+const request = gql`
+  query GetSetpoints($room: String) {
+    setpoints: getSetpoints(room: $room) {
+      setpoints
+    }
+    valve: getValve(room: $room) {
       state
     }
   }

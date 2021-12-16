@@ -27,7 +27,6 @@ const Dog: React.FC = () => {
           className={"test"}
           src={refresh}
           onClick={() => {
-            // window.scrollTo(0, 0);
             setUrls(null);
             getDogs();
           }}

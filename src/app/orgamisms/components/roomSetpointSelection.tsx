@@ -2,7 +2,6 @@ import React from "react";
 import styled from "@emotion/styled";
 import { decamelize } from "../../utils";
 import { rightArrow, flame } from "../../atoms";
-
 import { useQuery, gql } from "@apollo/client";
 
 /*
@@ -53,8 +52,6 @@ const Setpoint = styled.div`
 `;
 
 const FlameIcon = styled.img`
-  /* height: 50px; */
-
   height: 35px;
   margin-right: 20px;
   margin-top: -10px;
