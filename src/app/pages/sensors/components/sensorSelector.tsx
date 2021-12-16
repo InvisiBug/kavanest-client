@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { decamelize } from "../../utils";
-import { rightArrow, downArrow, Room, Text } from "../../atoms";
-import { SensorDetails } from "../../molecules";
+import { decamelize } from "../../../utils";
+import { rightArrow, downArrow, Room, Text } from "../../../atoms";
+import SensorDetails from "./sensorDetails";
 
 const Sensor: React.FC<Props> = ({ sensor: { room, rawTemperature, temperature, humidity, offset, connected } }) => {
   const [details, setDetails] = useState(false);

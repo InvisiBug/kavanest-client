@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Sensor } from "../../orgamisms";
+import Sensor from "./components/sensorSelector";
 import { PageTitle } from "../../atoms";
 import { useQuery, gql } from "@apollo/client";
 
