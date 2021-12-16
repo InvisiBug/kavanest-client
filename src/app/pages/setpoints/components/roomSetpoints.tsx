@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { asyncRequest, decamelize } from "../../utils";
+import { asyncRequest, decamelize } from "../../../utils";
 import styled from "@emotion/styled";
-import { flame, plus } from "../../atoms";
-import { CurrentSetpoint, NewSetpoint } from "../../orgamisms";
+import { flame, plus } from "../../../lib";
+import CurrentSetpoint from "./currentSetpoint";
+import NewSetpoint from "./newSetpoint";
 import { useQuery, gql } from "@apollo/client";
 
 const RoomSetpoints: React.FC<any> = ({ room, close = null }) => {

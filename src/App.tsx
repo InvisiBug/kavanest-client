@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout } from "./app/templates";
+import { Layout } from "./app/lib/";
 import { AppProvider } from "./app/utils";
 import Screens from "./app/";
 import { ApolloClient, InMemoryCache, ApolloProvider, useQuery, gql } from "@apollo/client";

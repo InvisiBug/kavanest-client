@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Global, css } from "@emotion/react";
-import { mq, px } from "../../atoms";
-import { PhoneNav } from "../../molecules";
+import { mq, px } from "../../";
+import { NavBar } from "../../";
 
 export const Layout: React.FC = ({ children }) => {
   return (
@@ -13,7 +13,7 @@ export const Layout: React.FC = ({ children }) => {
           <Container>{children}</Container>
         </Top>
         <Bottom>
-          <PhoneNav />
+          <NavBar />
         </Bottom>
       </AppWindow>
     </>

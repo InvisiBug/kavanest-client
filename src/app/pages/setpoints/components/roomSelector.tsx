@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { decamelize } from "../../utils";
-import { rightArrow, flame } from "../../atoms";
+import { decamelize } from "../../../utils";
+import { rightArrow, flame } from "../../../lib";
 import { useQuery, gql } from "@apollo/client";
 
 /*
