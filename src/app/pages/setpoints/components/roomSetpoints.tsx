@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { asyncRequest, decamelize } from "../../../utils";
+import React, { useState } from "react";
+import { decamelize } from "../../../utils";
 import styled from "@emotion/styled";
 import { flame, plus } from "../../../lib";
 import CurrentSetpoint from "./currentSetpoint";
@@ -7,66 +7,23 @@ import NewSetpoint from "./newSetpoint";
 import { useQuery, gql } from "@apollo/client";
 
 const RoomSetpoints: React.FC<any> = ({ room, close = null }) => {
-  const [currentSetpoints, iHazSetpoint] = useState<any | null>(null);
-  const [valves, iHazValve] = useState<any | null | void>(null);
   const [showNewSetpoint, setShowNewSetpoint] = useState<boolean>(false);
-
-  const { loading, error, data } = useQuery(request, {
+  const { loading, error, data, refetch } = useQuery(request, {
     variables: {
       room,
     },
   });
 
-  if (data) console.log(data.valve.state);
-
-  // useEffect(() => {
-  //   asyncRequest(setpointsPls, iHazSetpoint, {
-  //     room,
-  //   });
-  //   asyncRequest(valvesPls, iHazValve, {
-  //     room,
-  //   });
-  // }, []); // eslint-disable-line
   if (loading) return <p>Loading</p>;
   if (error) return <p>Error</p>;
+  console.log(data);
 
   const refreshPage = () => {
     setShowNewSetpoint(false);
-    // asyncRequest(setpointsPls, iHazSetpoint, {
-    //   room,
-    // });
-    // asyncRequest(valvesPls, iHazValve, {
-    //   room,
-    // });
+    refetch();
+    console.log(data);
   };
 
-  const createSetpoints = () => {
-    const setpointsArray: any = [];
-
-    /* If we dont have setpoints, Show the form to add a new setpoint */
-    if (!currentSetpoints) {
-      return (
-        <SetpointRow key={Math.random()}>
-          {showNewSetpoint ? <NewSetpoint close={refreshPage} room={room} /> : <Add src={plus} onClick={() => setShowNewSetpoint(true)} />}
-        </SetpointRow>
-      );
-    }
-
-    for (let time in currentSetpoints.setpoints) {
-      setpointsArray.push(
-        <SetpointRow key={Math.random()}>
-          <CurrentSetpoint time={time} temp={currentSetpoints.setpoints[time]} room={room} close={refreshPage} />
-        </SetpointRow>
-      );
-    }
-
-    setpointsArray.push(
-      <SetpointRow key={Math.random()}>
-        {showNewSetpoint ? <NewSetpoint close={refreshPage} room={room} /> : <Add src={plus} onClick={() => setShowNewSetpoint(true)} />}
-      </SetpointRow>
-    );
-    return setpointsArray;
-  };
   return (
     <>
       <PageTitle onClick={close}>
@@ -80,7 +37,19 @@ const RoomSetpoints: React.FC<any> = ({ room, close = null }) => {
         {data.valve.state ? <FlameIcon src={flame}></FlameIcon> : null}
         <Right>Deadzone</Right>
       </Info>
-      {createSetpoints()}
+
+      {Object.keys(data.setpoints.setpoints).map((time: any) => {
+        const temp = data.setpoints.setpoints[time];
+        return (
+          <SetpointRow key={Math.random()}>
+            <CurrentSetpoint time={time} temp={temp} room={room} close={refreshPage} />
+          </SetpointRow>
+        );
+      })}
+
+      <SetpointRow key={Math.random()}>
+        {showNewSetpoint ? <NewSetpoint close={refreshPage} room={room} /> : <Add src={plus} onClick={() => setShowNewSetpoint(true)} />}
+      </SetpointRow>
     </>
   );
 };
@@ -90,22 +59,6 @@ export interface Props {
   name: string;
   close?: () => void;
 }
-
-const setpointsPls: string = `
-  query($room: String) {
-    response:getSetpoints(room: $room) {
-      setpoints
-    }
-  }
-`;
-
-const valvesPls: string = `
-  query GetValve($room: String) {
-    response:getValve(room: $room) {
-      state
-    }
-  }
-`;
 
 const request = gql`
   query GetSetpoints($room: String) {

@@ -4,11 +4,8 @@ import { decamelize } from "../../../utils";
 import { rightArrow, flame } from "../../../lib";
 import { useQuery, gql } from "@apollo/client";
 
-/*
-  Each room that has a valve gets a setpoint modifier screen
-*/
 const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = null }) => {
-  const { loading, error, data } = useQuery(getValves, { variables: { room } });
+  const { loading, error, data } = useQuery(getValves, { variables: { room }, fetchPolicy: "no-cache" });
 
   if (loading) return <p>Loading</p>;
   if (error) return <p>Error</p>;
@@ -62,10 +59,11 @@ const Container = styled.div`
   /* background-color: #2c2c2c; */
   /* border: 1px solid green; */
   border-bottom: 1px solid grey;
-  :first-of-type {
+  /* :first-of-type {
     border-top: 1px solid grey;
+    background-color: red;
     margin-top: 50px;
-  }
+  } */
 
   display: flex;
   /* flex-direction: column; */

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { plus, cancel } from "../../../lib";
-import { makeRequest } from "../../../utils";
 import { gql, useMutation } from "@apollo/client";
 
 const NewSetpoint: React.FC<Props> = ({ close, room }) => {
@@ -9,18 +8,22 @@ const NewSetpoint: React.FC<Props> = ({ close, room }) => {
   const [hours, setHours] = useState<string | null>(null);
   const [temp, setTemp] = useState<string>("");
 
-  const [addSetpoint, { data, loading, error }] = useMutation(addSetpointMutation);
+  const [addSetpoint] = useMutation(addSetpointMutation, {
+    onCompleted() {
+      close();
+    },
+  });
 
   return (
     <>
       <Container>
         {/* <form> */}
         <Time>
-          {/* <MyInput type="text" placeholder="00" inputMode="decimal" onChange={(event) => setHours(event.target.value)} /> */}
           <MyInput type="text" placeholder="00" inputMode="decimal" onChange={(event) => setHours(("0" + event.target.value).slice(-2))} />
           :
           <MyInput type="text" placeholder="00" inputMode="decimal" onChange={(event) => setMins(("0" + event.target.value).slice(-2))} />
         </Time>
+
         <Accept
           src={plus}
           onClick={() => {
@@ -33,11 +36,11 @@ const NewSetpoint: React.FC<Props> = ({ close, room }) => {
                 },
               },
             });
-            close();
           }}
         />
 
         <Cancel src={cancel} onClick={close} />
+
         <Temp>
           <MyInput type="text" placeholder="00" inputMode="decimal" onChange={(event) => setTemp(event.target.value)} />
           °C

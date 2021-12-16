@@ -1,58 +1,54 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { PageTitle } from "../../lib";
 import RoomSetpointSelection from "./components/roomSelector";
-import { asyncRequest } from "../../utils";
 import RoomSetpoints from "./components/roomSetpoints";
+import { useQuery, gql } from "@apollo/client";
 
 const SetpointsPage: React.FC = () => {
-  const [roomWithValve, setRoomWithValve] = useState<any>(null);
+  const { loading, error, data } = useQuery(getValves);
   const [roomToShow, setRoomToShow] = useState<any>(false);
 
-  useEffect(() => {
-    asyncRequest(whereAreTheValves, setRoomWithValve);
-  }, []);
+  if (loading) return <p>Loading</p>;
+  if (error) return <p>Error</p>;
 
-  const showAllRooms = (roomWithValve: any) => {
+  const showAllRooms = (rooms: any) => {
     const arr: any = [
       <PageTitle key={Math.random()} desc={"Each room shown here has a valve"}>
         Room Heating Setpoints
       </PageTitle>,
     ];
 
-    roomWithValve.forEach((room: any) => {
+    rooms.forEach((room: any) => {
       arr.push(<RoomSetpointSelection data={room} key={Math.random()} onClick={() => setRoomToShow(room.room)} close={() => setRoomToShow(false)} />);
     });
     return arr;
   };
 
-  const showRoomSetpoints = (roomToShow: string) => {
-    for (let rooms in roomWithValve) {
-      if (roomWithValve[rooms].room === roomToShow) {
+  const showRoomSetpoints = (roomToShow: string, possibleRooms: any) => {
+    for (let room in possibleRooms) {
+      if (possibleRooms[room].room === roomToShow) {
         return (
           <>
-            <RoomSetpoints close={() => setRoomToShow(false)} room={roomWithValve[rooms].room} key={Math.random()} />
+            <RoomSetpoints close={() => setRoomToShow(false)} room={possibleRooms[room].room} key={Math.random()} />
           </>
         );
       }
     }
   };
 
-  if (!roomWithValve) return <></>;
-
   if (!roomToShow) {
-    return showAllRooms(roomWithValve);
+    return showAllRooms(data.getValves);
   } else {
-    return showRoomSetpoints(roomToShow);
+    return showRoomSetpoints(roomToShow, data.getValves);
   }
 };
 
 export default SetpointsPage;
 
-const whereAreTheValves: string = `
-  query GetValves {
-    response:getValves {
+const getValves = gql`
+  query {
+    getValves {
       room
-      state
     }
   }
 `;

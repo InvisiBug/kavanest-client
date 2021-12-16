@@ -1,5 +1,4 @@
 import React from "react";
-
 import Sensor from "./components/roomSelector";
 import { PageTitle } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
@@ -9,6 +8,7 @@ const Sensors: React.FC = () => {
     variables: {
       name: "heating",
     },
+    // fetchPolicy: "no-cache",
   });
 
   if (loading) return <p>Loading</p>;
