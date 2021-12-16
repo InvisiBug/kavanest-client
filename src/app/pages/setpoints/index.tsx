@@ -36,40 +36,6 @@ const SetpointsPage: React.FC = () => {
     }
   };
 
-  console.log(data.getValves);
-
-  data.getValves.forEach((val: any) => {
-    console.log(val.room);
-  });
-
-  // * not sure about all this stuff
-  // * cant seem to return, something to do with the function call
-  // console.log(data);
-
-  // return (
-  //   <>
-  //     <PageTitle key={Math.random()} desc={"Each room shown here has a valve"}>
-  //       Room Heating Setpoints
-  //     </PageTitle>
-
-  //     {data.getValves.map((val: any) => {
-  //       return (
-  //         <>
-  //           <RoomSetpointSelection data={val} key={Math.random()} onClick={() => setRoomToShow(val.room)} close={() => setRoomToShow(false)} />
-  //         </>
-  //       );
-  //     })}
-
-  //     {/* {Object.keys(data.getValves).map((room: any) => {
-  //       const val = data.getValves[room];
-
-  //       return <RoomSetpointSelection data={val} key={Math.random()} onClick={() => setRoomToShow(val.room)} close={() => setRoomToShow(false)} />;
-  //     })} */}
-  //   </>
-  // );
-
-  // const test = () => {};
-
   if (!roomToShow) {
     return showAllRooms(data.getValves);
   } else {

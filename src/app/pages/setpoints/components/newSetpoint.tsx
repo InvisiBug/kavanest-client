@@ -58,15 +58,6 @@ interface Props {
 
 export default NewSetpoint;
 
-const query = `
-  mutation($input: SetpointInput) {
-    response:updateSetpoint(input: $input) {
-      room
-      setpoints
-    }
-  }
-`;
-
 const addSetpointMutation = gql`
   mutation ($input: SetpointInput) {
     response: updateSetpoint(input: $input) {
