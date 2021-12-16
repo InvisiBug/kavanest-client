@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { refresh } from "../../lib/components/elements";
+import { refresh } from "../../lib";
 
 const Dog: React.FC = () => {
   const [urls, setUrls] = useState<any>(null);

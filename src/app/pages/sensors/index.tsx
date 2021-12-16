@@ -1,7 +1,7 @@
 import React from "react";
 
-import Sensor from "./components/sensorSelector";
-import { PageTitle } from "../../lib/components/elements";
+import Sensor from "./components/roomSelector";
+import { PageTitle } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 
 const Sensors: React.FC = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { cancel } from "../../lib/components/elements";
-import { makeRequest } from "../../utils";
+import { cancel } from "../../../lib";
+import { makeRequest } from "../../../utils";
 
 const CurrentSetpoint: React.FC<Props> = ({ room, time, temp, close }) => {
   const remove = () => {

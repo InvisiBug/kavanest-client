@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { home, setpoints, switches, sensor, mq, px, dog } from "../elements";
+import { home, setpoints, switches, sensor, dog } from "../elements/icons";
+import { mq, px } from "../elements/mediaQueries";
 
 import { useAppContext } from "../../../utils";
 
