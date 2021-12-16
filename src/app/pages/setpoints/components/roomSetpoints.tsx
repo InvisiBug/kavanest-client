@@ -12,16 +12,15 @@ const RoomSetpoints: React.FC<any> = ({ room, close = null }) => {
     variables: {
       room,
     },
+    fetchPolicy: "no-cache",
   });
 
   if (loading) return <p>Loading</p>;
   if (error) return <p>Error</p>;
-  console.log(data);
 
   const refreshPage = () => {
     setShowNewSetpoint(false);
     refetch();
-    console.log(data);
   };
 
   return (

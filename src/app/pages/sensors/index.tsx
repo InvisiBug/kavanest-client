@@ -8,7 +8,7 @@ const Sensors: React.FC = () => {
     variables: {
       name: "heating",
     },
-    // fetchPolicy: "no-cache",
+    fetchPolicy: "no-cache",
   });
 
   if (loading) return <p>Loading</p>;
