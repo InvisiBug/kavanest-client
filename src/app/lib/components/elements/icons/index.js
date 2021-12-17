@@ -9,5 +9,8 @@ import plus from "./plus.png";
 import cancel from "./cancel.png";
 import dog from "./dog.png";
 import refresh from "./refresh.png";
+import switchOff from "./switchOff.png";
+import switchOn from "./switchOn.png";
+import rgbLight from "./rgbLight.png";
 
-export { refresh, dog, cancel, home, setpoints, switches, rightArrow, downArrow, flame, sensor, plus };
+export { rgbLight, refresh, dog, cancel, home, setpoints, switches, rightArrow, downArrow, flame, sensor, plus, switchOff, switchOn };

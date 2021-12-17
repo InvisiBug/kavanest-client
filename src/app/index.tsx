@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Home, Setpoints, Switches, Dog, Sensors } from "./pages";
 import { useAppContext } from "./utils";
 

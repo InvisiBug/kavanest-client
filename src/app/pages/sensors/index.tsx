@@ -18,8 +18,8 @@ const Sensors: React.FC = () => {
     <>
       <PageTitle desc={`Heating is probably ${data.heating ? "on" : "off"}, I've no idea`}>Sensors</PageTitle>
 
-      {data.avaliableRooms.map((sensor: any) => {
-        return <Sensor sensor={sensor} key={Math.random()}></Sensor>;
+      {data.avaliableRooms.map((sensorData: any) => {
+        return <Sensor sensor={sensorData} key={Math.random()} />;
       })}
     </>
   );

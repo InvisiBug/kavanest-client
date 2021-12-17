@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { decamelize } from "../../../utils";
 import { rightArrow, downArrow, Text, Room } from "../../../lib";
-import SensorDetails from "./sensorDetails";
+import SensorDetails from "./details";
 
 const Sensor: React.FC<Props> = ({ sensor: { room, rawTemperature, temperature, humidity, offset, connected } }) => {
   const [details, setDetails] = useState(false);
@@ -53,7 +53,7 @@ const Header = styled.div`
   width: 100%;
   align-items: center;
   margin: auto;
-  flex-grow: 1;
+  /* flex-grow: 1; */
   min-height: 0px;
   cursor: pointer;
 `;

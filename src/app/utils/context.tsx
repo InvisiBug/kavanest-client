@@ -5,7 +5,7 @@ const AppContext = createContext<ContextState | undefined>(undefined);
 export const AppProvider: React.FC<Props> = ({ children }) => {
   const [test, setTest] = useState("Test");
 
-  const [screen, setScreen] = useState("setpoints");
+  const [screen, setScreen] = useState("switches");
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

@@ -8,8 +8,11 @@ const SetpointsPage: React.FC = () => {
   const { loading, error, data } = useQuery(getValves, { fetchPolicy: "no-cache" });
   const [roomToShow, setRoomToShow] = useState<any>(false);
 
-  if (loading) return <p>Loading</p>;
-  if (error) return <p>Error</p>;
+  // if (loading) return <p>Loading</p>;
+  // if (error) return <p>Error</p>;
+
+  if (loading) return <></>;
+  if (error) return <></>;
 
   const showAllRooms = (rooms: any) => {
     const arr: any = [

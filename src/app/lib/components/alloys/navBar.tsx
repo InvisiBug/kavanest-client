@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { home, setpoints, switches, sensor, dog } from "../elements/icons";
+import { home, setpoints, switches, sensor, dog, rgbLight } from "../elements/icons";
 import { mq, px } from "../elements/mediaQueries";
 
 import { useAppContext } from "../../../utils";
@@ -21,6 +21,10 @@ const navButtons = [
   {
     name: "switches",
     icon: switches,
+  },
+  {
+    name: "rgbLights",
+    icon: rgbLight,
   },
   {
     name: "dog",

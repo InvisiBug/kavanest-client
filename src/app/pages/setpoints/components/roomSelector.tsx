@@ -7,8 +7,11 @@ import { useQuery, gql } from "@apollo/client";
 const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = null }) => {
   const { loading, error, data } = useQuery(getValves, { variables: { room }, fetchPolicy: "no-cache" });
 
-  if (loading) return <p>Loading</p>;
-  if (error) return <p>Error</p>;
+  // if (loading) return <p>Loading</p>;
+  // if (error) return <p>Error</p>;
+
+  if (loading) return <></>;
+  if (error) return <></>;
 
   return (
     <>
