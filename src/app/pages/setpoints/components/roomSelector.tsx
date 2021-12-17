@@ -37,7 +37,7 @@ export interface Props {
 }
 
 const getValves = gql`
-  query GetValve($room: String) {
+  query ($room: String) {
     valve: getValve(room: $room) {
       state
     }

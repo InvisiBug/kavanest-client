@@ -37,3 +37,5 @@ export { default as Text } from "./components/elements/text";
 export const on = "#00ff00";
 export const off = "#2c2c2c";
 export const disconnected = "orangered";
+
+export { default as ColourWheel } from "./components/alloys/colourWheel/colourWheel";

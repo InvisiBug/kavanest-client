@@ -8,6 +8,7 @@ import { useQuery, gql } from "@apollo/client";
 
 const RoomSetpoints: React.FC<any> = ({ room, close = null }) => {
   const [showNewSetpoint, setShowNewSetpoint] = useState<boolean>(false);
+  console.log(room);
   const { loading, error, data, refetch } = useQuery(request, {
     variables: {
       room,
@@ -64,7 +65,7 @@ export interface Props {
 
 const request = gql`
   query GetSetpoints($room: String) {
-    setpoints: getSetpoints(room: $room) {
+    setpoints: getSetpoint(room: $room) {
       setpoints
     }
     valve: getValve(room: $room) {

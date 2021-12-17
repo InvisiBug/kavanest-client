@@ -1,5 +1,5 @@
 import React from "react";
-import Sensor from "./components/roomSelector";
+import RoomSelector from "./components/roomSelector";
 import { PageTitle } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 
@@ -19,7 +19,7 @@ const Sensors: React.FC = () => {
       <PageTitle desc={`Heating is probably ${data.heating ? "on" : "off"}, I've no idea`}>Sensors</PageTitle>
 
       {data.avaliableRooms.map((sensorData: any) => {
-        return <Sensor sensor={sensorData} key={Math.random()} />;
+        return <RoomSelector sensor={sensorData} key={Math.random()} />;
       })}
     </>
   );
@@ -28,8 +28,8 @@ const Sensors: React.FC = () => {
 export default Sensors;
 
 const getRoomsWithSensors = gql`
-  query GetAllSensors($name: String) {
-    avaliableRooms: getAllSensors {
+  query ($name: String) {
+    avaliableRooms: getSensors {
       room
       rawTemperature
       temperature
