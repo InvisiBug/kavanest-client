@@ -1,28 +1,5 @@
 import Axios from "axios";
-require("dotenv").config();
-
-const environment: string = process.env.REACT_APP_ENVIRONMENT ?? "";
-
-console.log(environment);
-let apiUrl: string = "";
-
-switch (environment) {
-  case "live":
-    apiUrl = process.env.REACT_APP_API_LIVE ?? "";
-    break;
-
-  case "test":
-    apiUrl = process.env.REACT_APP_API_TEST ?? "";
-    break;
-
-  case "local":
-    apiUrl = process.env.REACT_APP_API_LOCAL ?? "";
-    break;
-
-  case "docker":
-    apiUrl = process.env.REACT_APP_API_DOCKER ?? "";
-    break;
-}
+import { apiUrl } from "./apiUrlGen";
 
 export const makeRequest = async (query: string, variables: any = null) => {
   const data = await Axios.post(apiUrl, { query, variables }).then((response) => {
@@ -45,7 +22,5 @@ export const decamelize = (text: string) => {
   return finalResult;
 };
 
-export { default as AppContext } from "./context";
-export { AppProvider } from "./context";
-export { useAppContext } from "./context";
+export { default as AppContext, AppProvider, useAppContext } from "./context";
 export { apiUrl };
