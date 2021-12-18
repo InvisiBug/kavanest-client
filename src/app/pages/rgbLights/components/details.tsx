@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { on, off, disconnected } from "../../../lib";
+import { on, off, disconnected, Text } from "../../../lib";
 
 import ColourWheel from "../../../lib/components/alloys/colourWheel/colourWheel";
-const RGBLightDetails: React.FC<any> = ({ red, green, blue }) => {
+const RGBLightDetails: React.FC<any> = ({ red, green, blue, clicked }) => {
   return (
     <>
       <Details>
@@ -12,11 +12,11 @@ const RGBLightDetails: React.FC<any> = ({ red, green, blue }) => {
         {/* <Text>{`Blue:${blue}`}</Text> */}
         <Wheel>
           <ColourWheel
-            name={`${Math.random()}`}
+            name={Math.random()}
             radius={125}
             padding={10}
             lineWidth={40}
-            onColourSelected={(rgb: any) => console.log(rgb)}
+            onColourSelected={(rgb: any) => clicked(rgb)}
             spacers={{
               colour: "whitesmoke",
               shadowColour: "grey",
@@ -33,29 +33,6 @@ const RGBLightDetails: React.FC<any> = ({ red, green, blue }) => {
   );
 };
 
-//  {/* {lights.map(({ light: { name, connected, red, green, blue, mode } }: Test) => { */}
-//       {/* {lights.map((light: any) => {
-//         const { name, connected, red, green, blue, mode }: Args = light;
-
-//         return (
-//           <>
-//             <Container>
-//               <Header onClick={() => setDetails(!details)}>
-//                 <Room>{decamelize(name)}</Room>
-//                 <Icon src={details ? downArrow : rightArrow} />
-//               </Header>
-
-//                <div>{name}</div>
-//               <div>{connected}</div>
-//               <div>{red}</div>
-//               <div>{green}</div>
-//               <div>{blue}</div>
-//               <div>{mode}</div>
-//             </Container>
-//           </>
-//         );
-//       })} */}
-
 export default RGBLightDetails;
 
 // interface Props {
@@ -70,6 +47,8 @@ const Details = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
 
   /* display: grid; */
   /* grid-gap: 5px; */

@@ -27,11 +27,6 @@ const getLights = gql`
   query {
     lights: getRGBLights {
       name
-      connected
-      red
-      green
-      blue
-      mode
     }
   }
 `;

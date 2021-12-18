@@ -3,19 +3,44 @@ import styled from "@emotion/styled";
 import { downArrow, rightArrow, Room } from "../../../lib";
 import { decamelize } from "../../../utils";
 import Details from "./details";
+import { useQuery, gql, useMutation } from "@apollo/client";
 
-const RoomSelector: React.FC<Props> = ({ lightData: { name, connected, red, green, blue, mode } }) => {
+const RoomSelector: React.FC<Props> = ({ lightData: { name } }) => {
+  const { loading, error, data, refetch } = useQuery(getInfo, { variables: { name }, fetchPolicy: "no-cache" });
   const [details, setDetails] = useState<boolean>(false);
+
+  const [updateRGB] = useMutation(mutation, {
+    onCompleted() {
+      refetch();
+    },
+  });
+
+  if (loading) return <></>;
+  if (error) return <></>;
+
+  const {
+    response: { red, green, blue, connected },
+  } = data;
+
+  const clicked = (rgb: string) => {
+    var a = rgb.split("(")[1].split(")")[0];
+    const splitable = a.split(",");
+    var colours = splitable.map(function (x) {
+      return parseInt(x);
+    });
+
+    updateRGB({ variables: { input: { name, red: colours[0], green: colours[1], blue: colours[2] } } });
+  };
 
   return (
     <>
       <Container>
         <Header onClick={() => setDetails(!details)}>
-          <Room>{decamelize(name)}</Room>
+          <Room connected={connected}>{decamelize(name)}</Room>
           <ColourIndicator red={red} green={green} blue={blue} />
           <Icon src={details ? downArrow : rightArrow} />
         </Header>
-        {details ? <Details red={red} green={green} blue={blue} /> : null}
+        {details ? <Details red={red} green={green} blue={blue} clicked={(rgb: any) => clicked(rgb)} /> : null}
       </Container>
     </>
   );
@@ -33,6 +58,29 @@ export interface Props {
     mode?: number;
   };
 }
+
+const getInfo = gql`
+  query ($name: String) {
+    response: getRGBLight(name: $name) {
+      name
+      red
+      blue
+      green
+      connected
+      mode
+    }
+  }
+`;
+
+const mutation = gql`
+  mutation ($input: RGBLightInput) {
+    updateRGBLights(input: $input) {
+      red
+      green
+      blue
+    }
+  }
+`;
 
 const Container = styled.div`
   color: white;

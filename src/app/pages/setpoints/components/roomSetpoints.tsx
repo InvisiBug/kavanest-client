@@ -8,7 +8,6 @@ import { useQuery, gql } from "@apollo/client";
 
 const RoomSetpoints: React.FC<any> = ({ room, close = null }) => {
   const [showNewSetpoint, setShowNewSetpoint] = useState<boolean>(false);
-  console.log(room);
   const { loading, error, data, refetch } = useQuery(request, {
     variables: {
       room,
