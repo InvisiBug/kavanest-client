@@ -2,12 +2,13 @@ require("dotenv").config();
 
 const environment: string = process.env.REACT_APP_ENVIRONMENT ?? "";
 
-console.log(environment);
+console.log(process.env.REACT_APP_API_LOCAL);
 let apiUrl: string = "";
 
 switch (environment) {
   case "live":
     apiUrl = process.env.REACT_APP_API_LIVE ?? "";
+    console.log("Running in live");
     break;
 
   case "test":

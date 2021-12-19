@@ -6,6 +6,7 @@ import SensorDetails from "./details";
 
 const Sensor: React.FC<Props> = ({ sensor: { room, rawTemperature, temperature, humidity, offset, connected } }) => {
   const [details, setDetails] = useState(false);
+  // console.log(temperature);
 
   const showDetails = () => {
     return (
@@ -19,6 +20,7 @@ const Sensor: React.FC<Props> = ({ sensor: { room, rawTemperature, temperature, 
 
   return (
     <>
+      {/* <div>helo</div> */}
       <Container>
         <Header onClick={() => setDetails(!details)}>
           <Room>{decamelize(room)}</Room>

@@ -21,6 +21,8 @@ const RoomSetpoints: React.FC<any> = ({ room, close = null }) => {
   if (loading) return <></>;
   if (error) return <></>;
 
+  console.log(data);
+
   const refreshPage = () => {
     setShowNewSetpoint(false);
     refetch();
@@ -36,18 +38,20 @@ const RoomSetpoints: React.FC<any> = ({ room, close = null }) => {
           <Top>Setpoint: 20°C</Top>
           <Bottom>Current: 19°C</Bottom>
         </Left>
-        {data.valve.state ? <FlameIcon src={flame}></FlameIcon> : null}
+        {data.valve.state ? null : <FlameIcon src={flame}></FlameIcon>}
         <Right>Deadzone</Right>
       </Info>
 
-      {Object.keys(data.setpoints.setpoints).map((time: any) => {
-        const temp = data.setpoints.setpoints[time];
-        return (
-          <SetpointRow key={Math.random()}>
-            <CurrentSetpoint time={time} temp={temp} room={room} close={refreshPage} />
-          </SetpointRow>
-        );
-      })}
+      {data.setpoints
+        ? Object.keys(data.setpoints.setpoints).map((time: any) => {
+            const temp = data.setpoints.setpoints[time];
+            return (
+              <SetpointRow key={Math.random()}>
+                <CurrentSetpoint time={time} temp={temp} room={room} close={refreshPage} />
+              </SetpointRow>
+            );
+          })
+        : null}
 
       <SetpointRow key={Math.random()}>
         {showNewSetpoint ? <NewSetpoint close={refreshPage} room={room} /> : <Add src={plus} onClick={() => setShowNewSetpoint(true)} />}

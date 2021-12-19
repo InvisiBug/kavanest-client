@@ -17,7 +17,7 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
     <>
       <Container onClick={onClick}>
         <Room onClick={close}>{decamelize(room)}</Room>
-        {data.valve.state ? <FlameIcon src={flame}></FlameIcon> : null}
+        {data.valve.state ? null : <FlameIcon src={flame}></FlameIcon>}
         <Vals>
           <Setpoint heating={false}>Setpoint°C</Setpoint>
           <Temp>{data.sensor.temperature}°C</Temp>
