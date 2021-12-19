@@ -1,15 +1,12 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { on, off, disconnected, Text } from "../../../lib";
-
+import { on, off, disconnected } from "../../../lib";
 import ColourWheel from "../../../lib/components/alloys/colourWheel/colourWheel";
+
 const RGBLightDetails: React.FC<any> = ({ red, green, blue, clicked }) => {
   return (
     <>
       <Details>
-        {/* <Text>{`Red:${red}`}</Text> */}
-        {/* <Text>{`Green:${green}`}</Text> */}
-        {/* <Text>{`Blue:${blue}`}</Text> */}
         <Wheel>
           <ColourWheel
             name={Math.random()}

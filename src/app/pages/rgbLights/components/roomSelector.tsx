@@ -23,9 +23,10 @@ const RoomSelector: React.FC<Props> = ({ lightData: { name } }) => {
   } = data;
 
   const clicked = (rgb: string) => {
-    var a = rgb.split("(")[1].split(")")[0];
+    const a = rgb.split("(")[1].split(")")[0];
     const splitable = a.split(",");
-    var colours = splitable.map(function (x) {
+
+    const colours = splitable.map(function (x) {
       return parseInt(x);
     });
 
