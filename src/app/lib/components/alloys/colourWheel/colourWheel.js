@@ -344,8 +344,8 @@ class ColourWheel extends Component {
       if (animationPercentage < 1) requestAnimationFrame(animateShades);
     }
 
-    animateShades = animateShades.bind(this);
-    drawShades = drawShades.bind(this);
+    animateShades = animateShades.bind(this); //eslint-disable-line
+    drawShades = drawShades.bind(this); //eslint-disable-line
 
     if (animated) {
       animateShades();

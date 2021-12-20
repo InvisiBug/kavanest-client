@@ -21,8 +21,6 @@ const RoomSetpoints: React.FC<any> = ({ room, close = null }) => {
   if (loading) return <></>;
   if (error) return <></>;
 
-  console.log(data);
-
   const refreshPage = () => {
     setShowNewSetpoint(false);
     refetch();

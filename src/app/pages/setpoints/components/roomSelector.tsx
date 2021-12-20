@@ -13,11 +13,14 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
   if (loading) return <></>;
   if (error) return <></>;
 
+  data.heating.state = "test";
+  console.log(data.heating.state);
+
   return (
     <>
       <Container onClick={onClick}>
         <Room onClick={close}>{decamelize(room)}</Room>
-        {data.valve.state ? null : <FlameIcon src={flame}></FlameIcon>}
+        {!data.valve.state && data.heating.state ? <FlameIcon src={flame}></FlameIcon> : null}
         <Vals>
           <Setpoint heating={false}>Setpoint°C</Setpoint>
           <Temp>{data.sensor.temperature}°C</Temp>
@@ -39,6 +42,9 @@ export interface Props {
 const getValves = gql`
   query ($room: String) {
     valve: getValve(room: $room) {
+      state
+    }
+    heating: getPlug(name: "heating") {
       state
     }
     sensor: getSensor(room: $room) {

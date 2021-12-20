@@ -1,4 +1,4 @@
-export default [
+const vals = [
   "#00C3A9",
   "#00B720",
   "#008813",
@@ -16,3 +16,5 @@ export default [
   "#00BCED",
   "#14E4C5",
 ];
+
+export default vals;

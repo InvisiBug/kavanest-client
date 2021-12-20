@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { downArrow, rightArrow, Room } from "../../../lib";
 import { decamelize } from "../../../utils";
 import Details from "./details";
 import { useQuery, gql, useMutation } from "@apollo/client";
 
-const RoomSelector: React.FC<Props> = ({ lightData: { name } }) => {
+const RoomSelector: React.FC<Props> = ({ lightData: { name }, openRGBLight, setOpenRGBLight }) => {
   const { loading, error, data, refetch } = useQuery(getInfo, { variables: { name }, fetchPolicy: "no-cache" });
-  const [details, setDetails] = useState<boolean>(false);
 
   const [updateRGB] = useMutation(mutation, {
     onCompleted() {
@@ -36,12 +35,12 @@ const RoomSelector: React.FC<Props> = ({ lightData: { name } }) => {
   return (
     <>
       <Container>
-        <Header onClick={() => setDetails(!details)}>
+        <Header onClick={() => setOpenRGBLight(openRGBLight === name ? "" : name)}>
           <Room connected={connected}>{decamelize(name)}</Room>
           <ColourIndicator red={red} green={green} blue={blue} />
-          <Icon src={details ? downArrow : rightArrow} />
+          <Icon src={openRGBLight === name ? downArrow : rightArrow} />
         </Header>
-        {details ? <Details red={red} green={green} blue={blue} clicked={(rgb: any) => clicked(rgb)} /> : null}
+        {openRGBLight === name ? <Details red={red} green={green} blue={blue} clicked={(rgb: any) => clicked(rgb)} /> : null}
       </Container>
     </>
   );
@@ -58,6 +57,8 @@ export interface Props {
     blue: number;
     mode?: number;
   };
+  openRGBLight: string;
+  setOpenRGBLight: (name: string) => void;
 }
 
 const getInfo = gql`

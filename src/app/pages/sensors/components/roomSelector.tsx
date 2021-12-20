@@ -4,14 +4,13 @@ import { decamelize } from "../../../utils";
 import { rightArrow, downArrow, Text, Room } from "../../../lib";
 import SensorDetails from "./details";
 
-const Sensor: React.FC<Props> = ({ sensor: { room, rawTemperature, temperature, humidity, offset, connected } }) => {
+const Sensor: React.FC<Props> = ({ sensor: { room, rawTemperature, temperature, humidity, offset, connected }, openRoom, setOpenRoom }) => {
   const [details, setDetails] = useState(false);
-  // console.log(temperature);
 
   const showDetails = () => {
     return (
       <>
-        <div onClick={() => setDetails(!details)}>
+        <div onClick={() => setOpenRoom(openRoom === room ? "" : room)}>
           <SensorDetails temperature={temperature} rawTemperature={rawTemperature} humidity={humidity} offset={offset} connected={connected} />
         </div>
       </>
@@ -22,20 +21,35 @@ const Sensor: React.FC<Props> = ({ sensor: { room, rawTemperature, temperature, 
     <>
       {/* <div>helo</div> */}
       <Container>
-        <Header onClick={() => setDetails(!details)}>
+        <Header onClick={() => setOpenRoom(openRoom === room ? "" : room)}>
           <Room>{decamelize(room)}</Room>
           <Temp>
             <Text>{`${temperature}°C`}</Text>
           </Temp>
-          <Icon src={details ? downArrow : rightArrow} />
+          <Icon src={openRoom === room ? downArrow : rightArrow} />
         </Header>
-        {details ? showDetails() : null}
+        {openRoom === room ? showDetails() : null}
       </Container>
     </>
   );
 };
 
 export default Sensor;
+
+export interface Props {
+  sensor: SensorData;
+  openRoom: string;
+  setOpenRoom: (room: string) => void;
+}
+
+export interface SensorData {
+  room: string;
+  rawTemperature: number;
+  temperature: number;
+  humidity: number;
+  offset: number;
+  connected: boolean;
+}
 
 const Container = styled.div`
   color: white;
@@ -67,16 +81,3 @@ const Temp = styled.div`
 const Icon = styled.img`
   height: 20px;
 `;
-
-export interface Props {
-  sensor: SensorData;
-}
-
-export interface SensorData {
-  room: string;
-  rawTemperature: number;
-  temperature: number;
-  humidity: number;
-  offset: number;
-  connected: boolean;
-}

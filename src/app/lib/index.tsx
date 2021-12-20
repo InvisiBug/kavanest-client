@@ -10,6 +10,7 @@ export { default as Layout } from "./components/templates/layout";
 
 // Icons
 export {
+  plug,
   refresh,
   cancel,
   home,

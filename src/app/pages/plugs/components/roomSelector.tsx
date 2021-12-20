@@ -5,14 +5,13 @@ import { downArrow, rightArrow, Room, on, off, disconnected } from "../../../lib
 import { decamelize } from "../../../utils";
 import Details from "./details";
 
-const RoomSelector: React.FC<Props> = ({ plug: { name } }) => {
+const RoomSelector: React.FC<Props> = ({ plug: { name }, openPlug, setOpenPlug }) => {
   const { loading, error, data, refetch } = useQuery(query, { variables: { name }, fetchPolicy: "no-cache" });
   const [updatePlug] = useMutation(mutation, {
     onCompleted() {
       refetch();
     },
   });
-  const [details, setDetails] = useState<boolean>(false);
 
   if (loading) return <></>;
   if (error) return <></>;
@@ -28,12 +27,17 @@ const RoomSelector: React.FC<Props> = ({ plug: { name } }) => {
   return (
     <>
       <Container>
-        <Header onClick={() => setDetails(!details)}>
+        <Header onClick={() => setOpenPlug(openPlug === name ? "" : name)}>
           <Room>{decamelize(name)}</Room>
           <StateIndicator state={state} connected={connected} />
-          <Icon src={details ? downArrow : rightArrow} />
+          <Icon src={openPlug === name ? downArrow : rightArrow} />
         </Header>
-        {details ? (
+        {/* {details ? (
+          <div>
+            <Details name={name} state={state} connected={connected} click={click} />
+          </div>
+        ) : null} */}
+        {openPlug === name ? (
           <div>
             <Details name={name} state={state} connected={connected} click={click} />
           </div>
@@ -47,6 +51,8 @@ export default RoomSelector;
 
 export interface Props {
   plug: { name: string };
+  openPlug: string;
+  setOpenPlug: (plug: string) => void;
 }
 
 const query = gql`

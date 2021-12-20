@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import RoomSelector from "./components/roomSelector";
 import { PageTitle } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
@@ -11,6 +11,8 @@ const Sensors: React.FC = () => {
     fetchPolicy: "no-cache",
   });
 
+  const [openRoom, setOpenRoom] = useState("");
+
   if (loading) return <p>Loading</p>;
   if (error) return <p>Error</p>;
 
@@ -19,7 +21,7 @@ const Sensors: React.FC = () => {
       <PageTitle desc={`Heating is probably ${data.heating ? "on" : "off"}, I've no idea`}>Sensors</PageTitle>
 
       {data.avaliableRooms.map((sensorData: any) => {
-        return <RoomSelector sensor={sensorData} key={Math.random()} />;
+        return <RoomSelector sensor={sensorData} openRoom={openRoom} setOpenRoom={setOpenRoom} key={Math.random()} />;
       })}
     </>
   );
