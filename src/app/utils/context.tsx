@@ -5,10 +5,12 @@ const AppContext = createContext<ContextState | undefined>(undefined);
 export const AppProvider: React.FC<Props> = ({ children }) => {
   const [test, setTest] = useState("Test");
 
-  const [screen, setScreen] = useState("rgbLights");
+  const [screen, setScreen] = useState("plugs");
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const [openPlug, setOpenPlug] = useState("");
 
   const [arr, setArr] = useState(["hello", "me"]);
 
@@ -27,6 +29,9 @@ export const AppProvider: React.FC<Props> = ({ children }) => {
 
           arr,
           setArr,
+
+          openPlug,
+          setOpenPlug,
 
           screen,
           setScreen,
@@ -65,4 +70,7 @@ interface ContextState {
 
   screen: string;
   setScreen: (key: string) => void;
+
+  openPlug: string;
+  setOpenPlug: (key: string) => void;
 }

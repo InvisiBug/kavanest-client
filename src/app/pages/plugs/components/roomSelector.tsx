@@ -1,45 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { useQuery, gql, useMutation } from "@apollo/client";
+import { useQuery, useLazyQuery, gql, useMutation } from "@apollo/client";
 import { downArrow, rightArrow, Room, on, off, disconnected } from "../../../lib";
-import { decamelize } from "../../../utils";
+import { decamelize, useAppContext } from "../../../utils";
 import Details from "./details";
 
-const RoomSelector: React.FC<Props> = ({ plug: { name }, openPlug, setOpenPlug }) => {
-  const { loading, error, data, refetch } = useQuery(query, { variables: { name }, fetchPolicy: "no-cache" });
+const RoomSelector: React.FC<Props> = ({ plug: { name, state, connected, _id = "2" } }) => {
+  // const { loading, error, data: gqlResponse, refetch } = useQuery(query, { variables: { name }, fetchPolicy: "no-cache" });
+  const [getGql, { error, data: gqlResponse }] = useLazyQuery(query, {
+    variables: { name },
+    fetchPolicy: "cache-and-network",
+    onCompleted() {
+      setData(gqlResponse.response);
+    },
+  });
+  console.log(_id);
+  // const [data, setData] = useState<any | null>({ state, connected });
+  const [data, setData] = useState<any | null>(null);
+
+  const { openPlug, setOpenPlug } = useAppContext();
+
+  useEffect(() => {
+    getGql();
+  }, []); // eslint-disable-line
+
+  const click = () => {
+    updatePlug({ variables: { input: { name: name, state: !data.state } } });
+  };
+
   const [updatePlug] = useMutation(mutation, {
     onCompleted() {
-      refetch();
+      getGql();
     },
   });
 
-  if (loading) return <></>;
-  if (error) return <></>;
-
-  const {
-    response: { state, connected },
-  } = data;
-
-  const click = () => {
-    updatePlug({ variables: { input: { name: name, state: !state } } });
-  };
+  if (error) return <h1>Error</h1>;
+  if (!data) return <></>;
 
   return (
     <>
       <Container>
         <Header onClick={() => setOpenPlug(openPlug === name ? "" : name)}>
           <Room>{decamelize(name)}</Room>
-          <StateIndicator state={state} connected={connected} />
+          <StateIndicator state={data.state} connected={data.connected} />
           <Icon src={openPlug === name ? downArrow : rightArrow} />
         </Header>
-        {/* {details ? (
-          <div>
-            <Details name={name} state={state} connected={connected} click={click} />
-          </div>
-        ) : null} */}
         {openPlug === name ? (
           <div>
-            <Details name={name} state={state} connected={connected} click={click} />
+            <Details name={name} state={data.state} connected={data.connected} click={click} />
           </div>
         ) : null}
       </Container>
@@ -50,9 +58,7 @@ const RoomSelector: React.FC<Props> = ({ plug: { name }, openPlug, setOpenPlug }
 export default RoomSelector;
 
 export interface Props {
-  plug: { name: string };
-  openPlug: string;
-  setOpenPlug: (plug: string) => void;
+  plug: { name: string; connected: boolean; state: boolean; _id: string };
 }
 
 const query = gql`

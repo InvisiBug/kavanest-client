@@ -5,16 +5,17 @@ import RoomSelector from "./components/roomSelector";
 
 const Plugs: React.FC<Props> = () => {
   const { loading, error, data } = useQuery(getPlugs, { fetchPolicy: "no-cache" });
-  const [openPlug, setOpenPlug] = useState<string>("");
+  // const [openPlug, setOpenPlug] = useState<string>("");
 
-  if (loading) return <p>Loading</p>;
+  if (loading) return <></>;
   if (error) return <p>Error</p>;
 
   return (
     <>
       <PageTitle desc={"Simple on / off plugs"}>Plugs</PageTitle>
+      {/* <RoomSelector plug={{ name: "sun" }} openPlug={openPlug} setOpenPlug={(name) => setOpenPlug(name)} key={Math.random()} /> */}
       {data.response.map((plug: any) => {
-        return <RoomSelector plug={plug} openPlug={openPlug} setOpenPlug={(name) => setOpenPlug(name)} key={Math.random()} />;
+        return <RoomSelector plug={plug} key={Math.random()} />;
       })}
     </>
   );
@@ -28,6 +29,8 @@ const getPlugs = gql`
   query {
     response: getPlugs {
       name
+      connected
+      state
     }
   }
 `;
