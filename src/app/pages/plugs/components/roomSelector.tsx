@@ -7,35 +7,20 @@ import Details from "./details";
 
 const RoomSelector: React.FC<Props> = ({ plug: { name, state, connected, _id = "2" } }) => {
   // const { loading, error, data: gqlResponse, refetch } = useQuery(query, { variables: { name }, fetchPolicy: "no-cache" });
-  const [getGql, { error, data: gqlResponse }] = useLazyQuery(query, {
-    variables: { name },
-    fetchPolicy: "cache-and-network",
-    onCompleted() {
-      setData(gqlResponse.response);
-    },
-  });
-  console.log(_id);
-  // const [data, setData] = useState<any | null>({ state, connected });
-  const [data, setData] = useState<any | null>(null);
+
+  const [data, setData] = useState<any | null>({ state, connected });
 
   const { openPlug, setOpenPlug } = useAppContext();
 
   useEffect(() => {
-    getGql();
+    // make connection to socket something here
   }, []); // eslint-disable-line
 
   const click = () => {
     updatePlug({ variables: { input: { name: name, state: !data.state } } });
   };
 
-  const [updatePlug] = useMutation(mutation, {
-    onCompleted() {
-      getGql();
-    },
-  });
-
-  if (error) return <h1>Error</h1>;
-  if (!data) return <></>;
+  const [updatePlug] = useMutation(mutation, {});
 
   return (
     <>
