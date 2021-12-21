@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { useQuery, useLazyQuery, gql, useMutation } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { downArrow, rightArrow, Room, on, off, disconnected } from "../../../lib";
 import { decamelize, useAppContext } from "../../../utils";
 import Details from "./details";
 
 const RoomSelector: React.FC<Props> = ({ plug: { name, state, connected, _id = "2" } }) => {
-  // const { loading, error, data: gqlResponse, refetch } = useQuery(query, { variables: { name }, fetchPolicy: "no-cache" });
-
   const [data, setData] = useState<any | null>({ state, connected });
-
   const { openPlug, setOpenPlug } = useAppContext();
 
   useEffect(() => {
@@ -45,15 +42,6 @@ export default RoomSelector;
 export interface Props {
   plug: { name: string; connected: boolean; state: boolean; _id: string };
 }
-
-const query = gql`
-  query ($name: String) {
-    response: getPlug(name: $name) {
-      connected
-      state
-    }
-  }
-`;
 
 const mutation = gql`
   mutation ($input: PlugInput) {

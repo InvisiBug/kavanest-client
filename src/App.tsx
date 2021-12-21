@@ -17,6 +17,7 @@ const defaultOptions: DefaultOptions = {
 
 const App: React.FC = () => {
   const client = new ApolloClient({
+    defaultOptions: defaultOptions,
     uri: apiUrl,
     cache: new InMemoryCache(),
   });
