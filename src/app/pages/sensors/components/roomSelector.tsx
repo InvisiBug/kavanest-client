@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { decamelize } from "../../../utils";
 import { rightArrow, downArrow, Text, Room } from "../../../lib";
 import SensorDetails from "./details";
 
 const Sensor: React.FC<Props> = ({ sensor: { room, rawTemperature, temperature, humidity, offset, connected }, openRoom, setOpenRoom }) => {
-  const [details, setDetails] = useState(false);
-
   const showDetails = () => {
     return (
       <>
@@ -19,7 +17,6 @@ const Sensor: React.FC<Props> = ({ sensor: { room, rawTemperature, temperature, 
 
   return (
     <>
-      {/* <div>helo</div> */}
       <Container>
         <Header onClick={() => setOpenRoom(openRoom === room ? "" : room)}>
           <Room>{decamelize(room)}</Room>
