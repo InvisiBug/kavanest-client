@@ -5,24 +5,38 @@ import { downArrow, rightArrow, Room, on, off, disconnected } from "../../../lib
 import { decamelize, useAppContext } from "../../../utils";
 import Details from "./details";
 
-const RoomSelector: React.FC<Props> = ({ plug: { name, state, connected, _id = "2" } }) => {
-  const [data, setData] = useState<any | null>({ state, connected });
-  const { openPlug, setOpenPlug } = useAppContext();
+const RoomSelector: React.FC<Props> = ({ plug: { name, state, connected, _id = "" }, refetch }) => {
+  const { openPlug, setOpenPlug, socket } = useAppContext();
+  const [updatePlug] = useMutation(mutation, {});
+  const [data, setData] = useState<PlugData>({ name, state, connected, _id });
 
+  /*
+    Register the socket connection on component load
+    and remove it on component close
+  */
   useEffect(() => {
-    // make connection to socket something here
+    socket.on(_id, (payload: PlugData) => {
+      setData(payload);
+    });
+
+    return function cleanup() {
+      socket.off(_id);
+    };
   }, []); // eslint-disable-line
 
   const click = () => {
     updatePlug({ variables: { input: { name: name, state: !data.state } } });
   };
 
-  const [updatePlug] = useMutation(mutation, {});
-
   return (
     <>
       <Container>
-        <Header onClick={() => setOpenPlug(openPlug === name ? "" : name)}>
+        <Header
+          onClick={() => {
+            setOpenPlug(openPlug === name ? "" : name);
+            refetch();
+          }}
+        >
           <Room>{decamelize(name)}</Room>
           <StateIndicator state={data.state} connected={data.connected} />
           <Icon src={openPlug === name ? downArrow : rightArrow} />
@@ -41,6 +55,14 @@ export default RoomSelector;
 
 export interface Props {
   plug: { name: string; connected: boolean; state: boolean; _id: string };
+  refetch: any;
+}
+
+interface PlugData {
+  name: string;
+  state: boolean;
+  connected: boolean;
+  _id: string;
 }
 
 const mutation = gql`

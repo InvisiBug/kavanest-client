@@ -13,9 +13,6 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
   if (loading) return <></>;
   if (error) return <></>;
 
-  data.heating.state = "test";
-  console.log(data.heating.state);
-
   return (
     <>
       <Container onClick={onClick}>

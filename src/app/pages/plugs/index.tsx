@@ -4,7 +4,7 @@ import { useQuery, gql } from "@apollo/client";
 import RoomSelector from "./components/roomSelector";
 
 const Plugs: React.FC<Props> = () => {
-  const { loading, error, data } = useQuery(getPlugs, { fetchPolicy: "no-cache" });
+  const { loading, error, data, refetch } = useQuery(getPlugs, { fetchPolicy: "no-cache" });
   // const [openPlug, setOpenPlug] = useState<string>("");
 
   if (loading) return <></>;
@@ -15,7 +15,7 @@ const Plugs: React.FC<Props> = () => {
       <PageTitle desc={"Simple on / off plugs"}>Plugs</PageTitle>
       {/* <RoomSelector plug={{ name: "sun" }} openPlug={openPlug} setOpenPlug={(name) => setOpenPlug(name)} key={Math.random()} /> */}
       {data.response.map((plug: any) => {
-        return <RoomSelector plug={plug} key={Math.random()} />;
+        return <RoomSelector plug={plug} refetch={refetch} key={Math.random()} />;
       })}
     </>
   );
@@ -31,6 +31,7 @@ const getPlugs = gql`
       name
       connected
       state
+      _id
     }
   }
 `;

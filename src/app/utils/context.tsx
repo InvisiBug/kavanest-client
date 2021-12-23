@@ -1,8 +1,12 @@
 import React, { createContext, useContext, useState } from "react";
+import openSocket, { Socket } from "socket.io-client";
 
 const AppContext = createContext<ContextState | undefined>(undefined);
 
 export const AppProvider: React.FC<Props> = ({ children }) => {
+  // const socket = openSocket("http://192.168.1.11:3100");
+  const socket = openSocket("https://test.socket.kavanet.io");
+
   const [test, setTest] = useState("Test");
 
   const [screen, setScreen] = useState("plugs");
@@ -35,6 +39,8 @@ export const AppProvider: React.FC<Props> = ({ children }) => {
 
           screen,
           setScreen,
+
+          socket,
         }}
       >
         {children}
@@ -73,4 +79,6 @@ interface ContextState {
 
   openPlug: string;
   setOpenPlug: (key: string) => void;
+
+  socket: Socket;
 }

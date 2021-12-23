@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { apiUrl } from "./apiUrlGen";
+import { apiUrl } from "./urlGen";
 
 export const makeRequest = async (query: string, variables: any = null) => {
   const data = await Axios.post(apiUrl, { query, variables }).then((response) => {
