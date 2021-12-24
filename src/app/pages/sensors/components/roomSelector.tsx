@@ -5,19 +5,26 @@ import { rightArrow, downArrow, Text, Room } from "../../../lib";
 import SensorDetails from "./details";
 
 const Sensor: React.FC<Props> = ({
-  sensor: { room, temperature, rawTemperature, humidity, offset, connected, _id },
+  thisSensor: { room, temperature, rawTemperature, humidity, offset, connected, _id },
+  allSensors,
+  setAllSensors,
   openSensor,
   setOpenSensor,
-  refetch,
 }) => {
-  // const { openSensor, setOpenSensor, socket } = useAppContext();
   const { socket } = useAppContext();
-  const [data, setData] = useState<SensorData>({ room, temperature, rawTemperature, humidity, offset, connected });
 
   useEffect(() => {
     if (_id) {
       socket.on(_id, (payload: any) => {
-        setData(payload);
+        const updatedSensors: Array<SensorData> = [...allSensors];
+
+        for (let key in updatedSensors) {
+          if (updatedSensors[key].room === room) {
+            updatedSensors[key] = payload;
+          }
+        }
+
+        setAllSensors(updatedSensors);
       });
     }
 
@@ -31,26 +38,19 @@ const Sensor: React.FC<Props> = ({
       <Container>
         <Header
           onClick={() => {
-            setOpenSensor(openSensor === data.room ? "" : room);
-            refetch();
+            setOpenSensor(openSensor === room ? "" : room);
           }}
         >
           <Room>{decamelize(room)}</Room>
           <Temp>
-            <Text>{`${data.temperature}°C`}</Text>
+            <Text>{`${temperature}°C`}</Text>
           </Temp>
-          <Icon src={openSensor === data.room ? downArrow : rightArrow} />
+          <Icon src={openSensor === room ? downArrow : rightArrow} />
         </Header>
 
-        {openSensor === data.room ? (
-          <div onClick={() => setOpenSensor(openSensor === data.room ? "" : room)}>
-            <SensorDetails
-              temperature={data.temperature}
-              rawTemperature={data.rawTemperature}
-              humidity={data.humidity}
-              offset={data.offset}
-              connected={data.connected}
-            />
+        {openSensor === room ? (
+          <div onClick={() => setOpenSensor(openSensor === room ? "" : room)}>
+            <SensorDetails temperature={temperature} rawTemperature={rawTemperature} humidity={humidity} offset={offset} connected={connected} />
           </div>
         ) : null}
       </Container>
@@ -61,10 +61,11 @@ const Sensor: React.FC<Props> = ({
 export default Sensor;
 
 interface Props {
-  sensor: SensorData;
+  thisSensor: SensorData;
+  allSensors: Array<SensorData>;
+  setAllSensors: (key: Array<SensorData>) => void;
   openSensor: string;
   setOpenSensor: (key: string) => void;
-  refetch: any;
 }
 interface SensorData {
   room: string;
