@@ -5,17 +5,24 @@ import { downArrow, rightArrow, Room, on, off, disconnected } from "../../../lib
 import { decamelize, useAppContext } from "../../../utils";
 import Details from "./details";
 
-const RoomSelector: React.FC<Props> = ({ plug: { name, state, connected, _id = "" }, refetch }) => {
-  const { openPlug, setOpenPlug, socket } = useAppContext();
+/*
+  A selector for each plug, with details
+
+  When the component is created a socket listner is created according to the _id of the plug.
+
+*/
+const RoomSelector: React.FC<Props> = ({ plug: { name, state, connected, _id = "" }, refetch, openPlug, setOpenPlug }) => {
+  // const { openPlug, setOpenPlug, socket } = useAppContext();
+  const { socket } = useAppContext();
   const [updatePlug] = useMutation(mutation, {});
-  const [data, setData] = useState<PlugData>({ name, state, connected, _id });
+  const [data, setData] = useState<any>({ name, state, connected });
 
   /*
     Register the socket connection on component load
     and remove it on component close
   */
   useEffect(() => {
-    socket.on(_id, (payload: PlugData) => {
+    socket.on(_id, (payload: any) => {
       setData(payload);
     });
 
@@ -33,8 +40,8 @@ const RoomSelector: React.FC<Props> = ({ plug: { name, state, connected, _id = "
       <Container>
         <Header
           onClick={() => {
-            setOpenPlug(openPlug === name ? "" : name);
             refetch();
+            setOpenPlug(openPlug === name ? "" : name);
           }}
         >
           <Room>{decamelize(name)}</Room>
@@ -54,8 +61,10 @@ const RoomSelector: React.FC<Props> = ({ plug: { name, state, connected, _id = "
 export default RoomSelector;
 
 export interface Props {
-  plug: { name: string; connected: boolean; state: boolean; _id: string };
+  plug: PlugData;
   refetch: any;
+  openPlug: string;
+  setOpenPlug: (key: string) => void;
 }
 
 interface PlugData {

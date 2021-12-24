@@ -4,38 +4,23 @@ import openSocket, { Socket } from "socket.io-client";
 const AppContext = createContext<ContextState | undefined>(undefined);
 
 export const AppProvider: React.FC<Props> = ({ children }) => {
-  // const socket = openSocket("http://192.168.1.11:3100");
-  const socket = openSocket("https://test.socket.kavanet.io");
+  const socket = openSocket("http://192.168.1.11:3100");
+  // const socket = openSocket("https://test.socket.kavanet.io");
 
-  const [test, setTest] = useState("Test");
-
-  const [screen, setScreen] = useState("plugs");
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [screen, setScreen] = useState("sensors");
 
   const [openPlug, setOpenPlug] = useState("");
-
-  const [arr, setArr] = useState(["hello", "me"]);
+  const [openSensor, setOpenSensor] = useState("");
 
   return (
     <>
       <AppContext.Provider
         value={{
-          test,
-          setTest,
-
-          username,
-          setUsername,
-
-          password,
-          setPassword,
-
-          arr,
-          setArr,
-
           openPlug,
           setOpenPlug,
+
+          openSensor,
+          setOpenSensor,
 
           screen,
           setScreen,
@@ -62,23 +47,14 @@ export default AppContext;
 interface Props {}
 
 interface ContextState {
-  test: string;
-  setTest: (key: string) => void;
-
-  username: string;
-  setUsername: (key: string) => void;
-
-  password: string;
-  setPassword: (key: string) => void;
-
-  arr: Array<any>;
-  setArr: (key: any) => void;
-
   screen: string;
   setScreen: (key: string) => void;
 
   openPlug: string;
   setOpenPlug: (key: string) => void;
+
+  openSensor: string;
+  setOpenSensor: (key: string) => void;
 
   socket: Socket;
 }
