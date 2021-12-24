@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useState } from "react";
 import openSocket, { Socket } from "socket.io-client";
+import { socketUrl } from "./index";
 
 const AppContext = createContext<ContextState | undefined>(undefined);
 
 export const AppProvider: React.FC<Props> = ({ children }) => {
-  const socket = openSocket("http://192.168.1.11:3100");
-  // const socket = openSocket("https://test.socket.kavanet.io");
+  const socket = openSocket(socketUrl);
 
   const [screen, setScreen] = useState("plugs");
 

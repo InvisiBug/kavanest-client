@@ -1,5 +1,6 @@
 import Axios from "axios";
-import { apiUrl } from "./urlGen";
+require("dotenv").config();
+// import { apiUrl } from "./urlGen";
 
 export const makeRequest = async (query: string, variables: any = null) => {
   const data = await Axios.post(apiUrl, { query, variables }).then((response) => {
@@ -24,4 +25,5 @@ export const decamelize = (text: string) => {
 };
 
 export { default as AppContext, AppProvider, useAppContext } from "./context";
-export { apiUrl };
+export const apiUrl = process.env.REACT_APP_API ?? "";
+export const socketUrl = process.env.REACT_APP_SOCKET ?? "";
