@@ -67,7 +67,7 @@ interface Props {
   openSensor: string;
   setOpenSensor: (key: string) => void;
 }
-interface SensorData {
+export interface SensorData {
   room: string;
   rawTemperature: number;
   temperature: number;

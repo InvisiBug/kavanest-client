@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import RoomSelector from "./components/roomSelector";
+import RoomSelector, { SensorData } from "./components/roomSelector";
 import { PageTitle } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 
 const Sensors: React.FC = () => {
-  const [openSensor, setOpenSensor] = useState("");
-  const [sensors, setSensors] = useState<any>("");
-  const [heating, setHeating] = useState<any>("");
+  const [openSensor, setOpenSensor] = useState<string>("");
+  const [sensors, setSensors] = useState<SensorData[] | null>(null);
+  const [heating, setHeating] = useState<HeatingData | null>(null);
 
   const { data } = useQuery(getRoomsWithSensors, {
     variables: {
@@ -26,8 +26,8 @@ const Sensors: React.FC = () => {
 
   return (
     <>
-      <PageTitle desc={`Heating is probably ${heating.state ? "on" : "off"}, I've no idea`}>Sensors</PageTitle>
-      {sensors.map((sensorData: any) => {
+      <PageTitle desc={`Heating is probably ${heating?.state ? "on" : "off"}, I've no idea`}>Sensors</PageTitle>
+      {sensors.map((sensorData: SensorData) => {
         return (
           <RoomSelector
             thisSensor={sensorData}
@@ -44,6 +44,10 @@ const Sensors: React.FC = () => {
 };
 
 export default Sensors;
+
+interface HeatingData {
+  state: boolean;
+}
 
 const getRoomsWithSensors = gql`
   query ($name: String) {

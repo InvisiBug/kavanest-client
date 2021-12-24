@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
 import { downArrow, rightArrow, Room, on, off, disconnected } from "../../../lib";
@@ -11,20 +11,28 @@ import Details from "./details";
   When the component is created a socket listner is created according to the _id of the plug.
 
 */
-const RoomSelector: React.FC<Props> = ({ plug: { name, state, connected, _id = "" }, refetch, openPlug, setOpenPlug }) => {
-  // const { openPlug, setOpenPlug, socket } = useAppContext();
+const RoomSelector: React.FC<any> = ({ thisPlug: { name, state, connected, _id }, allPlugs, setAllPlugs, openDetails, setOpenDetails }) => {
   const { socket } = useAppContext();
   const [updatePlug] = useMutation(mutation, {});
-  const [data, setData] = useState<any>({ name, state, connected });
 
   /*
     Register the socket connection on component load
     and remove it on component close
   */
   useEffect(() => {
-    socket.on(_id, (payload: any) => {
-      setData(payload);
-    });
+    if (_id) {
+      socket.on(_id, (payload: any) => {
+        const updatedPlugs: Array<any> = [...allPlugs];
+
+        for (let key in updatedPlugs) {
+          if (updatedPlugs[key].name === name) {
+            updatedPlugs[key] = payload;
+          }
+        }
+
+        setAllPlugs(updatedPlugs);
+      });
+    }
 
     return function cleanup() {
       socket.off(_id);
@@ -32,7 +40,7 @@ const RoomSelector: React.FC<Props> = ({ plug: { name, state, connected, _id = "
   }, []); // eslint-disable-line
 
   const click = () => {
-    updatePlug({ variables: { input: { name: name, state: !data.state } } });
+    updatePlug({ variables: { input: { name: name, state: !state } } });
   };
 
   return (
@@ -40,17 +48,16 @@ const RoomSelector: React.FC<Props> = ({ plug: { name, state, connected, _id = "
       <Container>
         <Header
           onClick={() => {
-            refetch();
-            setOpenPlug(openPlug === name ? "" : name);
+            setOpenDetails(openDetails === name ? "" : name);
           }}
         >
           <Room>{decamelize(name)}</Room>
-          <StateIndicator state={data.state} connected={data.connected} />
-          <Icon src={openPlug === name ? downArrow : rightArrow} />
+          <StateIndicator state={state} connected={connected} />
+          <Icon src={openDetails === name ? downArrow : rightArrow} />
         </Header>
-        {openPlug === name ? (
+        {openDetails === name ? (
           <div>
-            <Details name={name} state={data.state} connected={data.connected} click={click} />
+            <Details name={name} state={state} connected={connected} click={click} />
           </div>
         ) : null}
       </Container>
@@ -63,11 +70,11 @@ export default RoomSelector;
 export interface Props {
   plug: PlugData;
   refetch: any;
-  openPlug: string;
-  setOpenPlug: (key: string) => void;
+  openDetails: string;
+  setOpenDetails: (key: string) => void;
 }
 
-interface PlugData {
+export interface PlugData {
   name: string;
   state: boolean;
   connected: boolean;

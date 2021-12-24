@@ -7,7 +7,7 @@ export const AppProvider: React.FC<Props> = ({ children }) => {
   const socket = openSocket("http://192.168.1.11:3100");
   // const socket = openSocket("https://test.socket.kavanet.io");
 
-  const [screen, setScreen] = useState("sensors");
+  const [screen, setScreen] = useState("plugs");
 
   const [openPlug, setOpenPlug] = useState("");
   const [openSensor, setOpenSensor] = useState("");
