@@ -27,3 +27,5 @@ export const decamelize = (text: string) => {
 export { default as AppContext, AppProvider, useAppContext } from "./context";
 export const apiUrl = process.env.REACT_APP_API ?? "";
 export const socketUrl = process.env.REACT_APP_SOCKET ?? "";
+
+console.log(socketUrl);

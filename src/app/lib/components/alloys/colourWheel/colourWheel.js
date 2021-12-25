@@ -347,7 +347,7 @@ class ColourWheel extends Component {
     animateShades = animateShades.bind(this); //eslint-disable-line
     drawShades = drawShades.bind(this); //eslint-disable-line
 
-    if (animated) {
+    if (false /*animated*/) {
       animateShades();
     } else {
       // TODO: Refactor into its own func.

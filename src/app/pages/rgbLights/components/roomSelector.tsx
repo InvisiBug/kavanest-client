@@ -1,25 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { downArrow, rightArrow, Room } from "../../../lib";
-import { decamelize } from "../../../utils";
+import { decamelize, useAppContext } from "../../../utils";
 import Details from "./details";
-import { useQuery, gql, useMutation } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 
-const RoomSelector: React.FC<Props> = ({ lightData: { name }, openRGBLight, setOpenRGBLight }) => {
-  const { loading, error, data, refetch } = useQuery(getInfo, { variables: { name }, fetchPolicy: "no-cache" });
-
+const RoomSelector: React.FC<any> = ({
+  thisLight: { name, red, green, blue, mode, connected, _id },
+  allRgbLights,
+  setRgbLights,
+  openRGBLight,
+  setOpenRGBLight,
+}) => {
+  const { socket } = useAppContext();
   const [updateRGB] = useMutation(mutation, {
     onCompleted() {
-      refetch();
+      console.log("Mutation Completed");
     },
   });
+  // console.log(name, red, green, blue);
 
-  if (loading) return <></>;
-  if (error) return <></>;
+  useEffect(() => {
+    if (_id) {
+      socket.on(_id, (payload: any) => {
+        console.log(payload);
+        const updatedRgbLights: Array<any> = [...allRgbLights];
 
-  const {
-    response: { red, green, blue, connected },
-  } = data;
+        for (let key in updatedRgbLights) {
+          if (updatedRgbLights[key].name === name) {
+            updatedRgbLights[key] = payload;
+          }
+        }
+
+        setRgbLights(updatedRgbLights);
+      });
+    }
+
+    return function cleanup() {
+      socket.off(_id);
+    };
+  }, []); // eslint-disable-line
 
   const clicked = (rgb: string) => {
     const a = rgb.split("(")[1].split(")")[0];
