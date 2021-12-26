@@ -9,7 +9,7 @@ import RoomSelector, { PlugData } from "./components/roomSelector";
 */
 const Plugs: React.FC = () => {
   const [openDetails, setOpenDetails] = useState<string>("");
-  const [plugs, setPlugs] = useState<PlugData[] | null>(null);
+  const [plugs, setPlugs] = useState<PlugData[]>();
 
   const { data } = useQuery(getPlugs, {
     fetchPolicy: "no-cache",

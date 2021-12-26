@@ -11,7 +11,7 @@ import Details from "./details";
   When the component is created a socket listner is created according to the _id of the plug.
 
 */
-const RoomSelector: React.FC<any> = ({ thisPlug: { name, state, connected, _id }, allPlugs, setAllPlugs, openDetails, setOpenDetails }) => {
+const RoomSelector: React.FC<Props> = ({ thisPlug: { name, state, connected, _id }, allPlugs, setAllPlugs, openDetails, setOpenDetails }) => {
   const { socket } = useAppContext();
   const [updatePlug] = useMutation(mutation, {});
 
@@ -68,8 +68,9 @@ const RoomSelector: React.FC<any> = ({ thisPlug: { name, state, connected, _id }
 export default RoomSelector;
 
 export interface Props {
-  plug: PlugData;
-  refetch: any;
+  thisPlug: PlugData;
+  allPlugs: Array<PlugData>;
+  setAllPlugs: any;
   openDetails: string;
   setOpenDetails: (key: string) => void;
 }
