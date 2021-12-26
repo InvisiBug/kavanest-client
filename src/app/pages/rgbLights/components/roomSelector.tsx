@@ -13,17 +13,11 @@ const RoomSelector: React.FC<any> = ({
   setOpenRGBLight,
 }) => {
   const { socket } = useAppContext();
-  const [updateRGB] = useMutation(mutation, {
-    onCompleted() {
-      console.log("Mutation Completed");
-    },
-  });
-  // console.log(name, red, green, blue);
+  const [updateRGB] = useMutation(mutation, {});
 
   useEffect(() => {
     if (_id) {
       socket.on(_id, (payload: any) => {
-        console.log(payload);
         const updatedRgbLights: Array<any> = [...allRgbLights];
 
         for (let key in updatedRgbLights) {

@@ -7,7 +7,7 @@ const AppContext = createContext<ContextState | undefined>(undefined);
 export const AppProvider: React.FC<Props> = ({ children }) => {
   const socket = openSocket(socketUrl);
 
-  const [screen, setScreen] = useState("rgbLights");
+  const [screen, setScreen] = useState("setpoints");
 
   const [openPlug, setOpenPlug] = useState("");
   const [openSensor, setOpenSensor] = useState("");

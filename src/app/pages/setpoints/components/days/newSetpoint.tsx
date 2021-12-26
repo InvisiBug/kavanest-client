@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { plus, cancel } from "../../../lib";
+import { plus, cancel } from "../../../../lib";
 import { gql, useMutation } from "@apollo/client";
 
-const NewSetpoint: React.FC<Props> = ({ close, room }) => {
+const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
   const [mins, setMins] = useState<string | null>(null);
   const [hours, setHours] = useState<string | null>(null);
   const [temp, setTemp] = useState<string>("");
@@ -32,6 +32,7 @@ const NewSetpoint: React.FC<Props> = ({ close, room }) => {
                 input: {
                   room,
                   time: `${hours}:${mins}`,
+                  day: day,
                   temp,
                 },
               },
@@ -54,6 +55,7 @@ const NewSetpoint: React.FC<Props> = ({ close, room }) => {
 interface Props {
   close: () => void;
   room: string;
+  day: string;
 }
 
 export default NewSetpoint;
@@ -62,7 +64,10 @@ const addSetpointMutation = gql`
   mutation ($input: SetpointInput) {
     response: updateSetpoint(input: $input) {
       room
-      setpoints
+      setpoints {
+        weekend
+        weekday
+      }
     }
   }
 `;
@@ -85,13 +90,13 @@ const Container = styled.div`
 `;
 
 const MyInput = styled.input`
+  text-align: center;
   font-size: 1.2rem;
-  width: 20px;
+  width: 1.3rem;
   color: white;
   background-color: rgba(255, 255, 255, 0);
   border: ${borders ? "1px solid white" : "none"};
-  margin: 0;
-  /* width: 25px; */
+  /* margin: 0; */
 `;
 
 const Time = styled.div`

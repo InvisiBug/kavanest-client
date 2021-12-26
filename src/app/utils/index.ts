@@ -28,4 +28,28 @@ export { default as AppContext, AppProvider, useAppContext } from "./context";
 export const apiUrl = process.env.REACT_APP_API ?? "";
 export const socketUrl = process.env.REACT_APP_SOCKET ?? "";
 
-console.log(socketUrl);
+export const weekOrWeekend = () => {
+  var today = new Date();
+  if (!(today.getDay() % 6)) return "weekend";
+  else return "weekday";
+};
+
+export const getCurrentSetpoint = (setpoints: any) => {
+  let setpoint;
+
+  Object.keys(setpoints[weekOrWeekend()]).forEach((entry) => {
+    if (now() > entry) {
+      setpoint = setpoints[weekOrWeekend()][entry];
+    }
+  });
+  return setpoint;
+};
+
+export const now = () => {
+  const date = new Date();
+  return date.toLocaleTimeString([], {
+    hourCycle: "h23",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
