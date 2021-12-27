@@ -75,19 +75,6 @@ export interface Props {
   setOpenRGBLight: (name: string) => void;
 }
 
-const getInfo = gql`
-  query ($name: String) {
-    response: getRGBLight(name: $name) {
-      name
-      red
-      blue
-      green
-      connected
-      mode
-    }
-  }
-`;
-
 const mutation = gql`
   mutation ($input: RGBLightInput) {
     updateRGBLights(input: $input) {
