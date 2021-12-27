@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styled from "@emotion/styled";
 
 const Text: React.FC<Props> = ({ children }) => {
@@ -12,9 +12,12 @@ const Text: React.FC<Props> = ({ children }) => {
 export default Text;
 
 interface Props {
-  children: string;
+  // children: string | ReactNode;
+  children: any;
 }
 
 const NormalText = styled.p`
+  /* color: red; */
   font-size: 1rem;
+  text-align: center;
 `;

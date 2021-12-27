@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { PageTitle } from "../../lib";
-import RoomSetpointSelection from "./components/roomSelector";
+import RoomSelector from "./components/roomSelector";
 import RoomSetpoints from "./components/roomSetpoints";
 import { useQuery, gql } from "@apollo/client";
 
@@ -16,13 +16,13 @@ const SetpointsPage: React.FC = () => {
 
   const showAllRooms = (rooms: any) => {
     const arr: any = [
-      <PageTitle key={Math.random()} desc={"Each room shown here has a valve"}>
+      <PageTitle key={Math.random()} desc={"Each room shown here is on the system"}>
         Room Heating Setpoints
       </PageTitle>,
     ];
 
     rooms.forEach((room: any) => {
-      arr.push(<RoomSetpointSelection data={room} key={Math.random()} onClick={() => setRoomToShow(room.room)} close={() => setRoomToShow(false)} />);
+      arr.push(<RoomSelector data={room} key={Math.random()} onClick={() => setRoomToShow(room.room)} close={() => setRoomToShow(false)} />);
     });
     return arr;
   };

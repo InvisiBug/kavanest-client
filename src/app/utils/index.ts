@@ -1,5 +1,6 @@
 import Axios from "axios";
-import { apiUrl } from "./apiUrlGen";
+require("dotenv").config();
+// import { apiUrl } from "./urlGen";
 
 export const makeRequest = async (query: string, variables: any = null) => {
   const data = await Axios.post(apiUrl, { query, variables }).then((response) => {
@@ -24,4 +25,31 @@ export const decamelize = (text: string) => {
 };
 
 export { default as AppContext, AppProvider, useAppContext } from "./context";
-export { apiUrl };
+export const apiUrl = process.env.REACT_APP_API ?? "";
+export const socketUrl = process.env.REACT_APP_SOCKET ?? "";
+
+export const weekOrWeekend = () => {
+  var today = new Date();
+  if (!(today.getDay() % 6)) return "weekend";
+  else return "weekday";
+};
+
+export const getCurrentSetpoint = (setpoints: any) => {
+  let setpoint;
+
+  Object.keys(setpoints[weekOrWeekend()]).forEach((entry) => {
+    if (now() > entry) {
+      setpoint = setpoints[weekOrWeekend()][entry];
+    }
+  });
+  return setpoint;
+};
+
+export const now = () => {
+  const date = new Date();
+  return date.toLocaleTimeString([], {
+    hourCycle: "h23",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};

@@ -12,5 +12,6 @@ import refresh from "./refresh.png";
 import switchOff from "./switchOff.png";
 import switchOn from "./switchOn.png";
 import rgbLight from "./rgbLight.png";
+import plug from "./plug.png";
 
-export { rgbLight, refresh, dog, cancel, home, setpoints, switches, rightArrow, downArrow, flame, sensor, plus, switchOff, switchOn };
+export { plug, rgbLight, refresh, dog, cancel, home, setpoints, switches, rightArrow, downArrow, flame, sensor, plus, switchOff, switchOn };

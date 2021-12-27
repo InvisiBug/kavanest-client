@@ -1,19 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { PageTitle } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
-import RoomSelector from "./components/roomSelector";
+import RoomSelector, { PlugData } from "./components/roomSelector";
 
-const Plugs: React.FC<Props> = () => {
-  const { loading, error, data } = useQuery(getPlugs, { fetchPolicy: "no-cache" });
+/*
+  Make a graphql request for all Plugs
+  Create a selector for each plug and provide initial data
+*/
+const Plugs: React.FC = () => {
+  const [openDetails, setOpenDetails] = useState<string>("");
+  const [plugs, setPlugs] = useState<PlugData[]>();
 
-  if (loading) return <p>Loading</p>;
-  if (error) return <p>Error</p>;
+  const { data } = useQuery(getPlugs, {
+    fetchPolicy: "no-cache",
+    onCompleted() {
+      setPlugs(data.response);
+    },
+  });
+
+  if (!plugs) return <></>;
 
   return (
     <>
       <PageTitle desc={"Simple on / off plugs"}>Plugs</PageTitle>
-      {data.response.map((plug: any) => {
-        return <RoomSelector plug={plug} key={Math.random()} />;
+      {plugs.map((plug: any) => {
+        return (
+          <RoomSelector
+            thisPlug={plug}
+            allPlugs={plugs}
+            setAllPlugs={setPlugs}
+            openDetails={openDetails}
+            setOpenDetails={setOpenDetails}
+            key={Math.random()}
+          />
+        );
       })}
     </>
   );
@@ -21,12 +41,13 @@ const Plugs: React.FC<Props> = () => {
 
 export default Plugs;
 
-export interface Props {}
-
 const getPlugs = gql`
   query {
     response: getPlugs {
       name
+      connected
+      state
+      _id
     }
   }
 `;

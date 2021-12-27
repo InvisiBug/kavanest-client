@@ -1,25 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styled from "@emotion/styled";
-import { useQuery, gql, useMutation } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { downArrow, rightArrow, Room, on, off, disconnected } from "../../../lib";
-import { decamelize } from "../../../utils";
+import { decamelize, useAppContext } from "../../../utils";
 import Details from "./details";
 
-const RoomSelector: React.FC<Props> = ({ plug: { name } }) => {
-  const { loading, error, data, refetch } = useQuery(query, { variables: { name }, fetchPolicy: "no-cache" });
-  const [updatePlug] = useMutation(mutation, {
-    onCompleted() {
-      refetch();
-    },
-  });
-  const [details, setDetails] = useState<boolean>(false);
+/*
+  A selector for each plug, with details
 
-  if (loading) return <></>;
-  if (error) return <></>;
+  When the component is created a socket listner is created according to the _id of the plug.
 
-  const {
-    response: { state, connected },
-  } = data;
+*/
+const RoomSelector: React.FC<Props> = ({ thisPlug: { name, state, connected, _id }, allPlugs, setAllPlugs, openDetails, setOpenDetails }) => {
+  const { socket } = useAppContext();
+  const [updatePlug] = useMutation(mutation, {});
+
+  /*
+    Register the socket connection on component load
+    and remove it on component close
+  */
+  useEffect(() => {
+    if (_id) {
+      socket.on(_id, (payload: any) => {
+        const updatedPlugs: Array<any> = [...allPlugs];
+
+        for (let key in updatedPlugs) {
+          if (updatedPlugs[key].name === name) {
+            updatedPlugs[key] = payload;
+          }
+        }
+
+        setAllPlugs(updatedPlugs);
+      });
+    }
+
+    return function cleanup() {
+      socket.off(_id);
+    };
+  }, []); // eslint-disable-line
 
   const click = () => {
     updatePlug({ variables: { input: { name: name, state: !state } } });
@@ -28,12 +46,16 @@ const RoomSelector: React.FC<Props> = ({ plug: { name } }) => {
   return (
     <>
       <Container>
-        <Header onClick={() => setDetails(!details)}>
+        <Header
+          onClick={() => {
+            setOpenDetails(openDetails === name ? "" : name);
+          }}
+        >
           <Room>{decamelize(name)}</Room>
           <StateIndicator state={state} connected={connected} />
-          <Icon src={details ? downArrow : rightArrow} />
+          <Icon src={openDetails === name ? downArrow : rightArrow} />
         </Header>
-        {details ? (
+        {openDetails === name ? (
           <div>
             <Details name={name} state={state} connected={connected} click={click} />
           </div>
@@ -46,17 +68,19 @@ const RoomSelector: React.FC<Props> = ({ plug: { name } }) => {
 export default RoomSelector;
 
 export interface Props {
-  plug: { name: string };
+  thisPlug: PlugData;
+  allPlugs: Array<PlugData>;
+  setAllPlugs: any;
+  openDetails: string;
+  setOpenDetails: (key: string) => void;
 }
 
-const query = gql`
-  query ($name: String) {
-    response: getPlug(name: $name) {
-      connected
-      state
-    }
-  }
-`;
+export interface PlugData {
+  name: string;
+  state: boolean;
+  connected: boolean;
+  _id: string;
+}
 
 const mutation = gql`
   mutation ($input: PlugInput) {

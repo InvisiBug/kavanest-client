@@ -1,25 +1,43 @@
-import React from "react";
-import RoomSelector from "./components/roomSelector";
+import React, { useState } from "react";
+import RoomSelector, { SensorData } from "./components/roomSelector";
 import { PageTitle } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 
 const Sensors: React.FC = () => {
-  const { loading, error, data } = useQuery(getRoomsWithSensors, {
+  const [openSensor, setOpenSensor] = useState<string>("");
+  const [sensors, setSensors] = useState<SensorData[] | null>(null);
+  const [heating, setHeating] = useState<HeatingData | null>(null);
+
+  const { data } = useQuery(getRoomsWithSensors, {
     variables: {
       name: "heating",
     },
     fetchPolicy: "no-cache",
+    onCompleted() {
+      setSensors(data.availableRooms);
+      setHeating(data.heating);
+    },
   });
 
-  if (loading) return <p>Loading</p>;
-  if (error) return <p>Error</p>;
+  // if (loading) return <p>Loading</p>;
+  // if (error) return <p>Error</p>;
+  // if (!data) return <p>No Data</p>;
+  if (!sensors) return <></>;
 
   return (
     <>
-      <PageTitle desc={`Heating is probably ${data.heating ? "on" : "off"}, I've no idea`}>Sensors</PageTitle>
-
-      {data.avaliableRooms.map((sensorData: any) => {
-        return <RoomSelector sensor={sensorData} key={Math.random()} />;
+      <PageTitle desc={`Heating is probably ${heating?.state ? "on" : "off"}, I've no idea`}>Sensors</PageTitle>
+      {sensors.map((sensorData: SensorData) => {
+        return (
+          <RoomSelector
+            thisSensor={sensorData}
+            allSensors={sensors}
+            setAllSensors={setSensors}
+            openSensor={openSensor}
+            setOpenSensor={setOpenSensor}
+            key={Math.random()}
+          />
+        );
       })}
     </>
   );
@@ -27,15 +45,20 @@ const Sensors: React.FC = () => {
 
 export default Sensors;
 
+interface HeatingData {
+  state: boolean;
+}
+
 const getRoomsWithSensors = gql`
   query ($name: String) {
-    avaliableRooms: getSensors {
+    availableRooms: getSensors {
       room
       rawTemperature
       temperature
       humidity
       offset
       connected
+      _id
     }
     heating: getPlug(name: $name) {
       state

@@ -1,28 +1,35 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { decamelize } from "../../../utils";
+import { decamelize, getCurrentSetpoint } from "../../../utils";
 import { rightArrow, flame } from "../../../lib";
 import { useQuery, gql } from "@apollo/client";
 
 const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = null }) => {
-  const { loading, error, data } = useQuery(getValves, { variables: { room }, fetchPolicy: "no-cache" });
-
-  // if (loading) return <p>Loading</p>;
-  // if (error) return <p>Error</p>;
+  const { loading, error, data } = useQuery(query, { variables: { room }, fetchPolicy: "no-cache" });
 
   if (loading) return <></>;
   if (error) return <></>;
 
+  const setpoints = data.setpoints.setpoints;
+
   return (
     <>
       <Container onClick={onClick}>
-        <Room onClick={close}>{decamelize(room)}</Room>
-        {data.valve.state ? null : <FlameIcon src={flame}></FlameIcon>}
+        <RoomName onClick={close}>{decamelize(room)}</RoomName>
+        {!data.valve.state && data.heating.state ? <FlameIcon src={flame}></FlameIcon> : null}
         <Vals>
-          <Setpoint heating={false}>Setpoint°C</Setpoint>
-          <Temp>{data.sensor.temperature}°C</Temp>
+          <Current>
+            Current
+            <br />
+            {`${data.sensor.temperature}°C`}
+          </Current>
+          <Setpoint heating={false}>
+            Setpoint
+            <br />
+            {`${getCurrentSetpoint(setpoints)}°C`}
+          </Setpoint>
         </Vals>
-        <Icon src={rightArrow}></Icon>
+        <Arrow src={rightArrow}></Arrow>
       </Container>
     </>
   );
@@ -36,25 +43,24 @@ export interface Props {
   close: any;
 }
 
-const getValves = gql`
+const query = gql`
   query ($room: String) {
     valve: getValve(room: $room) {
+      state
+    }
+    heating: getPlug(name: "heating") {
       state
     }
     sensor: getSensor(room: $room) {
       temperature
     }
+    setpoints: getSetpoint(room: $room) {
+      setpoints {
+        weekend
+        weekday
+      }
+    }
   }
-`;
-
-const Setpoint = styled.div`
-  color: ${(props: { heating: boolean }) => (props.heating ? `orangered` : null)};
-`;
-
-const FlameIcon = styled.img`
-  height: 35px;
-  margin-right: 20px;
-  margin-top: -10px;
 `;
 
 const Container = styled.div`
@@ -77,23 +83,36 @@ const Container = styled.div`
   cursor: pointer;
 `;
 
-const Room = styled.h3`
+const RoomName = styled.h3`
   display: item;
   align-self: center;
   flex-grow: 1;
 `;
 
+const FlameIcon = styled.img`
+  height: 35px;
+  margin-right: 1.5rem;
+  margin-top: -10px;
+`;
+
 const Vals = styled.div`
   display: flex;
-  flex-direction: column;
-  margin-right: 20px;
+  flex-direction: row;
   align-items: center;
 `;
 
-const Temp = styled.div`
+const Current = styled.div`
   margin-top: 2px;
+  text-align: center;
+  margin-right: 1.5rem;
 `;
 
-const Icon = styled.img`
+const Setpoint = styled.div`
+  color: ${(props: { heating: boolean }) => (props.heating ? `orangered` : null)};
+  text-align: center;
+  margin-right: 1.5rem;
+`;
+
+const Arrow = styled.img`
   height: 20px;
 `;

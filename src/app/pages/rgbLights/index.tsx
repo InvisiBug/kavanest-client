@@ -1,21 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { PageTitle } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 import RoomSelector from "./components/roomSelector";
 
 const RGBLights: React.FC<any> = () => {
-  const { loading, error, data } = useQuery(getLights, { fetchPolicy: "no-cache" });
+  const [openRGBLight, setOpenRGBLight] = useState("");
+  const [rgbLights, setRgbLights] = useState<any>("");
 
-  if (loading) return <></>;
-  if (error) return <></>;
+  const { data } = useQuery(getLights, {
+    fetchPolicy: "no-cache",
+    onCompleted() {
+      setRgbLights(data.lights);
+    },
+  });
 
-  // console.log(data.lights);
+  if (!rgbLights) return <></>;
 
   return (
     <>
       <PageTitle desc={"Some of these lights have alternative modes"}>RGB Lights</PageTitle>
-      {data.lights.map((light: any) => {
-        return <RoomSelector lightData={light} key={Math.random()} />;
+      {rgbLights.map((light: any) => {
+        return (
+          <RoomSelector
+            thisLight={light}
+            allRgbLights={rgbLights}
+            setRgbLights={setRgbLights}
+            openRGBLight={openRGBLight}
+            setOpenRGBLight={setOpenRGBLight}
+            key={Math.random()}
+          />
+        );
       })}
     </>
   );
@@ -27,6 +41,12 @@ const getLights = gql`
   query {
     lights: getRGBLights {
       name
+      red
+      green
+      blue
+      mode
+      connected
+      _id
     }
   }
 `;

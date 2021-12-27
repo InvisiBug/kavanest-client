@@ -148,7 +148,7 @@ class ColourWheel extends Component {
     // Cases for click-events:
     if (this.outerWheelBounds.inside(evt.fromCenter)) {
       this.outerWheelClicked(evt.onCanvas);
-    } else if (this.innerWheelBounds.inside(evt.fromCenter) && this.state.innerWheelOpen) {
+    } else if (this.innerWheelBounds.inside(evt.fromCenter) /*&& this.state.innerWheelOpen*/) {
       this.innerWheelClicked(evt.onCanvas);
     }
   }
@@ -344,10 +344,11 @@ class ColourWheel extends Component {
       if (animationPercentage < 1) requestAnimationFrame(animateShades);
     }
 
-    animateShades = animateShades.bind(this);
-    drawShades = drawShades.bind(this);
+    animateShades = animateShades.bind(this); //eslint-disable-line
+    drawShades = drawShades.bind(this); //eslint-disable-line
 
-    if (animated) {
+    if (false /*animated*/) {
+      // if (animated) {
       animateShades();
     } else {
       // TODO: Refactor into its own func.
