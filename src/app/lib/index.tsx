@@ -25,6 +25,8 @@ export {
   switchOff,
   switchOn,
   rgbLight,
+  power,
+  powerOn,
 } from "./components/elements/icons";
 
 // Elements
