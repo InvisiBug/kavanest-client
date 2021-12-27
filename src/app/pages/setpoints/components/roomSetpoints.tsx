@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { decamelize, getCurrentSetpoint, weekOrWeekend } from "../../../utils";
 import styled from "@emotion/styled";
-import { flame } from "../../../lib";
+import { flame, Text } from "../../../lib";
 import { useQuery, gql, useMutation } from "@apollo/client";
 
-import SetpointList from "./days/setpointList";
+import SetpointList from "./subComponents/setpointList";
 
 const RoomSetpoints: React.FC<Props> = ({ room, close }) => {
   const [days, setDays] = useState<string>(weekOrWeekend());
@@ -37,15 +37,15 @@ const RoomSetpoints: React.FC<Props> = ({ room, close }) => {
 
       <Info>
         <Left>
-          <Setpoint>
-            Setpoint
-            <br /> {`${getCurrentSetpoint(setpoints)}°C`}
-          </Setpoint>
-
           <CurrentTemp>
             Current <br />
             {`${data.sensor.temperature}°C`}
           </CurrentTemp>
+
+          <Setpoint>
+            Setpoint
+            <br /> {`${getCurrentSetpoint(setpoints)}°C`}
+          </Setpoint>
         </Left>
 
         {data.valve.state ? null : <FlameIcon src={flame} />}
@@ -107,7 +107,7 @@ const mutation = gql`
   }
 `;
 
-const borders: boolean = true;
+const borders: boolean = false;
 
 const PageTitle = styled.div`
   cursor: pointer;
@@ -141,13 +141,13 @@ const Setpoint = styled.div`
   border: ${borders ? "1px solid white" : "none"};
   font-size: 1.2rem;
   text-align: center;
-  margin-bottom: 1.5rem;
 `;
 
 const CurrentTemp = styled.div`
   border: ${borders ? "1px solid white" : "none"};
   font-size: 1.2rem;
   text-align: center;
+  margin-bottom: 1.5rem;
 `;
 
 const FlameIcon = styled.img`

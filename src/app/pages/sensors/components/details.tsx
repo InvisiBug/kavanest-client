@@ -6,11 +6,33 @@ const ShowDetails: React.FC<Props> = ({ rawTemperature, temperature, humidity, o
   return (
     <>
       <Details>
-        <Text>{`Temperature: ${temperature}`}</Text>
-        <Text>{`Raw Temperature: ${rawTemperature}`}</Text>
-        <Text>{`Humidity: ${humidity}`}</Text>
-        <Text>{`Offset: ${offset}`}</Text>
-        <Text>{`Connected: ${connected}`}</Text>
+        <Text>
+          Temperature <br /> {`${temperature}`}
+        </Text>
+
+        <Text>
+          Raw Temperature
+          <br />
+          {` ${rawTemperature}`}
+        </Text>
+
+        <Text>
+          Humidity
+          <br />
+          {` ${humidity}`}
+        </Text>
+
+        <Text>
+          Offset
+          <br />
+          {` ${offset}`}
+        </Text>
+
+        <Text>
+          Connected
+          <br />
+          {` ${connected}`}
+        </Text>
       </Details>
     </>
   );

@@ -35,7 +35,7 @@ export { default as PageTitle } from "./components/elements/pageTitle";
 export { default as Text } from "./components/elements/text";
 
 // Colours
-export const on = "#00ff00";
+export const on = "#639628";
 export const off = "#2c2c2c";
 export const disconnected = "orangered";
 

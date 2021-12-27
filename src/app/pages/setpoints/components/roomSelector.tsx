@@ -18,16 +18,16 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
         <RoomName onClick={close}>{decamelize(room)}</RoomName>
         {!data.valve.state && data.heating.state ? <FlameIcon src={flame}></FlameIcon> : null}
         <Vals>
+          <Current>
+            Current
+            <br />
+            {`${data.sensor.temperature}°C`}
+          </Current>
           <Setpoint heating={false}>
             Setpoint
             <br />
             {`${getCurrentSetpoint(setpoints)}°C`}
           </Setpoint>
-          <Temp>
-            Current
-            <br />
-            {`${data.sensor.temperature}°C`}
-          </Temp>
         </Vals>
         <Arrow src={rightArrow}></Arrow>
       </Container>
@@ -101,14 +101,14 @@ const Vals = styled.div`
   align-items: center;
 `;
 
-const Setpoint = styled.div`
-  color: ${(props: { heating: boolean }) => (props.heating ? `orangered` : null)};
+const Current = styled.div`
+  margin-top: 2px;
   text-align: center;
   margin-right: 1.5rem;
 `;
 
-const Temp = styled.div`
-  margin-top: 2px;
+const Setpoint = styled.div`
+  color: ${(props: { heating: boolean }) => (props.heating ? `orangered` : null)};
   text-align: center;
   margin-right: 1.5rem;
 `;

@@ -16,7 +16,7 @@ const SetpointsPage: React.FC = () => {
 
   const showAllRooms = (rooms: any) => {
     const arr: any = [
-      <PageTitle key={Math.random()} desc={"Each room shown here has a valve"}>
+      <PageTitle key={Math.random()} desc={"Each room shown here is on the system"}>
         Room Heating Setpoints
       </PageTitle>,
     ];
