@@ -38,16 +38,10 @@ const PhoneNav: React.FC<Props> = () => {
       <Container>
         {navButtons.map((button) => {
           return (
-            <Icon
-              src={button.icon}
-              alt={button.name}
-              name={button.name}
-              screen={screen}
-              onClick={() => setScreen(button.name)}
-              key={Math.random()}
-            ></Icon>
+            <Icon src={button.icon} alt={button.name} name={button.name} screen={screen} onClick={() => setScreen(button.name)} key={Math.random()} />
           );
         })}
+        {/* <Text>button.name</Text> */}
       </Container>
     </>
   );
@@ -56,21 +50,34 @@ const PhoneNav: React.FC<Props> = () => {
 export default PhoneNav;
 
 const Container = styled.div`
+  /* border: 1px solid red; */
   margin: auto;
   height: 100%;
-  width: 100vw;
+  /* width: 100vw; */
   background-color: rgb(255, 255, 255, 0.01);
   display: flex;
   align-items: center;
   justify-content: space-around;
   ${mq("large")} {
+    flex-direction: column;
+    width: 100%;
     /* background-color: orange; */
-    max-width: ${px("medium")}px;
+    /* max-width: ${px("medium")}px; */
   }
+`;
+
+const Text = styled.div`
+  border: 1px solid red;
+  visibility: hidden;
 `;
 
 const Icon = styled.img`
   height: 50%;
+  ${mq("large")} {
+    height: 5%;
+    /* background-color: orange; */
+    /* max-width: ${px("medium")}px; */
+  }
   cursor: pointer;
   /* background: linear-gradient(to top, #3204fdba, #9907facc) no-repeat top center; */
 

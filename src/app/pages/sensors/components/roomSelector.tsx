@@ -18,9 +18,9 @@ const Sensor: React.FC<Props> = ({
       socket.on(_id, (payload: any) => {
         const updatedSensors: Array<SensorData> = [...allSensors];
 
-        for (let key in updatedSensors) {
-          if (updatedSensors[key].room === room) {
-            updatedSensors[key] = payload;
+        for (let thisSensor in updatedSensors) {
+          if (updatedSensors[thisSensor].room === room) {
+            updatedSensors[thisSensor] = payload;
           }
         }
 

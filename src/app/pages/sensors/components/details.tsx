@@ -6,9 +6,11 @@ const ShowDetails: React.FC<Props> = ({ rawTemperature, temperature, humidity, o
   return (
     <>
       <Details>
-        <Text>
-          Temperature <br /> {`${temperature}`}
-        </Text>
+        <Item>
+          <Text>
+            Temperature <br /> {`${temperature}`}
+          </Text>
+        </Item>
 
         <Text>
           Raw Temperature
@@ -54,6 +56,10 @@ const Details = styled.div`
   cursor: pointer;
 
   /* margin-bottom: 20px; */
+`;
+
+const Item = styled.div`
+  /* background-color: black; */
 `;
 
 interface Props {

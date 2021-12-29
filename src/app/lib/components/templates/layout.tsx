@@ -22,7 +22,10 @@ export const Layout: React.FC = ({ children }) => {
 
 export default Layout;
 
+const borders: boolean = false;
+
 const AppWindow = styled.div`
+  border: ${borders ? "1px solid green" : "none"};
   background-color: #1f1f1f;
 
   display: flex;
@@ -30,18 +33,31 @@ const AppWindow = styled.div`
   min-height: 100vh;
   min-width: 100vw;
   padding: 0;
+  /* border: 1px solid red; */
+
+  ${mq("large")} {
+    flex-direction: row;
+    align-items: center;
+  }
 `;
 
 const Top = styled.div`
+  border: ${borders ? "1px solid yellow" : "none"};
   overflow-y: auto;
-  height: 100px;
   width: 100vw;
   flex-grow: 1;
 `;
 
 const Bottom = styled.div`
+  border: ${borders ? "1px solid pink" : "none"};
   height: 50px; // This need to be a pixel value for the navbar to work
   width: 100vw;
+
+  ${mq("large")} {
+    order: -1;
+    height: 100vh;
+    width: 10vw;
+  }
 `;
 
 const Container = styled.div`
@@ -57,8 +73,10 @@ const Container = styled.div`
   /* min-width: ${px("medium")}px; */
   /* } */
   ${mq("large")} {
+    max-width: 75vw;
     /* background-color: orange; */
-    max-width: ${px("large")}px;
+    /* max-width: ${px("large")}px; */
+    /* height: 1000px; */
   }
 `;
 

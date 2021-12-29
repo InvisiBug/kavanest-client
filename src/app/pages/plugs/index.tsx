@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { PageTitle } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 import RoomSelector, { PlugData } from "./components/roomSelector";
@@ -7,7 +7,7 @@ import RoomSelector, { PlugData } from "./components/roomSelector";
   Make a graphql request for all Plugs
   Create a selector for each plug and provide initial data
 */
-const Plugs: React.FC = () => {
+const Plugs: FC = () => {
   const [openDetails, setOpenDetails] = useState<string>("");
   const [plugs, setPlugs] = useState<PlugData[]>();
 
@@ -18,6 +18,26 @@ const Plugs: React.FC = () => {
     },
   });
 
+  /*
+    Socket data coming in.
+    Take a copy of the the current data array,
+    update only the data received via the socket (using _id as a key)
+    save the new array over the old one
+  */
+  const socketUpdate = (_id: any, payload: any) => {
+    if (!plugs) return;
+    const updatedPlugs: Array<any> = [...plugs];
+
+    updatedPlugs.map((plug, index) => {
+      if (plug._id === _id) {
+        updatedPlugs[index] = payload;
+      }
+      return plug;
+    });
+
+    setPlugs(updatedPlugs);
+  };
+
   if (!plugs) return <></>;
 
   return (
@@ -25,14 +45,7 @@ const Plugs: React.FC = () => {
       <PageTitle desc={"Simple on / off plugs"}>Plugs</PageTitle>
       {plugs.map((plug: any) => {
         return (
-          <RoomSelector
-            thisPlug={plug}
-            allPlugs={plugs}
-            setAllPlugs={setPlugs}
-            openDetails={openDetails}
-            setOpenDetails={setOpenDetails}
-            key={Math.random()}
-          />
+          <RoomSelector thisPlug={plug} socketUpdate={socketUpdate} openDetails={openDetails} setOpenDetails={setOpenDetails} key={Math.random()} />
         );
       })}
     </>

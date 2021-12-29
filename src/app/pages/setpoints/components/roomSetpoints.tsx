@@ -25,6 +25,8 @@ const RoomSetpoints: React.FC<Props> = ({ room, close }) => {
     refetch();
   };
 
+  console.log(data);
+
   const setpoints = data.setpoints.setpoints;
   // setDeadzoneVal(data.setpoints.deadzone);
   const deadzone = data.setpoints.deadzone;

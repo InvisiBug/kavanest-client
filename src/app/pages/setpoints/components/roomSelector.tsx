@@ -11,6 +11,7 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
   if (error) return <></>;
 
   const setpoints = data.setpoints.setpoints;
+  // const setpoints = 2;
 
   return (
     <>

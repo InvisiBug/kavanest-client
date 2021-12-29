@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { refresh } from "../../lib";
+import { refresh, mq, px } from "../../lib";
 
 const Dog: React.FC = () => {
   const [urls, setUrls] = useState<any>(null);
@@ -49,10 +49,18 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  ${mq("large")} {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 `;
 
 const Pics = styled.img`
   margin: 1rem;
   width: 70vw;
+  ${mq("large")} {
+    /* background-color: orange; */
+    max-width: ${px("small")}px;
+  }
   object-fit: contain;
 `;

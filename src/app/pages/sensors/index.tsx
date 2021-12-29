@@ -24,6 +24,8 @@ const Sensors: React.FC = () => {
   // if (!data) return <p>No Data</p>;
   if (!sensors) return <></>;
 
+  console.log(sensors);
+
   return (
     <>
       <PageTitle desc={`Heating is probably ${heating?.state ? "on" : "off"}, I've no idea`}>Sensors</PageTitle>
