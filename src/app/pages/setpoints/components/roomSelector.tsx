@@ -25,7 +25,7 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
             {`${data.sensor.temperature}°C`}
           </Current>
           <Setpoint heating={false}>
-            Setpoint
+            Target
             <br />
             {`${getCurrentSetpoint(setpoints)}°C`}
           </Setpoint>

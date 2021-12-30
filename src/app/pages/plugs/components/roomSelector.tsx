@@ -22,16 +22,6 @@ const RoomSelector: React.FC<Props> = ({ thisPlug: { name, state, connected, _id
   useEffect(() => {
     if (_id) {
       socket.on(_id, (payload: any) => {
-        // const updatedPlugs: Array<any> = [...allPlugs];
-
-        // for (let key in updatedPlugs) {
-        //   if (updatedPlugs[key].name === name) {
-        //     updatedPlugs[key] = payload;
-        //   }
-        // }
-
-        // setAllPlugs(updatedPlugs);
-
         socketUpdate(_id, payload);
       });
     }
@@ -67,7 +57,7 @@ const RoomSelector: React.FC<Props> = ({ thisPlug: { name, state, connected, _id
   );
 };
 
-export default RoomSelector;
+export default React.memo(RoomSelector);
 
 export interface Props {
   thisPlug: PlugData;

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import { PageTitle } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 import RoomSelector, { PlugData } from "./components/roomSelector";

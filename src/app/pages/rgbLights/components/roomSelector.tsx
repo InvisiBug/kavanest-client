@@ -43,7 +43,7 @@ const RoomSelector: React.FC<any> = ({
       return parseInt(x);
     });
 
-    updateRGB({ variables: { input: { name, red: colours[0], green: colours[1], blue: colours[2] } } });
+    updateRGB({ variables: { input: { name, red: colours[0], green: colours[1], blue: colours[2], mode } } });
   };
 
   return (
@@ -54,7 +54,7 @@ const RoomSelector: React.FC<any> = ({
           <ColourIndicator red={red} green={green} blue={blue} />
           <Icon src={openRGBLight === name ? downArrow : rightArrow} />
         </Header>
-        {openRGBLight === name ? <Details red={red} green={green} blue={blue} clicked={(rgb: any) => clicked(rgb)} /> : null}
+        {openRGBLight === name ? <Details red={red} green={green} blue={blue} mode={mode} clicked={(rgb: any) => clicked(rgb)} /> : null}
       </Container>
     </>
   );

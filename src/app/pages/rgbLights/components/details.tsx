@@ -3,7 +3,9 @@ import styled from "@emotion/styled";
 import { on, off, disconnected } from "../../../lib";
 import ColourWheel from "../../../lib/components/alloys/colourWheel/colourWheel";
 
-const RGBLightDetails: React.FC<any> = ({ red, green, blue, clicked }) => {
+const RGBLightDetails: React.FC<Props> = ({ red, green, blue, mode, clicked }) => {
+  if (mode !== undefined) console.log(mode);
+
   return (
     <>
       <Details>
@@ -25,6 +27,8 @@ const RGBLightDetails: React.FC<any> = ({ red, green, blue, clicked }) => {
             animated
           />
         </Wheel>
+        {/* <h1>Mode 1</h1> */}
+        {/* <h1>Mode 2</h1> */}
       </Details>
     </>
   );
@@ -32,12 +36,13 @@ const RGBLightDetails: React.FC<any> = ({ red, green, blue, clicked }) => {
 
 export default RGBLightDetails;
 
-// interface Props {
-//   name: string;
-//   state: boolean;
-//   connected: boolean;
-//   click: () => void;
-// }
+interface Props {
+  red: string;
+  green: string;
+  blue: string;
+  mode: number;
+  clicked: (rgb: string) => void;
+}
 
 const Details = styled.div`
   /* border: 1px solid red; */
