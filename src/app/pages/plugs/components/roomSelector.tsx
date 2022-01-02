@@ -86,10 +86,6 @@ const mutation = gql`
 const Container = styled.div`
   color: white;
   border-bottom: 1px solid grey;
-  :first-of-type {
-    border-top: 1px solid grey;
-    margin-top: 50px;
-  }
 
   display: flex;
   flex-direction: column;

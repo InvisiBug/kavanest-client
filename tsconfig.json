@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    // this isnt working
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
+
+    
     "target": "esnext",
     "lib": [
       "dom",
@@ -18,7 +23,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
   },
   "include": [
     "src"

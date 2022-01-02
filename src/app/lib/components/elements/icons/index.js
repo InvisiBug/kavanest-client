@@ -15,8 +15,11 @@ import rgbLight from "./rgbLight.png";
 import plug from "./plug.png";
 import power from "./power.png";
 import powerOn from "./powerOn.png";
+import gears from "./gears.png";
+import computer from "./computer.png";
 
 export {
+  gears,
   powerOn,
   power,
   plug,
@@ -34,4 +37,5 @@ export {
   plus,
   switchOff,
   switchOn,
+  computer,
 };

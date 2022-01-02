@@ -1,34 +1,18 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { home, setpoints, sensor, dog, rgbLight, plug } from "../elements/icons";
+import { home, setpoints, sensor, dog, rgbLight, plug, gears, computer } from "../elements/icons";
 import { mq, px } from "../elements/mediaQueries";
 import { useAppContext } from "../../../utils";
 
 const navButtons = [
-  {
-    name: "home",
-    icon: home,
-  },
-  {
-    name: "sensors",
-    icon: sensor,
-  },
-  {
-    name: "setpoints",
-    icon: setpoints,
-  },
-  {
-    name: "plugs",
-    icon: plug,
-  },
-  {
-    name: "rgbLights",
-    icon: rgbLight,
-  },
-  {
-    name: "dog",
-    icon: dog,
-  },
+  { name: "home", icon: home },
+  { name: "sensors", icon: sensor },
+  { name: "setpoints", icon: setpoints },
+  { name: "plugs", icon: plug },
+  { name: "rgbLights", icon: rgbLight },
+  { name: "gears", icon: gears },
+  { name: "computer", icon: computer },
+  { name: "dog", icon: dog },
 ];
 const PhoneNav: React.FC<Props> = () => {
   const { screen, setScreen } = useAppContext();

@@ -1,5 +1,5 @@
 import React from "react";
-import { Home, Setpoints, Plugs, Dog, Sensors, RGBLights } from "./pages";
+import { Home, Setpoints, Plugs, Dog, Sensors, RGBLights, Computer } from "./pages";
 import { useAppContext } from "./utils";
 
 const Screens: React.FC = () => {
@@ -24,6 +24,9 @@ const Screens: React.FC = () => {
 
       case "rgbLights":
         return <RGBLights />;
+
+      case "computer":
+        return <Computer />;
     }
   };
 
