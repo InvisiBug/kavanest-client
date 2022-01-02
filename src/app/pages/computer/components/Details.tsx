@@ -1,41 +1,38 @@
 import React, { FC } from "react";
-import { Text } from "../../../lib";
+// import { Text } from "../../../lib";
+import { switchOn, switchOff } from "../../../lib";
+import { decamelize } from "../../../utils";
 import styled from "@emotion/styled";
 
-const Details: FC<any> = ({ data }) => {
-  console.log(data);
+const Details: FC<Props> = ({ data, buttonClicked }) => {
+  const { left, right, sub, mixer } = data;
+  let master;
+
+  if (left && right && sub && mixer) {
+    master = true;
+  } else {
+    master = false;
+  }
+
+  const relays: any = { master, left, right, sub, mixer };
+
   return (
     <>
       <Container>
-        <Item>
-          <Text>
-            Master <br /> {`${2}`}
-          </Text>
-        </Item>
-
-        <Text>
-          Left
-          <br />
-          {` ${2}`}
-        </Text>
-
-        <Text>
-          Right
-          <br />
-          {` ${2}`}
-        </Text>
-
-        <Text>
-          Sub
-          <br />
-          {` ${2}`}
-        </Text>
-
-        <Text>
-          Mixer
-          <br />
-          {` ${2}`}
-        </Text>
+        {Object.keys(relays).map((relay: any) => {
+          return (
+            <Row key={Math.random()}>
+              <Left>
+                <Name>
+                  <Text>{decamelize(relay)}</Text>
+                </Name>
+              </Left>
+              <Right>
+                <Icon src={relays[relay] ? switchOn : switchOff} onClick={() => buttonClicked(relay)} />
+              </Right>
+            </Row>
+          );
+        })}
       </Container>
     </>
   );
@@ -43,27 +40,60 @@ const Details: FC<any> = ({ data }) => {
 
 export default Details;
 
-const Container = styled.div`
-  /* border: 1px solid red; */
-  /* display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly; */
+interface Props {
+  data: {
+    left: boolean;
+    right: boolean;
+    sub: boolean;
+    mixer: boolean;
+  };
+  buttonClicked: any;
+}
 
+const borders: boolean = false;
+
+const Container = styled.div`
   display: flex;
   flex-direction: column;
+
   cursor: pointer;
-
-  /* margin-bottom: 20px; */
+  -webkit-tap-highlight-color: transparent;
 `;
 
-const Item = styled.div`
-  /* background-color: black; */
+const Row = styled.div`
+  border: ${borders ? "1px solid white" : "none"};
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+
+  width: 75%;
+  -webkit-tap-highlight-color: transparent;
 `;
 
-interface Props {
-  rawTemperature: number;
-  temperature: number;
-  humidity: number;
-  offset: number;
-  connected: boolean;
-}
+const Name = styled.div`
+  border: ${borders ? "1px solid red" : "none"};
+`;
+
+const Left = styled.div`
+  border: ${borders ? "1px solid purple" : "none"};
+  display: flex;
+  justify-content: center;
+  width: 50%;
+`;
+const Right = styled.div`
+  border: ${borders ? "1px solid blue" : "none"};
+  display: flex;
+  justify-content: center;
+  width: 50%;
+`;
+
+const Icon = styled.img`
+  border: ${borders ? "1px solid orange" : "none"};
+  height: 4rem;
+  width: 4rem;
+`;
+
+const Text = styled.p`
+  border: ${borders ? "1px solid white" : "none"};
+  font-size: 1.2rem;
+`;

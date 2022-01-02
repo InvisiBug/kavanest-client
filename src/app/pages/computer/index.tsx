@@ -13,12 +13,16 @@ const Computer: FC<any> = () => {
     },
   });
 
+  const socketUpdate = (_id: any, payload: any) => {
+    setComputerAudio(payload);
+  };
+
   if (!computerAudio) return <></>;
 
   return (
     <>
       <PageTitle desc={"Computer power & audio"}>Computer</PageTitle>
-      <Selector data={computerAudio} />
+      <Selector data={computerAudio} socketUpdate={socketUpdate} />
     </>
   );
 };

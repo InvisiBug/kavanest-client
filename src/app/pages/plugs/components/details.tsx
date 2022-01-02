@@ -7,14 +7,10 @@ const PlugDetails: React.FC<Props> = ({ name, state, connected, click }) => {
     console.log("clicked");
     click();
   };
+
   return (
     <>
       <Container>
-        {/* <Left>
-          <Connected>Connected</Connected>
-          <StateIndicator state={state} connected={connected} />
-        </Left> */}
-
         <Button onClick={buttonClick} state={state} connected={connected} src={state ? switchOn : switchOff}></Button>
       </Container>
     </>
@@ -23,30 +19,7 @@ const PlugDetails: React.FC<Props> = ({ name, state, connected, click }) => {
 
 export default PlugDetails;
 
-const StateIndicator = styled.div`
-  margin-top: 0.5rem;
-  height: 1rem;
-  width: 1rem;
-  border-radius: 1rem;
-  margin-bottom: 0.5rem;
-
-  background-color: ${(props: { state: boolean; connected: boolean }) => (props.connected ? (props.state ? on : off) : disconnected)};
-`;
-
 const borders: boolean = false;
-
-const Left = styled.div`
-  border: ${borders ? "1px solid green" : "none"};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Connected = styled.div`
-  border: ${borders ? "1px solid white" : "none"};
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-`;
 
 interface Props {
   name: string;
