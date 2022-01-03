@@ -14,8 +14,8 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
 
   if (!data) return <></>;
 
-  const setpoints = data.setpoints.setpoints;
-  const deadzone = data.setpoints.deadzone;
+  const setpoints = data.getSetpoint.setpoints;
+  const deadzone = data.getSetpoint.deadzone;
 
   return (
     <>
@@ -27,7 +27,7 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
         <Left>
           <CurrentTemp>
             Current <br />
-            {`${data.sensor.temperature}°C`}
+            {`${data.getSensor.temperature}°C`}
           </CurrentTemp>
 
           <Setpoint>
@@ -36,7 +36,7 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
           </Setpoint>
         </Left>
 
-        {data.valve.state ? null : <FlameIcon src={flame} />}
+        {data.getValve.state ? null : <FlameIcon src={flame} />}
 
         <Right>
           Deadzone <br />
@@ -69,7 +69,7 @@ export interface Props {
 
 const request = gql`
   query GetSetpoints($room: String) {
-    setpoints: getSetpoint(room: $room) {
+    getSetpoint(room: $room) {
       room
       setpoints {
         weekday
@@ -77,10 +77,10 @@ const request = gql`
       }
       deadzone
     }
-    valve: getValve(room: $room) {
+    getValve(room: $room) {
       state
     }
-    sensor: getSensor(room: $room) {
+    getSensor(room: $room) {
       temperature
     }
   }

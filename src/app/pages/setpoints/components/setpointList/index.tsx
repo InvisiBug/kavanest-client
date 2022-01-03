@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import CurrentSetpoint from "./currentSetpoint";
 import { plus } from "../../../../lib";
-import { decamelize } from "../../../../utils";
+import { decamelize, getCurrentSetpoint } from "../../../../utils";
 import NewSetpoint from "./newSetpoint";
 
 const SetpointList = ({ room, data, days, refreshPage, setDays }: any) => {
@@ -19,12 +19,19 @@ const SetpointList = ({ room, data, days, refreshPage, setDays }: any) => {
         <h1 onClick={() => (days === "weekday" ? setDays("weekend") : setDays("weekday"))}>{`${decamelize(days)}s`}</h1>
       </SetpointRow>
 
-      {data.setpoints && data.setpoints.setpoints[days] //* Are there setpoints & are there setpoints for our day type
-        ? Object.keys(data.setpoints.setpoints[days]).map((time: any) => {
-            const temp = data.setpoints.setpoints[days][time];
+      {data.getSetpoint && data.getSetpoint.setpoints[days] //* Are there setpoints & are there setpoints for our day type
+        ? Object.keys(data.getSetpoint.setpoints[days]).map((time: any) => {
+            const temp = data.getSetpoint.setpoints[days][time];
             return (
               <SetpointRow key={Math.random()}>
-                <CurrentSetpoint room={room} day={days} time={time} temp={temp} close={refreshPage} />
+                <CurrentSetpoint
+                  room={room}
+                  day={days}
+                  time={time}
+                  temp={temp}
+                  close={refreshPage}
+                  thisOne={getCurrentSetpoint(data.getSetpoint.setpoints) === temp}
+                />
               </SetpointRow>
             );
           })
