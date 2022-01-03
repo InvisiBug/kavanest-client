@@ -89,6 +89,6 @@ const StateIndicator = styled.div`
   height: 1rem;
   width: 1rem;
   border-radius: 1rem;
-  margin-right: 1rem;
+  margin-right: 1.55rem;
   background-color: ${(props: { state: boolean; connected: boolean }) => (props.connected ? (props.state ? on : off) : disconnected)};
 `;

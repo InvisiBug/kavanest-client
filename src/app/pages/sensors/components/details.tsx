@@ -6,11 +6,9 @@ const ShowDetails: React.FC<Props> = ({ rawTemperature, temperature, humidity, o
   return (
     <>
       <Details>
-        <Item>
-          <Text>
-            Temperature <br /> {`${temperature}`}
-          </Text>
-        </Item>
+        <Text>
+          Temperature <br /> {`${temperature}`}
+        </Text>
 
         <Text>
           Raw Temperature

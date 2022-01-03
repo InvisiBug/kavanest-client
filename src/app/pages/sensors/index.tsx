@@ -8,7 +8,7 @@ const Sensors: React.FC = () => {
   const [sensors, setSensors] = useState<SensorData[] | null>(null);
   const [heating, setHeating] = useState<HeatingData | null>(null);
 
-  const { data } = useQuery(getRoomsWithSensors, {
+  const { data } = useQuery(query, {
     variables: {
       name: "heating",
     },
@@ -48,7 +48,7 @@ interface HeatingData {
   state: boolean;
 }
 
-const getRoomsWithSensors = gql`
+const query = gql`
   query ($name: String) {
     availableRooms: getSensors {
       room
@@ -64,3 +64,15 @@ const getRoomsWithSensors = gql`
     }
   }
 `;
+
+interface Data {
+  availableRooms: {
+    room: string;
+    rawTemperature: number;
+    temperature: number;
+    humidity: number;
+    offset: number;
+    connected: boolean;
+    _id: string;
+  };
+}

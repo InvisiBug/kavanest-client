@@ -5,13 +5,13 @@ import { mq, px } from "../elements/mediaQueries";
 import { useAppContext } from "../../../utils";
 
 const navButtons = [
-  { name: "home", icon: home },
-  { name: "sensors", icon: sensor },
-  { name: "setpoints", icon: setpoints },
-  { name: "plugs", icon: plug },
+  // { name: "home", icon: home },
   { name: "rgbLights", icon: rgbLight },
-  { name: "gears", icon: gears },
   { name: "computer", icon: computer },
+  { name: "setpoints", icon: setpoints },
+  { name: "sensors", icon: sensor },
+  { name: "plugs", icon: plug },
+  // { name: "gears", icon: gears },
   { name: "dog", icon: dog },
 ];
 const PhoneNav: React.FC<Props> = () => {

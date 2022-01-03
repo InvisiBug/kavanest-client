@@ -36,6 +36,7 @@ const Header = styled.div`
   justify-content: space-around;
   min-height: 0px;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 `;
 
 const Icon = styled.img`

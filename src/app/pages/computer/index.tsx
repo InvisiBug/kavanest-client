@@ -1,13 +1,13 @@
 import React, { FC, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import { PageTitle, SelectorContainer } from "../../lib";
-import Selector from "./components/selector";
+import AudioSelector from "./components/audioSelector";
 import PlugSelector from "../plugs/components/roomSelector";
 
 const Computer: FC<any> = () => {
   const [computerAudio, setComputerAudio] = useState<any>();
   const [computerPower, setComputerPower] = useState<any>();
-  const [openDetails, setOpenDetails] = useState<any>("computerPower");
+  const [openDetails, setOpenDetails] = useState<string>("");
 
   const { data } = useQuery(query, {
     fetchPolicy: "no-cache",
@@ -42,7 +42,7 @@ const Computer: FC<any> = () => {
           setOpenDetails={setOpenDetails}
           key={Math.random()}
         />
-        <Selector data={computerAudio} socketUpdate={socketUpdate} openDrawer={openDetails} setOpenDrawer={setOpenDetails} />
+        <AudioSelector data={computerAudio} socketUpdate={socketUpdate} openDrawer={openDetails} setOpenDrawer={setOpenDetails} />
       </SelectorContainer>
     </>
   );
