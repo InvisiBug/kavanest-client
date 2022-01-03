@@ -2,28 +2,47 @@ import React, { FC, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import { PageTitle, SelectorContainer } from "../../lib";
 import Selector from "./components/selector";
+import PlugSelector from "../plugs/components/roomSelector";
 
 const Computer: FC<any> = () => {
   const [computerAudio, setComputerAudio] = useState<any>();
+  const [computerPower, setComputerPower] = useState<any>();
+  const [openDetails, setOpenDetails] = useState<any>("computerPower");
 
-  const { data } = useQuery(getPlugs, {
+  const { data } = useQuery(query, {
     fetchPolicy: "no-cache",
+    variables: { name: "computerPower" },
     onCompleted() {
       setComputerAudio(data.getComputerAudio);
+      setComputerPower(data.getPlug);
     },
   });
 
   const socketUpdate = (_id: any, payload: any) => {
-    setComputerAudio(payload);
+    switch (payload.name) {
+      case "computerAudio":
+        setComputerAudio(payload);
+        break;
+      case "computerPower":
+        setComputerPower(payload);
+        break;
+    }
   };
 
-  if (!computerAudio) return <></>;
+  if (!computerAudio || !computerPower) return <></>;
 
   return (
     <>
       <PageTitle desc={"Computer power & audio"}>Computer</PageTitle>
       <SelectorContainer>
-        <Selector data={computerAudio} socketUpdate={socketUpdate} />
+        <PlugSelector
+          thisPlug={computerPower}
+          socketUpdate={socketUpdate}
+          openDetails={openDetails}
+          setOpenDetails={setOpenDetails}
+          key={Math.random()}
+        />
+        <Selector data={computerAudio} socketUpdate={socketUpdate} openDrawer={openDetails} setOpenDrawer={setOpenDetails} />
       </SelectorContainer>
     </>
   );
@@ -31,14 +50,20 @@ const Computer: FC<any> = () => {
 
 export default Computer;
 
-const getPlugs = gql`
-  query {
+const query = gql`
+  query ($name: String) {
     getComputerAudio {
       name
       left
       right
       sub
       mixer
+      connected
+      _id
+    }
+    getPlug(name: $name) {
+      name
+      state
       connected
       _id
     }

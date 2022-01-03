@@ -5,9 +5,9 @@ import { SelectorHeader, on, off, disconnected } from "../../../lib";
 import { useAppContext } from "../../../utils";
 import Details from "./details";
 
-const Selector: FC<Props> = ({ data, socketUpdate }) => {
+const Selector: FC<Props> = ({ data, socketUpdate, openDrawer, setOpenDrawer }) => {
   const { socket } = useAppContext();
-  const [drawer, setOpenDrawer] = useState<boolean>(false);
+
   const [updateComputerAudio] = useMutation(mutation, {});
 
   const buttonclicked = (relay: string): any => {
@@ -39,10 +39,10 @@ const Selector: FC<Props> = ({ data, socketUpdate }) => {
   return (
     <>
       <Container>
-        <SelectorHeader name={name} openDrawer={drawer} setOpenDrawer={setOpenDrawer}>
+        <SelectorHeader name={name} openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}>
           <StateIndicator state={master} connected={connected} />
         </SelectorHeader>
-        {drawer ? <Details data={data} buttonClicked={(relay: string) => buttonclicked(relay)} /> : null}
+        {openDrawer === name ? <Details data={data} buttonClicked={(relay: string) => buttonclicked(relay)} /> : null}
       </Container>
     </>
   );
@@ -61,6 +61,8 @@ interface Props {
     _id: string;
   };
   socketUpdate: any;
+  openDrawer: string;
+  setOpenDrawer: (key: string) => void;
 }
 
 const mutation = gql`
