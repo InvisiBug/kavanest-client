@@ -24,7 +24,7 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
             <br />
             {`${data.sensor.temperature}°C`}
           </Current>
-          <Setpoint heating={false}>
+          <Setpoint>
             Target
             <br />
             {`${getCurrentSetpoint(setpoints)}°C`}
@@ -66,20 +66,10 @@ const query = gql`
 
 const Container = styled.div`
   color: white;
-  /* background-color: #2c2c2c; */
-  /* border: 1px solid green; */
   border-bottom: 1px solid grey;
-  /* :first-of-type {
-    border-top: 1px solid grey;
-    background-color: red;
-    margin-top: 50px;
-  } */
-
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
   margin: auto;
-  /* width: 100vw; */
   min-height: 0px;
   cursor: pointer;
 `;
@@ -109,7 +99,6 @@ const Current = styled.div`
 `;
 
 const Setpoint = styled.div`
-  color: ${(props: { heating: boolean }) => (props.heating ? `orangered` : null)};
   text-align: center;
   margin-right: 1.5rem;
 `;

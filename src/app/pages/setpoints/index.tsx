@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PageTitle } from "../../lib";
-import RoomSelector from "./components/roomSelector";
-import RoomSetpoints from "./components/roomSetpoints";
+import RoomSelector from "./components/selector";
+import RoomSetpoints from "./components/setpoints";
 import { useQuery, gql } from "@apollo/client";
 import { SelectorContainer } from "../../lib";
 

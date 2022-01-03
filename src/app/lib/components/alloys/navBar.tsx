@@ -50,10 +50,10 @@ const Container = styled.div`
   }
 `;
 
-const Text = styled.div`
-  border: 1px solid red;
-  visibility: hidden;
-`;
+// const Text = styled.div`
+//   border: 1px solid red;
+//   visibility: hidden;
+// `;
 
 const Icon = styled.img`
   height: 50%;

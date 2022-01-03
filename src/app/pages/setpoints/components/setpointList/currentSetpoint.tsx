@@ -11,8 +11,7 @@ const CurrentSetpoint: React.FC<Props> = ({ room, day, time, temp, close }) => {
         room,
         day,
       },
-    }).then((response) => {
-      console.log(response);
+    }).then(() => {
       close();
     });
   };
@@ -20,7 +19,7 @@ const CurrentSetpoint: React.FC<Props> = ({ room, day, time, temp, close }) => {
     <>
       <Container>
         <Time>{time}</Time>
-        <Remove src={cancel} onClick={() => remove()}></Remove>
+        <Remove src={cancel} onClick={() => remove()} />
         <Temp>{temp}°C</Temp>
       </Container>
     </>

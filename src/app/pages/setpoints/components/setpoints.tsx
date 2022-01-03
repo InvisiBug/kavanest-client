@@ -3,7 +3,7 @@ import { decamelize, getCurrentSetpoint, weekOrWeekend } from "../../../utils";
 import styled from "@emotion/styled";
 import { flame } from "../../../lib";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import SetpointList from "./subComponents/setpointList";
+import SetpointList from "./setpointList";
 
 const RoomSetpoints: FC<Props> = ({ room, close }) => {
   const [days, setDays] = useState<string>(weekOrWeekend());
