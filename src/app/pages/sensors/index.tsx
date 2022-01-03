@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import RoomSelector, { SensorData } from "./components/roomSelector";
-import { PageTitle } from "../../lib";
+import { PageTitle, SelectorContainer } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 
 const Sensors: React.FC = () => {
@@ -19,28 +19,25 @@ const Sensors: React.FC = () => {
     },
   });
 
-  // if (loading) return <p>Loading</p>;
-  // if (error) return <p>Error</p>;
-  // if (!data) return <p>No Data</p>;
   if (!sensors) return <></>;
-
-  console.log(sensors);
 
   return (
     <>
       <PageTitle desc={`Heating is probably ${heating?.state ? "on" : "off"}, I've no idea`}>Sensors</PageTitle>
-      {sensors.map((sensorData: SensorData) => {
-        return (
-          <RoomSelector
-            thisSensor={sensorData}
-            allSensors={sensors}
-            setAllSensors={setSensors}
-            openSensor={openSensor}
-            setOpenSensor={setOpenSensor}
-            key={Math.random()}
-          />
-        );
-      })}
+      <SelectorContainer>
+        {sensors.map((sensorData: SensorData) => {
+          return (
+            <RoomSelector
+              thisSensor={sensorData}
+              allSensors={sensors}
+              setAllSensors={setSensors}
+              openSensor={openSensor}
+              setOpenSensor={setOpenSensor}
+              key={Math.random()}
+            />
+          );
+        })}
+      </SelectorContainer>
     </>
   );
 };

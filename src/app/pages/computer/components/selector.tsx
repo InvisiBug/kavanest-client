@@ -17,9 +17,7 @@ const Selector: FC<Props> = ({ data, socketUpdate }) => {
       updateComputerAudio({ variables: { input: { master: data.left && data.right && data.sub && data.mixer ? false : true } } });
     } else {
       const input: any = { left, right, sub, mixer };
-
       input[relay] = !input[relay];
-
       updateComputerAudio({ variables: { input } });
     }
   };
@@ -76,10 +74,6 @@ const mutation = gql`
 const Container = styled.div`
   color: white;
   border-bottom: 1px solid grey;
-
-  & > *:first-of-type {
-    border-top: 1px solid grey;
-  }
 
   display: flex;
   flex-direction: column;

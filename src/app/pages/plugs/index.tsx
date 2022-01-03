@@ -1,8 +1,7 @@
 import React, { FC, useState } from "react";
-import { PageTitle } from "../../lib";
+import { PageTitle, SelectorContainer } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 import RoomSelector, { PlugData } from "./components/roomSelector";
-import styled from "@emotion/styled";
 
 /*
   Make a graphql request for all Plugs
@@ -44,13 +43,13 @@ const Plugs: FC = () => {
   return (
     <>
       <PageTitle desc={"Simple on / off plugs"}>Plugs</PageTitle>
-      <PlugContainer>
+      <SelectorContainer>
         {plugs.map((plug: any) => {
           return (
             <RoomSelector thisPlug={plug} socketUpdate={socketUpdate} openDetails={openDetails} setOpenDetails={setOpenDetails} key={Math.random()} />
           );
         })}
-      </PlugContainer>
+      </SelectorContainer>
     </>
   );
 };
@@ -65,12 +64,5 @@ const getPlugs = gql`
       state
       _id
     }
-  }
-`;
-
-const PlugContainer = styled.div`
-  & > *:first-of-type {
-    border-top: 1px solid grey;
-    margin-top: 50px;
   }
 `;

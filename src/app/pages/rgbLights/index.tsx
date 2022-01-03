@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PageTitle } from "../../lib";
+import { PageTitle, SelectorContainer } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 import RoomSelector from "./components/roomSelector";
 
@@ -19,18 +19,20 @@ const RGBLights: React.FC<any> = () => {
   return (
     <>
       <PageTitle desc={"Some of these lights have alternative modes"}>RGB Lights</PageTitle>
-      {rgbLights.map((light: any) => {
-        return (
-          <RoomSelector
-            thisLight={light}
-            allRgbLights={rgbLights}
-            setRgbLights={setRgbLights}
-            openRGBLight={openRGBLight}
-            setOpenRGBLight={setOpenRGBLight}
-            key={Math.random()}
-          />
-        );
-      })}
+      <SelectorContainer>
+        {rgbLights.map((light: any) => {
+          return (
+            <RoomSelector
+              thisLight={light}
+              allRgbLights={rgbLights}
+              setRgbLights={setRgbLights}
+              openRGBLight={openRGBLight}
+              setOpenRGBLight={setOpenRGBLight}
+              key={Math.random()}
+            />
+          );
+        })}
+      </SelectorContainer>
     </>
   );
 };

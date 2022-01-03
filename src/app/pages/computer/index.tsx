@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
-import { PageTitle } from "../../lib";
+import { PageTitle, SelectorContainer } from "../../lib";
 import Selector from "./components/selector";
 
 const Computer: FC<any> = () => {
@@ -9,7 +9,7 @@ const Computer: FC<any> = () => {
   const { data } = useQuery(getPlugs, {
     fetchPolicy: "no-cache",
     onCompleted() {
-      setComputerAudio(data.response);
+      setComputerAudio(data.getComputerAudio);
     },
   });
 
@@ -22,7 +22,9 @@ const Computer: FC<any> = () => {
   return (
     <>
       <PageTitle desc={"Computer power & audio"}>Computer</PageTitle>
-      <Selector data={computerAudio} socketUpdate={socketUpdate} />
+      <SelectorContainer>
+        <Selector data={computerAudio} socketUpdate={socketUpdate} />
+      </SelectorContainer>
     </>
   );
 };
@@ -31,7 +33,7 @@ export default Computer;
 
 const getPlugs = gql`
   query {
-    response: getComputerAudio {
+    getComputerAudio {
       name
       left
       right
