@@ -1,13 +1,9 @@
-import React, { useEffect } from "react";
-import { Home, Setpoints, Switches, Dog, Sensors } from "./pages";
+import React from "react";
+import { Home, Setpoints, Plugs, Dog, Sensors, RGBLights, Computer } from "./pages";
 import { useAppContext } from "./utils";
 
 const Screens: React.FC = () => {
   const { screen } = useAppContext();
-
-  // useEffect(() => {
-  // console.log(screen);
-  // }, [screen]);
 
   const renderScreen = () => {
     switch (screen) {
@@ -23,8 +19,14 @@ const Screens: React.FC = () => {
       case "dog":
         return <Dog />;
 
-      case "switches":
-        return <Switches />;
+      case "plugs":
+        return <Plugs />;
+
+      case "rgbLights":
+        return <RGBLights />;
+
+      case "computer":
+        return <Computer />;
     }
   };
 
