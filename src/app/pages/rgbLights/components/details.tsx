@@ -1,11 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { on, off, disconnected } from "../../../lib";
-import ColourWheel from "../../../lib/components/alloys/colourWheel/colourWheel";
+import { ColourWheel } from "../../../lib/";
 
-const RGBLightDetails: React.FC<Props> = ({ red, green, blue, mode, clicked }) => {
-  if (mode !== undefined) console.log(mode);
-
+const RGBLightDetails: React.FC<Props> = ({ red, green, blue, mode, updateRGB }) => {
   return (
     <>
       <Details>
@@ -15,13 +13,15 @@ const RGBLightDetails: React.FC<Props> = ({ red, green, blue, mode, clicked }) =
             radius={125}
             padding={10}
             lineWidth={40}
-            onColourSelected={(rgb: any) => clicked(rgb)}
+            onColourSelected={(rgb: string) => {
+              updateRGB(rgb);
+            }}
             spacers={{
               colour: "whitesmoke",
               shadowColour: "grey",
               shadowBlur: 0,
             }}
-            onRef={(ref: any) => ref}
+            onRef={(ref: object) => ref}
             preset
             presetColour={`rgb(${red},${green},${blue})`}
             animated
@@ -41,7 +41,7 @@ interface Props {
   green: string;
   blue: string;
   mode: number;
-  clicked: (rgb: string) => void;
+  updateRGB: (rgb: string) => void;
 }
 
 const Details = styled.div`

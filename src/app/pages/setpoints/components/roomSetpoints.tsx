@@ -1,34 +1,20 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { decamelize, getCurrentSetpoint, weekOrWeekend } from "../../../utils";
 import styled from "@emotion/styled";
-import { flame, Text } from "../../../lib";
+import { flame } from "../../../lib";
 import { useQuery, gql, useMutation } from "@apollo/client";
-
 import SetpointList from "./subComponents/setpointList";
 
-const RoomSetpoints: React.FC<Props> = ({ room, close }) => {
+const RoomSetpoints: FC<Props> = ({ room, close }) => {
   const [days, setDays] = useState<string>(weekOrWeekend());
   const [deadzoneVal, setDeadzoneVal] = useState<string>("");
+
+  const { data, refetch } = useQuery(request, { variables: { room }, fetchPolicy: "no-cache" });
   const [updateDeadzone] = useMutation(mutation, {});
 
-  const { loading, error, data, refetch } = useQuery(request, {
-    variables: {
-      room,
-    },
-    fetchPolicy: "no-cache",
-  });
-
-  if (loading) return <></>;
-  if (error) return <></>;
-
-  const refreshPage = () => {
-    refetch();
-  };
-
-  console.log(data);
+  if (!data) return <></>;
 
   const setpoints = data.setpoints.setpoints;
-  // setDeadzoneVal(data.setpoints.deadzone);
   const deadzone = data.setpoints.deadzone;
 
   return (
@@ -70,7 +56,7 @@ const RoomSetpoints: React.FC<Props> = ({ room, close }) => {
         </Right>
       </Info>
 
-      <SetpointList room={room} setDays={setDays} data={data} days={days} refreshPage={refreshPage} />
+      <SetpointList room={room} setDays={setDays} data={data} days={days} refreshPage={() => refetch()} />
     </>
   );
 };

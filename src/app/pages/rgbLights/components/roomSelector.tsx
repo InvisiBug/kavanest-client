@@ -35,17 +35,6 @@ const RoomSelector: React.FC<any> = ({
     };
   }, []); // eslint-disable-line
 
-  const clicked = (rgb: string) => {
-    const a = rgb.split("(")[1].split(")")[0];
-    const splitable = a.split(",");
-
-    const colours = splitable.map(function (x) {
-      return parseInt(x);
-    });
-
-    updateRGB({ variables: { input: { name, red: colours[0], green: colours[1], blue: colours[2], mode } } });
-  };
-
   return (
     <>
       <Container>
@@ -54,7 +43,25 @@ const RoomSelector: React.FC<any> = ({
           <ColourIndicator red={red} green={green} blue={blue} />
           <Icon src={openRGBLight === name ? downArrow : rightArrow} />
         </Header>
-        {openRGBLight === name ? <Details red={red} green={green} blue={blue} mode={mode} clicked={(rgb: any) => clicked(rgb)} /> : null}
+        {openRGBLight === name ? (
+          <Details
+            red={red}
+            green={green}
+            blue={blue}
+            mode={mode}
+            updateRGB={(rgb: any) => {
+              const colours = rgb
+                .split("(")[1]
+                .split(")")[0]
+                .split(",")
+                .map((x: string) => {
+                  return parseInt(x);
+                });
+
+              updateRGB({ variables: { input: { name, red: colours[0], green: colours[1], blue: colours[2] } } });
+            }}
+          />
+        ) : null}
       </Container>
     </>
   );

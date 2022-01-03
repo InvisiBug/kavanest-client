@@ -4,7 +4,6 @@ import RoomSelector from "./components/roomSelector";
 import RoomSetpoints from "./components/roomSetpoints";
 import { useQuery, gql } from "@apollo/client";
 import { SelectorContainer } from "../../lib";
-import styled from "@emotion/styled";
 
 const SetpointsPage: React.FC = () => {
   const { data } = useQuery(getValves, { fetchPolicy: "no-cache" });
