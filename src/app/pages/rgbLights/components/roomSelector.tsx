@@ -41,6 +41,7 @@ const RoomSelector: React.FC<any> = ({
         <SelectorHeader name={name} openDrawer={openRGBLight} setOpenDrawer={setOpenRGBLight}>
           <ColourIndicator red={red} green={green} blue={blue} />
         </SelectorHeader>
+
         {openRGBLight === name ? (
           <Details
             red={red}

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { on, off, disconnected } from "../../../lib";
-import { ColourWheel } from "../../../lib/";
+// import { on, off, disconnected } from "../../../lib";
+import { ColourWheel } from "../../../lib";
 
 const RGBLightDetails: React.FC<Props> = ({ red, green, blue, mode, updateRGB }) => {
   return (
@@ -64,11 +64,11 @@ const Wheel = styled.div`
   margin-bottom: 1.5rem;
 `;
 
-const Button = styled.img`
-  height: 4rem;
-  width: 4rem;
-  /* border-radius: 25px; */
-  /* background-color: ${(props: { state: boolean; connected: boolean }) => (props.connected ? (props.state ? on : off) : disconnected)}; */
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-`;
+// const Button = styled.img`
+//   height: 4rem;
+//   width: 4rem;
+//   /* border-radius: 25px; */
+//   /* background-color: ${(props: { state: boolean; connected: boolean }) => (props.connected ? (props.state ? on : off) : disconnected)}; */
+//   cursor: pointer;
+//   -webkit-tap-highlight-color: transparent;
+// `;

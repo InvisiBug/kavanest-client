@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
-import { decamelize, useAppContext } from "../../../utils";
-import { SelectorHeader, rightArrow, downArrow, Text, Room } from "../../../lib";
+import { useAppContext } from "../../../utils";
+import { SelectorHeader, Text } from "../../../lib";
 import SensorDetails from "./details";
 
 const Sensor: React.FC<Props> = ({
@@ -41,17 +41,6 @@ const Sensor: React.FC<Props> = ({
             <Text>{`${temperature}°C`}</Text>
           </Temp>
         </SelectorHeader>
-        {/* <Header
-          onClick={() => {
-            setOpenSensor(openSensor === room ? "" : room);
-          }}
-        >
-          <Room>{decamelize(room)}</Room>
-          <Temp>
-            <Text>{`${temperature}°C`}</Text>
-          </Temp>
-          <Icon src={openSensor === room ? downArrow : rightArrow} />
-        </Header> */}
 
         {openSensor === room ? (
           <div onClick={() => setOpenSensor(openSensor === room ? "" : room)}>
@@ -95,20 +84,6 @@ const Container = styled.div`
   margin: auto;
 `;
 
-const Header = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  margin: auto;
-  /* flex-grow: 1; */
-  min-height: 0px;
-  cursor: pointer;
-`;
-
 const Temp = styled.div`
   margin-right: 20px;
-`;
-
-const Icon = styled.img`
-  height: 20px;
 `;

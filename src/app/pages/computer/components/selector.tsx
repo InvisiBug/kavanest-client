@@ -1,13 +1,13 @@
 import React, { FC, useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
-import { downArrow, rightArrow, Room } from "../../../lib";
-import { decamelize, useAppContext } from "../../../utils";
+import { SelectorHeader, on, off, disconnected } from "../../../lib";
+import { useAppContext } from "../../../utils";
 import Details from "./details";
 
 const Selector: FC<Props> = ({ data, socketUpdate }) => {
   const { socket } = useAppContext();
-  const [details, setDetails] = useState<boolean>(false);
+  const [drawer, setOpenDrawer] = useState<boolean>(false);
   const [updateComputerAudio] = useMutation(mutation, {});
 
   const buttonclicked = (relay: string): any => {
@@ -22,7 +22,8 @@ const Selector: FC<Props> = ({ data, socketUpdate }) => {
     }
   };
 
-  const { name, _id, connected } = data;
+  const { name, _id, connected, left, right, sub, mixer } = data;
+  const master = left && right && sub && mixer;
 
   useEffect(() => {
     if (_id) {
@@ -38,11 +39,10 @@ const Selector: FC<Props> = ({ data, socketUpdate }) => {
   return (
     <>
       <Container>
-        <Header onClick={() => setDetails(!details)}>
-          <Room connected={connected}>{decamelize(name)}</Room>
-          <Icon src={details ? downArrow : rightArrow} />
-        </Header>
-        {details ? <Details data={data} buttonClicked={(relay: string) => buttonclicked(relay)} /> : null}
+        <SelectorHeader name={name} openDrawer={drawer} setOpenDrawer={setOpenDrawer}>
+          <StateIndicator state={master} connected={connected} />
+        </SelectorHeader>
+        {drawer ? <Details data={data} buttonClicked={(relay: string) => buttonclicked(relay)} /> : null}
       </Container>
     </>
   );
@@ -80,16 +80,10 @@ const Container = styled.div`
   margin: auto;
 `;
 
-const Header = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  margin: auto;
-  justify-content: space-around;
-  min-height: 0px;
-  cursor: pointer;
-`;
-
-const Icon = styled.img`
-  height: 20px;
+const StateIndicator = styled.div`
+  height: 1rem;
+  width: 1rem;
+  border-radius: 1rem;
+  margin-right: 1rem;
+  background-color: ${(props: { state: boolean; connected: boolean }) => (props.connected ? (props.state ? on : off) : disconnected)};
 `;
