@@ -1,19 +1,15 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
-import { downArrow, rightArrow, Room, on, off, disconnected } from "../../../lib";
-import { decamelize, useAppContext } from "../../../utils";
+import { SelectorHeader, on, off, disconnected } from "../../../lib";
+import { useAppContext } from "../../../utils";
 import Details from "./details";
 
-/*
-  A selector for each plug, with details
-
-  When the component is created a socket listner is created according to the _id of the plug.
-
-*/
-const RoomSelector: React.FC<Props> = ({ thisPlug: { name, state, connected, _id }, socketUpdate, openDetails, setOpenDetails }) => {
+const RoomSelector: React.FC<Props> = ({ thisPlug, socketUpdate, openDetails, setOpenDetails }) => {
   const { socket } = useAppContext();
   const [updatePlug] = useMutation(mutation, {});
+
+  const { name, state, connected, _id } = thisPlug;
 
   /*
     Register the socket connection on component load
@@ -31,25 +27,22 @@ const RoomSelector: React.FC<Props> = ({ thisPlug: { name, state, connected, _id
     };
   }, []); // eslint-disable-line
 
-  const click = () => {
-    updatePlug({ variables: { input: { name: name, state: !state } } });
-  };
-
   return (
     <>
       <Container>
-        <Header
-          onClick={() => {
-            setOpenDetails(openDetails === name ? "" : name);
-          }}
-        >
-          <Room>{decamelize(name)}</Room>
+        <SelectorHeader name={name} openDrawer={openDetails} setOpenDrawer={setOpenDetails}>
           <StateIndicator state={state} connected={connected} />
-          <Icon src={openDetails === name ? downArrow : rightArrow} />
-        </Header>
+        </SelectorHeader>
         {openDetails === name ? (
           <div>
-            <Details name={name} state={state} connected={connected} click={click} />
+            <Details
+              name={name}
+              state={state}
+              connected={connected}
+              click={() => {
+                updatePlug({ variables: { input: { name: name, state: !state } } });
+              }}
+            />
           </div>
         ) : null}
       </Container>
@@ -90,20 +83,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin: auto;
-`;
-
-const Header = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  margin: auto;
-  justify-content: space-around;
-  min-height: 0px;
-  cursor: pointer;
-`;
-
-const Icon = styled.img`
-  height: 20px;
 `;
 
 const StateIndicator = styled.div`

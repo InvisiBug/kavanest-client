@@ -1,10 +1,11 @@
 // Elements
 export { default as Room } from "./components/elements/roomName";
 export { default as SelectorContainer } from "./components/elements/selectorContainer";
+export { default as SelectorHeader } from "./components/alloys/selectorHeader";
 
 // Alloys
 export { default as NavBar } from "./components/alloys/navBar";
-export { default as Selector } from "./components/alloys/selector";
+export { default as Selector } from "./components/alloys/selectorHeader";
 
 export { mq, px } from "./components/elements/mediaQueries";
 

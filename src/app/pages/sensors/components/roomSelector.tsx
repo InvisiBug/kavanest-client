@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { decamelize, useAppContext } from "../../../utils";
-import { rightArrow, downArrow, Text, Room } from "../../../lib";
+import { SelectorHeader, rightArrow, downArrow, Text, Room } from "../../../lib";
 import SensorDetails from "./details";
 
 const Sensor: React.FC<Props> = ({
@@ -36,7 +36,12 @@ const Sensor: React.FC<Props> = ({
   return (
     <>
       <Container>
-        <Header
+        <SelectorHeader name={room} openDrawer={openSensor} setOpenDrawer={setOpenSensor}>
+          <Temp>
+            <Text>{`${temperature}°C`}</Text>
+          </Temp>
+        </SelectorHeader>
+        {/* <Header
           onClick={() => {
             setOpenSensor(openSensor === room ? "" : room);
           }}
@@ -46,7 +51,7 @@ const Sensor: React.FC<Props> = ({
             <Text>{`${temperature}°C`}</Text>
           </Temp>
           <Icon src={openSensor === room ? downArrow : rightArrow} />
-        </Header>
+        </Header> */}
 
         {openSensor === room ? (
           <div onClick={() => setOpenSensor(openSensor === room ? "" : room)}>

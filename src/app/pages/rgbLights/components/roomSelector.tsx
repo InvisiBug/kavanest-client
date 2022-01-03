@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
-import { downArrow, rightArrow, Room } from "../../../lib";
-import { decamelize, useAppContext } from "../../../utils";
+import { SelectorHeader } from "../../../lib";
+import { useAppContext } from "../../../utils";
 import Details from "./details";
 import { gql, useMutation } from "@apollo/client";
 
@@ -38,11 +38,9 @@ const RoomSelector: React.FC<any> = ({
   return (
     <>
       <Container>
-        <Header onClick={() => setOpenRGBLight(openRGBLight === name ? "" : name)}>
-          <Room connected={connected}>{decamelize(name)}</Room>
+        <SelectorHeader name={name} openDrawer={openRGBLight} setOpenDrawer={setOpenRGBLight}>
           <ColourIndicator red={red} green={green} blue={blue} />
-          <Icon src={openRGBLight === name ? downArrow : rightArrow} />
-        </Header>
+        </SelectorHeader>
         {openRGBLight === name ? (
           <Details
             red={red}
@@ -103,20 +101,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin: auto;
-`;
-
-const Header = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  margin: auto;
-  justify-content: space-around;
-  min-height: 0px;
-  cursor: pointer;
-`;
-
-const Icon = styled.img`
-  height: 20px;
 `;
 
 const ColourIndicator = styled.div`

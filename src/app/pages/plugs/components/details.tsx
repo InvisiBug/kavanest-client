@@ -3,15 +3,15 @@ import styled from "@emotion/styled";
 import { Text, on, off, disconnected, switchOn, switchOff } from "../../../lib";
 
 const PlugDetails: React.FC<Props> = ({ name, state, connected, click }) => {
-  const buttonClick = () => {
-    console.log("clicked");
-    click();
-  };
+  // const buttonClick = () => {
+  // console.log("clicked");
+  // click();
+  // };
 
   return (
     <>
       <Container>
-        <Button onClick={buttonClick} state={state} connected={connected} src={state ? switchOn : switchOff}></Button>
+        <Button onClick={click} state={state} connected={connected} src={state ? switchOn : switchOff}></Button>
       </Container>
     </>
   );
