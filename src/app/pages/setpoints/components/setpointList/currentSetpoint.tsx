@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { cancel } from "../../../../lib";
+import { cancel, on } from "../../../../lib";
 import { makeRequest } from "../../../../utils";
 
-const CurrentSetpoint: React.FC<Props> = ({ room, day, time, temp, close }) => {
+const CurrentSetpoint: React.FC<Props> = ({ room, day, time, temp, close, thisOne }) => {
   const remove = () => {
     makeRequest(shoo, {
       input: {
@@ -11,17 +11,16 @@ const CurrentSetpoint: React.FC<Props> = ({ room, day, time, temp, close }) => {
         room,
         day,
       },
-    }).then((response) => {
-      console.log(response);
+    }).then(() => {
       close();
     });
   };
   return (
     <>
       <Container>
-        <Time>{time}</Time>
-        <Remove src={cancel} onClick={() => remove()}></Remove>
-        <Temp>{temp}°C</Temp>
+        <Time thisOne={thisOne}>{time}</Time>
+        <Remove src={cancel} onClick={() => remove()} />
+        <Temp thisOne={thisOne}>{temp}°C</Temp>
       </Container>
     </>
   );
@@ -35,6 +34,7 @@ interface Props {
   day: string;
   temp: string;
   close: () => void;
+  thisOne: boolean;
 }
 
 const shoo = `
@@ -57,14 +57,13 @@ const Container = styled.div`
 const Time = styled.p`
   border: ${borders ? "1px solid orange" : null};
   font-size: 1.2rem;
-  /* margin-right: 200px; */
-  /* margin: 0; */
+  color: ${(props: { thisOne: boolean }) => (props.thisOne ? on : "white")};
 `;
 
 const Temp = styled.p`
   border: ${borders ? "1px solid white" : null};
   font-size: 1.2rem;
-  /* margin: 0; */
+  color: ${(props: { thisOne: boolean }) => (props.thisOne ? on : "white")};
 `;
 
 const Remove = styled.img`

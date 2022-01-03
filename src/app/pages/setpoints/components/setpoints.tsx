@@ -1,33 +1,21 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { decamelize, getCurrentSetpoint, weekOrWeekend } from "../../../utils";
 import styled from "@emotion/styled";
-import { flame, Text } from "../../../lib";
+import { flame } from "../../../lib";
 import { useQuery, gql, useMutation } from "@apollo/client";
+import SetpointList from "./setpointList";
 
-import SetpointList from "./subComponents/setpointList";
-
-const RoomSetpoints: React.FC<Props> = ({ room, close }) => {
+const RoomSetpoints: FC<Props> = ({ room, close }) => {
   const [days, setDays] = useState<string>(weekOrWeekend());
   const [deadzoneVal, setDeadzoneVal] = useState<string>("");
+
+  const { data, refetch } = useQuery(request, { variables: { room }, fetchPolicy: "no-cache" });
   const [updateDeadzone] = useMutation(mutation, {});
 
-  const { loading, error, data, refetch } = useQuery(request, {
-    variables: {
-      room,
-    },
-    fetchPolicy: "no-cache",
-  });
+  if (!data) return <></>;
 
-  if (loading) return <></>;
-  if (error) return <></>;
-
-  const refreshPage = () => {
-    refetch();
-  };
-
-  const setpoints = data.setpoints.setpoints;
-  // setDeadzoneVal(data.setpoints.deadzone);
-  const deadzone = data.setpoints.deadzone;
+  const setpoints = data.getSetpoint.setpoints;
+  const deadzone = data.getSetpoint.deadzone;
 
   return (
     <>
@@ -39,7 +27,7 @@ const RoomSetpoints: React.FC<Props> = ({ room, close }) => {
         <Left>
           <CurrentTemp>
             Current <br />
-            {`${data.sensor.temperature}°C`}
+            {`${data.getSensor.temperature}°C`}
           </CurrentTemp>
 
           <Setpoint>
@@ -48,7 +36,7 @@ const RoomSetpoints: React.FC<Props> = ({ room, close }) => {
           </Setpoint>
         </Left>
 
-        {data.valve.state ? null : <FlameIcon src={flame} />}
+        {data.getValve.state ? null : <FlameIcon src={flame} />}
 
         <Right>
           Deadzone <br />
@@ -68,7 +56,7 @@ const RoomSetpoints: React.FC<Props> = ({ room, close }) => {
         </Right>
       </Info>
 
-      <SetpointList room={room} setDays={setDays} data={data} days={days} refreshPage={refreshPage} />
+      <SetpointList room={room} setDays={setDays} data={data} days={days} refreshPage={() => refetch()} />
     </>
   );
 };
@@ -81,7 +69,7 @@ export interface Props {
 
 const request = gql`
   query GetSetpoints($room: String) {
-    setpoints: getSetpoint(room: $room) {
+    getSetpoint(room: $room) {
       room
       setpoints {
         weekday
@@ -89,10 +77,10 @@ const request = gql`
       }
       deadzone
     }
-    valve: getValve(room: $room) {
+    getValve(room: $room) {
       state
     }
-    sensor: getSensor(room: $room) {
+    getSensor(room: $room) {
       temperature
     }
   }

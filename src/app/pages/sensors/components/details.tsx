@@ -56,6 +56,10 @@ const Details = styled.div`
   /* margin-bottom: 20px; */
 `;
 
+const Item = styled.div`
+  /* background-color: black; */
+`;
+
 interface Props {
   rawTemperature: number;
   temperature: number;

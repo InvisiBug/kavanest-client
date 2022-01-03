@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { on, off, disconnected } from "../../../lib";
-import ColourWheel from "../../../lib/components/alloys/colourWheel/colourWheel";
+// import { on, off, disconnected } from "../../../lib";
+import { ColourWheel } from "../../../lib";
 
-const RGBLightDetails: React.FC<any> = ({ red, green, blue, clicked }) => {
+const RGBLightDetails: React.FC<Props> = ({ red, green, blue, mode, updateRGB }) => {
   return (
     <>
       <Details>
@@ -13,18 +13,22 @@ const RGBLightDetails: React.FC<any> = ({ red, green, blue, clicked }) => {
             radius={125}
             padding={10}
             lineWidth={40}
-            onColourSelected={(rgb: any) => clicked(rgb)}
+            onColourSelected={(rgb: string) => {
+              updateRGB(rgb);
+            }}
             spacers={{
               colour: "whitesmoke",
               shadowColour: "grey",
               shadowBlur: 0,
             }}
-            onRef={(ref: any) => ref}
+            onRef={(ref: object) => ref}
             preset
             presetColour={`rgb(${red},${green},${blue})`}
             animated
           />
         </Wheel>
+        {/* <h1>Mode 1</h1> */}
+        {/* <h1>Mode 2</h1> */}
       </Details>
     </>
   );
@@ -32,12 +36,13 @@ const RGBLightDetails: React.FC<any> = ({ red, green, blue, clicked }) => {
 
 export default RGBLightDetails;
 
-// interface Props {
-//   name: string;
-//   state: boolean;
-//   connected: boolean;
-//   click: () => void;
-// }
+interface Props {
+  red: string;
+  green: string;
+  blue: string;
+  mode: number;
+  updateRGB: (rgb: string) => void;
+}
 
 const Details = styled.div`
   /* border: 1px solid red; */
@@ -59,11 +64,11 @@ const Wheel = styled.div`
   margin-bottom: 1.5rem;
 `;
 
-const Button = styled.img`
-  height: 4rem;
-  width: 4rem;
-  /* border-radius: 25px; */
-  /* background-color: ${(props: { state: boolean; connected: boolean }) => (props.connected ? (props.state ? on : off) : disconnected)}; */
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-`;
+// const Button = styled.img`
+//   height: 4rem;
+//   width: 4rem;
+//   /* border-radius: 25px; */
+//   /* background-color: ${(props: { state: boolean; connected: boolean }) => (props.connected ? (props.state ? on : off) : disconnected)}; */
+//   cursor: pointer;
+//   -webkit-tap-highlight-color: transparent;
+// `;

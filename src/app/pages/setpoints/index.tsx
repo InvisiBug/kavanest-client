@@ -1,31 +1,15 @@
 import React, { useState } from "react";
 import { PageTitle } from "../../lib";
-import RoomSelector from "./components/roomSelector";
-import RoomSetpoints from "./components/roomSetpoints";
+import RoomSelector from "./components/selector";
+import RoomSetpoints from "./components/setpoints";
 import { useQuery, gql } from "@apollo/client";
+import { SelectorContainer } from "../../lib";
 
 const SetpointsPage: React.FC = () => {
-  const { loading, error, data } = useQuery(getValves, { fetchPolicy: "no-cache" });
+  const { data } = useQuery(getValves, { fetchPolicy: "no-cache" });
   const [roomToShow, setRoomToShow] = useState<any>(false);
 
-  // if (loading) return <p>Loading</p>;
-  // if (error) return <p>Error</p>;
-
-  if (loading) return <></>;
-  if (error) return <></>;
-
-  const showAllRooms = (rooms: any) => {
-    const arr: any = [
-      <PageTitle key={Math.random()} desc={"Each room shown here is on the system"}>
-        Room Heating Setpoints
-      </PageTitle>,
-    ];
-
-    rooms.forEach((room: any) => {
-      arr.push(<RoomSelector data={room} key={Math.random()} onClick={() => setRoomToShow(room.room)} close={() => setRoomToShow(false)} />);
-    });
-    return arr;
-  };
+  if (!data) return <></>;
 
   const showRoomSetpoints = (roomToShow: string, possibleRooms: any) => {
     for (let room in possibleRooms) {
@@ -39,11 +23,25 @@ const SetpointsPage: React.FC = () => {
     }
   };
 
-  if (!roomToShow) {
-    return showAllRooms(data.getValves);
-  } else {
-    return showRoomSetpoints(roomToShow, data.getValves);
-  }
+  return (
+    <>
+      {!roomToShow ? (
+        <>
+          <PageTitle key={Math.random()} desc={"Each room shown here is on the system"}>
+            Room Heating Setpoints
+          </PageTitle>
+
+          <SelectorContainer>
+            {data.getValves.map((room: any) => {
+              return <RoomSelector data={room} key={Math.random()} onClick={() => setRoomToShow(room.room)} close={() => setRoomToShow(false)} />;
+            })}
+          </SelectorContainer>
+        </>
+      ) : (
+        showRoomSetpoints(roomToShow, data.getValves)
+      )}
+    </>
+  );
 };
 
 export default SetpointsPage;

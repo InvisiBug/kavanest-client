@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import RoomSelector, { SensorData } from "./components/roomSelector";
-import { PageTitle } from "../../lib";
+import { PageTitle, SelectorContainer } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 
 const Sensors: React.FC = () => {
@@ -8,7 +8,7 @@ const Sensors: React.FC = () => {
   const [sensors, setSensors] = useState<SensorData[] | null>(null);
   const [heating, setHeating] = useState<HeatingData | null>(null);
 
-  const { data } = useQuery(getRoomsWithSensors, {
+  const { data } = useQuery(query, {
     variables: {
       name: "heating",
     },
@@ -19,26 +19,25 @@ const Sensors: React.FC = () => {
     },
   });
 
-  // if (loading) return <p>Loading</p>;
-  // if (error) return <p>Error</p>;
-  // if (!data) return <p>No Data</p>;
   if (!sensors) return <></>;
 
   return (
     <>
       <PageTitle desc={`Heating is probably ${heating?.state ? "on" : "off"}, I've no idea`}>Sensors</PageTitle>
-      {sensors.map((sensorData: SensorData) => {
-        return (
-          <RoomSelector
-            thisSensor={sensorData}
-            allSensors={sensors}
-            setAllSensors={setSensors}
-            openSensor={openSensor}
-            setOpenSensor={setOpenSensor}
-            key={Math.random()}
-          />
-        );
-      })}
+      <SelectorContainer>
+        {sensors.map((sensorData: SensorData) => {
+          return (
+            <RoomSelector
+              thisSensor={sensorData}
+              allSensors={sensors}
+              setAllSensors={setSensors}
+              openSensor={openSensor}
+              setOpenSensor={setOpenSensor}
+              key={Math.random()}
+            />
+          );
+        })}
+      </SelectorContainer>
     </>
   );
 };
@@ -49,7 +48,7 @@ interface HeatingData {
   state: boolean;
 }
 
-const getRoomsWithSensors = gql`
+const query = gql`
   query ($name: String) {
     availableRooms: getSensors {
       room
@@ -65,3 +64,15 @@ const getRoomsWithSensors = gql`
     }
   }
 `;
+
+interface Data {
+  availableRooms: {
+    room: string;
+    rawTemperature: number;
+    temperature: number;
+    humidity: number;
+    offset: number;
+    connected: boolean;
+    _id: string;
+  };
+}

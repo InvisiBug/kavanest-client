@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
-import { decamelize, useAppContext } from "../../../utils";
-import { rightArrow, downArrow, Text, Room } from "../../../lib";
+import { useAppContext } from "../../../utils";
+import { SelectorHeader, Text } from "../../../lib";
 import SensorDetails from "./details";
 
 const Sensor: React.FC<Props> = ({
@@ -18,9 +18,9 @@ const Sensor: React.FC<Props> = ({
       socket.on(_id, (payload: any) => {
         const updatedSensors: Array<SensorData> = [...allSensors];
 
-        for (let key in updatedSensors) {
-          if (updatedSensors[key].room === room) {
-            updatedSensors[key] = payload;
+        for (let thisSensor in updatedSensors) {
+          if (updatedSensors[thisSensor].room === room) {
+            updatedSensors[thisSensor] = payload;
           }
         }
 
@@ -36,17 +36,11 @@ const Sensor: React.FC<Props> = ({
   return (
     <>
       <Container>
-        <Header
-          onClick={() => {
-            setOpenSensor(openSensor === room ? "" : room);
-          }}
-        >
-          <Room>{decamelize(room)}</Room>
+        <SelectorHeader name={room} openDrawer={openSensor} setOpenDrawer={setOpenSensor}>
           <Temp>
             <Text>{`${temperature}°C`}</Text>
           </Temp>
-          <Icon src={openSensor === room ? downArrow : rightArrow} />
-        </Header>
+        </SelectorHeader>
 
         {openSensor === room ? (
           <div onClick={() => setOpenSensor(openSensor === room ? "" : room)}>
@@ -90,20 +84,6 @@ const Container = styled.div`
   margin: auto;
 `;
 
-const Header = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  margin: auto;
-  /* flex-grow: 1; */
-  min-height: 0px;
-  cursor: pointer;
-`;
-
 const Temp = styled.div`
   margin-right: 20px;
-`;
-
-const Icon = styled.img`
-  height: 20px;
 `;
