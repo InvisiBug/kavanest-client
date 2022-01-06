@@ -36,13 +36,16 @@ export const weekOrWeekend = () => {
 
 export const getCurrentSetpoint = (setpoints: any) => {
   let setpoint;
-
-  Object.keys(setpoints[weekOrWeekend()]).forEach((entry) => {
-    if (now() > entry) {
-      setpoint = setpoints[weekOrWeekend()][entry];
-    }
-  });
-  return setpoint;
+  try {
+    Object.keys(setpoints[weekOrWeekend()]).forEach((entry) => {
+      if (now() > entry) {
+        setpoint = setpoints[weekOrWeekend()][entry];
+      }
+    });
+    return setpoint;
+  } catch {
+    return "n/a";
+  }
 };
 
 export const now = () => {

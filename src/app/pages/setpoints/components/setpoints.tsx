@@ -14,8 +14,19 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
 
   if (!data) return <></>;
 
-  const setpoints = data.getSetpoint.setpoints;
-  const deadzone = data.getSetpoint.deadzone;
+  let target: number | string;
+  let deadzone: number;
+
+  if (data.getSetpoint) {
+    target = data.getSetpoint.setpoints;
+    deadzone = data.getSetpoint.deadzone;
+  } else {
+    target = "";
+    deadzone = 0;
+  }
+
+  // const setpoints = data.getSetpoint.setpoints;
+  // const deadzone = data.getSetpoint.deadzone;
 
   return (
     <>
@@ -31,8 +42,8 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
           </CurrentTemp>
 
           <Setpoint>
-            Setpoint
-            <br /> {`${getCurrentSetpoint(setpoints)}°C`}
+            Target
+            <br /> {`${getCurrentSetpoint(target)}°C`}
           </Setpoint>
         </Left>
 
