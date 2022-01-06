@@ -15,8 +15,8 @@ WORKDIR /app
 
 # Add node_modules.bin to path
 ENV PATH /app/node_modules.bin:$PATH
-ENV REACT_APP_API https://api.kavanet.io/
-ENV REACT_APP_SOCKET https://socket.kavanet.io/
+ENV REACT_APP_API https://test.api.kavanet.io/
+ENV REACT_APP_SOCKET https://test.socket.kavanet.io/
 
 # Copy package.json & package-lock.json to container
 COPY package*.json ./
@@ -36,8 +36,8 @@ RUN yarn build
 
 ## Production environment
 # Pull Nginx image from docker hub
-FROM nginx:stable-alpine
-# FROM arm64v8/nginx
+# FROM nginx:stable-alpine
+FROM arm64v8/nginx
 
 # Copy contense of the build folder to nginex root
 COPY --from=build /app/build /usr/share/nginx/html
