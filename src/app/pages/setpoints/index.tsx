@@ -7,7 +7,7 @@ import { SelectorContainer } from "../../lib";
 
 const SetpointsPage: React.FC = () => {
   const { data } = useQuery(getValves, { fetchPolicy: "no-cache" });
-  const [roomToShow, setRoomToShow] = useState<any>(false);
+  const [roomToShow, setRoomToShow] = useState<false | string>(false);
 
   if (!data) return <></>;
 
@@ -32,9 +32,13 @@ const SetpointsPage: React.FC = () => {
           </PageTitle>
 
           <SelectorContainer>
-            {data.getValves.map((room: any) => {
-              return <RoomSelector data={room} key={Math.random()} onClick={() => setRoomToShow(room.room)} close={() => setRoomToShow(false)} />;
-            })}
+            {data.getValves.length > 0 ? (
+              data.getValves.map((room: any) => {
+                return <RoomSelector data={room} key={Math.random()} onClick={() => setRoomToShow(room.room)} close={() => setRoomToShow(false)} />;
+              })
+            ) : (
+              <h1>No valves found</h1>
+            )}
           </SelectorContainer>
         </>
       ) : (

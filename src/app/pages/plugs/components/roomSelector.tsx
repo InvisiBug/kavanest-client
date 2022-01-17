@@ -30,7 +30,11 @@ const RoomSelector: React.FC<Props> = ({ thisPlug, socketUpdate, openDetails, se
   return (
     <>
       <Container>
-        <SelectorHeader name={name} openDrawer={openDetails} setOpenDrawer={setOpenDetails}>
+        <SelectorHeader
+          name={name}
+          openDrawer={openDetails}
+          setOpenDrawer={() => updatePlug({ variables: { input: { name: name, state: !state } } })}
+        >
           <StateIndicator state={state} connected={connected} />
         </SelectorHeader>
         {openDetails === name ? (

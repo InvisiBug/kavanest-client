@@ -4,15 +4,11 @@ namespace: kavanest-test
 
 deployment:
   - name: kavanest-test-client
-    image: 192.168.1.61:5000/kavanest-client
+    image: 192.168.1.61:5000/kavanest-client:test
     ports:
     - port: 80
-    env:
-    - name: REACT_APP_API
-      value: https://test.api.kavanet.io/
-
-    - name: REACT_APP_SOCKET
-      value: https://test.socket.kavanet.io/
+    # env:
+      # Handled in Dockerfile.test
 
 ingress:
   - name: test.client.kavanet.io

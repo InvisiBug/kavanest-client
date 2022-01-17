@@ -4,15 +4,11 @@ namespace: kavanest
 
 deployment:
   - name: kavanest-client
-    image: 192.168.1.61:5000/kavanest-client
+    image: 192.168.1.61:5000/kavanest-client:live
     ports:
     - port: 80
-    env:
-    - name: REACT_APP_API
-      value: https://api.kavanet.io/
-
-    - name: REACT_APP_SOCKET
-      value: https://socket.kavanet.io/
+    # env:
+      # Handled in Dockerfile.live
 
 ingress:
   - name: client.kavanet.io
