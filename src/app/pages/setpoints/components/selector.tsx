@@ -12,6 +12,8 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
 
   let target;
 
+  console.log(room, data);
+
   if (data.setpoints) {
     target = data.setpoints.setpoints;
   } else {
@@ -30,12 +32,12 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
           <Current>
             Current
             <br />
-            {`${data.sensor.temperature}°C`}
+            {`${data.sensor?.temperature ? data.sensor.temperature : "n/a"}°C`}
           </Current>
           <Setpoint>
             Target
             <br />
-            {`${getCurrentSetpoint(target)}°C`}
+            {`${getCurrentSetpoint(target) ? getCurrentSetpoint(target) : "n/a"}°C`}
           </Setpoint>
         </Vals>
         <Arrow src={rightArrow}></Arrow>

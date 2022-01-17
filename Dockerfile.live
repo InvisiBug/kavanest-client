@@ -1,13 +1,4 @@
-# FROM arm64v8/nginx
-
-# COPY build/ /usr/share/nginx/html
-
-# CMD ["nginx", "-g", "daemon off;"]
-
-
-
-# New
-# FROM node:16.8.0 as build
+## Build
 FROM node:14 as build
 
 # Set working directory
@@ -24,8 +15,6 @@ COPY package*.json ./
 # Install dependencies
 RUN yarn install
 
-# RUN npm install react-scripts -g
-
 # Copy all (not listed in .dockerignore) to container
 COPY . ./
 
@@ -33,19 +22,9 @@ COPY . ./
 RUN yarn build
 
 
-
-## Production environment
-# Pull Nginx image from docker hub
-FROM nginx:stable-alpine
-# FROM arm64v8/nginx
-
-# Copy contense of the build folder to nginex root
+## Production
+FROM arm64v8/nginx
 COPY --from=build /app/build /usr/share/nginx/html
-
-# Open port 80
-# EXPOSE 80
-
-# Start Nginx service
 CMD ["nginx", "-g", "daemon off;"]
 
 
