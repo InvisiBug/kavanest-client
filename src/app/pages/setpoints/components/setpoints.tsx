@@ -8,25 +8,18 @@ import SetpointList from "./setpointList";
 const RoomSetpoints: FC<Props> = ({ room, close }) => {
   const [days, setDays] = useState<string>(weekOrWeekend());
   const [deadzoneVal, setDeadzoneVal] = useState<string>("");
+  const [offsetVal, setOffsetVal] = useState<string>("");
 
   const { data, refetch } = useQuery(request, { variables: { room }, fetchPolicy: "no-cache" });
-  const [updateDeadzone] = useMutation(mutation, {});
+  const [updateDeadzone] = useMutation(deadzoneMutation, {});
+  const [updateOffset] = useMutation(offsetMutation, {});
 
-  if (!data) return <></>;
+  if (!data) return <>nodata</>;
 
-  let target: number | string;
-  let deadzone: number;
-
-  if (data.getSetpoint) {
-    target = data.getSetpoint.setpoints;
-    deadzone = data.getSetpoint.deadzone;
-  } else {
-    target = "";
-    deadzone = 0;
-  }
-
-  // const setpoints = data.getSetpoint.setpoints;
-  // const deadzone = data.getSetpoint.deadzone;
+  const target = data.getSetpoint?.setpoints || "";
+  const deadzone = data.getSetpoint?.deadzone || 0;
+  const offset = data.getSensor?.offset || 0;
+  const heating = data?.heating || 0;
 
   return (
     <>
@@ -47,23 +40,40 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
           </Setpoint>
         </Left>
 
-        {data.getValve.state ? null : <FlameIcon src={flame} />}
+        {data.valve.state && heating ? null : <FlameIcon src={flame} />}
 
         <Right>
-          Deadzone <br />
-          <MyInput
-            type="text"
-            placeholder={deadzone ? `${deadzone}°C` : "0°C"}
-            inputMode="decimal"
-            onChange={(event) => {
-              setDeadzoneVal(event.target.value);
-              console.log("cange");
-            }}
-            onBlur={() => {
-              updateDeadzone({ variables: { input: { room, deadzone: deadzoneVal } } });
-              refetch();
-            }}
-          />
+          <Offset>
+            Offset <br />
+            <MyInput
+              type="text"
+              placeholder={`${offset}°C`}
+              inputMode="decimal"
+              onChange={(event) => {
+                setOffsetVal(event.target.value);
+                console.log("cange");
+              }}
+              onBlur={() => {
+                updateOffset({ variables: { input: { room, offset: parseFloat(offsetVal) } } });
+                refetch();
+              }}
+            />
+          </Offset>
+          <Deadzone>
+            Deadzone <br />
+            <MyInput
+              type="text"
+              placeholder={`${deadzone}°C`}
+              inputMode="decimal"
+              onChange={(event) => {
+                setDeadzoneVal(event.target.value);
+              }}
+              onBlur={() => {
+                updateDeadzone({ variables: { input: { room, deadzone: deadzoneVal } } });
+                refetch();
+              }}
+            />
+          </Deadzone>
         </Right>
       </Info>
 
@@ -88,20 +98,33 @@ const request = gql`
       }
       deadzone
     }
-    getValve(room: $room) {
+    valve: getValve(room: $room) {
       state
     }
     getSensor(room: $room) {
       temperature
+      offset
+    }
+    heating: getPlug(name: "heating") {
+      state
+      connected
     }
   }
 `;
 
-const mutation = gql`
+const deadzoneMutation = gql`
   mutation ($input: DeadzoneInput) {
     updateDeadzone(input: $input) {
       room
       deadzone
+    }
+  }
+`;
+
+const offsetMutation = gql`
+  mutation UpdateOffset($input: offsetsInput) {
+    updateOffset(input: $input) {
+      room
     }
   }
 `;
@@ -161,11 +184,20 @@ const Right = styled.div`
   text-align: center;
 `;
 
+const Offset = styled.div`
+  border: ${borders ? "1px solid orangered" : "none"};
+  margin-bottom: 1.5rem;
+`;
+
+const Deadzone = styled.div`
+  border: ${borders ? "1px solid yellow" : "none"};
+`;
+
 const MyInput = styled.input`
   text-align: center;
   type: text;
   font-size: 1.2rem;
-  width: 50px;
+  width: 100px;
   color: red;
   background-color: rgba(255, 255, 255, 0);
   border: ${borders ? "1px solid white" : "none"};
