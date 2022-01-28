@@ -19,7 +19,10 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
   const target = data.getSetpoint?.setpoints || "";
   const deadzone = data.getSetpoint?.deadzone || 0;
   const offset = data.getSensor?.offset || 0;
-  const heating = data?.heating || 0;
+  const heating = data?.heating.state || false;
+  const valve = data.valve?.state || false;
+
+  console.log(heating, valve);
 
   return (
     <>
@@ -40,7 +43,7 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
           </Setpoint>
         </Left>
 
-        {data.valve.state && heating ? null : <FlameIcon src={flame} />}
+        {!valve && heating ? <FlameIcon src={flame} /> : null}
 
         <Right>
           <Offset>
