@@ -27,6 +27,8 @@ const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
         <Accept
           src={plus}
           onClick={() => {
+            console.log(day);
+            console.log(room, day, temp);
             addSetpoint({
               variables: {
                 input: {
@@ -64,10 +66,6 @@ const addSetpointMutation = gql`
   mutation ($input: SetpointInput) {
     response: updateSetpoint(input: $input) {
       room
-      setpoints {
-        weekend
-        weekday
-      }
     }
   }
 `;

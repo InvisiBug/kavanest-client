@@ -35,18 +35,90 @@ export const weekOrWeekend = () => {
 };
 
 export const getCurrentSetpoint = (setpoints: any) => {
-  let setpoint;
+  let setpoint: number | null = null;
+  let count: number = 0;
   try {
     Object.keys(setpoints[weekOrWeekend()]).forEach((entry) => {
       if (now() > entry) {
         setpoint = setpoints[weekOrWeekend()][entry];
       }
+      count++;
     });
+    const obj = setpoints[weekOrWeekend()];
+
+    if (!setpoint) return parseInt(obj[Object.keys(obj)[count - 1]]);
+
     return setpoint;
   } catch {
-    return "n/a";
+    return null;
   }
 };
+
+export const getCurrentSetpointV2 = (setpoints: any) => {
+  let setpoint: number | null = null;
+  let time: string = "";
+
+  try {
+    Object.keys(setpoints[weekOrWeekend()]).forEach((entry) => {
+      if (now() > entry) {
+        setpoint = setpoints[weekOrWeekend()][entry];
+        time = entry;
+      }
+    });
+    const obj = setpoints[weekOrWeekend()];
+
+    var lastTime = Object.keys(obj).sort().reverse()[0];
+    var lastSetpoint = obj[lastTime];
+
+    if (!setpoint) return [lastTime, lastSetpoint];
+
+    return [time, setpoint];
+  } catch {
+    return null;
+  }
+};
+
+// export const getCurrentSetpoint = (setpoints: Setpoints) => {
+//   let setpoint;
+//   let count: number = 0;
+
+//   try {
+//     Object.keys(setpoints[weekOrWeekend()]).forEach((entry) => {
+//       if (now() >= entry) {
+//         setpoint = setpoints[weekOrWeekend()][entry];
+//       }
+//       count++;
+//     });
+
+//     const obj = setpoints[weekOrWeekend()];
+
+//     if (!setpoint) return parseInt(obj[Object.keys(obj)[count - 1]]);
+
+//     return setpoint;
+//   } catch {
+//     return "n/a";
+//   }
+// };
+
+// export const getCurrentSetpoint = (setpoints: any): { time: string; setpoint: number } | null => {
+//   console.log(setpoints);
+//   let setpoint: number = -5;
+//   let time: string = "0";
+//   try {
+//     Object.keys(setpoints[weekOrWeekend()]).forEach((entry) => {
+//       console.log(entry);
+//       if (now() > entry) {
+//         setpoint = setpoints[weekOrWeekend()][entry];
+//         time = entry;
+//       }
+//     });
+//     if (setpoint > -5) {
+//       return { time, setpoint };
+//     } else return null;
+//   } catch {
+//     return null;
+//   }
+// };
 
 export const now = () => {
   const date = new Date();

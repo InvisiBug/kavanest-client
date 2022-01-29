@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { decamelize } from "../../../utils";
 import { Room, downArrow, rightArrow } from "../../";
 
-const Selector: FC<Props> = ({ setOpenDrawer, openDrawer, name, children }) => {
+const Selector: FC<Props> = ({ setOpenDrawer, connected = true, openDrawer, name, children }) => {
   return (
     <>
       <Header
@@ -11,7 +11,7 @@ const Selector: FC<Props> = ({ setOpenDrawer, openDrawer, name, children }) => {
           setOpenDrawer(openDrawer === name ? "" : name);
         }}
       >
-        <Room>{decamelize(name)}</Room>
+        <Room connected={connected}>{decamelize(name)}</Room>
         {children}
         <Icon src={openDrawer === name ? downArrow : rightArrow} />
       </Header>
@@ -26,6 +26,7 @@ interface Props {
   openDrawer: any;
   name: any;
   children: any;
+  connected?: boolean;
 }
 
 const Header = styled.div`

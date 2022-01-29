@@ -22,8 +22,6 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
   const heating = data?.heating.state || false;
   const valve = data.valve?.state || false;
 
-  console.log(heating, valve);
-
   return (
     <>
       <PageTitle onClick={close}>
@@ -54,7 +52,6 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
               inputMode="decimal"
               onChange={(event) => {
                 setOffsetVal(event.target.value);
-                console.log("cange");
               }}
               onBlur={() => {
                 updateOffset({ variables: { input: { room, offset: parseFloat(offsetVal) } } });
