@@ -10,9 +10,7 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
   if (loading) return <></>;
   if (error) return <></>;
 
-  let target;
-
-  console.log(room, data);
+  let target: any;
 
   if (data.setpoints) {
     target = data.setpoints.setpoints;
@@ -20,8 +18,11 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
     target = 2;
   }
 
-  // const setpoints = data.setpoints.setpoints;
-  // const setpoints = 2;
+  const setpointString = () => {
+    if (!getCurrentSetpoint(target)) return "n/a";
+    return getCurrentSetpoint(target);
+    // Typescript preventing this from saying no setpoint when the val is below threshold
+  };
 
   return (
     <>
@@ -37,7 +38,7 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
           <Setpoint>
             Target
             <br />
-            {`${getCurrentSetpoint(target) ? getCurrentSetpoint(target) : "n/a"}°C`}
+            {setpointString()}°C
           </Setpoint>
         </Vals>
         <Arrow src={rightArrow}></Arrow>

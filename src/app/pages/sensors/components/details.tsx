@@ -22,11 +22,26 @@ const ShowDetails: React.FC<Props> = ({ rawTemperature, temperature, humidity, o
           {` ${humidity}`}
         </Text>
 
-        <Text>
-          Offset
-          <br />
-          {` ${offset}`}
-        </Text>
+        {/* Cant add onclick here due to the text function, need to re work */}
+        <Offsets>
+          <Text>
+            Offset
+            <br />
+          </Text>
+          <MyInput
+            type="text"
+            placeholder={`${offset}°C`}
+            inputMode="decimal"
+            onChange={(event) => {
+              // setOffsetVal(event.target.value);
+              console.log("cange");
+            }}
+            onBlur={() => {
+              // updateOffset({ variables: { input: { room, offset: parseFloat(offsetVal) } } });
+              // refetch();
+            }}
+          />
+        </Offsets>
 
         <Text>
           Connected
@@ -41,6 +56,11 @@ const ShowDetails: React.FC<Props> = ({ rawTemperature, temperature, humidity, o
 export default ShowDetails;
 
 // TODO make this better lol
+
+const Offsets = styled.div`
+  /* background-color: red; */
+  text-align: center;
+`;
 
 const Details = styled.div`
   /* border: 1px solid red; */
@@ -58,6 +78,21 @@ const Details = styled.div`
 
 const Item = styled.div`
   /* background-color: black; */
+`;
+
+const MyInput = styled.input`
+  text-align: center;
+  type: text;
+  font-size: 1.2rem;
+  width: 100px;
+  color: red;
+  background-color: rgba(255, 255, 255, 0);
+  /* background-color: none; */
+
+  margin: 0;
+  ::placeholder {
+    color: white;
+  }
 `;
 
 interface Props {
