@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import CurrentSetpoint from "./currentSetpoint";
 
-import { plus } from "../../../../lib";
-import { decamelize, getCurrentSetpoint, getCurrentSetpointV2 } from "../../../../utils";
+import { plus, sinchronize } from "../../../../lib";
+import { decamelize, getCurrentSetpointV2 } from "../../../../utils";
 import NewSetpoint from "./newSetpoint";
 
 const SetpointList = ({ room, data, days, refreshPage, setDays }: any) => {
@@ -21,7 +21,10 @@ const SetpointList = ({ room, data, days, refreshPage, setDays }: any) => {
   return (
     <>
       <SetpointRow>
-        <h1 onClick={() => (days === "weekday" ? setDays("weekend") : setDays("weekday"))}>{`${decamelize(days)}s`}</h1>
+        <h1 onClick={() => (days === "weekday" ? setDays("weekend") : setDays("weekday"))}>
+          {`${decamelize(days)}s `}
+          <Icon src={sinchronize} />
+        </h1>
       </SetpointRow>
 
       {data?.getSetpoint?.setpoints && data.getSetpoint?.setpoints[days] //* Are there setpoints & are there setpoints for our day type
@@ -67,4 +70,10 @@ const Add = styled.img`
   border: ${borders ? "1px solid green" : "none"};
   height: 1.8rem;
   margin-bottom: 20px;
+`;
+
+const Icon = styled.img`
+  border: ${borders ? "1px solid red" : "none"};
+  height: 1.5rem;
+  vertical-align: middle;
 `;

@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { decamelize, getCurrentSetpoint, weekOrWeekend } from "../../../utils";
+import { decamelize, getCurrentSetpointV2, weekOrWeekend } from "../../../utils";
 import styled from "@emotion/styled";
 import { flame } from "../../../lib";
 import { useQuery, gql, useMutation } from "@apollo/client";
@@ -14,13 +14,14 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
   const [updateDeadzone] = useMutation(deadzoneMutation, {});
   const [updateOffset] = useMutation(offsetMutation, {});
 
-  if (!data) return <>nodata</>;
+  if (!data) return <></>;
 
   const target = data.getSetpoint?.setpoints || "";
   const deadzone = data.getSetpoint?.deadzone || 0;
   const offset = data.getSensor?.offset || 0;
   const heating = data?.heating.state || false;
   const valve = data.valve?.state || false;
+  const heatingConnected = data?.heating.connected;
 
   return (
     <>
@@ -37,11 +38,11 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
 
           <Setpoint>
             Target
-            <br /> {`${getCurrentSetpoint(target)}°C`}
+            <br /> {getCurrentSetpointV2(target) ? `${getCurrentSetpointV2(target)![1]}°C` : "Off"}
           </Setpoint>
         </Left>
 
-        {!valve && heating ? <FlameIcon src={flame} /> : null}
+        {!valve && heating && heatingConnected ? <FlameIcon src={flame} /> : null}
 
         <Right>
           <Offset>

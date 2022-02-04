@@ -1,34 +1,32 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { decamelize, getCurrentSetpoint } from "../../../utils";
+import { decamelize, getCurrentSetpointV2 } from "../../../utils";
 import { rightArrow, flame } from "../../../lib";
 import { useQuery, gql } from "@apollo/client";
 
 const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = null }) => {
-  const { loading, error, data } = useQuery(query, { variables: { room }, fetchPolicy: "no-cache" });
+  const { data } = useQuery(query, { variables: { room }, fetchPolicy: "no-cache" });
 
-  if (loading) return <></>;
-  if (error) return <></>;
+  if (!data) return <></>;
 
   let target: any;
 
-  if (data.setpoints) {
-    target = data.setpoints.setpoints;
-  } else {
-    target = 2;
-  }
+  target = data?.setpoints?.setpoints;
+  let time;
 
-  const setpointString = () => {
-    if (!getCurrentSetpoint(target)) return "n/a";
-    return getCurrentSetpoint(target);
-    // Typescript preventing this from saying no setpoint when the val is below threshold
-  };
+  if (getCurrentSetpointV2(target)) {
+    time = getCurrentSetpointV2(target)![1];
+  }
+  // const setpointString = () => {
+  //   if (!getCurrentSetpoint(target)) return "n/a";
+  //   return getCurrentSetpoint(target);
+  // };
 
   return (
     <>
       <Container onClick={onClick}>
         <RoomName onClick={close}>{decamelize(room)}</RoomName>
-        {!data.valve.state && data.heating.state ? <FlameIcon src={flame}></FlameIcon> : null}
+        {!data.valve.state && data.heating.state && data.heating.connected ? <FlameIcon src={flame}></FlameIcon> : null}
         <Vals>
           <Current>
             Current
@@ -38,7 +36,7 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
           <Setpoint>
             Target
             <br />
-            {setpointString()}°C
+            {getCurrentSetpointV2(target) ? `${getCurrentSetpointV2(target)![1]}°C` : "Off"}
           </Setpoint>
         </Vals>
         <Arrow src={rightArrow}></Arrow>
