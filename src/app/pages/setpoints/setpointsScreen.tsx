@@ -11,6 +11,10 @@ const SetpointsPage: React.FC = () => {
 
   if (!data) return <></>;
 
+  const heating = data.heating;
+  console.log(heating);
+
+  console.log(data);
   const showRoomSetpoints = (roomToShow: string, possibleRooms: any) => {
     for (let room in possibleRooms) {
       if (possibleRooms[room].room === roomToShow) {
@@ -27,7 +31,7 @@ const SetpointsPage: React.FC = () => {
     <>
       {!roomToShow ? (
         <>
-          <PageTitle key={Math.random()} desc={"Each room shown here is on the system"}>
+          <PageTitle key={Math.random()} desc={heating.connected ? "Each room shown here is on the system" : "Heating isn't connected 💥"}>
             Room Heating Setpoints
           </PageTitle>
 
@@ -54,6 +58,11 @@ const getValves = gql`
   query {
     getValves {
       room
+    }
+    heating: getPlug(name: "heating") {
+      name
+      state
+      connected
     }
   }
 `;

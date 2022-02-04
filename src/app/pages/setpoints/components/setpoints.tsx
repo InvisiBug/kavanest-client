@@ -21,6 +21,7 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
   const offset = data.getSensor?.offset || 0;
   const heating = data?.heating.state || false;
   const valve = data.valve?.state || false;
+  const valveConnected = data.valve?.connected || false;
   const heatingConnected = data?.heating.connected;
 
   return (
@@ -42,7 +43,7 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
           </Setpoint>
         </Left>
 
-        {!valve && heating && heatingConnected ? <FlameIcon src={flame} /> : null}
+        {!valve && valveConnected && heating && heatingConnected ? <FlameIcon src={flame} /> : null}
 
         <Right>
           <Offset>
@@ -101,6 +102,7 @@ const request = gql`
     }
     valve: getValve(room: $room) {
       state
+      connected
     }
     getSensor(room: $room) {
       temperature

@@ -1,1 +1,1 @@
-export { default as Setpoints } from "./setpoints";
+export { default as Setpoints } from "./setpointsScreen";

@@ -26,7 +26,7 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
     <>
       <Container onClick={onClick}>
         <RoomName onClick={close}>{decamelize(room)}</RoomName>
-        {!data.valve.state && data.heating.state && data.heating.connected ? <FlameIcon src={flame}></FlameIcon> : null}
+        {!data.valve.state && data.valve.connected && data.heating.state && data.heating.connected ? <FlameIcon src={flame}></FlameIcon> : null}
         <Vals>
           <Current>
             Current
@@ -57,9 +57,11 @@ const query = gql`
   query ($room: String) {
     valve: getValve(room: $room) {
       state
+      connected
     }
     heating: getPlug(name: "heating") {
       state
+      connected
     }
     sensor: getSensor(room: $room) {
       temperature
