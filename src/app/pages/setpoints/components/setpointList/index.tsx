@@ -27,9 +27,9 @@ const SetpointList = ({ room, data, days, refreshPage, setDays }: any) => {
         </h1>
       </SetpointRow>
 
-      {data?.getSetpoint?.setpoints && data.getSetpoint?.setpoints[days] //* Are there setpoints & are there setpoints for our day type
-        ? Object.keys(data.getSetpoint.setpoints[days]).map((time: any) => {
-            const test = getCurrentSetpointV2(data.getSetpoint.setpoints);
+      {data?.setpoints?.setpoints && data.setpoints?.setpoints[days] //* Are there setpoints & are there setpoints for our day type
+        ? Object.keys(data.setpoints.setpoints[days]).map((time: any) => {
+            const test = getCurrentSetpointV2(data.setpoints.setpoints);
             let thisOne = false;
 
             if (test) {
@@ -38,7 +38,7 @@ const SetpointList = ({ room, data, days, refreshPage, setDays }: any) => {
               }
             }
 
-            const temp = data.getSetpoint.setpoints[days][time];
+            const temp = data.setpoints.setpoints[days][time];
             return (
               <SetpointRow key={Math.random()}>
                 <CurrentSetpoint room={room} day={days} time={time} temp={temp} close={refreshPage} thisOne={thisOne} />

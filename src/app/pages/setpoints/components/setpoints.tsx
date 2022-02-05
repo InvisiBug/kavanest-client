@@ -1,40 +1,73 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { decamelize, getCurrentSetpointV2, weekOrWeekend } from "../../../utils";
 import styled from "@emotion/styled";
 import { flame } from "../../../lib";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import SetpointList from "./setpointList";
+import { useAppContext } from "../../../utils";
 
 const RoomSetpoints: FC<Props> = ({ room, close }) => {
   const [days, setDays] = useState<string>(weekOrWeekend());
   const [deadzoneVal, setDeadzoneVal] = useState<string>("");
   const [offsetVal, setOffsetVal] = useState<string>("");
 
-  const { data, refetch } = useQuery(request, { variables: { room }, fetchPolicy: "no-cache" });
+  const { socket } = useAppContext();
+
+  // Socket updatable data
+  const [sensor, setSensor] = useState<any>();
+  const [valve, setValve] = useState<any>();
+  const [heating, setHeating] = useState<any>();
+
+  const { data, refetch } = useQuery(request, {
+    variables: { room },
+    fetchPolicy: "no-cache",
+    onCompleted() {
+      data.sensor.temperature = 100;
+      setSensor(data.sensor);
+      setValve(data.valve);
+      setHeating(data.heating);
+
+      console.log(data.heating);
+
+      socket.on(data.sensor._id, (payload: any) => {
+        setSensor(payload);
+      });
+
+      socket.on(data.valve._id, (payload: any) => {
+        setValve(payload);
+      });
+
+      socket.on(data.heating._id, (payload: any) => {
+        setHeating(payload);
+      });
+    },
+  });
+
+  useEffect(() => {
+    return function cleanup() {
+      socket.removeAllListeners();
+    };
+  }, []); // eslint-disable-line
+
   const [updateDeadzone] = useMutation(deadzoneMutation, {});
   const [updateOffset] = useMutation(offsetMutation, {});
 
-  if (!data) return <></>;
+  if (!data || !heating || !valve) return <></>;
 
-  const target = data.getSetpoint?.setpoints || "";
-  const deadzone = data.getSetpoint?.deadzone || 0;
-  const offset = data.getSensor?.offset || 0;
-  const heating = data?.heating.state || false;
-  const valve = data.valve?.state || false;
-  const valveConnected = data.valve?.connected || false;
-  const heatingConnected = data?.heating.connected;
+  const target = data.setpoints?.setpoints || "";
+  const deadzone = data.setpoints?.deadzone || 0;
+  const offset = data.sensor?.offset || 0;
 
   return (
     <>
       <PageTitle onClick={close}>
         <TitleText>&larr; {decamelize(room)}</TitleText>
       </PageTitle>
-
       <Info>
         <Left>
           <CurrentTemp>
             Current <br />
-            {`${data.getSensor.temperature}°C`}
+            {`${sensor?.temperature}°C`}
           </CurrentTemp>
 
           <Setpoint>
@@ -43,7 +76,7 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
           </Setpoint>
         </Left>
 
-        {!valve && valveConnected && heating && heatingConnected ? <FlameIcon src={flame} /> : null}
+        {heating.state && !valve.state ? <FlameIcon src={flame} /> : null}
 
         <Right>
           <Offset>
@@ -78,7 +111,6 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
           </Deadzone>
         </Right>
       </Info>
-
       <SetpointList room={room} setDays={setDays} data={data} days={days} refreshPage={() => refetch()} />
     </>
   );
@@ -92,7 +124,7 @@ export interface Props {
 
 const request = gql`
   query GetSetpoints($room: String) {
-    getSetpoint(room: $room) {
+    setpoints: getSetpoint(room: $room) {
       room
       setpoints {
         weekday
@@ -101,16 +133,22 @@ const request = gql`
       deadzone
     }
     valve: getValve(room: $room) {
+      room
       state
       connected
+      _id
     }
-    getSensor(room: $room) {
+    sensor: getSensor(room: $room) {
+      room
       temperature
       offset
+      _id
     }
     heating: getPlug(name: "heating") {
+      name
       state
       connected
+      _id
     }
   }
 `;

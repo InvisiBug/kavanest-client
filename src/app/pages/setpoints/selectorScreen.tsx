@@ -1,10 +1,9 @@
 import React, { FC } from "react";
 import { PageTitle, SelectorContainer } from "../../lib";
 import RoomSelector from "./components/selector";
-import RoomSetpoints from "./components/setpoints";
 import { useQuery, gql } from "@apollo/client";
 
-const SetpointsSelectorScreen: React.FC<any> = ({ setRoomToShow }) => {
+const SetpointsSelectorScreen: FC<any> = ({ setRoomToShow }) => {
   const { data } = useQuery(getValves, { fetchPolicy: "no-cache" });
   if (!data) return <></>;
 
