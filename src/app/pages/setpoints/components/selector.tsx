@@ -12,15 +12,6 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
   let target: any;
 
   target = data?.setpoints?.setpoints;
-  let time;
-
-  if (getCurrentSetpointV2(target)) {
-    time = getCurrentSetpointV2(target)![1];
-  }
-  // const setpointString = () => {
-  //   if (!getCurrentSetpoint(target)) return "n/a";
-  //   return getCurrentSetpoint(target);
-  // };
 
   return (
     <>
@@ -28,11 +19,7 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
         <RoomName onClick={close}>{decamelize(room)}</RoomName>
         {!data.valve.state && data.valve.connected && data.heating.state && data.heating.connected ? <FlameIcon src={flame}></FlameIcon> : null}
         <Vals>
-          <Current>
-            Current
-            <br />
-            {`${data.sensor?.temperature ? data.sensor.temperature : "n/a"}°C`}
-          </Current>
+          <Current>{`${data.sensor?.temperature ? data.sensor.temperature : "n/a"}°C`}</Current>
           <Setpoint>
             Target
             <br />
