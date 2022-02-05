@@ -33,6 +33,7 @@ export {
   power,
   powerOn,
   computer,
+  sinchronize,
 } from "./components/elements/icons";
 
 // Elements

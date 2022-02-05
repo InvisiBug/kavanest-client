@@ -1,44 +1,67 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { decamelize, getCurrentSetpoint } from "../../../utils";
+import { decamelize, getCurrentSetpointV2 } from "../../../utils";
 import { rightArrow, flame } from "../../../lib";
 import { useQuery, gql } from "@apollo/client";
+import { useAppContext } from "../../../utils";
 
 const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = null }) => {
-  const { loading, error, data } = useQuery(query, { variables: { room }, fetchPolicy: "no-cache" });
+  const [sensor, setSensor] = useState<any>();
+  const [valve, setValve] = useState<any>();
+  const [heating, setHeating] = useState<any>();
 
-  if (loading) return <></>;
-  if (error) return <></>;
+  const { socket } = useAppContext();
+
+  const { data } = useQuery(query, {
+    variables: { room },
+    fetchPolicy: "no-cache",
+    onCompleted() {
+      data.sensor.temperature = 100;
+      setSensor(data.sensor);
+      setValve(data.valve);
+      setHeating(data.heating);
+
+      console.log(data.sensor);
+
+      socket.on(data.sensor._id, (payload: any) => {
+        setSensor(payload);
+      });
+
+      socket.on(data.valve._id, (payload: any) => {
+        setValve(payload);
+      });
+
+      socket.on(data.heating._id, (payload: any) => {
+        setHeating(payload);
+      });
+    },
+  });
+
+  useEffect(() => {
+    return function cleanup() {
+      socket.removeAllListeners();
+    };
+  }, []); // eslint-disable-line
+
+  if (!data || !heating || !valve || !sensor) return <></>;
 
   let target: any;
 
-  if (data.setpoints) {
-    target = data.setpoints.setpoints;
-  } else {
-    target = 2;
-  }
-
-  const setpointString = () => {
-    if (!getCurrentSetpoint(target)) return "n/a";
-    return getCurrentSetpoint(target);
-    // Typescript preventing this from saying no setpoint when the val is below threshold
-  };
+  target = data?.setpoints?.setpoints;
 
   return (
     <>
       <Container onClick={onClick}>
-        <RoomName onClick={close}>{decamelize(room)}</RoomName>
-        {!data.valve.state && data.heating.state ? <FlameIcon src={flame}></FlameIcon> : null}
+        <RoomName connected={sensor.connected} onClick={close}>
+          {decamelize(room)}
+        </RoomName>
+        {!valve.state && heating.state ? <FlameIcon src={flame}></FlameIcon> : null}
         <Vals>
-          <Current>
-            Current
-            <br />
-            {`${data.sensor?.temperature ? data.sensor.temperature : "n/a"}°C`}
-          </Current>
+          <Current>{`${sensor?.temperature ? sensor.temperature : "n/a"}°C`}</Current>
           <Setpoint>
             Target
             <br />
-            {setpointString()}°C
+            {getCurrentSetpointV2(target) ? `${getCurrentSetpointV2(target)![1]}°C` : "Off"}
           </Setpoint>
         </Vals>
         <Arrow src={rightArrow}></Arrow>
@@ -59,12 +82,18 @@ const query = gql`
   query ($room: String) {
     valve: getValve(room: $room) {
       state
+      connected
+      _id
     }
     heating: getPlug(name: "heating") {
       state
+      connected
+      _id
     }
     sensor: getSensor(room: $room) {
       temperature
+      connected
+      _id
     }
     setpoints: getSetpoint(room: $room) {
       setpoints {
@@ -89,6 +118,7 @@ const RoomName = styled.h3`
   display: item;
   align-self: center;
   flex-grow: 1;
+  color: ${(props: { connected: boolean }) => (props.connected ? "white" : "orangered")};
 `;
 
 const FlameIcon = styled.img`
