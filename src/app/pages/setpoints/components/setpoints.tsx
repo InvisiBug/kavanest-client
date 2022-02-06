@@ -22,7 +22,6 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
     variables: { room },
     fetchPolicy: "no-cache",
     onCompleted() {
-      data.sensor.temperature = 100;
       setSensor(data.sensor);
       setValve(data.valve);
       setHeating(data.heating);

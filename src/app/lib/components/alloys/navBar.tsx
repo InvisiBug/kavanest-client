@@ -10,9 +10,9 @@ const navButtons = [
   { name: "computer", icon: computer },
   { name: "setpoints", icon: setpoints },
   { name: "sensors", icon: sensor },
+  { name: "valves", icon: valve },
   { name: "plugs", icon: plug },
   // { name: "gears", icon: gears },
-  { name: "valves", icon: valve },
   // { name: "dog", icon: dog },
 ];
 const PhoneNav: React.FC<Props> = () => {
