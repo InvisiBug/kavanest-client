@@ -58,6 +58,8 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
   const deadzone = data.setpoints?.deadzone || 0;
   const offset = data.sensor?.offset || 0;
 
+  console.log(getCurrentSetpointV2(target));
+
   return (
     <>
       <PageTitle onClick={close}>
@@ -72,7 +74,7 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
 
           <Setpoint>
             Target
-            <br /> {getCurrentSetpointV2(target) ? `${getCurrentSetpointV2(target)![1]}°C` : "Off"}
+            <br /> {getCurrentSetpointV2(target)![1] ? `${getCurrentSetpointV2(target)![1]}°C` : "Off"}
           </Setpoint>
         </Left>
 
