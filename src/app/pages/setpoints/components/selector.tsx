@@ -20,7 +20,7 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
       setValve(data.valve);
       setHeating(data.heating);
 
-      console.log(data.sensor);
+      // console.log(data.sensor);
 
       socket.on(data.sensor._id, (payload: any) => {
         setSensor(payload);

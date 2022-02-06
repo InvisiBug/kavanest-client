@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { PageTitle, SelectorContainer } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
-import RoomSelector, { PlugData } from "./components/roomSelector";
+import RoomSelector from "./components/roomSelector";
 
 const Valves = () => {
-  const [valves, setValves] = useState<PlugData[]>();
+  const [valves, setValves] = useState<any>();
 
   const { data } = useQuery(getValves, {
     fetchPolicy: "no-cache",
@@ -14,9 +14,17 @@ const Valves = () => {
     },
   });
 
+  if (!valves) return <></>;
+
   return (
     <>
-      <h1>valves</h1>
+      <PageTitle>Valves</PageTitle>
+      <SelectorContainer>
+        {valves!.map((valve: any) => {
+          console.log(valve);
+          return <RoomSelector thisValve={valve} key={Math.random()} />;
+        })}
+      </SelectorContainer>
     </>
   );
 };

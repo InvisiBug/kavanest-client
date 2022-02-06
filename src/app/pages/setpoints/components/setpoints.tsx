@@ -27,8 +27,6 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
       setValve(data.valve);
       setHeating(data.heating);
 
-      console.log(data.heating);
-
       socket.on(data.sensor._id, (payload: any) => {
         setSensor(payload);
       });
@@ -57,8 +55,6 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
   const target = data.setpoints?.setpoints || "";
   const deadzone = data.setpoints?.deadzone || 0;
   const offset = data.sensor?.offset || 0;
-
-  console.log(getCurrentSetpointV2(target));
 
   return (
     <>
