@@ -5,7 +5,7 @@ import { mq, px } from "../elements/mediaQueries";
 import { useAppContext } from "../../../utils";
 
 const navButtons = [
-  { name: "home", icon: home },
+  // { name: "home", icon: home },
   { name: "rgbLights", icon: rgbLight },
   { name: "computer", icon: computer },
   { name: "setpoints", icon: setpoints },
