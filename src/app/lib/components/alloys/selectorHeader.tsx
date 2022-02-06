@@ -8,7 +8,9 @@ const Selector: FC<Props> = ({ setOpenDrawer, connected = true, openDrawer, name
     <>
       <Header
         onClick={() => {
-          setOpenDrawer(openDrawer === name ? "" : name);
+          if (setOpenDrawer) {
+            setOpenDrawer(openDrawer === name ? "" : name);
+          }
         }}
       >
         <Room connected={connected}>{decamelize(name)}</Room>
@@ -22,7 +24,7 @@ const Selector: FC<Props> = ({ setOpenDrawer, connected = true, openDrawer, name
 export default Selector;
 
 interface Props {
-  setOpenDrawer: any;
+  setOpenDrawer?: any;
   openDrawer: any;
   name: any;
   children: any;

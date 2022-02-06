@@ -22,12 +22,9 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
     variables: { room },
     fetchPolicy: "no-cache",
     onCompleted() {
-      data.sensor.temperature = 100;
       setSensor(data.sensor);
       setValve(data.valve);
       setHeating(data.heating);
-
-      console.log(data.heating);
 
       socket.on(data.sensor._id, (payload: any) => {
         setSensor(payload);
@@ -72,7 +69,7 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
 
           <Setpoint>
             Target
-            <br /> {getCurrentSetpointV2(target) ? `${getCurrentSetpointV2(target)![1]}°C` : "Off"}
+            <br /> {getCurrentSetpointV2(target)![1] ? `${getCurrentSetpointV2(target)![1]}°C` : "Off"}
           </Setpoint>
         </Left>
 

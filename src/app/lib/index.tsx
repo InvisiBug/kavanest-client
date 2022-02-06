@@ -34,6 +34,7 @@ export {
   powerOn,
   computer,
   sinchronize,
+  valve,
 } from "./components/elements/icons";
 
 // Elements

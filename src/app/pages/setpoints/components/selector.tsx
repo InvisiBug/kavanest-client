@@ -16,12 +16,11 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
     variables: { room },
     fetchPolicy: "no-cache",
     onCompleted() {
-      data.sensor.temperature = 100;
       setSensor(data.sensor);
       setValve(data.valve);
       setHeating(data.heating);
 
-      console.log(data.sensor);
+      // console.log(data.sensor);
 
       socket.on(data.sensor._id, (payload: any) => {
         setSensor(payload);
@@ -61,7 +60,7 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
           <Setpoint>
             Target
             <br />
-            {getCurrentSetpointV2(target) ? `${getCurrentSetpointV2(target)![1]}°C` : "Off"}
+            {getCurrentSetpointV2(target)![1] ? `${getCurrentSetpointV2(target)![1]}°C` : "Off"}
           </Setpoint>
         </Vals>
         <Arrow src={rightArrow}></Arrow>

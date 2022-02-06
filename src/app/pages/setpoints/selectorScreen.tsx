@@ -12,7 +12,7 @@ const SetpointsSelectorScreen: FC<any> = ({ setRoomToShow }) => {
   return (
     <>
       <PageTitle key={Math.random()} desc={heating.connected ? "Each room shown here is on the system" : "Heating isn't connected 💥"}>
-        Room Heating Setpoints
+        Room Setpoints
       </PageTitle>
 
       <SelectorContainer>
