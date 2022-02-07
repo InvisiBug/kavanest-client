@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { home, setpoints, sensor, dog, rgbLight, plug, gears, computer, valve } from "../elements/icons";
 import { mq, px } from "../elements/mediaQueries";
@@ -16,13 +16,23 @@ const navButtons = [
   // { name: "dog", icon: dog },
 ];
 const PhoneNav: React.FC<Props> = () => {
-  const { screen, setScreen, admin } = useAppContext();
+  const { screen, setScreen } = useAppContext();
+
+  const [isAdmin, setIsAdmin] = useState(false);
+  const allowed: boolean = localStorage.getItem("admin") === "true" || false;
+
+  useEffect(() => {
+    setIsAdmin(allowed);
+    setInterval(() => {
+      setIsAdmin(Boolean(localStorage.getItem("admin") === "true" || false));
+    }, 1 * 1000);
+  }, []); //eslint-disable-line
 
   return (
     <>
       <Container>
         {navButtons.map((button) => {
-          if (false) {
+          if (isAdmin) {
             return (
               <Icon
                 src={button.icon}

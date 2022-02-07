@@ -1,8 +1,8 @@
-import React from "react";
+import React, { FC, useEffect } from "react";
 import { Home, Setpoints, Plugs, Dog, Sensors, RGBLights, Computer, Valves } from "./pages";
 import { useAppContext } from "./utils";
 
-const Screens: React.FC = () => {
+const Screens: FC = () => {
   const { screen } = useAppContext();
 
   const renderScreen = () => {

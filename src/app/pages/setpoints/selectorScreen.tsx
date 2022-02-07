@@ -1,19 +1,30 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { PageTitle, SelectorContainer } from "../../lib";
 import RoomSelector from "./components/selector";
 import { useQuery, gql } from "@apollo/client";
 
 const SetpointsSelectorScreen: FC<any> = ({ setRoomToShow }) => {
   const { data } = useQuery(getValves, { fetchPolicy: "no-cache" });
+  const [count, setCount] = useState<number>(0);
   if (!data) return <></>;
 
   const heating = data.heating;
 
   return (
     <>
-      <PageTitle key={Math.random()} desc={heating.connected ? "Each room shown here is on the system" : "Heating isn't connected 💥"}>
-        Room Setpoints
-      </PageTitle>
+      <div
+        onClick={() => {
+          setCount(count + 1);
+          console.log(count);
+          if (count > 3) {
+            localStorage.setItem("admin", "true");
+          }
+        }}
+      >
+        <PageTitle key={Math.random()} desc={heating.connected ? "Each room shown here is on the system" : "Heating isn't connected 💥"}>
+          Room Setpoints
+        </PageTitle>
+      </div>
 
       <SelectorContainer>
         {data.getValves.length > 0 ? (
