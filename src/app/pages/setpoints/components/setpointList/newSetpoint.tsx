@@ -32,10 +32,12 @@ const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
             addSetpoint({
               variables: {
                 input: {
-                  room,
-                  time: `${hours}:${mins}`,
-                  day: day,
-                  temp,
+                  name: room,
+                  setpoints: {
+                    day: day,
+                    time: `${hours}:${mins}`,
+                    temp: temp,
+                  },
                 },
               },
             });
@@ -63,9 +65,9 @@ interface Props {
 export default NewSetpoint;
 
 const addSetpointMutation = gql`
-  mutation ($input: SetpointInput) {
-    response: updateSetpoint(input: $input) {
-      room
+  mutation UpdateRoom($input: RoomInput) {
+    room: updateRoom(input: $input) {
+      name
     }
   }
 `;

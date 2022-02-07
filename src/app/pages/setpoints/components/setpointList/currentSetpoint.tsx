@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+
 import { cancel, on } from "../../../../lib";
 import { makeRequest } from "../../../../utils";
 
@@ -8,7 +9,7 @@ const CurrentSetpoint: React.FC<Props> = ({ room, day, time, temp, close, thisOn
     makeRequest(shoo, {
       input: {
         time,
-        room,
+        name: room,
         day,
       },
     }).then(() => {
@@ -38,11 +39,11 @@ interface Props {
 }
 
 const shoo = `
-mutation DeleteSetpoint($input: SetpointInput) {
-  response:deleteSetpoint(input: $input) {
-    room
+  mutation DeleteSetpoint($input: DeleteSetpointInput) {
+    response: deleteSetpoint(input: $input) {
+      name
+    }
   }
-}
 `;
 
 const borders: boolean = false;
