@@ -50,15 +50,10 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
   const [updateOffset] = useMutation(offsetMutation, {});
 
   if (!data || !heating || !valve) return <></>;
-  console.log(data);
 
-  // const target = data.setpoints?.setpoints || "";
-  const target = 2;
-  // const deadzone = data.setpoints?.deadzone || 0;
-  const deadzone = 2;
+  const target = data.setpoints?.setpoints || "";
+  const deadzone = data.setpoints?.deadzone || 0;
   const offset = data.sensor?.offset || 0;
-
-  console.log(getCurrentSetpointV2(target)[1]);
 
   return (
     <>

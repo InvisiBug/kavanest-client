@@ -6,27 +6,46 @@ import { useAppContext } from "../../../utils";
 
 const navButtons = [
   // { name: "home", icon: home },
-  { name: "rgbLights", icon: rgbLight },
-  { name: "computer", icon: computer },
-  { name: "setpoints", icon: setpoints },
-  { name: "sensors", icon: sensor },
-  { name: "valves", icon: valve },
-  { name: "plugs", icon: plug },
+  { name: "rgbLights", icon: rgbLight, admin: true },
+  { name: "computer", icon: computer, admin: true },
+  { name: "setpoints", icon: setpoints, guest: true },
+  { name: "sensors", icon: sensor, admin: true },
+  { name: "valves", icon: valve, admin: true },
+  { name: "plugs", icon: plug, admin: true },
   // { name: "gears", icon: gears },
   // { name: "dog", icon: dog },
 ];
 const PhoneNav: React.FC<Props> = () => {
-  const { screen, setScreen } = useAppContext();
+  const { screen, setScreen, admin } = useAppContext();
 
   return (
     <>
       <Container>
         {navButtons.map((button) => {
-          return (
-            <Icon src={button.icon} alt={button.name} name={button.name} screen={screen} onClick={() => setScreen(button.name)} key={Math.random()} />
-          );
+          if (false) {
+            return (
+              <Icon
+                src={button.icon}
+                alt={button.name}
+                name={button.name}
+                screen={screen}
+                onClick={() => setScreen(button.name)}
+                key={Math.random()}
+              />
+            );
+          } else if (!button.admin) {
+            return (
+              <Icon
+                src={button.icon}
+                alt={button.name}
+                name={button.name}
+                screen={screen}
+                onClick={() => setScreen(button.name)}
+                key={Math.random()}
+              />
+            );
+          }
         })}
-        {/* <Text>button.name</Text> */}
       </Container>
     </>
   );
