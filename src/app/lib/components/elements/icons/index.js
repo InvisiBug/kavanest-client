@@ -17,6 +17,8 @@ import power from "./power.png";
 import powerOn from "./powerOn.png";
 import gears from "./gears.png";
 import computer from "./computer.png";
+import sinchronize from "./sinchronize.png";
+import valve from "./valve.png";
 
 export {
   gears,
@@ -38,4 +40,7 @@ export {
   switchOff,
   switchOn,
   computer,
+  sinchronize,
+  valve,
 };
+// export { valve } from "./valve.png";

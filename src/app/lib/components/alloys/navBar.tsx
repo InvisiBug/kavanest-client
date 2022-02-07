@@ -1,31 +1,61 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { home, setpoints, sensor, dog, rgbLight, plug, gears, computer } from "../elements/icons";
+import { home, setpoints, sensor, dog, rgbLight, plug, gears, computer, valve } from "../elements/icons";
 import { mq, px } from "../elements/mediaQueries";
 import { useAppContext } from "../../../utils";
 
 const navButtons = [
   // { name: "home", icon: home },
-  { name: "rgbLights", icon: rgbLight },
-  { name: "computer", icon: computer },
-  { name: "setpoints", icon: setpoints },
-  { name: "sensors", icon: sensor },
-  { name: "plugs", icon: plug },
+  { name: "rgbLights", icon: rgbLight, admin: true },
+  { name: "computer", icon: computer, admin: true },
+  { name: "setpoints", icon: setpoints, guest: true },
+  { name: "sensors", icon: sensor, admin: true },
+  { name: "valves", icon: valve, admin: true },
+  { name: "plugs", icon: plug, admin: true },
   // { name: "gears", icon: gears },
-  { name: "dog", icon: dog },
+  // { name: "dog", icon: dog },
 ];
 const PhoneNav: React.FC<Props> = () => {
   const { screen, setScreen } = useAppContext();
+
+  const [isAdmin, setIsAdmin] = useState(false);
+  const allowed: boolean = localStorage.getItem("admin") === "true" || false;
+
+  useEffect(() => {
+    setIsAdmin(allowed);
+    setInterval(() => {
+      setIsAdmin(Boolean(localStorage.getItem("admin") === "true" || false));
+    }, 1 * 1000);
+  }, []); //eslint-disable-line
 
   return (
     <>
       <Container>
         {navButtons.map((button) => {
-          return (
-            <Icon src={button.icon} alt={button.name} name={button.name} screen={screen} onClick={() => setScreen(button.name)} key={Math.random()} />
-          );
+          if (isAdmin) {
+            return (
+              <Icon
+                src={button.icon}
+                alt={button.name}
+                name={button.name}
+                screen={screen}
+                onClick={() => setScreen(button.name)}
+                key={Math.random()}
+              />
+            );
+          } else if (!button.admin) {
+            return (
+              <Icon
+                src={button.icon}
+                alt={button.name}
+                name={button.name}
+                screen={screen}
+                onClick={() => setScreen(button.name)}
+                key={Math.random()}
+              />
+            );
+          }
         })}
-        {/* <Text>button.name</Text> */}
       </Container>
     </>
   );
@@ -63,13 +93,15 @@ const Icon = styled.img`
     /* max-width: ${px("medium")}px; */
   }
   cursor: pointer;
+
   /* background: linear-gradient(to top, #3204fdba, #9907facc) no-repeat top center; */
 
   /* background-color: ${(props: { name: string; screen: string }) => (props.name === props.screen ? "red" : null)}; */
-  filter: ${(props: { name: string; screen: string }) =>
-    props.name === props.screen ? "brightness(40%) sepia(100%) saturate(300%) opacity(90%) hue-rotate(75deg)" : null};
+  /* filter: ${(props: { name: string; screen: string }) =>
+    props.name === props.screen ? "brightness(40%) sepia(100%) saturate(300%) opacity(90%) hue-rotate(75deg)" : null}; */
 
-  filter: ${(props: { name: string; screen: string }) => (props.name === props.screen ? "opacity(50%)" : null)};
+  filter: ${(props: { name: string; screen: string }) => (props.name === props.screen ? "opacity(100%)" : "opacity(50%)")};
+
   /* filter: brightness(100%) sepia(100%) saturate(10000%) opacity(50%) hue-rotate(55deg); */
 `;
 

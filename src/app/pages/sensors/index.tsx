@@ -14,7 +14,8 @@ const Sensors: React.FC = () => {
     },
     fetchPolicy: "no-cache",
     onCompleted() {
-      setSensors(data.availableRooms);
+      setSensors(data.sensors);
+      console.log(data.sensors);
       setHeating(data.heating);
     },
   });
@@ -50,7 +51,7 @@ interface HeatingData {
 
 const query = gql`
   query ($name: String) {
-    availableRooms: getSensors {
+    sensors: getSensors {
       room
       rawTemperature
       temperature

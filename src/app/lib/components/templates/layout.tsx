@@ -25,12 +25,13 @@ export default Layout;
 const borders: boolean = false;
 
 const AppWindow = styled.div`
+  position: fixed;
   border: ${borders ? "1px solid green" : "none"};
   background-color: #1f1f1f;
 
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100%;
   min-width: 100vw;
   padding: 0;
   /* border: 1px solid red; */
@@ -58,6 +59,7 @@ const Bottom = styled.div`
     height: 100vh;
     width: 10vw;
   }
+  margin-top: auto;
 `;
 
 const Container = styled.div`

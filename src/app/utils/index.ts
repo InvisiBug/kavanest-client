@@ -1,6 +1,9 @@
 import Axios from "axios";
 require("dotenv").config();
-// import { apiUrl } from "./urlGen";
+
+export { default as AppContext, AppProvider, useAppContext } from "./context";
+export const apiUrl = process.env.REACT_APP_API ?? "";
+export const socketUrl = process.env.REACT_APP_SOCKET ?? "";
 
 export const makeRequest = async (query: string, variables: any = null) => {
   const data = await Axios.post(apiUrl, { query, variables }).then((response) => {
@@ -24,10 +27,6 @@ export const decamelize = (text: string) => {
   return finalResult;
 };
 
-export { default as AppContext, AppProvider, useAppContext } from "./context";
-export const apiUrl = process.env.REACT_APP_API ?? "";
-export const socketUrl = process.env.REACT_APP_SOCKET ?? "";
-
 export const weekOrWeekend = () => {
   var today = new Date();
   if (!(today.getDay() % 6)) return "weekend";
@@ -35,14 +34,48 @@ export const weekOrWeekend = () => {
 };
 
 export const getCurrentSetpoint = (setpoints: any) => {
-  let setpoint;
+  console.log(setpoints);
+  let setpoint: number | null = null;
+  let count: number = 0;
+  try {
+    Object.keys(setpoints[weekOrWeekend()]).forEach((entry) => {
+      if (now() > entry) {
+        setpoint = setpoints[weekOrWeekend()][entry];
+      }
+      count++;
+    });
+    const obj = setpoints[weekOrWeekend()];
 
-  Object.keys(setpoints[weekOrWeekend()]).forEach((entry) => {
-    if (now() > entry) {
-      setpoint = setpoints[weekOrWeekend()][entry];
-    }
-  });
-  return setpoint;
+    if (!setpoint) return parseInt(obj[Object.keys(obj)[count - 1]]);
+
+    return setpoint;
+  } catch {
+    return null;
+  }
+};
+
+export const getCurrentSetpointV2 = (setpoints: any) => {
+  let setpoint: number | null = null;
+  let time: string = "";
+
+  try {
+    Object.keys(setpoints[weekOrWeekend()]).forEach((entry) => {
+      if (now() > entry) {
+        setpoint = setpoints[weekOrWeekend()][entry];
+        time = entry;
+      }
+    });
+    const obj = setpoints[weekOrWeekend()];
+
+    var lastTime = Object.keys(obj).sort().reverse()[0];
+    var lastSetpoint = obj[lastTime];
+
+    if (!setpoint) return [lastTime, lastSetpoint];
+
+    return [time, setpoint];
+  } catch {
+    return [null, null];
+  }
 };
 
 export const now = () => {
