@@ -6,7 +6,7 @@ import { useQuery, gql, useMutation } from "@apollo/client";
 import SetpointList from "./setpointList";
 import { useAppContext } from "../../../utils";
 
-const RoomSetpoints: FC<Props> = ({ room, close }) => {
+const RoomSetpoints: FC<Props> = ({ name, close }) => {
   const [days, setDays] = useState<string>(weekOrWeekend());
   const [deadzoneVal, setDeadzoneVal] = useState<string>("");
   const [offsetVal, setOffsetVal] = useState<string>("");
@@ -19,7 +19,7 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
   const [heating, setHeating] = useState<any>();
 
   const { data, refetch } = useQuery(request, {
-    variables: { room },
+    variables: { room: name },
     fetchPolicy: "no-cache",
     onCompleted() {
       setSensor(data.sensor);
@@ -40,6 +40,7 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
     },
   });
 
+  // console.log(data.room);
   useEffect(() => {
     return function cleanup() {
       socket.removeAllListeners();
@@ -51,14 +52,14 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
 
   if (!data || !heating || !valve) return <></>;
 
-  const target = data.setpoints?.setpoints || "";
-  const deadzone = data.setpoints?.deadzone || 0;
+  const target = data.room?.setpoints || "";
+  const deadzone = data.room?.deadzone || 0;
   const offset = data.sensor?.offset || 0;
 
   return (
     <>
       <PageTitle onClick={close}>
-        <TitleText>&larr; {decamelize(room)}</TitleText>
+        <TitleText>&larr; {decamelize(name)}</TitleText>
       </PageTitle>
       <Info>
         <Left>
@@ -86,7 +87,7 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
                 setOffsetVal(event.target.value);
               }}
               onBlur={() => {
-                updateOffset({ variables: { input: { room, offset: parseFloat(offsetVal) } } });
+                updateOffset({ variables: { input: { name, offset: parseFloat(offsetVal) } } });
                 refetch();
               }}
             />
@@ -101,33 +102,34 @@ const RoomSetpoints: FC<Props> = ({ room, close }) => {
                 setDeadzoneVal(event.target.value);
               }}
               onBlur={() => {
-                updateDeadzone({ variables: { input: { room, deadzone: deadzoneVal } } });
+                updateDeadzone({ variables: { input: { name: name, deadzone: deadzoneVal } } });
                 refetch();
               }}
             />
           </Deadzone>
         </Right>
       </Info>
-      <SetpointList room={room} setDays={setDays} data={data} days={days} refreshPage={() => refetch()} />
+      <SetpointList room={name} setDays={setDays} data={data} days={days} refreshPage={() => refetch()} />
     </>
   );
 };
 
 export default RoomSetpoints;
 export interface Props {
-  room: string;
+  name: string;
   close?: () => void;
 }
 
 const request = gql`
   query GetSetpoints($room: String) {
-    setpoints: getSetpoint(room: $room) {
-      room
-      setpoints {
-        weekday
-        weekend
-      }
+    room: getRoom(name: $room) {
+      name
+      demand
       deadzone
+      setpoints {
+        weekend
+        weekday
+      }
     }
     valve: getValve(room: $room) {
       room
@@ -151,9 +153,9 @@ const request = gql`
 `;
 
 const deadzoneMutation = gql`
-  mutation ($input: DeadzoneInput) {
-    updateDeadzone(input: $input) {
-      room
+  mutation ($input: RoomInput) {
+    updateRoom(input: $input) {
+      name
       deadzone
     }
   }

@@ -1,32 +1,61 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { home, setpoints, sensor, dog, rgbLight, plug, gears, computer, valve } from "../elements/icons";
 import { mq, px } from "../elements/mediaQueries";
 import { useAppContext } from "../../../utils";
 
 const navButtons = [
-  { name: "home", icon: home },
-  { name: "rgbLights", icon: rgbLight },
-  { name: "computer", icon: computer },
-  { name: "setpoints", icon: setpoints },
-  { name: "sensors", icon: sensor },
-  { name: "valves", icon: valve },
-  { name: "plugs", icon: plug },
+  // { name: "home", icon: home },
+  { name: "rgbLights", icon: rgbLight, admin: true },
+  { name: "computer", icon: computer, admin: true },
+  { name: "setpoints", icon: setpoints, guest: true },
+  { name: "sensors", icon: sensor, admin: true },
+  { name: "valves", icon: valve, admin: true },
+  { name: "plugs", icon: plug, admin: true },
   // { name: "gears", icon: gears },
   // { name: "dog", icon: dog },
 ];
 const PhoneNav: React.FC<Props> = () => {
   const { screen, setScreen } = useAppContext();
 
+  const [isAdmin, setIsAdmin] = useState(true);
+  const allowed: boolean = localStorage.getItem("admin") === "true" || false;
+
+  // useEffect(() => {
+  //   setIsAdmin(allowed);
+  //   setInterval(() => {
+  //     setIsAdmin(Boolean(localStorage.getItem("admin") === "true" || false));
+  //   }, 1 * 1000);
+  // }, []); //eslint-disable-line
+
   return (
     <>
       <Container>
         {navButtons.map((button) => {
-          return (
-            <Icon src={button.icon} alt={button.name} name={button.name} screen={screen} onClick={() => setScreen(button.name)} key={Math.random()} />
-          );
+          if (isAdmin) {
+            return (
+              <Icon
+                src={button.icon}
+                alt={button.name}
+                name={button.name}
+                screen={screen}
+                onClick={() => setScreen(button.name)}
+                key={Math.random()}
+              />
+            );
+          } else if (!button.admin) {
+            return (
+              <Icon
+                src={button.icon}
+                alt={button.name}
+                name={button.name}
+                screen={screen}
+                onClick={() => setScreen(button.name)}
+                key={Math.random()}
+              />
+            );
+          }
         })}
-        {/* <Text>button.name</Text> */}
       </Container>
     </>
   );

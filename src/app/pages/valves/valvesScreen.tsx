@@ -10,7 +10,6 @@ const Valves = () => {
     fetchPolicy: "no-cache",
     onCompleted() {
       setValves(data.valves);
-      console.log(data.valves);
     },
   });
 
@@ -21,7 +20,6 @@ const Valves = () => {
       <PageTitle>Valves</PageTitle>
       <SelectorContainer>
         {valves!.map((valve: any) => {
-          console.log(valve);
           return <RoomSelector thisValve={valve} key={Math.random()} />;
         })}
       </SelectorContainer>

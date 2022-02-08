@@ -60,7 +60,7 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
           <Setpoint>
             Target
             <br />
-            {getCurrentSetpointV2(target)![1] ? `${getCurrentSetpointV2(target)![1]}°C` : "Off"}
+            {getCurrentSetpointV2(target)[1] ? `${getCurrentSetpointV2(target)[1]}°C` : "Off"}
           </Setpoint>
         </Vals>
         <Arrow src={rightArrow}></Arrow>
@@ -94,7 +94,7 @@ const query = gql`
       connected
       _id
     }
-    setpoints: getSetpoint(room: $room) {
+    setpoints: getRoom(name: $room) {
       setpoints {
         weekend
         weekday
