@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
 import { SelectorHeader, on, off, disconnected } from "../../../lib";
 import { useAppContext } from "../../../utils";
-import Details from "./details";
 
 const RoomSelector: React.FC<any> = ({ thisValve, socketUpdate, openDetails, setOpenDetails }) => {
   const { socket } = useAppContext();

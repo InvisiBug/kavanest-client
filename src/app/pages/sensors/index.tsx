@@ -15,7 +15,6 @@ const Sensors: React.FC = () => {
     fetchPolicy: "no-cache",
     onCompleted() {
       setSensors(data.sensors);
-      console.log(data.sensors);
       setHeating(data.heating);
     },
   });

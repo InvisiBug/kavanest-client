@@ -8,7 +8,7 @@ export const AppProvider: React.FC<Props> = ({ children }) => {
   const socket = openSocket(socketUrl);
 
   const [screen, setScreen] = useState("setpoints");
-  const [admin, setAdmin] = useState<boolean>(true);
+  // const [admin, setAdmin] = useState<boolean>(true);
 
   const [openPlug, setOpenPlug] = useState("");
   const [openSensor, setOpenSensor] = useState("");
@@ -27,8 +27,8 @@ export const AppProvider: React.FC<Props> = ({ children }) => {
           setScreen,
 
           socket,
-          admin,
-          setAdmin,
+          // admin,
+          // setAdmin,
         }}
       >
         {children}
@@ -61,6 +61,6 @@ interface ContextState {
 
   socket: Socket;
 
-  admin: boolean;
-  setAdmin: (key: boolean) => void;
+  // admin: boolean;
+  // setAdmin: (key: boolean) => void;
 }
