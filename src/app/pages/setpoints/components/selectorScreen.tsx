@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
-import { PageTitle, SelectorContainer } from "../../lib";
-import RoomSelector from "./components/selector";
+import { PageTitle, SelectorContainer } from "../../../lib";
+import RoomSelector from "./selector";
 import { useQuery, gql } from "@apollo/client";
 
 const SetpointsSelectorScreen: FC<any> = ({ setRoomToShow }) => {

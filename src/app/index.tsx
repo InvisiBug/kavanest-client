@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { Home, Setpoints, Plugs, Dog, Sensors, RGBLights, Computer, Valves } from "./pages";
 import { useAppContext } from "./utils";
 

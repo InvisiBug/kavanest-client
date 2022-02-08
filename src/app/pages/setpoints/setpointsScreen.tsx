@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import RoomSetpoints from "./components/setpoints";
+import RoomScreen from "./components/roomScreen";
 import { useQuery, gql } from "@apollo/client";
-import SelectorScreen from "./selectorScreen";
+import SelectorScreen from "./components/selectorScreen";
 
 const SetpointsPage: React.FC = () => {
   const { data } = useQuery(getValves, { fetchPolicy: "no-cache" });
@@ -9,19 +9,19 @@ const SetpointsPage: React.FC = () => {
 
   if (!data) return <></>;
 
-  const showRoomSetpoints = (roomToShow: string, possibleRooms: any) => {
+  const showRoomScreen = (roomToShow: string, possibleRooms: any) => {
     for (let room in possibleRooms) {
       if (possibleRooms[room].room === roomToShow) {
         return (
           <>
-            <RoomSetpoints close={() => setRoomToShow(false)} room={possibleRooms[room].room} key={Math.random()} />
+            <RoomScreen close={() => setRoomToShow(false)} name={possibleRooms[room].room} key={Math.random()} />
           </>
         );
       }
     }
   };
 
-  return <>{!roomToShow ? <SelectorScreen setRoomToShow={setRoomToShow} /> : showRoomSetpoints(roomToShow, data.getValves)}</>;
+  return <>{!roomToShow ? <SelectorScreen setRoomToShow={setRoomToShow} /> : showRoomScreen(roomToShow, data.getValves)}</>;
 };
 
 export default SetpointsPage;

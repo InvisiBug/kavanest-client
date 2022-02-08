@@ -18,15 +18,15 @@ const navButtons = [
 const PhoneNav: React.FC<Props> = () => {
   const { screen, setScreen } = useAppContext();
 
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(true);
   const allowed: boolean = localStorage.getItem("admin") === "true" || false;
 
-  useEffect(() => {
-    setIsAdmin(allowed);
-    setInterval(() => {
-      setIsAdmin(Boolean(localStorage.getItem("admin") === "true" || false));
-    }, 1 * 1000);
-  }, []); //eslint-disable-line
+  // useEffect(() => {
+  //   setIsAdmin(allowed);
+  //   setInterval(() => {
+  //     setIsAdmin(Boolean(localStorage.getItem("admin") === "true" || false));
+  //   }, 1 * 1000);
+  // }, []); //eslint-disable-line
 
   return (
     <>
