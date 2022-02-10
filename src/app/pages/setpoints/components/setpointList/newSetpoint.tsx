@@ -4,9 +4,9 @@ import { plus, cancel } from "../../../../lib";
 import { gql, useMutation } from "@apollo/client";
 
 const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
-  const [mins, setMins] = useState<string | null>(null);
-  const [hours, setHours] = useState<string | null>(null);
-  const [temp, setTemp] = useState<string>("");
+  const [mins, setMins] = useState<string | null>("00");
+  const [hours, setHours] = useState<string | null>("00");
+  const [temp, setTemp] = useState<string>("00");
 
   const [addSetpoint] = useMutation(addSetpointMutation, {
     onCompleted() {
