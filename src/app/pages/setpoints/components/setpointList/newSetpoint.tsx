@@ -6,7 +6,7 @@ import { gql, useMutation } from "@apollo/client";
 const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
   const [mins, setMins] = useState<string | null>("00");
   const [hours, setHours] = useState<string | null>("00");
-  const [temp, setTemp] = useState<string>("00");
+  const [temp, setTemp] = useState<string>("0");
 
   const [addSetpoint] = useMutation(addSetpointMutation, {
     onCompleted() {
@@ -14,12 +14,21 @@ const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
     },
   });
 
+  // move to next input when max length is reached
+  // https://linguinecode.com/post/focus-next-input-in-react
   return (
     <>
       <Container>
-        {/* <form> */}
         <Time>
-          <MyInput type="text" placeholder="00" inputMode="decimal" onChange={(event) => setHours(("0" + event.target.value).slice(-2))} />
+          <MyInput
+            type="text"
+            placeholder="00"
+            inputMode="decimal"
+            onChange={(event) => {
+              console.log(event.target.value);
+              setHours(("0" + event.target.value).slice(-2));
+            }}
+          />
           :
           <MyInput type="text" placeholder="00" inputMode="decimal" onChange={(event) => setMins(("0" + event.target.value).slice(-2))} />
         </Time>
