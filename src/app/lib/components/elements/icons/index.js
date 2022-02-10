@@ -19,6 +19,7 @@ import gears from "./gears.png";
 import computer from "./computer.png";
 import sinchronize from "./sinchronize.png";
 import valve from "./valve.png";
+import bed from "./bed.png";
 
 export {
   gears,
@@ -42,5 +43,5 @@ export {
   computer,
   sinchronize,
   valve,
+  bed,
 };
-// export { valve } from "./valve.png";

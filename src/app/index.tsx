@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Home, Setpoints, Plugs, Dog, Sensors, RGBLights, Computer, Valves } from "./pages";
+import { Home, Setpoints, Plugs, Dog, Sensors, RGBLights, Computer, Valves, Bed } from "./pages";
 import { useAppContext } from "./utils";
 
 const Screens: FC = () => {
@@ -30,6 +30,9 @@ const Screens: FC = () => {
 
       case "valves":
         return <Valves />;
+
+      case "bed":
+        return <Bed />;
     }
   };
 

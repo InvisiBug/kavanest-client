@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { home, setpoints, sensor, dog, rgbLight, plug, gears, computer, valve } from "../elements/icons";
+import { home, setpoints, sensor, dog, rgbLight, plug, gears, computer, valve, bed } from "../elements/icons";
 import { mq, px } from "../elements/mediaQueries";
 import { useAppContext } from "../../../utils";
 
@@ -12,6 +12,7 @@ const navButtons = [
   { name: "sensors", icon: sensor, admin: true },
   { name: "valves", icon: valve, admin: true },
   { name: "plugs", icon: plug, admin: true },
+  { name: "bed", icon: bed, admin: true },
   // { name: "gears", icon: gears },
   // { name: "dog", icon: dog },
 ];

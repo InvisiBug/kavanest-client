@@ -6,3 +6,4 @@ export { default as Dog } from "./dogs";
 export { default as RGBLights } from "./rgbLights";
 export { Computer } from "./computer";
 export { Valves } from "./valves";
+export { default as Bed } from "./bed/index";

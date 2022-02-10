@@ -35,6 +35,7 @@ export {
   computer,
   sinchronize,
   valve,
+  bed,
 } from "./components/elements/icons";
 
 // Elements
