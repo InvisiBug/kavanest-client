@@ -75,6 +75,7 @@ const Container = styled.div`
   justify-content: space-around;
   ${mq("large")} {
     flex-direction: column;
+    justify-content: flex-start;
     width: 100%;
     /* background-color: orange; */
     /* max-width: ${px("medium")}px; */
@@ -90,6 +91,7 @@ const Icon = styled.img`
   height: 50%;
   ${mq("large")} {
     height: 5%;
+    margin-top: 20px;
     /* background-color: orange; */
     /* max-width: ${px("medium")}px; */
   }

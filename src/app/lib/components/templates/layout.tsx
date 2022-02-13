@@ -9,12 +9,12 @@ export const Layout: React.FC = ({ children }) => {
     <>
       <Global styles={globalStyles} />
       <AppWindow>
-        <Top>
+        <Content>
           <Container>{children}</Container>
-        </Top>
-        <Bottom>
+        </Content>
+        <Nav>
           <NavBar />
-        </Bottom>
+        </Nav>
       </AppWindow>
     </>
   );
@@ -42,14 +42,19 @@ const AppWindow = styled.div`
   }
 `;
 
-const Top = styled.div`
+const Content = styled.div`
   border: ${borders ? "1px solid yellow" : "none"};
   overflow-y: auto;
   width: 100vw;
   flex-grow: 1;
+  ${mq("large")} {
+    margin-left: 0;
+    min-height: 100%;
+    align-items: flex-start;
+  }
 `;
 
-const Bottom = styled.div`
+const Nav = styled.div`
   border: ${borders ? "1px solid pink" : "none"};
   height: 50px; // This need to be a pixel value for the navbar to work
   width: 100vw;
@@ -57,7 +62,7 @@ const Bottom = styled.div`
   ${mq("large")} {
     order: -1;
     height: 100vh;
-    width: 10vw;
+    width: 5vw;
   }
   margin-top: auto;
 `;
@@ -75,7 +80,12 @@ const Container = styled.div`
   /* min-width: ${px("medium")}px; */
   /* } */
   ${mq("large")} {
-    max-width: 75vw;
+    margin: auto;
+    /* margin: 5%; */
+    width: 50%;
+    /* max-width: 100vw; */
+    /* max-width: 75vw; */
+    /* margin-right: 20px; */
     /* background-color: orange; */
     /* max-width: ${px("large")}px; */
     /* height: 1000px; */
