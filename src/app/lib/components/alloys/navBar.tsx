@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { home, setpoints, sensor, dog, rgbLight, plug, gears, computer, valve, bed } from "../elements/icons";
 import { mq, px } from "../elements/mediaQueries";
-import { useAppContext } from "../../../utils";
+import { useAppContext, decamelize } from "../../../utils";
 
 const navButtons = [
   // { name: "home", icon: home },
@@ -35,14 +35,10 @@ const PhoneNav: React.FC<Props> = () => {
         {navButtons.map((button) => {
           if (isAdmin) {
             return (
-              <Icon
-                src={button.icon}
-                alt={button.name}
-                name={button.name}
-                screen={screen}
-                onClick={() => setScreen(button.name)}
-                key={Math.random()}
-              />
+              <Group onClick={() => setScreen(button.name)}>
+                <Icon src={button.icon} alt={button.name} name={button.name} screen={screen} key={Math.random()} />
+                <Text>{decamelize(button.name)}</Text>
+              </Group>
             );
           } else if (!button.admin) {
             return (
@@ -64,8 +60,10 @@ const PhoneNav: React.FC<Props> = () => {
 
 export default PhoneNav;
 
+const borders = false;
+
 const Container = styled.div`
-  /* border: 1px solid red; */
+  border: ${borders ? "1px solid yellow" : "none"};
   margin: auto;
   height: 100%;
   /* width: 100vw; */
@@ -82,16 +80,43 @@ const Container = styled.div`
   }
 `;
 
-// const Text = styled.div`
-//   border: 1px solid red;
-//   visibility: hidden;
-// `;
+const Text = styled.div`
+  border: ${borders ? "1px solid red" : "none"};
+  visibility: hidden;
+  max-width: 0;
+  ${mq("large")} {
+    visibility: visible;
+    max-width: none;
+    margin-top: 0.5rem;
+  }
+`;
+
+const Group = styled.div`
+  border: ${borders ? "1px solid orange" : "none"};
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ${mq("large")} {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 10%;
+    align-items: center;
+    border-bottom: 1px solid grey;
+    border-right: 1px solid grey;
+    cursor: pointer;
+  }
+`;
 
 const Icon = styled.img`
-  height: 50%;
+  height: 100%;
+  border: ${borders ? "1px solid green" : "none"};
   ${mq("large")} {
-    height: 5%;
-    margin-top: 20px;
+    /* width: 50%; */
+    height: 50%;
+    /* object-fit: cover; */
+    /* margin-top: 20px; */
     /* background-color: orange; */
     /* max-width: ${px("medium")}px; */
   }
