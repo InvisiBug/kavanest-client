@@ -5,27 +5,19 @@ import styled from "@emotion/styled";
 const Countdown: FC<any> = ({ time, update }) => {
   const countdownTime = new Date(time).getTime();
   const now = new Date().getTime();
-  const [remainingTime, setRemainingTime] = useState<any>(calcTimeDifference(now - 1000, countdownTime));
+  const [remainingTime, setRemainingTime] = useState<any>(calcTimeDifference(now - 1000, countdownTime)); // The "- 1000" here makes the update work correctly
 
   useEffect(() => {
-    // console.log(countdownTime - now);
-    // console.log(new Date(countdownTime - now).getTime());
-    // console.log(Math.floor((countdownTime - now) / (1000 * 60 * 60 * 24)));
-
-    setTimeout(() => {
-      console.log(calcTimeDifference(now, countdownTime));
+    const timer = setTimeout(() => {
       setRemainingTime(calcTimeDifference(now, countdownTime));
     }, 1000);
-
-    //   setTimeout(() => {
-    //     console.log("Here");
-    //     setRemainingTime(remainingTime - 1000);
-    //   }, 1000);
-  }, [remainingTime]);
+    return () => clearTimeout(timer);
+  }, [remainingTime]); //eslint-disable-line
 
   return (
     <>
       <Container>
+        <h2>Remaining Time</h2>
         <h1>{remainingTime}</h1>
       </Container>
     </>
@@ -54,5 +46,5 @@ export default Countdown;
 const Container = styled.div`
   padding-top: 0;
   text-align: center;
-  /* background: red; */
+  border-bottom: 1px solid grey;
 `;

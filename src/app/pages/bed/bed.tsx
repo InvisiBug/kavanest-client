@@ -5,6 +5,7 @@ import { calcTimeDifference } from "./components/countdown";
 // import RoomSelector, { PlugData } from "./components/roomSelector";
 
 import Countdown from "./components/countdown";
+import Buttons from "./components/times";
 
 /*
   Make a graphql request for all Plugs
@@ -37,11 +38,7 @@ const Bed: FC = () => {
       <SelectorContainer>
         {/* <PlugSelector thisPlug={mattressPower} key={Math.random()} /> */}
         <Countdown time={timerValue} update={refetch} />
-        {/* {plugs.map((plug: any) => {
-          return (
-            <RoomSelector thisPlug={plug} socketUpdate={socketUpdate} openDetails={openDetails} setOpenDetails={setOpenDetails} key={Math.random()} />
-            );
-          })} */}
+        <Buttons />
       </SelectorContainer>
     </>
   );

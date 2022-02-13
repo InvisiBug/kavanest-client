@@ -27,7 +27,6 @@ const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
             inputMode="decimal"
             maxLength={2}
             onChange={(event) => {
-              console.log(event.target.value);
               setHours(("0" + event.target.value).slice(-2));
             }}
           />
@@ -44,8 +43,6 @@ const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
         <Accept
           src={plus}
           onClick={() => {
-            console.log(day);
-            console.log(room, day, temp);
             addSetpoint({
               variables: {
                 input: {
