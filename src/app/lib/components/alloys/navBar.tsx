@@ -75,6 +75,7 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     width: 100%;
+    border-right: 1px solid grey;
     /* background-color: orange; */
     /* max-width: ${px("medium")}px; */
   }
@@ -104,7 +105,7 @@ const Group = styled.div`
     height: 10%;
     align-items: center;
     border-bottom: 1px solid grey;
-    border-right: 1px solid grey;
+
     cursor: pointer;
   }
 `;
