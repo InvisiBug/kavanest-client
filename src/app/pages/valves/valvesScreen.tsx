@@ -17,7 +17,7 @@ const Valves = () => {
 
   return (
     <>
-      <PageTitle>Valves</PageTitle>
+      <PageTitle desc={"Current valve states"}>Valves</PageTitle>
       <SelectorContainer>
         {valves!.map((valve: any) => {
           return <RoomSelector thisValve={valve} key={Math.random()} />;

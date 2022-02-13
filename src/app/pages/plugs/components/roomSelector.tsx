@@ -59,9 +59,9 @@ export default React.memo(RoomSelector);
 
 export interface Props {
   thisPlug: PlugData;
-  socketUpdate: any;
-  openDetails: string;
-  setOpenDetails: (key: string) => void;
+  socketUpdate?: any;
+  openDetails?: string;
+  setOpenDetails?: (key: string) => void;
 }
 
 export interface PlugData {

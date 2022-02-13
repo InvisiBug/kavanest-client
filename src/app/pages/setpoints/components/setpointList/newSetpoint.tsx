@@ -4,9 +4,9 @@ import { plus, cancel } from "../../../../lib";
 import { gql, useMutation } from "@apollo/client";
 
 const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
-  const [mins, setMins] = useState<string | null>(null);
-  const [hours, setHours] = useState<string | null>(null);
-  const [temp, setTemp] = useState<string>("");
+  const [mins, setMins] = useState<string | null>("00");
+  const [hours, setHours] = useState<string | null>("00");
+  const [temp, setTemp] = useState<string>("0");
 
   const [addSetpoint] = useMutation(addSetpointMutation, {
     onCompleted() {
@@ -14,21 +14,35 @@ const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
     },
   });
 
+  // move to next input when max length is reached
+  // https://linguinecode.com/post/focus-next-input-in-react
   return (
     <>
       <Container>
-        {/* <form> */}
         <Time>
-          <MyInput type="text" placeholder="00" inputMode="decimal" onChange={(event) => setHours(("0" + event.target.value).slice(-2))} />
+          <MyInput
+            type="text"
+            name="field-1"
+            placeholder="00"
+            inputMode="decimal"
+            maxLength={2}
+            onChange={(event) => {
+              setHours(("0" + event.target.value).slice(-2));
+            }}
+          />
           :
-          <MyInput type="text" placeholder="00" inputMode="decimal" onChange={(event) => setMins(("0" + event.target.value).slice(-2))} />
+          <MyInput
+            type="text"
+            name="field-2"
+            placeholder="00"
+            inputMode="decimal"
+            onChange={(event) => setMins(("0" + event.target.value).slice(-2))}
+          />
         </Time>
 
         <Accept
           src={plus}
           onClick={() => {
-            console.log(day);
-            console.log(room, day, temp);
             addSetpoint({
               variables: {
                 input: {
@@ -47,7 +61,7 @@ const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
         <Cancel src={cancel} onClick={close} />
 
         <Temp>
-          <MyInput type="text" placeholder="00" inputMode="decimal" onChange={(event) => setTemp(event.target.value)} />
+          <MyInput type="text" name="field-3" placeholder="00" inputMode="decimal" onChange={(event) => setTemp(event.target.value)} />
           °C
         </Temp>
         {/* </form> */}
