@@ -22,15 +22,23 @@ const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
         <Time>
           <MyInput
             type="text"
+            name="field-1"
             placeholder="00"
             inputMode="decimal"
+            maxLength={2}
             onChange={(event) => {
               console.log(event.target.value);
               setHours(("0" + event.target.value).slice(-2));
             }}
           />
           :
-          <MyInput type="text" placeholder="00" inputMode="decimal" onChange={(event) => setMins(("0" + event.target.value).slice(-2))} />
+          <MyInput
+            type="text"
+            name="field-2"
+            placeholder="00"
+            inputMode="decimal"
+            onChange={(event) => setMins(("0" + event.target.value).slice(-2))}
+          />
         </Time>
 
         <Accept
@@ -56,7 +64,7 @@ const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
         <Cancel src={cancel} onClick={close} />
 
         <Temp>
-          <MyInput type="text" placeholder="00" inputMode="decimal" onChange={(event) => setTemp(event.target.value)} />
+          <MyInput type="text" name="field-3" placeholder="00" inputMode="decimal" onChange={(event) => setTemp(event.target.value)} />
           °C
         </Temp>
         {/* </form> */}
