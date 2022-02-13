@@ -35,7 +35,7 @@ const RGBLights: React.FC<any> = () => {
 
   return (
     <>
-      <PageTitle desc={"Some of these lights have alternative modes"}>RGB Lights</PageTitle>
+      <PageTitle desc={"Some of these lights have alternative modes"}>Lights</PageTitle>
       <SelectorContainer>
         <PlugSelector
           thisPlug={floodlight}

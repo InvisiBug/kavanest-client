@@ -23,7 +23,7 @@ const Sensors: React.FC = () => {
 
   return (
     <>
-      <PageTitle desc={`Heating is probably ${heating?.state ? "on" : "off"}, I've no idea`}>Sensors</PageTitle>
+      <PageTitle desc={`Live sensor data`}>Sensors</PageTitle>
       <SelectorContainer>
         {sensors.map((sensorData: SensorData) => {
           return (
