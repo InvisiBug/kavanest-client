@@ -1,13 +1,11 @@
 import React, { FC, useState, useEffect } from "react";
-import { decamelize, getCurrentSetpointV2, weekOrWeekend } from "../../../utils";
+import { decamelize, getCurrentSetpointV2, useAppContext } from "../../../utils";
+import { useQuery, gql, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { flame } from "../../../lib";
-import { useQuery, gql, useMutation } from "@apollo/client";
 import SetpointList from "./setpointList";
-import { useAppContext } from "../../../utils";
 
 const RoomSetpoints: FC<Props> = ({ name, close }) => {
-  const [days, setDays] = useState<string>(weekOrWeekend());
   const [deadzoneVal, setDeadzoneVal] = useState<string>("");
   const [offsetVal, setOffsetVal] = useState<string>("");
 
@@ -40,7 +38,6 @@ const RoomSetpoints: FC<Props> = ({ name, close }) => {
     },
   });
 
-  // console.log(data.room);
   useEffect(() => {
     return function cleanup() {
       socket.removeAllListeners();
@@ -68,10 +65,10 @@ const RoomSetpoints: FC<Props> = ({ name, close }) => {
             {`${sensor?.temperature}°C`}
           </CurrentTemp>
 
-          <Setpoint>
+          <Target>
             Target
             <br /> {getCurrentSetpointV2(target)![1] ? `${getCurrentSetpointV2(target)![1]}°C` : "Off"}
-          </Setpoint>
+          </Target>
         </Left>
 
         {heating.state && !valve.state ? <FlameIcon src={flame} /> : null}
@@ -109,7 +106,7 @@ const RoomSetpoints: FC<Props> = ({ name, close }) => {
           </Deadzone>
         </Right>
       </Info>
-      <SetpointList room={name} setDays={setDays} data={data} days={days} refreshPage={() => refetch()} />
+      <SetpointList room={name} data={data} refreshPage={() => refetch()} />
     </>
   );
 };
@@ -199,7 +196,7 @@ const Left = styled.div`
   align-items: center;
 `;
 
-const Setpoint = styled.div`
+const Target = styled.div`
   border: ${borders ? "1px solid white" : "none"};
   font-size: 1.2rem;
   text-align: center;
@@ -213,9 +210,8 @@ const CurrentTemp = styled.div`
 `;
 
 const FlameIcon = styled.img`
+  border: ${borders ? "1px solid brown" : "none"};
   height: 35px;
-  margin-right: 2rem;
-  margin-top: -12px;
 `;
 
 const Right = styled.div`

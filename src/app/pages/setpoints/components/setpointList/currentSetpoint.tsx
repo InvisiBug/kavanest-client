@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "@emotion/styled";
-
 import { cancel, on } from "../../../../lib";
 import { makeRequest } from "../../../../utils";
 
@@ -16,6 +15,7 @@ const CurrentSetpoint: React.FC<Props> = ({ room, day, time, temp, close, thisOn
       close();
     });
   };
+
   return (
     <>
       <Container>
@@ -50,26 +50,29 @@ const borders: boolean = false;
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   border: ${borders ? "1px solid green" : null};
 `;
 
-const Time = styled.p`
+const Time = styled.div`
   border: ${borders ? "1px solid orange" : null};
   font-size: 1.2rem;
   color: ${(props: { thisOne: boolean }) => (props.thisOne ? on : "white")};
+  min-width: 3rem;
+  text-align: center;
 `;
 
-const Temp = styled.p`
+const Temp = styled.div`
   border: ${borders ? "1px solid white" : null};
   font-size: 1.2rem;
   color: ${(props: { thisOne: boolean }) => (props.thisOne ? on : "white")};
+  min-width: 3rem;
+  text-align: center;
 `;
 
 const Remove = styled.img`
   border: ${borders ? "1px solid orange" : null};
   height: 1.5rem;
-  margin: 1.5rem;
-  /* margin: 0; */
+  margin: auto 1.5rem;
 `;

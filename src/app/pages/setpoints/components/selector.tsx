@@ -103,7 +103,10 @@ const query = gql`
   }
 `;
 
+const borders = false;
+
 const Container = styled.div`
+  border: ${borders ? "1px solid yellow" : "none"};
   color: white;
   border-bottom: 1px solid grey;
   display: flex;
@@ -114,6 +117,7 @@ const Container = styled.div`
 `;
 
 const RoomName = styled.h3`
+  border: ${borders ? "1px solid green" : "none"};
   display: item;
   align-self: center;
   flex-grow: 1;
@@ -121,28 +125,36 @@ const RoomName = styled.h3`
 `;
 
 const FlameIcon = styled.img`
+  border: ${borders ? "1px solid blue" : "none"};
   height: 35px;
   margin-right: 1.5rem;
   margin-top: -10px;
 `;
 
 const Vals = styled.div`
+  border: ${borders ? "1px solid orange" : "none"};
   display: flex;
-  flex-direction: row;
   align-items: center;
+  min-width: 3rem;
 `;
 
 const Current = styled.div`
+  border: ${borders ? "1px solid red" : "none"};
   margin-top: 2px;
   text-align: center;
   margin-right: 1.5rem;
+  min-width: 3rem;
 `;
 
 const Setpoint = styled.div`
+  border: ${borders ? "1px solid purple" : "none"};
   text-align: center;
   margin-right: 1.5rem;
+  min-width: 3rem;
 `;
 
 const Arrow = styled.img`
+  border: ${borders ? "1px solid brown" : "none"};
   height: 20px;
+  min-width: 1rem;
 `;
