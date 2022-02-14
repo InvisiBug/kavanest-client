@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { plus, cancel } from "../../../../lib";
+import { plus, cancel, mq } from "../../../../lib";
 import { gql, useMutation } from "@apollo/client";
 
 const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
@@ -101,6 +101,10 @@ const Container = styled.div`
   width: 50vw;
   justify-content: space-between;
   border: ${borders ? "1px solid red" : null};
+  ${mq("large")} {
+    border: ${borders ? "1px solid purple" : null};
+    max-width: 25%;
+  }
 `;
 
 const MyInput = styled.input`

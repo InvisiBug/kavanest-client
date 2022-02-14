@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { cancel, on } from "../../../../lib";
 import { makeRequest } from "../../../../utils";
 
-const CurrentSetpoint: React.FC<Props> = ({ room, day, time, temp, close, thisOne }) => {
+const CurrentSetpoint: React.FC<Props> = ({ room, day, time, temp, close, activeSetpoint }) => {
   const remove = () => {
     makeRequest(shoo, {
       input: {
@@ -19,9 +19,9 @@ const CurrentSetpoint: React.FC<Props> = ({ room, day, time, temp, close, thisOn
   return (
     <>
       <Container>
-        <Time thisOne={thisOne}>{time}</Time>
+        <Time activeSetpoint={activeSetpoint}>{time}</Time>
         <Remove src={cancel} onClick={() => remove()} />
-        <Temp thisOne={thisOne}>{temp}°C</Temp>
+        <Temp activeSetpoint={activeSetpoint}>{temp}°C</Temp>
       </Container>
     </>
   );
@@ -35,7 +35,7 @@ interface Props {
   day: string;
   temp: string;
   close: () => void;
-  thisOne: boolean;
+  activeSetpoint: boolean;
 }
 
 const shoo = `
@@ -58,7 +58,7 @@ const Container = styled.div`
 const Time = styled.div`
   border: ${borders ? "1px solid orange" : null};
   font-size: 1.2rem;
-  color: ${(props: { thisOne: boolean }) => (props.thisOne ? on : "white")};
+  color: ${(props: { activeSetpoint: boolean }) => (props.activeSetpoint ? on : "white")};
   min-width: 3rem;
   text-align: center;
 `;
@@ -66,7 +66,7 @@ const Time = styled.div`
 const Temp = styled.div`
   border: ${borders ? "1px solid white" : null};
   font-size: 1.2rem;
-  color: ${(props: { thisOne: boolean }) => (props.thisOne ? on : "white")};
+  color: ${(props: { activeSetpoint: boolean }) => (props.activeSetpoint ? on : "white")};
   min-width: 3rem;
   text-align: center;
 `;
