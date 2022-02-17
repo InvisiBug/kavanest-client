@@ -10,6 +10,7 @@ export { default as Selector } from "./components/alloys/selectorFrame";
 // Selectors
 export { default as RGBLightSelector } from "./components/alloys/selectors/rgbLightSelector";
 export { default as PlugSelector } from "./components/alloys/selectors/plugSelector";
+export { default as ValveSelector } from "./components/alloys/selectors/valveSelector";
 
 export { mq, px } from "./components/elements/mediaQueries";
 

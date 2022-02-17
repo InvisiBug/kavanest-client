@@ -48,7 +48,7 @@ const RGBLights: React.FC<any> = () => {
               openRGBLight={openRGBLight}
               setOpenRGBLight={setOpenRGBLight}
               key={Math.random()}
-            />
+            ></RGBLightSelector>
           );
         })}
       </PageContents>

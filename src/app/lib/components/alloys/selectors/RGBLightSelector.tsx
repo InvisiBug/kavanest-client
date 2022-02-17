@@ -48,7 +48,7 @@ const RGBLightSelector: React.FC<any> = ({
             green={green}
             blue={blue}
             mode={mode}
-            updateRGB={(rgb: any) => {
+            updateRGB={(rgb: string) => {
               const colours = rgb
                 .split("(")[1]
                 .split(")")[0]

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { PageTitle, PageContents, PlugSelector } from "../../lib";
+import { PageTitle, PageContents, PlugSelector, ValveSelector } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
-import RoomSelector from "./components/roomSelector";
 
 const Valves = () => {
   const [valves, setValves] = useState<any>();
@@ -20,7 +19,7 @@ const Valves = () => {
       <PageTitle desc={"Current valve states"}>Valves</PageTitle>
       <PageContents>
         {valves!.map((valve: any) => {
-          return <RoomSelector thisValve={valve} margin={false} key={Math.random()} />;
+          return <ValveSelector thisValve={valve} margin={false} key={Math.random()} />;
           // return <PlugSelector thisPlug={valve} key={Math.random()} />;
         })}
       </PageContents>
