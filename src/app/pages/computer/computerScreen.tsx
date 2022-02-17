@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import { PageTitle, SelectorContainer } from "../../lib";
 import AudioSelector from "./components/audioSelector";
-import PlugSelector from "../plugs/components/roomSelector";
+import PlugSelector from "../plugs/components/selector";
 
 const Computer: FC<any> = () => {
   const [computerAudio, setComputerAudio] = useState<any>();

@@ -31,7 +31,10 @@ interface Props {
   connected?: boolean;
 }
 
+const borders: boolean = true;
+
 const Header = styled.div`
+  border: ${borders ? "1px solid white" : null};
   display: flex;
   width: 100%;
   align-items: center;
@@ -43,5 +46,6 @@ const Header = styled.div`
 `;
 
 const Icon = styled.img`
+  border: ${borders ? "1px solid pruple" : null};
   height: 20px;
 `;

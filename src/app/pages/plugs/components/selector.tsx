@@ -71,6 +71,8 @@ export interface PlugData {
   _id: string;
 }
 
+const borders: boolean = true;
+
 const mutation = gql`
   mutation ($input: PlugInput) {
     updatePlug(input: $input) {
@@ -82,6 +84,7 @@ const mutation = gql`
 `;
 
 const Container = styled.div`
+  /* border: ${borders ? "1px solid green" : null}; */
   color: white;
   border-bottom: 1px solid grey;
 
@@ -91,6 +94,7 @@ const Container = styled.div`
 `;
 
 const StateIndicator = styled.div`
+  border: ${borders ? "1px solid orange" : null};
   height: 1rem;
   width: 1rem;
   border-radius: 1rem;

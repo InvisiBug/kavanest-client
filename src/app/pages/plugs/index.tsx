@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { PageTitle, SelectorContainer } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
-import RoomSelector, { PlugData } from "./components/roomSelector";
+import RoomSelector, { PlugData } from "./components/selector";
 
 /*
   Make a graphql request for all Plugs
