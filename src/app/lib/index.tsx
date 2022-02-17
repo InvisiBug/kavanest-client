@@ -1,11 +1,10 @@
 // Elements
 export { default as SelectorTitle } from "./components/elements/selectorTitle";
-export { default as SelectorContainer } from "./components/elements/selectorContainer";
-export { default as Selector } from "./components/alloys/selectorFrame";
+export { default as PageContents } from "./components/elements/pageContents";
 
 // Alloys
 export { default as NavBar } from "./components/alloys/navBar";
-// export { default as Selector } from "./components/alloys/selectorFrame";
+export { default as Selector } from "./components/alloys/selectorFrame";
 
 export { mq, px } from "./components/elements/mediaQueries";
 

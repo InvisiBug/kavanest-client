@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { PageTitle, SelectorContainer } from "../../lib";
+import { PageTitle, PageContents } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 import RoomSelector, { PlugData } from "./components/selector";
 
@@ -43,13 +43,13 @@ const Plugs: FC = () => {
   return (
     <>
       <PageTitle desc={"Simple on / off plugs"}>Plugs</PageTitle>
-      <SelectorContainer>
+      <PageContents>
         {plugs.map((plug: any) => {
           return (
             <RoomSelector thisPlug={plug} socketUpdate={socketUpdate} openDetails={openDetails} setOpenDetails={setOpenDetails} key={Math.random()} />
           );
         })}
-      </SelectorContainer>
+      </PageContents>
     </>
   );
 };

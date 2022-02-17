@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PageTitle, SelectorContainer } from "../../lib";
+import { PageTitle, PageContents } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 import RoomSelector from "./components/roomSelector";
 import PlugSelector from "../plugs/components/selector";
@@ -36,7 +36,7 @@ const RGBLights: React.FC<any> = () => {
   return (
     <>
       <PageTitle desc={"Some of these lights have alternative modes"}>Lights</PageTitle>
-      <SelectorContainer>
+      <PageContents>
         <PlugSelector
           thisPlug={floodlight}
           socketUpdate={socketUpdate}
@@ -57,7 +57,7 @@ const RGBLights: React.FC<any> = () => {
             />
           );
         })}
-      </SelectorContainer>
+      </PageContents>
     </>
   );
 };

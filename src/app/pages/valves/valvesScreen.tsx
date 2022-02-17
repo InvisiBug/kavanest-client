@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PageTitle, SelectorContainer } from "../../lib";
+import { PageTitle, PageContents } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 import RoomSelector from "./components/roomSelector";
 
@@ -18,11 +18,11 @@ const Valves = () => {
   return (
     <>
       <PageTitle desc={"Current valve states"}>Valves</PageTitle>
-      <SelectorContainer>
+      <PageContents>
         {valves!.map((valve: any) => {
           return <RoomSelector thisValve={valve} key={Math.random()} />;
         })}
-      </SelectorContainer>
+      </PageContents>
     </>
   );
 };

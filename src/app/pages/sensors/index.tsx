@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import RoomSelector, { SensorData } from "./components/roomSelector";
-import { PageTitle, SelectorContainer } from "../../lib";
+import { PageTitle, PageContents } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 
 const Sensors: React.FC = () => {
@@ -24,7 +24,7 @@ const Sensors: React.FC = () => {
   return (
     <>
       <PageTitle desc={`Live sensor data`}>Sensors</PageTitle>
-      <SelectorContainer>
+      <PageContents>
         {sensors.map((sensorData: SensorData) => {
           return (
             <RoomSelector
@@ -37,7 +37,7 @@ const Sensors: React.FC = () => {
             />
           );
         })}
-      </SelectorContainer>
+      </PageContents>
     </>
   );
 };

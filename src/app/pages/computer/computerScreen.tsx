@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
-import { PageTitle, SelectorContainer } from "../../lib";
+import { PageTitle, PageContents } from "../../lib";
 import AudioSelector from "./components/audioSelector";
 import PlugSelector from "../plugs/components/selector";
 
@@ -34,7 +34,7 @@ const Computer: FC<any> = () => {
   return (
     <>
       <PageTitle desc={"Computer power & audio"}>Computer</PageTitle>
-      <SelectorContainer>
+      <PageContents>
         <PlugSelector
           thisPlug={computerPower}
           socketUpdate={socketUpdate}
@@ -43,7 +43,7 @@ const Computer: FC<any> = () => {
           key={Math.random()}
         />
         <AudioSelector data={computerAudio} socketUpdate={socketUpdate} openDrawer={openDetails} setOpenDrawer={setOpenDetails} />
-      </SelectorContainer>
+      </PageContents>
     </>
   );
 };

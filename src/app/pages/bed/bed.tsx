@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { PageTitle, SelectorContainer } from "../../lib";
+import { PageTitle, PageContents } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 import { calcTimeDifference } from "./components/countdown";
 // import RoomSelector, { PlugData } from "./components/roomSelector";
@@ -35,11 +35,11 @@ const Bed: FC = () => {
   return (
     <>
       <PageTitle desc={"Our heated mattress controller"}>Bed</PageTitle>
-      <SelectorContainer>
+      <PageContents>
         {/* <PlugSelector thisPlug={mattressPower} key={Math.random()} /> */}
         <Countdown time={timerValue} update={refetch} />
         <Buttons />
-      </SelectorContainer>
+      </PageContents>
     </>
   );
 };

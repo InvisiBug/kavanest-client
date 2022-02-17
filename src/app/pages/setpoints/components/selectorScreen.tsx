@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { PageTitle, SelectorContainer } from "../../../lib";
+import { PageTitle, PageContents } from "../../../lib";
 import RoomSelector from "./selector";
 import { useQuery, gql } from "@apollo/client";
 
@@ -26,7 +26,7 @@ const SetpointsSelectorScreen: FC<any> = ({ setRoomToShow }) => {
         </PageTitle>
       </div>
 
-      <SelectorContainer>
+      <PageContents>
         {data.getValves.length > 0 ? (
           data.getValves.map((room: any) => {
             return <RoomSelector data={room} key={Math.random()} onClick={() => setRoomToShow(room.room)} close={() => setRoomToShow(false)} />;
@@ -34,7 +34,7 @@ const SetpointsSelectorScreen: FC<any> = ({ setRoomToShow }) => {
         ) : (
           <h1>No valves found</h1>
         )}
-      </SelectorContainer>
+      </PageContents>
     </>
   );
 };
