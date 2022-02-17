@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { PageTitle, PageContents } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
-import RoomSelector, { PlugData } from "./components/selector";
+import { PlugSelector } from "../../lib";
 
 /*
   Make a graphql request for all Plugs
@@ -9,7 +9,7 @@ import RoomSelector, { PlugData } from "./components/selector";
 */
 const Plugs: FC = () => {
   const [openDetails, setOpenDetails] = useState<string>("");
-  const [plugs, setPlugs] = useState<PlugData[]>();
+  const [plugs, setPlugs] = useState<any[]>();
 
   const { data } = useQuery(getPlugs, {
     fetchPolicy: "no-cache",
@@ -18,12 +18,6 @@ const Plugs: FC = () => {
     },
   });
 
-  /*
-    Socket data coming in.
-    Take a copy of the the current data array,
-    update only the data received via the socket (using _id as a key)
-    save the new array over the old one
-  */
   const socketUpdate = (_id: any, payload: any) => {
     if (!plugs) return;
     const updatedPlugs: Array<any> = [...plugs];
@@ -46,7 +40,7 @@ const Plugs: FC = () => {
       <PageContents>
         {plugs.map((plug: any) => {
           return (
-            <RoomSelector thisPlug={plug} socketUpdate={socketUpdate} openDetails={openDetails} setOpenDetails={setOpenDetails} key={Math.random()} />
+            <PlugSelector thisPlug={plug} socketUpdate={socketUpdate} openDetails={openDetails} setOpenDetails={setOpenDetails} key={Math.random()} />
           );
         })}
       </PageContents>

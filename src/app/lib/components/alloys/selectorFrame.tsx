@@ -33,7 +33,7 @@ interface Props {
   children: any;
 }
 
-const borders = true;
+const borders = false;
 
 const Frame = styled.div`
   border: ${borders ? "1px solid white" : null};

@@ -7,7 +7,8 @@ export { default as NavBar } from "./components/alloys/navBar";
 export { default as Selector } from "./components/alloys/selectorFrame";
 
 // Selectors
-export { default as RGBLightSelector } from "./components/alloys/selectors/RGBLightSelector";
+export { default as RGBLightSelector } from "./components/alloys/selectors/rgbLightSelector";
+export { default as PlugSelector } from "./components/alloys/selectors/plugSelector";
 
 export { mq, px } from "./components/elements/mediaQueries";
 

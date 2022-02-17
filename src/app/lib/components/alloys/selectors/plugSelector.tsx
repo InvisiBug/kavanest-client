@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
-import { Selector, on, off, disconnected } from "../../../lib";
-import { useAppContext } from "../../../utils";
+import { Selector, on, off, disconnected } from "../../..";
+import { useAppContext } from "../../../../utils";
 
 const RoomSelector: React.FC<Props> = ({ thisPlug, socketUpdate }) => {
   const { socket } = useAppContext();
@@ -49,8 +49,6 @@ export interface PlugData {
   _id: string;
 }
 
-const borders = false;
-
 const mutation = gql`
   mutation ($input: PlugInput) {
     updatePlug(input: $input) {
@@ -61,8 +59,10 @@ const mutation = gql`
   }
 `;
 
+const borders = false;
+
 const Container = styled.div`
-  /* border: ${borders ? "1px solid green" : null}; */
+  border: ${borders ? "1px solid green" : null};
   color: white;
   border-bottom: 1px solid grey;
 
@@ -80,7 +80,7 @@ const StateIndicator = styled.div`
 
   height: 2rem;
   width: 2rem;
-  margin-right: 2.3rem;
+  margin-right: 2.25rem;
   /* margin-right: 1rem; */
 
   border-radius: 1rem;
