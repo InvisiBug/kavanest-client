@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
-import { Selector, on, off, disconnected } from "../../..";
+import { Selector, on, off, disconnected, BooleanStateIndicator } from "../../../";
 import { useAppContext } from "../../../../utils";
 
 const RoomSelector: React.FC<Props> = ({ thisPlug, socketUpdate }) => {
@@ -26,7 +26,7 @@ const RoomSelector: React.FC<Props> = ({ thisPlug, socketUpdate }) => {
     <>
       <Container>
         <Selector name={name} connected={connected} onClick={() => updatePlug({ variables: { input: { name: name, state: !state } } })}>
-          <StateIndicator state={state} connected={connected} />
+          <BooleanStateIndicator state={state} connected={connected} size={"large"} margin={true} />
         </Selector>
       </Container>
     </>
@@ -69,20 +69,4 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin: auto;
-`;
-
-const StateIndicator = styled.div`
-  border: ${borders ? "1px solid orange" : null};
-
-  /* height: 1rem;
-  width: 1rem;
-  margin-right: 1.55rem; */
-
-  height: 2rem;
-  width: 2rem;
-  margin-right: 2.25rem;
-  /* margin-right: 1rem; */
-
-  border-radius: 1rem;
-  background-color: ${(props: { state: boolean; connected: boolean }) => (props.connected ? (props.state ? on : off) : disconnected)};
 `;

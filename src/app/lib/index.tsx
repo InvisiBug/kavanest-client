@@ -1,6 +1,7 @@
 // Elements
 export { default as SelectorTitle } from "./components/elements/selectorTitle";
 export { default as PageContents } from "./components/elements/pageContents";
+export { default as BooleanStateIndicator } from "./components/elements/booleanStateIndicator";
 
 // Alloys
 export { default as NavBar } from "./components/alloys/navBar";
