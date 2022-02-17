@@ -39,7 +39,7 @@ const AudioSelector: FC<Props> = ({ data, socketUpdate, openDrawer, setOpenDrawe
   return (
     <>
       <Container>
-        <Selector name={name} openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}>
+        <Selector name={name} openDetails={openDrawer} onClick={setOpenDrawer}>
           <StateIndicator state={master} connected={connected} />
         </Selector>
         {openDrawer === name ? <Details data={data} buttonClicked={(relay: string) => buttonclicked(relay)} /> : null}

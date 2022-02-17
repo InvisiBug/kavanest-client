@@ -38,7 +38,7 @@ const RoomSelector: React.FC<any> = ({
   return (
     <>
       <Container>
-        <Selector name={name} connected={connected} openDrawer={openRGBLight} setOpenDrawer={setOpenRGBLight}>
+        <Selector name={name} connected={connected} openDetails={openRGBLight} onClick={setOpenRGBLight}>
           <ColourIndicator red={red} green={green} blue={blue} />
         </Selector>
 

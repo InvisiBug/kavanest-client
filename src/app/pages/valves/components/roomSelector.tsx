@@ -29,7 +29,7 @@ const RoomSelector: React.FC<any> = ({ thisValve, socketUpdate, openDetails, set
   return (
     <>
       <Container>
-        <Selector name={room} connected={valve.connected} openDrawer={false}>
+        <Selector name={room} connected={valve.connected}>
           <StateIndicator state={valve.state} connected={valve.connected} />
         </Selector>
       </Container>

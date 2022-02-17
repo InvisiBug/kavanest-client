@@ -3,19 +3,19 @@ import styled from "@emotion/styled";
 import { decamelize } from "../../../utils";
 import { SelectorTitle, downArrow, rightArrow } from "../..";
 
-const Selector: FC<any> = ({ setOpenDrawer, connected = true, openDrawer, name, arrow = true, children }) => {
+const Selector: FC<Props> = ({ onClick, connected = true, openDetails, name, arrow = true, children }) => {
   return (
     <>
       <Frame
         onClick={() => {
-          if (setOpenDrawer) {
-            setOpenDrawer(openDrawer === name ? "" : name);
+          if (onClick) {
+            onClick(openDetails === name ? "" : name);
           }
         }}
       >
         <SelectorTitle connected={connected}>{decamelize(name)}</SelectorTitle>
         {children}
-        {arrow ? <Icon src={openDrawer === name ? downArrow : rightArrow} /> : <Blank />}
+        {arrow ? <Icon src={openDetails === name ? downArrow : rightArrow} /> : <Blank />}
       </Frame>
     </>
   );
@@ -24,14 +24,15 @@ const Selector: FC<any> = ({ setOpenDrawer, connected = true, openDrawer, name, 
 export default Selector;
 
 interface Props {
-  setOpenDrawer?: any;
-  openDrawer: any;
-  name: any;
-  children: any;
+  onClick?: any;
   connected?: boolean;
+  openDetails?: string;
+  arrow?: boolean;
+  name: string;
+  children: any;
 }
 
-const borders = true;
+const borders = false;
 
 const Frame = styled.div`
   border: ${borders ? "1px solid white" : null};

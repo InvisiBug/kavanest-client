@@ -36,7 +36,7 @@ const Sensor: React.FC<Props> = ({
   return (
     <>
       <Container>
-        <Selector connected={connected} name={room} openDrawer={openSensor} setOpenDrawer={setOpenSensor}>
+        <Selector connected={connected} name={room} openDetails={openSensor} onClick={setOpenSensor}>
           <Temp>
             <Text>{`${temperature}°C`}</Text>
           </Temp>
