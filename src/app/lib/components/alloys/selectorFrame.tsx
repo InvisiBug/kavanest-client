@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { decamelize } from "../../../utils";
 import { SelectorTitle, downArrow, rightArrow } from "../..";
 
-const Selector: FC<Props> = ({ onClick, connected = true, openDetails, name, arrow = true, children }) => {
+const Selector: FC<Props> = ({ onClick, connected = true, openDetails, name, arrow = false, children }) => {
   return (
     <>
       <Frame
@@ -15,7 +15,8 @@ const Selector: FC<Props> = ({ onClick, connected = true, openDetails, name, arr
       >
         <SelectorTitle connected={connected}>{decamelize(name)}</SelectorTitle>
         {children}
-        {arrow ? <Icon src={openDetails === name ? downArrow : rightArrow} /> : <Blank />}
+        {arrow ? <Icon src={openDetails === name ? downArrow : rightArrow} /> : null}
+        {/* {arrow ? <Icon src={openDetails === name ? downArrow : rightArrow} /> : <Blank />} */}
       </Frame>
     </>
   );
@@ -32,7 +33,7 @@ interface Props {
   children: any;
 }
 
-const borders = false;
+const borders = true;
 
 const Frame = styled.div`
   border: ${borders ? "1px solid white" : null};

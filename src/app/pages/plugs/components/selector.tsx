@@ -3,18 +3,13 @@ import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
 import { Selector, on, off, disconnected } from "../../../lib";
 import { useAppContext } from "../../../utils";
-import Details from "./details";
 
-const RoomSelector: React.FC<Props> = ({ thisPlug, socketUpdate, openDetails, setOpenDetails }) => {
+const RoomSelector: React.FC<Props> = ({ thisPlug, socketUpdate }) => {
   const { socket } = useAppContext();
   const [updatePlug] = useMutation(mutation, {});
 
   const { name, state, connected, _id } = thisPlug;
 
-  /*
-    Register the socket connection on component load
-    and remove it on component close
-  */
   useEffect(() => {
     if (_id) {
       socket.on(_id, (payload: any) => {
@@ -22,7 +17,7 @@ const RoomSelector: React.FC<Props> = ({ thisPlug, socketUpdate, openDetails, se
       });
     }
 
-    return function cleanup() {
+    return () => {
       socket.off(_id);
     };
   }, []); // eslint-disable-line
@@ -30,21 +25,9 @@ const RoomSelector: React.FC<Props> = ({ thisPlug, socketUpdate, openDetails, se
   return (
     <>
       <Container>
-        <Selector name={name} connected={connected} arrow={false} onClick={() => updatePlug({ variables: { input: { name: name, state: !state } } })}>
+        <Selector name={name} connected={connected} onClick={() => updatePlug({ variables: { input: { name: name, state: !state } } })}>
           <StateIndicator state={state} connected={connected} />
         </Selector>
-        {openDetails === name ? (
-          <div>
-            <Details
-              name={name}
-              state={state}
-              connected={connected}
-              click={() => {
-                updatePlug({ variables: { input: { name: name, state: !state } } });
-              }}
-            />
-          </div>
-        ) : null}
       </Container>
     </>
   );
@@ -90,9 +73,16 @@ const Container = styled.div`
 
 const StateIndicator = styled.div`
   border: ${borders ? "1px solid orange" : null};
-  height: 1rem;
+
+  /* height: 1rem;
   width: 1rem;
+  margin-right: 1.55rem; */
+
+  height: 2rem;
+  width: 2rem;
+  margin-right: 2.3rem;
+  /* margin-right: 1rem; */
+
   border-radius: 1rem;
-  margin-right: 1.55rem;
   background-color: ${(props: { state: boolean; connected: boolean }) => (props.connected ? (props.state ? on : off) : disconnected)};
 `;

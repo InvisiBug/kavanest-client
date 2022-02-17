@@ -6,6 +6,9 @@ export { default as PageContents } from "./components/elements/pageContents";
 export { default as NavBar } from "./components/alloys/navBar";
 export { default as Selector } from "./components/alloys/selectorFrame";
 
+// Selectors
+export { default as RGBLightSelector } from "./components/alloys/selectors/RGBLightSelector";
+
 export { mq, px } from "./components/elements/mediaQueries";
 
 // Templates

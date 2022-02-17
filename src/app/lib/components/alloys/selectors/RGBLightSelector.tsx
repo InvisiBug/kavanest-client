@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
-import { Selector } from "../../../lib";
-import { useAppContext } from "../../../utils";
-import Details from "./details";
+import { Selector } from "../../..";
+import { useAppContext } from "../../../../utils";
+import Details from "../../../../pages/rgbLights/components/details";
 import { gql, useMutation } from "@apollo/client";
 
-const RoomSelector: React.FC<any> = ({
+const RGBLightSelector: React.FC<any> = ({
   thisLight: { name, red, green, blue, mode, connected, _id },
   allRgbLights,
   setRgbLights,
@@ -38,7 +38,7 @@ const RoomSelector: React.FC<any> = ({
   return (
     <>
       <Container>
-        <Selector name={name} connected={connected} openDetails={openRGBLight} onClick={setOpenRGBLight}>
+        <Selector name={name} arrow={true} connected={connected} openDetails={openRGBLight} onClick={setOpenRGBLight}>
           <ColourIndicator red={red} green={green} blue={blue} />
         </Selector>
 
@@ -66,7 +66,7 @@ const RoomSelector: React.FC<any> = ({
   );
 };
 
-export default RoomSelector;
+export default RGBLightSelector;
 
 export interface Props {
   lightData: {

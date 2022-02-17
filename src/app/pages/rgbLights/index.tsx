@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PageTitle, PageContents } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
-import RoomSelector from "./components/roomSelector";
+import { RGBLightSelector } from "../../lib";
 import PlugSelector from "../plugs/components/selector";
 
 const RGBLights: React.FC<any> = () => {
@@ -37,17 +37,11 @@ const RGBLights: React.FC<any> = () => {
     <>
       <PageTitle desc={"Some of these lights have alternative modes"}>Lights</PageTitle>
       <PageContents>
-        <PlugSelector
-          thisPlug={floodlight}
-          socketUpdate={socketUpdate}
-          openDetails={openRGBLight}
-          setOpenDetails={setOpenRGBLight}
-          key={Math.random()}
-        />
+        <PlugSelector thisPlug={floodlight} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} />
         <PlugSelector thisPlug={sun} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} key={Math.random()} />
         {rgbLights.map((light: any) => {
           return (
-            <RoomSelector
+            <RGBLightSelector
               thisLight={light}
               allRgbLights={rgbLights}
               setRgbLights={setRgbLights}
