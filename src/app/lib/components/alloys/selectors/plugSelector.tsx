@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
-import { Selector, on, off, disconnected, BooleanStateIndicator } from "../../../";
+import { Selector, BooleanStateIndicator } from "../../../";
 import { useAppContext } from "../../../../utils";
 
-const RoomSelector: React.FC<Props> = ({ thisPlug, socketUpdate }) => {
+const PlugSelector: React.FC<Props> = ({ thisPlug, socketUpdate = () => {}, margin = true }) => {
   const { socket } = useAppContext();
   const [updatePlug] = useMutation(mutation, {});
 
@@ -26,19 +26,20 @@ const RoomSelector: React.FC<Props> = ({ thisPlug, socketUpdate }) => {
     <>
       <Container>
         <Selector name={name} connected={connected} onClick={() => updatePlug({ variables: { input: { name: name, state: !state } } })}>
-          <BooleanStateIndicator state={state} connected={connected} size={"large"} margin={true} />
+          <BooleanStateIndicator state={state} connected={connected} size={"large"} margin={margin} />
         </Selector>
       </Container>
     </>
   );
 };
 
-export default React.memo(RoomSelector);
+export default React.memo(PlugSelector);
 
 export interface Props {
   thisPlug: PlugData;
   socketUpdate?: any;
   openDetails?: string;
+  margin?: boolean;
   setOpenDetails?: (key: string) => void;
 }
 

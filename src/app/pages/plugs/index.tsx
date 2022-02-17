@@ -40,7 +40,14 @@ const Plugs: FC = () => {
       <PageContents>
         {plugs.map((plug: any) => {
           return (
-            <PlugSelector thisPlug={plug} socketUpdate={socketUpdate} openDetails={openDetails} setOpenDetails={setOpenDetails} key={Math.random()} />
+            <PlugSelector
+              thisPlug={plug}
+              socketUpdate={socketUpdate}
+              openDetails={openDetails}
+              setOpenDetails={setOpenDetails}
+              margin={false}
+              key={Math.random()}
+            />
           );
         })}
       </PageContents>

@@ -19,7 +19,7 @@ const StateIndicator = styled.div`
   /* width: 1rem; */
   border-radius: 1rem;
   /* margin-right: 1.55rem; */
-  margin-right: ${(props: Props) => (props.margin ? "1.55rem" : null)};
+  margin-right: ${(props: Props) => (props.margin ? "2.24rem" : "1rem")};
   background-color: ${(props: Props) => (props.connected ? (props.state ? on : off) : disconnected)};
 `;
 

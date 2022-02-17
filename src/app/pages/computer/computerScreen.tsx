@@ -35,7 +35,7 @@ const Computer: FC<any> = () => {
     <>
       <PageTitle desc={"Computer power & audio"}>Computer</PageTitle>
       <PageContents>
-        <PlugSelector thisPlug={computerPower} socketUpdate={socketUpdate} openDetails={openDetails} setOpenDetails={setOpenDetails} />
+        <PlugSelector thisPlug={computerPower} socketUpdate={socketUpdate} openDetails={openDetails} margin={false} setOpenDetails={setOpenDetails} />
         <AudioSelector data={computerAudio} socketUpdate={socketUpdate} openDrawer={openDetails} setOpenDrawer={setOpenDetails} />
       </PageContents>
     </>
