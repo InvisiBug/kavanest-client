@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { PageTitle, SelectorContainer } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 import RoomSelector from "./components/roomSelector";
-import PlugSelector from "../plugs/components/roomSelector";
+import PlugSelector from "../plugs/components/selector";
 
 const RGBLights: React.FC<any> = () => {
   const [openRGBLight, setOpenRGBLight] = useState("");

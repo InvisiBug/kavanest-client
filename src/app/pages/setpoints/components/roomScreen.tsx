@@ -67,7 +67,7 @@ const RoomSetpoints: FC<Props> = ({ name, close }) => {
 
           <Target>
             Target
-            <br /> {getCurrentSetpointV2(target)![1] ? `${getCurrentSetpointV2(target)![1]}°C` : "Off"}
+            <br /> {getCurrentSetpointV2(target)![1] > 5 ? `${getCurrentSetpointV2(target)![1]}°C` : "Off"}
           </Target>
         </Left>
 
@@ -84,7 +84,7 @@ const RoomSetpoints: FC<Props> = ({ name, close }) => {
                 setOffsetVal(event.target.value);
               }}
               onBlur={() => {
-                updateOffset({ variables: { input: { name, offset: parseFloat(offsetVal) } } });
+                updateOffset({ variables: { input: { room: name, offset: parseFloat(offsetVal) } } });
                 refetch();
               }}
             />

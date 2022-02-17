@@ -8,6 +8,7 @@ const SetpointsPage: React.FC = () => {
   const [roomToShow, setRoomToShow] = useState<false | string>(false);
 
   if (!data) return <></>;
+  const roomsWithValves = data.getValves;
 
   const showRoomScreen = (roomToShow: string, possibleRooms: any) => {
     for (let room in possibleRooms) {
@@ -21,7 +22,7 @@ const SetpointsPage: React.FC = () => {
     }
   };
 
-  return <>{!roomToShow ? <SelectorScreen setRoomToShow={setRoomToShow} /> : showRoomScreen(roomToShow, data.getValves)}</>;
+  return <>{!roomToShow ? <SelectorScreen setRoomToShow={setRoomToShow} /> : showRoomScreen(roomToShow, roomsWithValves)}</>;
 };
 
 export default SetpointsPage;

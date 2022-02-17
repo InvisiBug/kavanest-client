@@ -58,7 +58,7 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
           <Setpoint>
             Target
             <br />
-            {getCurrentSetpointV2(target)[1] ? `${getCurrentSetpointV2(target)[1]}°C` : "Off"}
+            {getCurrentSetpointV2(target)[1] > 5 ? `${getCurrentSetpointV2(target)[1]}°C` : "Off"}
           </Setpoint>
         </Vals>
         <Arrow src={rightArrow}></Arrow>
