@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
-import { SelectorHeader, on, off, disconnected } from "../../../lib";
+import { Selector, on, off, disconnected } from "../../../lib";
 import { useAppContext } from "../../../utils";
 import Details from "./details";
 
@@ -30,14 +30,14 @@ const RoomSelector: React.FC<Props> = ({ thisPlug, socketUpdate, openDetails, se
   return (
     <>
       <Container>
-        <SelectorHeader
+        <Selector
           name={name}
           connected={connected}
           openDrawer={openDetails}
           setOpenDrawer={() => updatePlug({ variables: { input: { name: name, state: !state } } })}
         >
           <StateIndicator state={state} connected={connected} />
-        </SelectorHeader>
+        </Selector>
         {openDetails === name ? (
           <div>
             <Details

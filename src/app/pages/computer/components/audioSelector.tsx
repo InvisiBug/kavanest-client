@@ -1,11 +1,11 @@
 import React, { FC, useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
-import { SelectorHeader, on, off, disconnected } from "../../../lib";
+import { Selector, on, off, disconnected } from "../../../lib";
 import { useAppContext } from "../../../utils";
 import Details from "./details";
 
-const Selector: FC<Props> = ({ data, socketUpdate, openDrawer, setOpenDrawer }) => {
+const AudioSelector: FC<Props> = ({ data, socketUpdate, openDrawer, setOpenDrawer }) => {
   const { socket } = useAppContext();
 
   const [updateComputerAudio] = useMutation(mutation, {});
@@ -39,16 +39,16 @@ const Selector: FC<Props> = ({ data, socketUpdate, openDrawer, setOpenDrawer }) 
   return (
     <>
       <Container>
-        <SelectorHeader name={name} openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}>
+        <Selector name={name} openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}>
           <StateIndicator state={master} connected={connected} />
-        </SelectorHeader>
+        </Selector>
         {openDrawer === name ? <Details data={data} buttonClicked={(relay: string) => buttonclicked(relay)} /> : null}
       </Container>
     </>
   );
 };
 
-export default Selector;
+export default AudioSelector;
 
 interface Props {
   data: {

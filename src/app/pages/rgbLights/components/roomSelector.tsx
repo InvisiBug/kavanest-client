@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
-import { SelectorHeader } from "../../../lib";
+import { Selector } from "../../../lib";
 import { useAppContext } from "../../../utils";
 import Details from "./details";
 import { gql, useMutation } from "@apollo/client";
@@ -38,9 +38,9 @@ const RoomSelector: React.FC<any> = ({
   return (
     <>
       <Container>
-        <SelectorHeader name={name} connected={connected} openDrawer={openRGBLight} setOpenDrawer={setOpenRGBLight}>
+        <Selector name={name} connected={connected} openDrawer={openRGBLight} setOpenDrawer={setOpenRGBLight}>
           <ColourIndicator red={red} green={green} blue={blue} />
-        </SelectorHeader>
+        </Selector>
 
         {openRGBLight === name ? (
           <Details

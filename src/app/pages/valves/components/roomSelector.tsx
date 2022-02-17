@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
-import { SelectorHeader, on, off, disconnected } from "../../../lib";
+import { Selector, on, off, disconnected } from "../../../lib";
 import { useAppContext } from "../../../utils";
 
 const RoomSelector: React.FC<any> = ({ thisValve, socketUpdate, openDetails, setOpenDetails }) => {
@@ -29,9 +29,9 @@ const RoomSelector: React.FC<any> = ({ thisValve, socketUpdate, openDetails, set
   return (
     <>
       <Container>
-        <SelectorHeader name={room} connected={valve.connected} openDrawer={false}>
+        <Selector name={room} connected={valve.connected} openDrawer={false}>
           <StateIndicator state={valve.state} connected={valve.connected} />
-        </SelectorHeader>
+        </Selector>
       </Container>
     </>
   );

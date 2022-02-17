@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { useAppContext } from "../../../utils";
-import { SelectorHeader, Text } from "../../../lib";
+import { Selector, Text } from "../../../lib";
 import SensorDetails from "./details";
 
 const Sensor: React.FC<Props> = ({
@@ -36,11 +36,11 @@ const Sensor: React.FC<Props> = ({
   return (
     <>
       <Container>
-        <SelectorHeader connected={connected} name={room} openDrawer={openSensor} setOpenDrawer={setOpenSensor}>
+        <Selector connected={connected} name={room} openDrawer={openSensor} setOpenDrawer={setOpenSensor}>
           <Temp>
             <Text>{`${temperature}°C`}</Text>
           </Temp>
-        </SelectorHeader>
+        </Selector>
 
         {openSensor === room ? (
           <div onClick={() => setOpenSensor(openSensor === room ? "" : room)}>

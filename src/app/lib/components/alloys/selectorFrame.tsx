@@ -1,22 +1,22 @@
 import React, { FC } from "react";
 import styled from "@emotion/styled";
 import { decamelize } from "../../../utils";
-import { Room, downArrow, rightArrow } from "../../";
+import { SelectorTitle, downArrow, rightArrow } from "../..";
 
-const Selector: FC<Props> = ({ setOpenDrawer, connected = true, openDrawer, name, children }) => {
+const Selector: FC<any> = ({ setOpenDrawer, connected = true, openDrawer, name, arrow = true, children }) => {
   return (
     <>
-      <Header
+      <Frame
         onClick={() => {
           if (setOpenDrawer) {
             setOpenDrawer(openDrawer === name ? "" : name);
           }
         }}
       >
-        <Room connected={connected}>{decamelize(name)}</Room>
+        <SelectorTitle connected={connected}>{decamelize(name)}</SelectorTitle>
         {children}
-        <Icon src={openDrawer === name ? downArrow : rightArrow} />
-      </Header>
+        {arrow ? <Icon src={openDrawer === name ? downArrow : rightArrow} /> : <Blank />}
+      </Frame>
     </>
   );
 };
@@ -31,9 +31,9 @@ interface Props {
   connected?: boolean;
 }
 
-const borders: boolean = false;
+const borders = true;
 
-const Header = styled.div`
+const Frame = styled.div`
   border: ${borders ? "1px solid white" : null};
   display: flex;
   width: 100%;
@@ -46,6 +46,13 @@ const Header = styled.div`
 `;
 
 const Icon = styled.img`
-  border: ${borders ? "1px solid pruple" : null};
+  border: ${borders ? "1px solid green" : null};
   height: 20px;
+  min-width: 20px;
+`;
+
+const Blank = styled.div`
+  border: ${borders ? "1px solid pink" : null};
+  min-width: 20px;
+  min-height: 20px;
 `;

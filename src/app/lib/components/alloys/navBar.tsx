@@ -35,8 +35,8 @@ const PhoneNav: React.FC<Props> = () => {
         {navButtons.map((button) => {
           if (isAdmin) {
             return (
-              <Group onClick={() => setScreen(button.name)}>
-                <Icon src={button.icon} alt={button.name} name={button.name} screen={screen} key={Math.random()} />
+              <Group onClick={() => setScreen(button.name)} key={Math.random()}>
+                <Icon src={button.icon} alt={button.name} name={button.name} screen={screen} />
                 <Text>{decamelize(button.name)}</Text>
               </Group>
             );
