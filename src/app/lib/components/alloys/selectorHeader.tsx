@@ -31,7 +31,7 @@ interface Props {
   connected?: boolean;
 }
 
-const borders: boolean = true;
+const borders: boolean = false;
 
 const Header = styled.div`
   border: ${borders ? "1px solid white" : null};

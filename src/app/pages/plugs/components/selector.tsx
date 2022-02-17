@@ -71,7 +71,7 @@ export interface PlugData {
   _id: string;
 }
 
-const borders: boolean = true;
+const borders = false;
 
 const mutation = gql`
   mutation ($input: PlugInput) {
