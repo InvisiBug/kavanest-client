@@ -4,11 +4,11 @@ import { gql, useMutation } from "@apollo/client";
 import { Selector, BooleanStateIndicator } from "../../../";
 import { useAppContext } from "../../../../utils";
 
-const PlugSelector: React.FC<Props> = ({ thisPlug, margin = true }) => {
+const PlugSelector: React.FC<Props> = ({ data, margin = true }) => {
   const { socket } = useAppContext();
   const [updatePlug] = useMutation(mutation, {});
 
-  const [plugData, setPlugData] = useState(thisPlug);
+  const [plugData, setPlugData] = useState(data);
 
   const { name, state, connected, _id } = plugData;
 
@@ -38,7 +38,7 @@ const PlugSelector: React.FC<Props> = ({ thisPlug, margin = true }) => {
 export default React.memo(PlugSelector);
 
 export interface Props {
-  thisPlug: PlugData;
+  data: PlugData;
   openDetails?: string;
   margin?: boolean;
   setOpenDetails?: (key: string) => void;

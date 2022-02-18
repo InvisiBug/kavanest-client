@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { PageTitle, PageContents, PlugSelector } from "../../lib";
+import { PageTitle, PageContents, PlugSelectorV2 as PlugSelector } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 
 import Countdown from "./components/countdown";
@@ -12,9 +12,7 @@ const Bed: FC = () => {
     fetchPolicy: "no-cache",
     variables: { name: "mattress" },
     onCompleted() {
-      console.log(data.response.value);
       setTimerVal(data.response.value);
-      console.log(data.plug);
     },
   });
 
@@ -24,8 +22,9 @@ const Bed: FC = () => {
     <>
       <PageTitle desc={"Our heated mattress controller"}>Bed</PageTitle>
       <PageContents>
-        <Countdown time={timerVal} />
         <Buttons refetch={refetch} />
+        <Countdown time={timerVal} />
+        <PlugSelector data={data.plug} margin={false} />
       </PageContents>
     </>
   );

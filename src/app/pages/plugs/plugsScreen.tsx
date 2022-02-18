@@ -24,7 +24,7 @@ const PlugsScreen: FC = () => {
       <PageTitle desc={"Simple on / off plugs"}>Plugs</PageTitle>
       <PageContents>
         {plugs.map((plug: any) => {
-          return <PlugSelector thisPlug={plug} openDetails={openDetails} setOpenDetails={setOpenDetails} margin={false} key={Math.random()} />;
+          return <PlugSelector data={plug} openDetails={openDetails} setOpenDetails={setOpenDetails} margin={false} key={Math.random()} />;
         })}
       </PageContents>
     </>
