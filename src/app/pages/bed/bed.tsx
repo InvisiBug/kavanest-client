@@ -1,44 +1,31 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { PageTitle, PageContents } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 import { calcTimeDifference } from "./components/countdown";
-// import RoomSelector, { PlugData } from "./components/roomSelector";
 
 import Countdown from "./components/countdown";
 import Buttons from "./components/times";
 
-/*
-  Make a graphql request for all Plugs
-  Create a selector for each plug and provide initial data
-*/
 const Bed: FC = () => {
-  // const [mattressPower, setMattressPower] = useState<any>();
+  const [timerVal, setTimerVal] = useState();
 
   const { data, refetch } = useQuery(query, {
     fetchPolicy: "no-cache",
     variables: { name: "mattress" },
-    // onCompleted() {
-    //   // setMattressPower(data.plug);
-    // },
+    onCompleted() {
+      console.log(data.response.value);
+      setTimerVal(data.response.value);
+    },
   });
 
-  // if (!plugs) return <></>;
-  if (!data) return <></>;
-
-  const timerValue = data.response.value;
-
-  const countdownTime = new Date(timerValue).getTime();
-  const now = new Date().getTime();
-
-  console.log(calcTimeDifference(now, countdownTime));
+  if (!timerVal) return <></>;
 
   return (
     <>
       <PageTitle desc={"Our heated mattress controller"}>Bed</PageTitle>
       <PageContents>
-        {/* <PlugSelector thisPlug={mattressPower} key={Math.random()} /> */}
-        <Countdown time={timerValue} update={refetch} />
-        <Buttons />
+        <Countdown time={timerVal} />
+        <Buttons refetch={refetch} />
       </PageContents>
     </>
   );

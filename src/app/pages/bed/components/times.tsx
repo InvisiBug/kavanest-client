@@ -2,17 +2,45 @@ import React, { FC } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
 
-const Buttons: FC<any> = () => {
+const Buttons: FC<any> = ({ refetch }) => {
   const [updateTime] = useMutation(mutation, {});
 
   return (
     <Container>
       <h1>Times</h1>
       <ButtonRow>
-        <Button onClick={() => updateTime({ variables: { input: { value: 0, name: "mattress" } } })}>Off</Button>
-        <Button onClick={() => updateTime({ variables: { input: { value: 20, name: "mattress" } } })}>20</Button>
-        <Button onClick={() => updateTime({ variables: { input: { value: 30, name: "mattress" } } })}>30</Button>
-        <Button onClick={() => updateTime({ variables: { input: { value: 40, name: "mattress" } } })}>40</Button>
+        <Button
+          onClick={() => {
+            updateTime({ variables: { input: { value: 0, name: "mattress" } } });
+            refetch();
+          }}
+        >
+          Off
+        </Button>
+        <Button
+          onClick={() => {
+            updateTime({ variables: { input: { value: 20, name: "mattress" } } });
+            refetch();
+          }}
+        >
+          20
+        </Button>
+        <Button
+          onClick={() => {
+            updateTime({ variables: { input: { value: 30, name: "mattress" } } });
+            refetch();
+          }}
+        >
+          30
+        </Button>
+        <Button
+          onClick={() => {
+            updateTime({ variables: { input: { value: 40, name: "mattress" } } });
+            refetch();
+          }}
+        >
+          40
+        </Button>
       </ButtonRow>
     </Container>
   );

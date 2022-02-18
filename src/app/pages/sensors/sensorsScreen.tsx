@@ -43,7 +43,7 @@ const Sensors: React.FC = () => {
 export default Sensors;
 
 const query = gql`
-  query ($name: String) {
+  query {
     sensors: getSensors {
       room
       rawTemperature
