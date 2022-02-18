@@ -6,20 +6,18 @@ import styled from "@emotion/styled";
 const Countdown: FC<any> = ({ time }) => {
   const countdownTime = new Date(time).getTime();
 
-  const now = new Date().getTime();
-  const [remainingTime, setRemainingTime] = useState<any>(calcTimeDifference(now - 1000, countdownTime)); // The "- 1000" here makes the update work correctly
+  // const now = new Date().getTime();
+  const [now, setNow] = useState(new Date().getTime());
+  const [remainingTime, setRemainingTime] = useState<any>(calcTimeDifference(now, countdownTime)); // The "- 1000" here makes the update work correctly
 
-  console.log(remainingTime.split(":")[0] && remainingTime.split(":")[1] > 1);
   useEffect(() => {
+    setRemainingTime(calcTimeDifference(now, countdownTime));
     const timer = setTimeout(() => {
-      setRemainingTime(calcTimeDifference(now, countdownTime));
-    }, 1000);
+      setNow(new Date().getTime());
+    }, 100);
 
-    // const time = setInterval(() => {
-    //   console.log("Test");
-    // }, 1000);
     return () => clearTimeout(timer);
-  }, [remainingTime]); //eslint-disable-line
+  }, [remainingTime, now]); //eslint-disable-line
 
   return (
     <>
@@ -35,7 +33,6 @@ const Countdown: FC<any> = ({ time }) => {
 export const calcTimeDifference = (now: any, mattress: any) => {
   const difference = mattress - now;
 
-  console.log(difference);
   if (difference < -1) return `${-1}:${difference}`; // Handles the bed being off
 
   var msec = difference;

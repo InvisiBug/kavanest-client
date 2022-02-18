@@ -1,7 +1,6 @@
 import React, { FC, useState } from "react";
-import { PageTitle, PageContents } from "../../lib";
+import { PageTitle, PageContents, PlugSelector } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
-import { calcTimeDifference } from "./components/countdown";
 
 import Countdown from "./components/countdown";
 import Buttons from "./components/times";
@@ -15,6 +14,7 @@ const Bed: FC = () => {
     onCompleted() {
       console.log(data.response.value);
       setTimerVal(data.response.value);
+      console.log(data.plug);
     },
   });
 
@@ -38,7 +38,7 @@ const query = gql`
     response: getTimer(name: $name) {
       value
     }
-    plug: getPlug(name: $name) {
+    plug: getPlug(name: "mattress") {
       name
       state
       connected

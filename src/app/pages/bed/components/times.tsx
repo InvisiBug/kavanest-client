@@ -67,12 +67,14 @@ const Container = styled.div`
 
 const Button = styled.div`
   padding: 1rem;
-  /* height: 3rem; */
   display: grid;
   border: 1px solid grey;
   margin: 20px;
   align-items: center;
   border-radius: 20px;
+  :active {
+    background-color: grey;
+  }
 `;
 
 const ButtonRow = styled.div`

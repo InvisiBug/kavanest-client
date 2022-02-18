@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
-import { PageTitle, PageContents, PlugSelector } from "../../lib";
+import { PageTitle, PageContents, PlugSelectorV2 as PlugSelector } from "../../lib";
 
 /*
   Make a graphql request for all Plugs
@@ -17,20 +17,6 @@ const PlugsScreen: FC = () => {
     },
   });
 
-  const socketUpdate = (_id: any, payload: any) => {
-    if (!plugs) return;
-    const updatedPlugs: Array<any> = [...plugs];
-
-    updatedPlugs.map((plug, index) => {
-      if (plug._id === _id) {
-        updatedPlugs[index] = payload;
-      }
-      return plug;
-    });
-
-    setPlugs(updatedPlugs);
-  };
-
   if (!plugs) return <></>;
 
   return (
@@ -38,16 +24,7 @@ const PlugsScreen: FC = () => {
       <PageTitle desc={"Simple on / off plugs"}>Plugs</PageTitle>
       <PageContents>
         {plugs.map((plug: any) => {
-          return (
-            <PlugSelector
-              thisPlug={plug}
-              socketUpdate={socketUpdate}
-              openDetails={openDetails}
-              setOpenDetails={setOpenDetails}
-              margin={false}
-              key={Math.random()}
-            />
-          );
+          return <PlugSelector thisPlug={plug} openDetails={openDetails} setOpenDetails={setOpenDetails} margin={false} key={Math.random()} />;
         })}
       </PageContents>
     </>

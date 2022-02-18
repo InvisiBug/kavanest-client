@@ -11,7 +11,7 @@ const navButtons = [
   { name: "computer", icon: computer, admin: true },
   // { name: "sensors", icon: sensor, admin: true },
   // { name: "valves", icon: valve, admin: true },
-  // { name: "plugs", icon: plug, admin: true },
+  { name: "plugs", icon: plug, admin: true },
   { name: "bed", icon: bed, admin: true },
   // { name: "gears", icon: gears },
   // { name: "dog", icon: dog },
