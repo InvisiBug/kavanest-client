@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
-import { Selector, on, off, disconnected } from "../../../lib";
+import { Selector, on, off, disconnected, BooleanStateIndicator } from "../../../lib";
 import { useAppContext } from "../../../utils";
 import Details from "./details";
 
@@ -40,7 +40,7 @@ const AudioSelector: FC<Props> = ({ data, socketUpdate, openDrawer, setOpenDrawe
     <>
       <Container>
         <Selector name={name} openDetails={openDrawer} onClick={setOpenDrawer}>
-          <StateIndicator state={master} connected={connected} />
+          <BooleanStateIndicator state={master} connected={connected} size={"large"} />
         </Selector>
         {openDrawer === name ? <Details data={data} buttonClicked={(relay: string) => buttonclicked(relay)} /> : null}
       </Container>
@@ -80,12 +80,4 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin: auto;
-`;
-
-const StateIndicator = styled.div`
-  height: 1rem;
-  width: 1rem;
-  border-radius: 1rem;
-  margin-right: 1.55rem;
-  background-color: ${(props: { state: boolean; connected: boolean }) => (props.connected ? (props.state ? on : off) : disconnected)};
 `;

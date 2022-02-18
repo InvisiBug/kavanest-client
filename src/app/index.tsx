@@ -22,7 +22,7 @@ const Screens: FC = () => {
       case "plugs":
         return <Plugs />;
 
-      case "rgbLights":
+      case "lights":
         return <RGBLights />;
 
       case "computer":

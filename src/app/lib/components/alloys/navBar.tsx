@@ -6,7 +6,7 @@ import { useAppContext, decamelize } from "../../../utils";
 
 const navButtons = [
   // { name: "home", icon: home },
-  { name: "rgbLights", icon: rgbLight, admin: true },
+  { name: "lights", icon: rgbLight, admin: true },
   { name: "computer", icon: computer, admin: true },
   { name: "setpoints", icon: setpoints, guest: true },
   { name: "sensors", icon: sensor, admin: true },
