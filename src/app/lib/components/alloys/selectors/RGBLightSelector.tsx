@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
-import { SelectorHeader } from "../../../lib";
-import { useAppContext } from "../../../utils";
-import Details from "./details";
+import { Selector } from "../../..";
+import { useAppContext } from "../../../../utils";
+import Details from "../../../../pages/rgbLights/components/details";
 import { gql, useMutation } from "@apollo/client";
 
-const RoomSelector: React.FC<any> = ({
+const RGBLightSelector: React.FC<any> = ({
   thisLight: { name, red, green, blue, mode, connected, _id },
   allRgbLights,
   setRgbLights,
@@ -38,9 +38,9 @@ const RoomSelector: React.FC<any> = ({
   return (
     <>
       <Container>
-        <SelectorHeader name={name} connected={connected} openDrawer={openRGBLight} setOpenDrawer={setOpenRGBLight}>
+        <Selector name={name} arrow={true} connected={connected} openDetails={openRGBLight} onClick={setOpenRGBLight}>
           <ColourIndicator red={red} green={green} blue={blue} />
-        </SelectorHeader>
+        </Selector>
 
         {openRGBLight === name ? (
           <Details
@@ -48,7 +48,7 @@ const RoomSelector: React.FC<any> = ({
             green={green}
             blue={blue}
             mode={mode}
-            updateRGB={(rgb: any) => {
+            updateRGB={(rgb: string) => {
               const colours = rgb
                 .split("(")[1]
                 .split(")")[0]
@@ -66,7 +66,7 @@ const RoomSelector: React.FC<any> = ({
   );
 };
 
-export default RoomSelector;
+export default RGBLightSelector;
 
 export interface Props {
   lightData: {

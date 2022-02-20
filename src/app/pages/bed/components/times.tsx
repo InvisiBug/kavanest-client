@@ -2,17 +2,28 @@ import React, { FC } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
 
-const Buttons: FC<any> = () => {
+const Buttons: FC<any> = ({ refetch }) => {
   const [updateTime] = useMutation(mutation, {});
+
+  const times = [0, 10, 30, 40];
 
   return (
     <Container>
       <h1>Times</h1>
       <ButtonRow>
-        <Button onClick={() => updateTime({ variables: { input: { value: 0, name: "mattress" } } })}>Off</Button>
-        <Button onClick={() => updateTime({ variables: { input: { value: 20, name: "mattress" } } })}>20</Button>
-        <Button onClick={() => updateTime({ variables: { input: { value: 30, name: "mattress" } } })}>30</Button>
-        <Button onClick={() => updateTime({ variables: { input: { value: 40, name: "mattress" } } })}>40</Button>
+        {times.map((time) => {
+          return (
+            <Button
+              onClick={() => {
+                updateTime({ variables: { input: { value: time, name: "mattress" } } });
+                refetch();
+              }}
+              key={Math.random()}
+            >
+              {time !== 0 ? time : "Off"}
+            </Button>
+          );
+        })}
       </ButtonRow>
     </Container>
   );
@@ -39,12 +50,14 @@ const Container = styled.div`
 
 const Button = styled.div`
   padding: 1rem;
-  /* height: 3rem; */
   display: grid;
   border: 1px solid grey;
   margin: 20px;
   align-items: center;
   border-radius: 20px;
+  :active {
+    background-color: grey;
+  }
 `;
 
 const ButtonRow = styled.div`

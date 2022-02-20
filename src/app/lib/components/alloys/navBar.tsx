@@ -6,13 +6,13 @@ import { useAppContext, decamelize } from "../../../utils";
 
 const navButtons = [
   // { name: "home", icon: home },
-  { name: "rgbLights", icon: rgbLight, admin: true },
-  { name: "computer", icon: computer, admin: true },
   { name: "setpoints", icon: setpoints, guest: true },
-  { name: "sensors", icon: sensor, admin: true },
-  { name: "valves", icon: valve, admin: true },
-  { name: "plugs", icon: plug, admin: true },
-  // { name: "bed", icon: bed, admin: true },
+  { name: "lights", icon: rgbLight, admin: true },
+  { name: "computer", icon: computer, admin: true },
+  // { name: "sensors", icon: sensor, admin: true },
+  // { name: "valves", icon: valve, admin: true },
+  // { name: "plugs", icon: plug, admin: true },
+  { name: "bed", icon: bed, admin: true },
   // { name: "gears", icon: gears },
   // { name: "dog", icon: dog },
 ];
@@ -35,8 +35,8 @@ const PhoneNav: React.FC<Props> = () => {
         {navButtons.map((button) => {
           if (isAdmin) {
             return (
-              <Group onClick={() => setScreen(button.name)}>
-                <Icon src={button.icon} alt={button.name} name={button.name} screen={screen} key={Math.random()} />
+              <Group onClick={() => setScreen(button.name)} key={Math.random()}>
+                <Icon src={button.icon} alt={button.name} name={button.name} screen={screen} />
                 <Text>{decamelize(button.name)}</Text>
               </Group>
             );

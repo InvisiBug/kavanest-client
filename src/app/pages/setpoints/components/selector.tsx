@@ -55,9 +55,7 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
         {!valve.state && heating.state ? <FlameIcon src={flame}></FlameIcon> : null}
         <Vals>
           <Current>{`${sensor?.temperature ? sensor.temperature : "n/a"}°C`}</Current>
-          <Setpoint>
-            Target
-            <br />
+          <Setpoint val={getCurrentSetpointV2(target)[1]}>
             {getCurrentSetpointV2(target)[1] > 5 ? `${getCurrentSetpointV2(target)[1]}°C` : "Off"}
           </Setpoint>
         </Vals>
@@ -134,6 +132,7 @@ const Vals = styled.div`
   display: flex;
   align-items: center;
   min-width: 3rem;
+  margin-right: 1.5rem;
 `;
 
 const Current = styled.div`
@@ -147,8 +146,9 @@ const Current = styled.div`
 const Setpoint = styled.div`
   border: ${borders ? "1px solid purple" : "none"};
   text-align: center;
-  margin-right: 1.5rem;
-  min-width: 3rem;
+  /* margin-right: 1.5rem; */
+  min-width: 3.5rem;
+  color: ${(props: { val: number }) => (props.val > -1 ? "white" : "grey")};
 `;
 
 const Arrow = styled.img`

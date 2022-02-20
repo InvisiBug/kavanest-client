@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { PageTitle, SelectorContainer } from "../../lib";
+import { PageTitle, PageContents, PlugSelector, ValveSelector } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
-import RoomSelector from "./components/roomSelector";
 
 const Valves = () => {
   const [valves, setValves] = useState<any>();
@@ -18,11 +17,12 @@ const Valves = () => {
   return (
     <>
       <PageTitle desc={"Current valve states"}>Valves</PageTitle>
-      <SelectorContainer>
+      <PageContents>
         {valves!.map((valve: any) => {
-          return <RoomSelector thisValve={valve} key={Math.random()} />;
+          return <ValveSelector thisValve={valve} margin={false} key={Math.random()} />;
+          // return <PlugSelector thisPlug={valve} key={Math.random()} />;
         })}
-      </SelectorContainer>
+      </PageContents>
     </>
   );
 };
@@ -32,6 +32,7 @@ export default Valves;
 const getValves = gql`
   query {
     valves: getValves {
+      # name: room
       room
       connected
       state

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-const RoomName: React.FC<Props> = ({ children, connected = true }) => {
+const SelectorTitle: React.FC<Props> = ({ children, connected = true }) => {
   return (
     <>
       <Room connected={connected}>{children}</Room>
@@ -9,7 +9,7 @@ const RoomName: React.FC<Props> = ({ children, connected = true }) => {
   );
 };
 
-export default RoomName;
+export default SelectorTitle;
 
 interface Props {
   children: string;

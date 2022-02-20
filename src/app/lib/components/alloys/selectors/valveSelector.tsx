@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { gql, useMutation } from "@apollo/client";
-import { SelectorHeader, on, off, disconnected } from "../../../lib";
-import { useAppContext } from "../../../utils";
+import { Selector, on, off, disconnected, BooleanStateIndicator } from "../../..";
+import { useAppContext } from "../../../../utils";
 
-const RoomSelector: React.FC<any> = ({ thisValve, socketUpdate, openDetails, setOpenDetails }) => {
+const ValveSelector: React.FC<any> = ({ thisValve, socketUpdate, openDetails, setOpenDetails, margin }) => {
   const { socket } = useAppContext();
 
   const [valve, setValve] = useState(thisValve);
@@ -29,15 +28,15 @@ const RoomSelector: React.FC<any> = ({ thisValve, socketUpdate, openDetails, set
   return (
     <>
       <Container>
-        <SelectorHeader name={room} connected={valve.connected} openDrawer={false}>
-          <StateIndicator state={valve.state} connected={valve.connected} />
-        </SelectorHeader>
+        <Selector name={room} connected={valve.connected}>
+          <BooleanStateIndicator state={valve.state} connected={valve.connected} size={"large"} margin={margin} />
+        </Selector>
       </Container>
     </>
   );
 };
 
-export default React.memo(RoomSelector);
+export default React.memo(ValveSelector);
 
 export interface Props {
   socketUpdate: any;

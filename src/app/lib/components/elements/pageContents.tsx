@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from "react";
 import styled from "@emotion/styled";
 
-const SelectorContainer: FC<Props> = ({ children }) => {
+const PageContents: FC<Props> = ({ children }) => {
   return (
     <>
       <Container>{children}</Container>
@@ -9,7 +9,7 @@ const SelectorContainer: FC<Props> = ({ children }) => {
   );
 };
 
-export default SelectorContainer;
+export default PageContents;
 
 interface Props {
   children: ReactNode;

@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import RoomSelector, { SensorData } from "./components/roomSelector";
-import { PageTitle, SelectorContainer } from "../../lib";
+import Selector, { SensorData } from "./components/selector";
+import { PageTitle, PageContents } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
 
 const Sensors: React.FC = () => {
   const [openSensor, setOpenSensor] = useState<string>("");
   const [sensors, setSensors] = useState<SensorData[] | null>(null);
-  const [heating, setHeating] = useState<HeatingData | null>(null);
 
   const { data } = useQuery(query, {
     variables: {
@@ -15,7 +14,6 @@ const Sensors: React.FC = () => {
     fetchPolicy: "no-cache",
     onCompleted() {
       setSensors(data.sensors);
-      setHeating(data.heating);
     },
   });
 
@@ -24,10 +22,10 @@ const Sensors: React.FC = () => {
   return (
     <>
       <PageTitle desc={`Live sensor data`}>Sensors</PageTitle>
-      <SelectorContainer>
+      <PageContents>
         {sensors.map((sensorData: SensorData) => {
           return (
-            <RoomSelector
+            <Selector
               thisSensor={sensorData}
               allSensors={sensors}
               setAllSensors={setSensors}
@@ -37,19 +35,15 @@ const Sensors: React.FC = () => {
             />
           );
         })}
-      </SelectorContainer>
+      </PageContents>
     </>
   );
 };
 
 export default Sensors;
 
-interface HeatingData {
-  state: boolean;
-}
-
 const query = gql`
-  query ($name: String) {
+  query {
     sensors: getSensors {
       room
       rawTemperature
@@ -59,20 +53,5 @@ const query = gql`
       connected
       _id
     }
-    heating: getPlug(name: $name) {
-      state
-    }
   }
 `;
-
-interface Data {
-  availableRooms: {
-    room: string;
-    rawTemperature: number;
-    temperature: number;
-    humidity: number;
-    offset: number;
-    connected: boolean;
-    _id: string;
-  };
-}

@@ -74,7 +74,7 @@ export const getCurrentSetpointV2 = (setpoints: any) => {
 
     return [time, setpoint];
   } catch {
-    return [null, null];
+    return [undefined, undefined];
   }
 };
 

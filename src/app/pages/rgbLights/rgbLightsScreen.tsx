@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { PageTitle, SelectorContainer } from "../../lib";
+import { PageTitle, PageContents } from "../../lib";
 import { useQuery, gql } from "@apollo/client";
-import RoomSelector from "./components/roomSelector";
-import PlugSelector from "../plugs/components/selector";
+import { RGBLightSelector } from "../../lib";
+import { PlugSelector } from "../../lib";
 
 const RGBLights: React.FC<any> = () => {
   const [openRGBLight, setOpenRGBLight] = useState("");
@@ -36,28 +36,22 @@ const RGBLights: React.FC<any> = () => {
   return (
     <>
       <PageTitle desc={"Some of these lights have alternative modes"}>Lights</PageTitle>
-      <SelectorContainer>
-        <PlugSelector
-          thisPlug={floodlight}
-          socketUpdate={socketUpdate}
-          openDetails={openRGBLight}
-          setOpenDetails={setOpenRGBLight}
-          key={Math.random()}
-        />
+      <PageContents>
+        <PlugSelector thisPlug={floodlight} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} />
         <PlugSelector thisPlug={sun} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} key={Math.random()} />
         {rgbLights.map((light: any) => {
           return (
-            <RoomSelector
+            <RGBLightSelector
               thisLight={light}
               allRgbLights={rgbLights}
               setRgbLights={setRgbLights}
               openRGBLight={openRGBLight}
               setOpenRGBLight={setOpenRGBLight}
               key={Math.random()}
-            />
+            ></RGBLightSelector>
           );
         })}
-      </SelectorContainer>
+      </PageContents>
     </>
   );
 };

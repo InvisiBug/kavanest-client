@@ -1,11 +1,17 @@
 // Elements
-export { default as Room } from "./components/elements/roomName";
-export { default as SelectorContainer } from "./components/elements/selectorContainer";
-export { default as SelectorHeader } from "./components/alloys/selectorHeader";
+export { default as SelectorTitle } from "./components/elements/selectorTitle";
+export { default as PageContents } from "./components/elements/pageContents";
+export { default as BooleanStateIndicator } from "./components/elements/booleanStateIndicator";
 
 // Alloys
 export { default as NavBar } from "./components/alloys/navBar";
-export { default as Selector } from "./components/alloys/selectorHeader";
+export { default as Selector } from "./components/alloys/selectorFrame";
+
+// Selectors
+export { default as RGBLightSelector } from "./components/alloys/selectors/rgbLightSelector";
+export { default as PlugSelector } from "./components/alloys/selectors/plugSelector";
+export { default as PlugSelectorV2 } from "./components/alloys/selectors/plugSelectorV2";
+export { default as ValveSelector } from "./components/alloys/selectors/valveSelector";
 
 export { mq, px } from "./components/elements/mediaQueries";
 

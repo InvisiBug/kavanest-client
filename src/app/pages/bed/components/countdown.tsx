@@ -2,23 +2,29 @@ import React, { FC, useEffect, useLayoutEffect, useState } from "react";
 import styled from "@emotion/styled";
 
 //! This entire function is a mess, fix sometime
-const Countdown: FC<any> = ({ time, update }) => {
+
+const Countdown: FC<any> = ({ time }) => {
   const countdownTime = new Date(time).getTime();
-  const now = new Date().getTime();
-  const [remainingTime, setRemainingTime] = useState<any>(calcTimeDifference(now - 1000, countdownTime)); // The "- 1000" here makes the update work correctly
+
+  // const now = new Date().getTime();
+  const [now, setNow] = useState(new Date().getTime());
+  const [remainingTime, setRemainingTime] = useState<any>(calcTimeDifference(now, countdownTime)); // The "- 1000" here makes the update work correctly
 
   useEffect(() => {
+    setRemainingTime(calcTimeDifference(now, countdownTime));
     const timer = setTimeout(() => {
-      setRemainingTime(calcTimeDifference(now, countdownTime));
-    }, 1000);
+      setNow(new Date().getTime());
+    }, 100);
+
     return () => clearTimeout(timer);
-  }, [remainingTime]); //eslint-disable-line
+  }, [remainingTime, now]); //eslint-disable-line
 
   return (
     <>
       <Container>
         <h2>Remaining Time</h2>
-        <h1>{remainingTime}</h1>
+        <h1>{remainingTime.split(":")[0] && remainingTime.split(":")[1] > 1 ? remainingTime : "Off"}</h1>
+        {/* <h1>{remainingTime}</h1> */}
       </Container>
     </>
   );
@@ -27,7 +33,7 @@ const Countdown: FC<any> = ({ time, update }) => {
 export const calcTimeDifference = (now: any, mattress: any) => {
   const difference = mattress - now;
 
-  if (difference < -1) return "Off";
+  if (difference < -1) return `${-1}:${difference}`; // Handles the bed being off
 
   var msec = difference;
 
