@@ -5,50 +5,25 @@ import { gql, useMutation } from "@apollo/client";
 const Buttons: FC<any> = ({ refetch }) => {
   const [updateTime] = useMutation(mutation, {});
 
+  const times = [0, 10, 30, 40];
+
   return (
     <Container>
       <h1>Times</h1>
       <ButtonRow>
-        <Button
-          onClick={() => {
-            updateTime({ variables: { input: { value: 0, name: "mattress" } } });
-            refetch();
-          }}
-        >
-          Off
-        </Button>
-        <Button
-          onClick={() => {
-            updateTime({ variables: { input: { value: 10, name: "mattress" } } });
-            refetch();
-          }}
-        >
-          10
-        </Button>
-        <Button
-          onClick={() => {
-            updateTime({ variables: { input: { value: 20, name: "mattress" } } });
-            refetch();
-          }}
-        >
-          20
-        </Button>
-        <Button
-          onClick={() => {
-            updateTime({ variables: { input: { value: 30, name: "mattress" } } });
-            refetch();
-          }}
-        >
-          30
-        </Button>
-        <Button
-          onClick={() => {
-            updateTime({ variables: { input: { value: 40, name: "mattress" } } });
-            refetch();
-          }}
-        >
-          40
-        </Button>
+        {times.map((time) => {
+          return (
+            <Button
+              onClick={() => {
+                updateTime({ variables: { input: { value: time, name: "mattress" } } });
+                refetch();
+              }}
+              key={Math.random()}
+            >
+              {time !== 0 ? time : "Off"}
+            </Button>
+          );
+        })}
       </ButtonRow>
     </Container>
   );
