@@ -30,13 +30,30 @@ const Computer: FC<any> = () => {
   };
 
   if (!computerAudio || !computerPower) return <></>;
-
   return (
     <>
       <PageTitle desc={"Computer power & audio"}>Computer</PageTitle>
       <PageContents>
-        <PlugSelector thisPlug={computerPower} socketUpdate={socketUpdate} openDetails={openDetails} margin={false} setOpenDetails={setOpenDetails} />
-        <AudioSelector data={computerAudio} socketUpdate={socketUpdate} openDrawer={openDetails} setOpenDrawer={setOpenDetails} />
+        <PlugSelector
+          thisPlug={{
+            ...computerPower,
+            name: "Power",
+          }}
+          mqttNameOverride={"computerPower"}
+          socketUpdate={socketUpdate}
+          openDetails={openDetails}
+          margin={false}
+          setOpenDetails={setOpenDetails}
+        />
+        <AudioSelector
+          data={{
+            ...computerAudio,
+            name: "Speakers",
+          }}
+          socketUpdate={socketUpdate}
+          openDrawer={openDetails}
+          setOpenDrawer={setOpenDetails}
+        />
       </PageContents>
     </>
   );

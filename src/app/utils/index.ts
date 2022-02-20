@@ -57,7 +57,6 @@ export const getCurrentSetpoint = (setpoints: any) => {
 export const getCurrentSetpointV2 = (setpoints: any) => {
   let setpoint: number | null = null;
   let time: string = "";
-  // console.log(setpoints);
 
   try {
     Object.keys(setpoints[weekOrWeekend()]).forEach((entry) => {

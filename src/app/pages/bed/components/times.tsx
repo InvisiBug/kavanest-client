@@ -19,6 +19,14 @@ const Buttons: FC<any> = ({ refetch }) => {
         </Button>
         <Button
           onClick={() => {
+            updateTime({ variables: { input: { value: 10, name: "mattress" } } });
+            refetch();
+          }}
+        >
+          10
+        </Button>
+        <Button
+          onClick={() => {
             updateTime({ variables: { input: { value: 20, name: "mattress" } } });
             refetch();
           }}

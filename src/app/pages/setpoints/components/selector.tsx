@@ -45,7 +45,6 @@ const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = nu
   let target: any;
 
   target = data?.setpoints?.setpoints;
-  console.log(room, target);
 
   return (
     <>

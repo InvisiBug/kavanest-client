@@ -4,11 +4,11 @@ import { gql, useMutation } from "@apollo/client";
 import { Selector, BooleanStateIndicator } from "../../../";
 import { useAppContext } from "../../../../utils";
 
-const PlugSelector: React.FC<Props> = ({ thisPlug, socketUpdate = () => {}, margin = true }) => {
+const PlugSelector: React.FC<Props> = ({ thisPlug, mqttNameOverride = null, socketUpdate = () => {}, margin = true }) => {
   const { socket } = useAppContext();
   const [updatePlug] = useMutation(mutation, {});
 
-  const { name, state, connected, _id } = thisPlug;
+  let { name, state, connected, _id } = thisPlug;
 
   useEffect(() => {
     if (_id) {
@@ -25,7 +25,11 @@ const PlugSelector: React.FC<Props> = ({ thisPlug, socketUpdate = () => {}, marg
   return (
     <>
       <Container>
-        <Selector name={name} connected={connected} onClick={() => updatePlug({ variables: { input: { name: name, state: !state } } })}>
+        <Selector
+          name={name}
+          connected={connected}
+          onClick={() => updatePlug({ variables: { input: { name: mqttNameOverride ? mqttNameOverride : name, state: !state } } })}
+        >
           <BooleanStateIndicator state={state} connected={connected} size={"large"} margin={margin} />
         </Selector>
       </Container>
@@ -37,6 +41,7 @@ export default React.memo(PlugSelector);
 
 export interface Props {
   thisPlug: PlugData;
+  mqttNameOverride?: string;
   socketUpdate?: any;
   openDetails?: string;
   margin?: boolean;
