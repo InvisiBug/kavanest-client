@@ -148,7 +148,7 @@ const Setpoint = styled.div`
   text-align: center;
   /* margin-right: 1.5rem; */
   min-width: 3.5rem;
-  color: ${(props: { val: number }) => (props.val > -1 ? "white" : "grey")};
+  color: ${(props: { val: number }) => (props.val > 5 ? "white" : "grey")};
 `;
 
 const Arrow = styled.img`
