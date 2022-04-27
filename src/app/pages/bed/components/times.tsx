@@ -9,7 +9,7 @@ const Buttons: FC<any> = ({ refetch }) => {
 
   return (
     <Container>
-      <h1>Times</h1>
+      {/* <h1>Times</h1> */}
       <ButtonRow>
         {times.map((time) => {
           return (
