@@ -1,15 +1,15 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
 
 const Buttons: FC<any> = ({ refetch }) => {
   const [updateTime] = useMutation(mutation, {});
 
-  const times = [0, 10, 30, 40];
+  const times = [0, 10, 20, 30];
 
   return (
     <Container>
-      <h1>Times</h1>
+      {/* <h1>Times</h1> */}
       <ButtonRow>
         {times.map((time) => {
           return (
