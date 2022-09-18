@@ -1,9 +1,9 @@
 import React from "react";
 import { ApolloClient, InMemoryCache, ApolloProvider, DefaultOptions } from "@apollo/client";
-import { AppProvider } from "./app/utils";
-import { apiUrl } from "./app/utils/index";
-import { Layout } from "./app/lib/";
-import Screens from "./app/";
+import { AppProvider } from "./utils";
+import { apiUrl } from "src/utils";
+import { Layout } from "src/lib";
+import Pages from "src/pages";
 
 const defaultOptions: DefaultOptions = {
   query: {
@@ -27,7 +27,7 @@ const App: React.FC = () => {
       <ApolloProvider client={client}>
         <AppProvider>
           <Layout>
-            <Screens />
+            <Pages />
           </Layout>
         </AppProvider>
       </ApolloProvider>
