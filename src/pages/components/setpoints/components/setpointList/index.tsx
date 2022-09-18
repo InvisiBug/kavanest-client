@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import CurrentSetpoint from "./currentSetpoint";
 import { plus, sinchronize } from "../../../../../lib";
-import { decamelize, getCurrentSetpointV2, weekOrWeekend } from "../../../../../utils";
+import { getCurrentSetpointV2 } from "src/lib/api";
+import { decamelize, weekOrWeekend } from "src/lib/helpers";
 import NewSetpoint from "./newSetpoint";
 
 const SetpointList = ({ room, data, refreshPage }: any) => {

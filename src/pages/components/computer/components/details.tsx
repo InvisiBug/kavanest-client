@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 // import { Text } from "../../../lib";
 import { switchOn, switchOff } from "../../../../lib";
-import { decamelize } from "../../../../utils";
+import { decamelize } from "src/lib/helpers";
 import styled from "@emotion/styled";
 
 const Details: FC<Props> = ({ data, buttonClicked }) => {

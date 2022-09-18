@@ -1,8 +1,10 @@
 import React, { FC, useState, useEffect } from "react";
-import { decamelize, getCurrentSetpointV2, useAppContext } from "../../../../utils";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import { flame } from "../../../../lib";
+import { getCurrentSetpointV2 } from "src/lib/api";
+import { decamelize } from "src/lib/helpers";
+import { useAppContext } from "src/lib/context";
+import { flame } from "src/lib";
 import SetpointList from "./setpointList";
 
 const RoomSetpoints: FC<Props> = ({ name, close }) => {

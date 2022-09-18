@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import openSocket, { Socket } from "socket.io-client";
-import { socketUrl } from "./index";
+import { socketUrl } from "src/lib/api";
 
 const AppContext = createContext<ContextState | undefined>(undefined);
 

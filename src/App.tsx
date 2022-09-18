@@ -1,7 +1,7 @@
 import React from "react";
 import { ApolloClient, InMemoryCache, ApolloProvider, DefaultOptions } from "@apollo/client";
 import { AppProvider } from "./utils";
-import { apiUrl } from "src/utils";
+import { apiUrl } from "src/lib/api";
 import { Layout } from "src/lib";
 import Pages from "src/pages";
 

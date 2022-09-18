@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { home, setpoints, sensor, dog, rgbLight, plug, gears, computer, valve, bed } from "../elements/icons";
 import { mq, px } from "../elements/mediaQueries";
-import { useAppContext, decamelize } from "../../../utils";
+import { decamelize } from "src/lib/helpers";
+import { getCurrentSetpointV2 } from "src/lib/api";
+
+import { useAppContext } from "src/lib/context";
 
 const navButtons = [
   // { name: "home", icon: home },

@@ -1,7 +1,7 @@
+import { weekOrWeekend, now } from "src/lib/helpers";
 import Axios from "axios";
 require("dotenv").config();
 
-export { default as AppContext, AppProvider, useAppContext } from "./context";
 export const apiUrl = process.env.REACT_APP_API ?? "";
 export const socketUrl = process.env.REACT_APP_SOCKET ?? "";
 
@@ -18,19 +18,6 @@ export const asyncRequest = async (query: string, datapoint: any, variables: any
     datapoint(response.data.data.response);
     return response;
   });
-};
-
-export const decamelize = (text: string) => {
-  if (!text) return "Unknown Name, probs something wrong with mongo";
-  const result = text.replace(/([A-Z]{1,})/g, " $1");
-  const finalResult = result.charAt(0).toUpperCase() + result.slice(1);
-  return finalResult;
-};
-
-export const weekOrWeekend = () => {
-  var today = new Date();
-  if (!(today.getDay() % 6)) return "weekend";
-  else return "weekday";
 };
 
 export const getCurrentSetpoint = (setpoints: any) => {
@@ -76,13 +63,4 @@ export const getCurrentSetpointV2 = (setpoints: any) => {
   } catch {
     return [undefined, undefined];
   }
-};
-
-export const now = () => {
-  const date = new Date();
-  return date.toLocaleTimeString([], {
-    hourCycle: "h23",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
 };
