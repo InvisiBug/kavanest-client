@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
-import { useAppContext } from "../../../../utils";
+import { useAppContext } from "src/lib/context";
 import { Selector, Text } from "../../../../lib";
 import SensorDetails from "./details";
 

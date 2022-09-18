@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
 import { Selector, on, off, disconnected, BooleanStateIndicator } from "../../../../lib";
-import { useAppContext } from "../../../../utils";
+import { useAppContext } from "src/lib/context";
 import Details from "./details";
 
 const AudioSelector: FC<Props> = ({ data, socketUpdate, openDrawer, setOpenDrawer }) => {

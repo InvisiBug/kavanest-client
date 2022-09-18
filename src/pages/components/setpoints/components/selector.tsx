@@ -4,7 +4,7 @@ import { getCurrentSetpointV2 } from "src/lib/api";
 import { decamelize } from "src/lib/helpers";
 import { rightArrow, flame } from "../../../../lib";
 import { useQuery, gql } from "@apollo/client";
-import { useAppContext } from "../../../../utils";
+import { useAppContext } from "src/lib/context";
 
 const Setpoints: React.FC<Props> = ({ data: { room }, onClick = null, close = null }) => {
   const [sensor, setSensor] = useState<any>();

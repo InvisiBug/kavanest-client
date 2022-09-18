@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { Selector, on, off, disconnected, BooleanStateIndicator } from "../../..";
-import { useAppContext } from "src/utils";
+import { useAppContext } from "src/lib/context";
 
 const ValveSelector: React.FC<any> = ({ thisValve, socketUpdate, openDetails, setOpenDetails, margin }) => {
   const { socket } = useAppContext();

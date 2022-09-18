@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { Selector } from "../../..";
-import { useAppContext } from "src/utils";
+import { useAppContext } from "src/lib/context";
 import Details from "../../../../pages/components/rgbLights/components/details";
 import { gql, useMutation } from "@apollo/client";
 

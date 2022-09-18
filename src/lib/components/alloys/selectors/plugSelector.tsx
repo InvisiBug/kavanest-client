@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
 import { Selector, BooleanStateIndicator } from "../../..";
-import { useAppContext } from "src/utils";
+import { useAppContext } from "src/lib/context";
 
 const PlugSelector: React.FC<Props> = ({ thisPlug, mqttNameOverride = null, socketUpdate = () => {}, margin = true }) => {
   const { socket } = useAppContext();
