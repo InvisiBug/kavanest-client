@@ -1,1 +1,1 @@
-export { default as Valves } from "./valvesScreen";
+export { default as Valves } from "./valves";

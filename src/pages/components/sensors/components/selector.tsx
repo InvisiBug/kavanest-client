@@ -28,7 +28,7 @@ const Sensor: React.FC<Props> = ({
       });
     }
 
-    return function cleanup() {
+    return () => {
       socket.off(_id);
     };
   }, []); // eslint-disable-line
