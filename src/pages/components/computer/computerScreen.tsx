@@ -1,8 +1,7 @@
 import React, { FC, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
-import { PageTitle, PageContents } from "../../../lib";
-import AudioSelector from "./components/audioSelector";
-import { PlugSelector } from "../../../lib";
+import { PageTitle, PageContents, PlugSelector } from "src/lib";
+import { AudioSelector } from "./components";
 
 const Computer: FC<any> = () => {
   const [computerAudio, setComputerAudio] = useState<any>();

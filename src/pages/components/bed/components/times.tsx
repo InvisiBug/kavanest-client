@@ -5,7 +5,7 @@ import { gql, useMutation } from "@apollo/client";
 const Buttons: FC<any> = ({ refetch }) => {
   const [updateTime] = useMutation(mutation, {});
 
-  const times = [0, 10, 20, 30];
+  const times = [0, 10, 15, 30];
 
   return (
     <Container>

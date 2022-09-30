@@ -4,6 +4,7 @@ import { home, setpoints, sensor, dog, rgbLight, plug, gears, computer, valve, b
 import { mq, px } from "../elements/mediaQueries";
 import { decamelize } from "src/lib/helpers";
 import { getCurrentSetpointV2 } from "src/lib/api";
+import { useNavigate } from "react-router-dom";
 
 import { useAppContext } from "src/lib/context";
 
@@ -21,6 +22,7 @@ const navButtons = [
 ];
 const PhoneNav: React.FC<Props> = () => {
   const { screen, setScreen } = useAppContext();
+  const navigate = useNavigate();
 
   const [isAdmin, setIsAdmin] = useState(true);
   const allowed: boolean = localStorage.getItem("admin") === "true" || false;
@@ -38,7 +40,8 @@ const PhoneNav: React.FC<Props> = () => {
         {navButtons.map((button) => {
           if (isAdmin) {
             return (
-              <Group onClick={() => setScreen(button.name)} key={Math.random()}>
+              // <Group onClick={() => setScreen(button.name)} key={Math.random()}>
+              <Group onClick={() => navigate(button.name)} key={Math.random()}>
                 <Icon src={button.icon} alt={button.name} name={button.name} screen={screen} />
                 <Text>{decamelize(button.name)}</Text>
               </Group>

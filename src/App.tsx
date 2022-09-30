@@ -1,5 +1,6 @@
 import React from "react";
 import { ApolloClient, InMemoryCache, ApolloProvider, DefaultOptions } from "@apollo/client";
+import { BrowserRouter } from "react-router-dom";
 import { AppProvider } from "src/lib/context";
 import { apiUrl } from "src/lib/api";
 import { Layout } from "src/lib";
@@ -24,13 +25,15 @@ const App: React.FC = () => {
 
   return (
     <>
-      <ApolloProvider client={client}>
-        <AppProvider>
-          <Layout>
-            <Pages />
-          </Layout>
-        </AppProvider>
-      </ApolloProvider>
+      <BrowserRouter>
+        <ApolloProvider client={client}>
+          <AppProvider>
+            <Layout>
+              <Pages />
+            </Layout>
+          </AppProvider>
+        </ApolloProvider>
+      </BrowserRouter>
     </>
   );
 };
