@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { getCurrentSetpointV2 } from "src/lib/api";
 import { decamelize } from "src/lib/helpers";
 import { useAppContext } from "src/lib/context";
-import { flame } from "src/lib";
+import { flame } from "src/lib/components";
 import SetpointList from "./setpointList";
 
 const RoomSetpoints: FC<Props> = ({ name, close }) => {

@@ -3,7 +3,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider, DefaultOptions } from "@ap
 import { BrowserRouter } from "react-router-dom";
 import { AppProvider } from "src/lib/context";
 import { apiUrl } from "src/lib/api";
-import { Layout } from "src/lib";
+import { Layout } from "src/lib/components";
 import Pages from "src/pages";
 
 const defaultOptions: DefaultOptions = {

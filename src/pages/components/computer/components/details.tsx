@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 // import { Text } from "../../../lib";
-import { switchOn, switchOff } from "../../../../lib";
+import { switchOn, switchOff } from "src/lib/components";
 import { decamelize } from "src/lib/helpers";
 import styled from "@emotion/styled";
 

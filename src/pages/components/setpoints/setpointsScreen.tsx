@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import RoomScreen from "./components/roomScreen";
 import { useQuery, gql } from "@apollo/client";
 import SelectorScreen from "./components/selectorScreen";
+import { Plug } from "src/lib/types";
 
 const SetpointsPage: React.FC = () => {
-  const { data } = useQuery(getValves, { fetchPolicy: "no-cache" });
+  const { data } = useQuery<GraphqlResponse>(getValves, { fetchPolicy: "no-cache" });
   const [roomToShow, setRoomToShow] = useState<false | string>(false);
 
   if (!data) return <></>;
@@ -39,3 +40,8 @@ const getValves = gql`
     }
   }
 `;
+
+type GraphqlResponse = {
+  heating: Plug;
+  getValves: Plug;
+};

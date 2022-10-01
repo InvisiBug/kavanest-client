@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { cancel, on } from "../../../../../lib";
+import { cancel, on } from "src/lib/components";
 import { makeRequest } from "src/lib/api";
 
 const CurrentSetpoint: React.FC<Props> = ({ room, day, time, temp, close, activeSetpoint }) => {

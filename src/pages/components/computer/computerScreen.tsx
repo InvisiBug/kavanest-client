@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
-import { PageTitle, PageContents, PlugSelector } from "src/lib";
+import { PageTitle, PageContents, PlugSelector } from "src/lib/components";
 import { AudioSelector } from "./components";
 
 const Computer: FC<any> = () => {

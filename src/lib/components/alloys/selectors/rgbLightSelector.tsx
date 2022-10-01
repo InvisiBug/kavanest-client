@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
-import { Selector } from "../../..";
+import { Selector } from "src/lib/components";
 import { useAppContext } from "src/lib/context";
-import Details from "../../../../pages/components/rgbLights/components/details";
+import Details from "src/pages/components/rgbLights/components/details";
 import { gql, useMutation } from "@apollo/client";
+import { rgbToArray } from "src/lib/helpers";
 
-const RGBLightSelector: React.FC<any> = ({
+const RGBLightSelector: React.FC<Props> = ({
   thisLight: { name, red, green, blue, mode, connected, _id },
   allRgbLights,
   setRgbLights,
@@ -49,14 +50,7 @@ const RGBLightSelector: React.FC<any> = ({
             blue={blue}
             mode={mode}
             updateRGB={(rgb: string) => {
-              const colours = rgb
-                .split("(")[1]
-                .split(")")[0]
-                .split(",")
-                .map((x: string) => {
-                  return parseInt(x);
-                });
-
+              const colours = rgbToArray(rgb);
               updateRGB({ variables: { input: { name, red: colours[0], green: colours[1], blue: colours[2] } } });
             }}
           />
@@ -69,15 +63,18 @@ const RGBLightSelector: React.FC<any> = ({
 export default RGBLightSelector;
 
 export interface Props {
-  lightData: {
+  thisLight: {
     name: string;
     connected: boolean;
     red: number;
     green: number;
     blue: number;
     mode?: number;
+    _id: string;
   };
+  allRgbLights: any;
   openRGBLight: string;
+  setRgbLights: any;
   setOpenRGBLight: (name: string) => void;
 }
 

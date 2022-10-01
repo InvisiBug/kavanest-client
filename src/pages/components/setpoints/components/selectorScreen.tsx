@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { PageTitle, PageContents } from "../../../../lib";
+import { PageTitle, PageContents } from "src/lib/components";
 import RoomSelector from "./selector";
 import { useQuery, gql } from "@apollo/client";
 

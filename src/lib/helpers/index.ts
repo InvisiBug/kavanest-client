@@ -19,3 +19,13 @@ export const now = () => {
     minute: "2-digit",
   });
 };
+
+export const rgbToArray = (rgb: string) => {
+  return rgb
+    .split("(")[1]
+    .split(")")[0]
+    .split(",")
+    .map((x: string) => {
+      return parseInt(x);
+    });
+};

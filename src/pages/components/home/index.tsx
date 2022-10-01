@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { PageTitle, powerOn } from "../../../lib";
+import { PageTitle, powerOn } from "src/lib/components";
 import styled from "@emotion/styled";
 import palettes from "nice-color-palettes";
 
 const Home: React.FC = () => {
-  const [colours, setColours] = useState<any>();
+  const [colours, setColours] = useState<string[]>();
   // const colours: Array<any> = palettes[Math.floor(Math.random() * 100) + 0];
 
   useEffect(() => {

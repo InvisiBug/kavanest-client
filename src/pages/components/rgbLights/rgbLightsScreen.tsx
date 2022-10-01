@@ -1,26 +1,26 @@
 import React, { useState } from "react";
-import { PageTitle, PageContents } from "../../../lib";
+import { PageTitle, PageContents, RGBLightSelector, PlugSelector } from "src/lib/components";
 import { useQuery, gql } from "@apollo/client";
-import { RGBLightSelector } from "../../../lib";
-import { PlugSelector } from "../../../lib";
+import { Plug, RGBLight } from "src/lib/types";
 
-const RGBLights: React.FC<any> = () => {
-  const [openRGBLight, setOpenRGBLight] = useState("");
-  const [rgbLights, setRgbLights] = useState<any>("");
-  const [floodlight, setFloodlight] = useState<any>();
-  const [sun, setSun] = useState<any>();
+const RGBLights: React.FC = () => {
+  const [openRGBLight, setOpenRGBLight] = useState<string>("");
+  const [rgbLights, setRgbLights] = useState<RGBLight[] | undefined>();
+  const [floodlight, setFloodlight] = useState<Plug | undefined>();
+  const [sun, setSun] = useState<Plug | undefined>();
 
-  const { data } = useQuery(getLights, {
+  const { data } = useQuery<GraphglResponse | undefined>(getLights, {
     fetchPolicy: "no-cache",
     variables: { name1: "floodlight", name2: "sun" },
     onCompleted() {
-      setRgbLights(data.lights);
-      setFloodlight(data.floodlight);
-      setSun(data.sun);
+      console.log(data);
+      setRgbLights(data?.lights);
+      setFloodlight(data?.floodlight);
+      setSun(data?.sun);
     },
   });
 
-  const socketUpdate = (_id: any, payload: any) => {
+  const socketUpdate = (_id: string, payload: Plug) => {
     switch (payload.name) {
       case "floodlight":
         setFloodlight(payload);
@@ -39,7 +39,7 @@ const RGBLights: React.FC<any> = () => {
       <PageContents>
         <PlugSelector thisPlug={floodlight} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} />
         <PlugSelector thisPlug={sun} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} key={Math.random()} />
-        {rgbLights.map((light: any) => {
+        {rgbLights?.map((light: any) => {
           return (
             <RGBLightSelector
               thisLight={light}
@@ -83,3 +83,9 @@ const getLights = gql`
     }
   }
 `;
+
+type GraphglResponse = {
+  lights: RGBLight[];
+  floodlight: Plug;
+  sun: Plug;
+};

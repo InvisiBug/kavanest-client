@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
-import { PageTitle, PageContents, PlugSelectorV2 as PlugSelector } from "src/lib";
+import { PageTitle, PageContents, PlugSelectorV2 as PlugSelector } from "src/lib/components";
 
 import { Countdown, Times as Buttons } from "./components";
 

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import styled from "@emotion/styled";
 import { decamelize } from "src/lib/helpers";
-import { SelectorTitle, downArrow, rightArrow } from "../..";
+import { SelectorTitle, downArrow, rightArrow } from "src/lib/components";
 
 const Selector: FC<Props> = ({ onClick, connected = true, openDetails, name, arrow = false, children }) => {
   return (

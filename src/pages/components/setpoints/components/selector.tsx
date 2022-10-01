@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { getCurrentSetpointV2 } from "src/lib/api";
 import { decamelize } from "src/lib/helpers";
-import { rightArrow, flame } from "../../../../lib";
+import { rightArrow, flame } from "src/lib/components";
 import { useQuery, gql } from "@apollo/client";
 import { useAppContext } from "src/lib/context";
 

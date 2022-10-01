@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
-import { Selector, on, off, disconnected, BooleanStateIndicator } from "../../../../lib";
+import { Selector, on, off, disconnected, BooleanStateIndicator } from "src/lib/components";
 import { useAppContext } from "src/lib/context";
 import Details from "./details";
 

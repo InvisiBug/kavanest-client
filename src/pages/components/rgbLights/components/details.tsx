@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 // import { on, off, disconnected } from "../../../lib";
-import { ColourWheel } from "../../../../lib";
+import { ColourWheel } from "src/lib/components";
 
 const RGBLightDetails: React.FC<Props> = ({ red, green, blue, mode, updateRGB }) => {
   return (
@@ -37,10 +37,10 @@ const RGBLightDetails: React.FC<Props> = ({ red, green, blue, mode, updateRGB })
 export default RGBLightDetails;
 
 interface Props {
-  red: string;
-  green: string;
-  blue: string;
-  mode: number;
+  red: number;
+  green: number;
+  blue: number;
+  mode?: number;
   updateRGB: (rgb: string) => void;
 }
 

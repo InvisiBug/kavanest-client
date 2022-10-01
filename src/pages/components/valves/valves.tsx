@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { PageTitle, PageContents, PlugSelector, ValveSelector } from "../../../lib";
+import { PageTitle, PageContents, PlugSelector, ValveSelector } from "src/lib/components";
 import { useQuery, gql } from "@apollo/client";
+import { Plug } from "src/lib/types";
 
 const Valves = () => {
   const [valves, setValves] = useState<any>();
 
-  const { data } = useQuery(getValves, {
+  const { data } = useQuery<GraphqlResponse>(getValves, {
     fetchPolicy: "no-cache",
     onCompleted() {
-      setValves(data.valves);
+      setValves(data?.valves);
     },
   });
 
@@ -18,7 +19,7 @@ const Valves = () => {
     <>
       <PageTitle desc={"Current valve states"}>Valves</PageTitle>
       <PageContents>
-        {valves!.map((valve: any) => {
+        {valves.map((valve: any) => {
           return <ValveSelector thisValve={valve} margin={false} key={Math.random()} />;
           // return <PlugSelector thisPlug={valve} key={Math.random()} />;
         })}
@@ -40,3 +41,7 @@ const getValves = gql`
     }
   }
 `;
+
+type GraphqlResponse = {
+  valves: Plug;
+};

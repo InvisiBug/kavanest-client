@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Global, css } from "@emotion/react";
-import { mq, px } from "src/lib";
-import { NavBar } from "../..";
+import { mq, px } from "src/lib/components";
+import { NavBar } from "src/lib/components";
 
 export const Layout: React.FC = ({ children }) => {
   return (
