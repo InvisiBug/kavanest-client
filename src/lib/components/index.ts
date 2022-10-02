@@ -11,9 +11,6 @@ export { default as Selector } from "./alloys/selectorFrame";
 export { default as RGBLightSelector } from "./alloys/selectors/rgbLightSelector";
 export { default as PlugSelector } from "./alloys/selectors/plugSelector";
 export { default as PlugSelectorV2 } from "./alloys/selectors/plugSelectorV2";
-export { default as ValveSelector } from "./alloys/selectors/valveSelector";
-
-export { mq, px } from "./elements/mediaQueries";
 
 // Templates
 export { default as Layout } from "./templates/layout";

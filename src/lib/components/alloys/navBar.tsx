@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { home, setpoints, sensor, dog, rgbLight, plug, gears, computer, valve, bed } from "../elements/icons";
-import { mq, px } from "../elements/mediaQueries";
+import { mq, px } from "../../mediaQueries";
 import { decamelize } from "src/lib/helpers";
-import { getCurrentSetpointV2 } from "src/lib/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { useAppContext } from "src/lib/context";
 
@@ -26,6 +25,7 @@ const PhoneNav: React.FC<Props> = () => {
 
   const [isAdmin, setIsAdmin] = useState(true);
   const allowed: boolean = localStorage.getItem("admin") === "true" || false;
+  const currentLocation = useLocation().pathname.replace("/", "");
 
   // useEffect(() => {
   //   setIsAdmin(allowed);
@@ -42,7 +42,7 @@ const PhoneNav: React.FC<Props> = () => {
             return (
               // <Group onClick={() => setScreen(button.name)} key={Math.random()}>
               <Group onClick={() => navigate(button.name)} key={Math.random()}>
-                <Icon src={button.icon} alt={button.name} name={button.name} screen={screen} />
+                <Icon src={button.icon} alt={button.name} name={button.name} screen={currentLocation} />
                 <Text>{decamelize(button.name)}</Text>
               </Group>
             );
@@ -52,7 +52,7 @@ const PhoneNav: React.FC<Props> = () => {
                 src={button.icon}
                 alt={button.name}
                 name={button.name}
-                screen={screen}
+                screen={currentLocation}
                 onClick={() => setScreen(button.name)}
                 key={Math.random()}
               />

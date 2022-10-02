@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import styled from "@emotion/styled";
-import { plus, cancel, mq } from "src/lib/components";
 import { gql, useMutation } from "@apollo/client";
+import styled from "@emotion/styled";
+import { plus, cancel } from "src/lib/components";
+import { mq } from "src/lib/mediaQueries";
 
 const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
   const [mins, setMins] = useState<string | null>("00");

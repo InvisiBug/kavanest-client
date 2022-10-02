@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Global, css } from "@emotion/react";
-import { mq, px } from "src/lib/components";
+import { mq, px } from "src/lib/mediaQueries";
 import { NavBar } from "src/lib/components";
 
 export const Layout: React.FC = ({ children }) => {
@@ -101,6 +101,6 @@ const globalStyles = css`
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     user-select: none;
-    scroll;
+    overflow: scroll;
   }
 `;
