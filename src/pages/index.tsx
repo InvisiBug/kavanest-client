@@ -11,6 +11,7 @@ const Pages: FC = () => {
       <Route path="/lights" element={<RGBLights />} />
       <Route path="/bed" element={<Bed />} />
       <Route path="/computer" element={<Computer />} />
+      <Route path="/dog" element={<Dog />} />
     </Routes>
   );
 };

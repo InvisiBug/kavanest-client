@@ -2,9 +2,11 @@ import React, { FC, useState } from "react";
 import { PageTitle, PageContents } from "src/lib/components";
 import RoomSelector from "./selector";
 import { useQuery, gql } from "@apollo/client";
+import styled from "@emotion/styled";
+import { mq, px } from "src/lib/mediaQueries";
 
 const SetpointsSelectorScreen: FC<any> = ({ setRoomToShow }) => {
-  const { data } = useQuery(getValves, { fetchPolicy: "no-cache" });
+  const { data } = useQuery<Data>(request, { fetchPolicy: "no-cache" });
   const [count, setCount] = useState<number>(0);
   if (!data) return <></>;
 
@@ -12,10 +14,10 @@ const SetpointsSelectorScreen: FC<any> = ({ setRoomToShow }) => {
 
   return (
     <>
+      {/* Used to set admin rights (Currently not used) */}
       <div
         onClick={() => {
           setCount(count + 1);
-          console.log(count);
           if (count > 3) {
             localStorage.setItem("admin", "true");
           }
@@ -26,29 +28,70 @@ const SetpointsSelectorScreen: FC<any> = ({ setRoomToShow }) => {
         </PageTitle>
       </div>
 
-      <PageContents>
-        {data.getValves.length > 0 ? (
-          data.getValves.map((room: any) => {
-            return <RoomSelector data={room} key={Math.random()} onClick={() => setRoomToShow(room.room)} close={() => setRoomToShow(false)} />;
+      {/* <PageContents> */}
+      <SelectorContainer>
+        {data.valves.length > 0 ? (
+          data.valves.map((room) => {
+            const { roomName } = room;
+
+            return (
+              <RoomSelector roomName={roomName} key={Math.random()} onClick={() => setRoomToShow(roomName)} close={() => setRoomToShow(false)} />
+            );
           })
         ) : (
           <h1>No valves found</h1>
         )}
-      </PageContents>
+      </SelectorContainer>
+      {/* </PageContents> */}
     </>
   );
 };
 export default SetpointsSelectorScreen;
 
-const getValves = gql`
+const request = gql`
   query {
-    getValves {
-      room
+    valves: getValves {
+      roomName: room
     }
     heating: getPlug(name: "heating") {
       name
       state
       connected
+    }
+  }
+`;
+
+type Data = {
+  valves: [
+    {
+      roomName: string;
+    }
+  ];
+  heating: {
+    name: string;
+    state: boolean;
+    connected: boolean;
+  };
+};
+
+const SelectorContainer = styled.div`
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  & > *:first-of-type {
+    border-top: 1px solid grey;
+  }
+
+  ${mq("large")} {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-around;
+    /* background-color: orange; */
+    /* max-width: ${px("medium")}px; */
+    & > *:first-of-type {
+      /* border-top: none; */
     }
   }
 `;

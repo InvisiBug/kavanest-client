@@ -38,7 +38,8 @@ const AppWindow = styled.div`
 
   ${mq("large")} {
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
+    overflow: scroll;
   }
 `;
 
@@ -82,7 +83,7 @@ const Container = styled.div`
   ${mq("large")} {
     margin: auto;
     /* margin: 5%; */
-    width: 50%;
+    width: 75%;
     /* max-width: 100vw; */
     /* max-width: 75vw; */
     /* margin-right: 20px; */
