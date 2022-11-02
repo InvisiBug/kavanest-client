@@ -1,29 +1,36 @@
 import React, { useState } from "react";
 import { PageTitle, PageContents, RGBLightSelector, PlugSelector } from "src/lib/components";
 import { useQuery, gql } from "@apollo/client";
-import { Plug, RGBLight } from "src/lib/types";
 
-const RGBLights: React.FC = () => {
-  const [openRGBLight, setOpenRGBLight] = useState<string>("");
-  const [rgbLights, setRgbLights] = useState<RGBLight[] | undefined>();
-  const [floodlight, setFloodlight] = useState<Plug | undefined>();
-  const [sun, setSun] = useState<Plug | undefined>();
+const RGBLights: React.FC<any> = () => {
+  const [openRGBLight, setOpenRGBLight] = useState("");
+  const [rgbLights, setRgbLights] = useState<any>("");
+  const [floodlight, setFloodlight] = useState<any>();
+  const [lamp, setLamp] = useState<any>("");
+  const [sun, setSun] = useState<any>("");
 
-  const { data } = useQuery<GraphglResponse | undefined>(getLights, {
+  const { data } = useQuery(getLights, {
     fetchPolicy: "no-cache",
-    variables: { name1: "floodlight", name2: "sun" },
+    variables: {
+      name1: "floodlight",
+      name2: "sun",
+      name3: "lamp",
+    },
     onCompleted() {
-      console.log(data);
-      setRgbLights(data?.lights);
-      setFloodlight(data?.floodlight);
-      setSun(data?.sun);
+      setRgbLights(data.lights);
+      setLamp(data.lamp);
+      setFloodlight(data.floodlight);
+      setSun(data.sun);
     },
   });
 
-  const socketUpdate = (_id: string, payload: Plug) => {
+  const socketUpdate = (_id: any, payload: any) => {
     switch (payload.name) {
       case "floodlight":
         setFloodlight(payload);
+        break;
+      case "lamp":
+        setLamp(payload);
         break;
       case "sun":
         setSun(payload);
@@ -38,8 +45,9 @@ const RGBLights: React.FC = () => {
       <PageTitle desc={"Some of these lights have alternative modes"}>Lights</PageTitle>
       <PageContents>
         <PlugSelector thisPlug={floodlight} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} />
-        <PlugSelector thisPlug={sun} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} key={Math.random()} />
-        {rgbLights?.map((light: any) => {
+        <PlugSelector thisPlug={lamp} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} />
+        <PlugSelector thisPlug={sun} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} />
+        {rgbLights.map((light: any) => {
           return (
             <RGBLightSelector
               thisLight={light}
@@ -59,7 +67,7 @@ const RGBLights: React.FC = () => {
 export default RGBLights;
 
 const getLights = gql`
-  query ($name1: String, $name2: String) {
+  query ($name1: String, $name2: String, $name3: String) {
     lights: getRGBLights {
       name
       red
@@ -81,11 +89,11 @@ const getLights = gql`
       connected
       _id
     }
+    lamp: getPlug(name: $name3) {
+      name
+      state
+      connected
+      _id
+    }
   }
 `;
-
-type GraphglResponse = {
-  lights: RGBLight[];
-  floodlight: Plug;
-  sun: Plug;
-};

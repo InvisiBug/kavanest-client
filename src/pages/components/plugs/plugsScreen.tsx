@@ -11,10 +11,10 @@ const PlugsScreen: FC = () => {
   const [openDetails, setOpenDetails] = useState<string>("");
   const [plugs, setPlugs] = useState<Plug[]>();
 
-  const { data } = useQuery(getPlugs, {
+  const { data } = useQuery<Data>(getPlugs, {
     fetchPolicy: "no-cache",
     onCompleted() {
-      setPlugs(data.plugs);
+      setPlugs(data?.plugs);
     },
   });
 
@@ -44,3 +44,7 @@ const getPlugs = gql`
     }
   }
 `;
+
+type Data = {
+  plugs: Plug[];
+};

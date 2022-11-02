@@ -6,6 +6,7 @@ import { rightArrow, flame } from "src/lib/components";
 import { useQuery, gql } from "@apollo/client";
 import { useAppContext } from "src/lib/context";
 import { mq, px } from "src/lib/mediaQueries";
+import Thermometer from "./thermometer";
 
 const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) => {
   const [sensor, setSensor] = useState<any>();
@@ -61,7 +62,11 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
             {getCurrentSetpointV2(target)[1] > 5 ? `${getCurrentSetpointV2(target)[1]}°C` : "Off"}
           </Setpoint>
         </Vals>
-        <Arrow src={rightArrow}></Arrow>
+
+        <Thermometer currentTemp={sensor.temperature}></Thermometer>
+        {/* <Thermometer></Thermometer> */}
+
+        <Arrow src={rightArrow} />
       </Container>
     </>
   );
@@ -138,12 +143,13 @@ const Container = styled.div`
 
   ${mq("large")} {
     /* background-color: red; */
-    height: 200px;
+    /* height: 200px; */
     width: 200px;
     flex-direction: column;
     border: 1px solid grey;
     border-radius: 20px;
-    margin-bottom: 50px;
+    margin: 10px 100px 10px 100px;
+    /* margin-bottom: 50px; */
     /* background-color: orange; */
     /* max-width: ${px("medium")}px; */
   }

@@ -4,6 +4,7 @@ import RoomSelector from "./selector";
 import { useQuery, gql } from "@apollo/client";
 import styled from "@emotion/styled";
 import { mq, px } from "src/lib/mediaQueries";
+import { Plug } from "src/lib/types";
 
 const SetpointsSelectorScreen: FC<any> = ({ setRoomToShow }) => {
   const { data } = useQuery<Data>(request, { fetchPolicy: "no-cache" });
@@ -39,7 +40,7 @@ const SetpointsSelectorScreen: FC<any> = ({ setRoomToShow }) => {
             );
           })
         ) : (
-          <h1>No valves found</h1>
+          <h1>No controllable rooms found</h1>
         )}
       </SelectorContainer>
       {/* </PageContents> */}
@@ -67,11 +68,7 @@ type Data = {
       roomName: string;
     }
   ];
-  heating: {
-    name: string;
-    state: boolean;
-    connected: boolean;
-  };
+  heating: Plug;
 };
 
 const SelectorContainer = styled.div`
@@ -84,9 +81,10 @@ const SelectorContainer = styled.div`
   }
 
   ${mq("large")} {
+    border: 1px solid white;
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: flex-end;
+
     justify-content: space-around;
     /* background-color: orange; */
     /* max-width: ${px("medium")}px; */

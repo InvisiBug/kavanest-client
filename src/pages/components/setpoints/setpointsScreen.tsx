@@ -7,7 +7,6 @@ import { Plug } from "src/lib/types";
 const SetpointsPage: React.FC = () => {
   const { data } = useQuery<GraphqlResponse>(getValves, { fetchPolicy: "no-cache" });
   const [roomToShow, setRoomToShow] = useState<false | string>(false);
-  console.log(roomToShow);
 
   if (!data) return <></>;
   const roomsWithValves = data.getValves;
