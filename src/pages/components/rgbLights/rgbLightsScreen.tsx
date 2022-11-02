@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { PageTitle, PageContents, RGBLightSelector, PlugSelector } from "src/lib/components";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { graphql } from "src/gql";
+import { RgbLight, Plug } from "src/gql/graphql";
+// import { RgbLight } from "src/lib/types";
 
 const RGBLights: React.FC<any> = () => {
   const [openRGBLight, setOpenRGBLight] = useState("");
-  const [rgbLights, setRgbLights] = useState<any>("");
+  const [rgbLights, setRgbLights] = useState<(RgbLight | null)[]>();
   const [floodlight, setFloodlight] = useState<any>();
-  const [lamp, setLamp] = useState<any>("");
-  const [sun, setSun] = useState<any>("");
+  const [lamp, setLamp] = useState<Plug>();
+  const [sun, setSun] = useState<Plug>();
 
   const { data } = useQuery(getLights, {
     fetchPolicy: "no-cache",
@@ -17,10 +20,13 @@ const RGBLights: React.FC<any> = () => {
       name3: "lamp",
     },
     onCompleted() {
-      setRgbLights(data.lights);
-      setLamp(data.lamp);
-      setFloodlight(data.floodlight);
-      setSun(data.sun);
+      if (!data) return;
+      const { lights, lamp, sun, floodlight } = data;
+
+      if (lights) setRgbLights(lights);
+      if (lamp) setLamp(lamp);
+      if (floodlight) setFloodlight(floodlight);
+      if (sun) setSun(sun);
     },
   });
 
@@ -38,27 +44,33 @@ const RGBLights: React.FC<any> = () => {
     }
   };
 
-  if (!rgbLights || !floodlight || !sun) return <></>;
+  // if (!rgbLights) return <></>;
+  // || !floodlight || !sun
 
   return (
     <>
       <PageTitle desc={"Some of these lights have alternative modes"}>Lights</PageTitle>
       <PageContents>
-        <PlugSelector thisPlug={floodlight} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} />
-        <PlugSelector thisPlug={lamp} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} />
-        <PlugSelector thisPlug={sun} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} />
-        {rgbLights.map((light: any) => {
-          return (
-            <RGBLightSelector
-              thisLight={light}
-              allRgbLights={rgbLights}
-              setRgbLights={setRgbLights}
-              openRGBLight={openRGBLight}
-              setOpenRGBLight={setOpenRGBLight}
-              key={Math.random()}
-            ></RGBLightSelector>
-          );
-        })}
+        {floodlight ? (
+          <PlugSelector thisPlug={floodlight} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} />
+        ) : null}
+
+        {/* <PlugSelector thisPlug={lamp} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} /> */}
+        {/* <PlugSelector thisPlug={sun} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} /> */}
+        {rgbLights
+          ? rgbLights.map((light: any) => {
+              return (
+                <RGBLightSelector
+                  thisLight={light}
+                  allRgbLights={rgbLights}
+                  setRgbLights={setRgbLights}
+                  openRGBLight={openRGBLight}
+                  setOpenRGBLight={setOpenRGBLight}
+                  key={Math.random()}
+                ></RGBLightSelector>
+              );
+            })
+          : null}
       </PageContents>
     </>
   );
@@ -66,8 +78,8 @@ const RGBLights: React.FC<any> = () => {
 
 export default RGBLights;
 
-const getLights = gql`
-  query ($name1: String, $name2: String, $name3: String) {
+const getLights = graphql(/* GraphQL */ `
+  query getLights($name1: String, $name2: String, $name3: String) {
     lights: getRGBLights {
       name
       red
@@ -96,4 +108,4 @@ const getLights = gql`
       _id
     }
   }
-`;
+`);

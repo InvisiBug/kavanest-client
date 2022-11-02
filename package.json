@@ -10,11 +10,13 @@
     "push": "echo \"\\x1b[104m\\x1b[97m\n\n\t\t You need to specify where you want to push to with 'push--test' or 'push--live' \n\\x1b[0m\"",
     "push--test": "./bin/push--test.sh",
     "push--live": "./bin/push--live.sh",
+    "deploy": "echo \"\\x1b[104m\\x1b[97m\n\n\t\t You need to specify where you want to deploy to with 'deploy--test' or 'deploy--live' \n\\x1b[0m\"",
     "deploy--live": "./bin/deploy--live.sh",
     "deploy--test": "./bin/deploy--test.sh",
     "up": "clear && ./bin/start-container.sh",
     "down": "docker-compose down",
-    "logs": "docker logs simulator -f"
+    "logs": "docker logs simulator -f",
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.5.6",
@@ -30,7 +32,8 @@
     "@types/react-dom": "^17.0.0",
     "axios": "^0.24.0",
     "canvas-sketch-util": "^1.10.0",
-    "graphql": "^16.1.0",
+    "gql-tag": "^1.0.1",
+    "graphql": "^16.6.0",
     "nice-color-palettes": "^3.0.0",
     "p5": "^1.4.2",
     "react": "^17.0.2",
@@ -42,7 +45,7 @@
     "react-transition-group": "^4.4.2",
     "socket.io-client": "^4.4.0",
     "tinycolor2": "^1.4.2",
-    "typescript": "^4.1.2",
+    "typescript": "^4.8.4",
     "web-vitals": "^1.0.1"
   },
   "eslintConfig": {
@@ -61,5 +64,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "2.13.11",
+    "@graphql-codegen/client-preset": "1.1.3",
+    "@graphql-codegen/introspection": "2.2.1",
+    "@graphql-codegen/typescript": "^2.8.1"
   }
 }

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
 import { Selector, BooleanStateIndicator } from "src/lib/components";
 import { useAppContext } from "src/lib/context";
+import { Plug } from "src/gql/graphql";
 
 const PlugSelector: React.FC<Props> = ({ thisPlug, mqttNameOverride = null, socketUpdate = () => {}, margin = true }) => {
   const { socket } = useAppContext();
@@ -40,7 +41,7 @@ const PlugSelector: React.FC<Props> = ({ thisPlug, mqttNameOverride = null, sock
 export default React.memo(PlugSelector);
 
 export interface Props {
-  thisPlug: PlugData;
+  thisPlug: any;
   mqttNameOverride?: string;
   socketUpdate?: any;
   openDetails?: string;

@@ -60,7 +60,7 @@ const RGBLightSelector: React.FC<Props> = ({
   );
 };
 
-export default RGBLightSelector;
+export default React.memo(RGBLightSelector);
 
 export interface Props {
   thisLight: {

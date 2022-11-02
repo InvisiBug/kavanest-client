@@ -1,0 +1,24 @@
+/* eslint-disable */
+import * as types from './graphql';
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+
+const documents = {
+    "\n  mutation UpdateTimer($input: TimerInput) {\n    updateTimer(input: $input) {\n      value\n      name\n    }\n  }\n": types.UpdateTimerDocument,
+    "\n  query getLights($name1: String, $name2: String, $name3: String) {\n    lights: getRGBLights {\n      name\n      red\n      green\n      blue\n      mode\n      connected\n      _id\n    }\n    floodlight: getPlug(name: $name1) {\n      name\n      state\n      connected\n      _id\n    }\n    sun: getPlug(name: $name2) {\n      name\n      state\n      connected\n      _id\n    }\n    lamp: getPlug(name: $name3) {\n      name\n      state\n      connected\n      _id\n    }\n  }\n": types.GetLightsDocument,
+    "\n  query GetSetpoints($room: String) {\n    room: getRoom(name: $room) {\n      name\n      demand\n      deadzone\n      setpoints {\n        weekend\n        weekday\n      }\n    }\n    valve: getValve(room: $room) {\n      room\n      state\n      connected\n      _id\n    }\n    sensor: getSensor(room: $room) {\n      room\n      temperature\n      offset\n      _id\n    }\n    heating: getPlug(name: \"heating\") {\n      name\n      state\n      connected\n      _id\n    }\n  }\n": types.GetSetpointsDocument,
+    "\n  mutation UpdateOffset($input: offsetsInput) {\n    updateOffset(input: $input) {\n      room\n    }\n  }\n": types.UpdateOffsetDocument,
+    "\n  mutation UpdateRoom($input: RoomInput) {\n    room: updateRoom(input: $input) {\n      name\n    }\n  }\n": types.UpdateRoomDocument,
+};
+
+export function graphql(source: "\n  mutation UpdateTimer($input: TimerInput) {\n    updateTimer(input: $input) {\n      value\n      name\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateTimer($input: TimerInput) {\n    updateTimer(input: $input) {\n      value\n      name\n    }\n  }\n"];
+export function graphql(source: "\n  query getLights($name1: String, $name2: String, $name3: String) {\n    lights: getRGBLights {\n      name\n      red\n      green\n      blue\n      mode\n      connected\n      _id\n    }\n    floodlight: getPlug(name: $name1) {\n      name\n      state\n      connected\n      _id\n    }\n    sun: getPlug(name: $name2) {\n      name\n      state\n      connected\n      _id\n    }\n    lamp: getPlug(name: $name3) {\n      name\n      state\n      connected\n      _id\n    }\n  }\n"): (typeof documents)["\n  query getLights($name1: String, $name2: String, $name3: String) {\n    lights: getRGBLights {\n      name\n      red\n      green\n      blue\n      mode\n      connected\n      _id\n    }\n    floodlight: getPlug(name: $name1) {\n      name\n      state\n      connected\n      _id\n    }\n    sun: getPlug(name: $name2) {\n      name\n      state\n      connected\n      _id\n    }\n    lamp: getPlug(name: $name3) {\n      name\n      state\n      connected\n      _id\n    }\n  }\n"];
+export function graphql(source: "\n  query GetSetpoints($room: String) {\n    room: getRoom(name: $room) {\n      name\n      demand\n      deadzone\n      setpoints {\n        weekend\n        weekday\n      }\n    }\n    valve: getValve(room: $room) {\n      room\n      state\n      connected\n      _id\n    }\n    sensor: getSensor(room: $room) {\n      room\n      temperature\n      offset\n      _id\n    }\n    heating: getPlug(name: \"heating\") {\n      name\n      state\n      connected\n      _id\n    }\n  }\n"): (typeof documents)["\n  query GetSetpoints($room: String) {\n    room: getRoom(name: $room) {\n      name\n      demand\n      deadzone\n      setpoints {\n        weekend\n        weekday\n      }\n    }\n    valve: getValve(room: $room) {\n      room\n      state\n      connected\n      _id\n    }\n    sensor: getSensor(room: $room) {\n      room\n      temperature\n      offset\n      _id\n    }\n    heating: getPlug(name: \"heating\") {\n      name\n      state\n      connected\n      _id\n    }\n  }\n"];
+export function graphql(source: "\n  mutation UpdateOffset($input: offsetsInput) {\n    updateOffset(input: $input) {\n      room\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateOffset($input: offsetsInput) {\n    updateOffset(input: $input) {\n      room\n    }\n  }\n"];
+export function graphql(source: "\n  mutation UpdateRoom($input: RoomInput) {\n    room: updateRoom(input: $input) {\n      name\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateRoom($input: RoomInput) {\n    room: updateRoom(input: $input) {\n      name\n    }\n  }\n"];
+
+export function graphql(source: string): unknown;
+export function graphql(source: string) {
+  return (documents as any)[source] ?? {};
+}
+
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;
