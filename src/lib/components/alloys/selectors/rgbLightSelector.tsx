@@ -5,6 +5,7 @@ import { useAppContext } from "src/lib/context";
 import Details from "src/pages/components/rgbLights/components/details";
 import { gql, useMutation } from "@apollo/client";
 import { rgbToArray } from "src/lib/helpers";
+import { RgbLight } from "src/gql/graphql";
 
 const RGBLightSelector: React.FC<Props> = ({
   thisLight: { name, red, green, blue, mode, connected, _id },
@@ -63,15 +64,7 @@ const RGBLightSelector: React.FC<Props> = ({
 export default React.memo(RGBLightSelector);
 
 export interface Props {
-  thisLight: {
-    name: string;
-    connected: boolean;
-    red: number;
-    green: number;
-    blue: number;
-    mode?: number;
-    _id: string;
-  };
+  thisLight: RgbLight;
   allRgbLights: any;
   openRGBLight: string;
   setRgbLights: any;

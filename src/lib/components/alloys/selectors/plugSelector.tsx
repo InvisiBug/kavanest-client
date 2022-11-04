@@ -41,7 +41,7 @@ const PlugSelector: React.FC<Props> = ({ thisPlug, mqttNameOverride = null, sock
 export default React.memo(PlugSelector);
 
 export interface Props {
-  thisPlug: any;
+  thisPlug: Plug;
   mqttNameOverride?: string;
   socketUpdate?: any;
   openDetails?: string;

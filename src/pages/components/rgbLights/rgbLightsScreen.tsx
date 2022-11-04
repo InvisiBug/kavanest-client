@@ -8,7 +8,7 @@ import { RgbLight, Plug } from "src/gql/graphql";
 const RGBLights: React.FC<any> = () => {
   const [openRGBLight, setOpenRGBLight] = useState("");
   const [rgbLights, setRgbLights] = useState<(RgbLight | null)[]>();
-  const [floodlight, setFloodlight] = useState<any>();
+  const [floodlight, setFloodlight] = useState<Plug>();
   const [lamp, setLamp] = useState<Plug>();
   const [sun, setSun] = useState<Plug>();
 
@@ -44,19 +44,19 @@ const RGBLights: React.FC<any> = () => {
     }
   };
 
-  // if (!rgbLights) return <></>;
-  // || !floodlight || !sun
-
   return (
     <>
       <PageTitle desc={"Some of these lights have alternative modes"}>Lights</PageTitle>
+
       <PageContents>
         {floodlight ? (
           <PlugSelector thisPlug={floodlight} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} />
         ) : null}
 
-        {/* <PlugSelector thisPlug={lamp} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} /> */}
-        {/* <PlugSelector thisPlug={sun} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} /> */}
+        {lamp ? <PlugSelector thisPlug={lamp} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} /> : null}
+
+        {sun ? <PlugSelector thisPlug={sun} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} /> : null}
+
         {rgbLights
           ? rgbLights.map((light: any) => {
               return (
