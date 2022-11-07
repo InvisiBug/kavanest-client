@@ -4,25 +4,25 @@ import { sketch } from "./sketch";
 import styled from "@emotion/styled";
 import { mq, px } from "src/lib/mediaQueries";
 
-const Thermometer: FC<any> = ({ currentTemp }) => {
-  // const Thermometer = () => {
-  //   const [currentTemp, setCurrentTemp] = useState(10);
+const Thermometer: FC<any> = ({ temp, set }) => {
+  const [currentTemp, setCurrentTemp] = useState<number>(temp);
+  const [setpoint, setSetpoint] = useState<number>(set);
   const { height, width } = useWindowDimensions();
-  // console.log(currentTemp);
 
-  useEffect(() => {
-    // console.log(width <= parseInt(px("large")));
-    // const interval = setInterval(() => setCurrentTemp((currentTemp) => currentTemp + 0.5), 100);
-    // return () => {
-    //   clearInterval(interval);
-    // };
-  }, [width]);
+  console.log(setpoint);
+  // useEffect(() => {
+  //   // console.log(width <= parseInt(px("large")));
+  //   const interval = setInterval(() => setCurrentTemp((currentTemp) => currentTemp + 0.5), 100);
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, [width]);
 
   if (width <= parseInt(px("large"))) return <></>;
 
   return (
     <ThermometerContainer>
-      <ReactP5Wrapper sketch={sketch} currentTemp={currentTemp} target={15} deadzone={2} />{" "}
+      <ReactP5Wrapper sketch={sketch} currentTemp={currentTemp} target={15} deadzone={2} set={setpoint} />{" "}
     </ThermometerContainer>
   );
 };

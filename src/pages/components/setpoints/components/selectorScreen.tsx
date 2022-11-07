@@ -32,14 +32,16 @@ const SetpointsSelectorScreen: FC<any> = ({ setRoomToShow }) => {
       {/* <PageContents> */}
       <SelectorContainer>
         {data.valves.length > 0 ? (
-          data.valves.map((room) => {
-            const { roomName } = room;
-
-            return (
-              <RoomSelector roomName={roomName} key={Math.random()} onClick={() => setRoomToShow(roomName)} close={() => setRoomToShow(false)} />
-            );
-          })
+          // <h1>hello</h1>
+          <RoomSelector roomName={"frontStudy"} key={Math.random()} onClick={() => setRoomToShow("frontStudy")} close={() => setRoomToShow(false)} />
         ) : (
+          // data.valves.map((room) => {
+          //   const { roomName } = room;
+
+          //   return (
+          //     <RoomSelector roomName={roomName} key={Math.random()} onClick={() => setRoomToShow(roomName)} close={() => setRoomToShow(false)} />
+          //   );
+          // })
           <h1>No controllable rooms found</h1>
         )}
       </SelectorContainer>

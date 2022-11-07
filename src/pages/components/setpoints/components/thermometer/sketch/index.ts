@@ -25,7 +25,7 @@ export const sketch = (p5: p5) => {
     ///
     gradients: 10,
     ///
-    setpoint: 15,
+    setpoint: 19.5,
     current: 8,
     deadzone: 1,
     //
@@ -45,6 +45,7 @@ export const sketch = (p5: p5) => {
     p5.createCanvas(200, 200);
     thermometer = new Thermometer(config);
     arrow = new Arrow(config);
+    // p5.noLoop();
   };
 
   p5.draw = () => {
@@ -63,9 +64,16 @@ export const sketch = (p5: p5) => {
 
     // @ts-ignore:next-line
     p5.updateWithProps = (props) => {
+      console.log(props);
       if (props.currentTemp) {
-        arrow.update(props.currentTemp);
-        console.log(props.currentTemp);
+        arrow.update(props.currentTemp.temperature);
+        // console.log(props.currentTemp);
+      }
+
+      if (props.set) {
+        thermometer.update(props.set);
+        config.setpoint = parseFloat(props.set);
+        console.log(config.setpoint);
       }
     };
   };

@@ -35,7 +35,9 @@ export default class Thermometer {
     this.center = this.p5.createVector(this.p5.width / 2, this.p5.height / 2);
   }
 
-  update = () => {};
+  update = (setpoint: number) => {
+    this.setpoint = setpoint;
+  };
 
   draw = () => {
     this.drawHot();

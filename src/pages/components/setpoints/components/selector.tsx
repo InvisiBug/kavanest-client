@@ -7,6 +7,8 @@ import { useQuery, gql } from "@apollo/client";
 import { useAppContext } from "src/lib/context";
 import { mq, px } from "src/lib/mediaQueries";
 import Thermometer from "./thermometer";
+import { sketch } from "./thermometer/sketch";
+import { ReactP5Wrapper } from "react-p5-wrapper";
 
 const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) => {
   const [sensor, setSensor] = useState<any>();
@@ -25,6 +27,7 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
 
       socket.on(data?.sensor?._id || "", (payload: any) => {
         setSensor(payload);
+        console.log("sensor update");
       });
 
       socket.on(data?.valve._id || "", (payload: any) => {
@@ -45,9 +48,10 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
 
   if (!data || !heating || !valve || !sensor) return <></>;
 
-  let target: any;
+  const target = data?.setpoints?.setpoints;
+  const currentSetpoint = getCurrentSetpointV2(target)[1];
 
-  target = data?.setpoints?.setpoints;
+  // console.log("Current", getCurrentSetpointV2(target)[1]);
 
   return (
     <>
@@ -58,12 +62,13 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
         {!valve.state && heating.state ? <FlameIcon src={flame}></FlameIcon> : null}
         <Vals>
           <Current>{`${sensor?.temperature ? sensor.temperature : "n/a"}°C`}</Current>
-          <Setpoint val={getCurrentSetpointV2(target)[1]}>
-            {getCurrentSetpointV2(target)[1] > 5 ? `${getCurrentSetpointV2(target)[1]}°C` : "Off"}
-          </Setpoint>
+          <Setpoint val={currentSetpoint}>{currentSetpoint > 5 ? `${currentSetpoint}°C` : "Off"}</Setpoint>
         </Vals>
 
-        <Thermometer currentTemp={sensor.temperature}></Thermometer>
+        {/* <Thermometer temp={sensor.temperature} set={currentSetpoint} /> */}
+        <ThermometerContainer>
+          <ReactP5Wrapper sketch={sketch} currentTemp={sensor} target={15} deadzone={2} set={currentSetpoint} />{" "}
+        </ThermometerContainer>
         {/* <Thermometer></Thermometer> */}
 
         <Arrow src={rightArrow} />
@@ -73,6 +78,16 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
 };
 
 export default Setpoints;
+
+const ThermometerContainer = styled.div`
+  display: hidden;
+  ${mq("large")} {
+    /* background-color: white; */
+    /* border: 1px solid green; */
+    /* width: 50%;
+    height: 50%; */
+  }
+`;
 
 export interface Props {
   roomName: string;
