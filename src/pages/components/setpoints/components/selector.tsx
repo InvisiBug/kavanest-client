@@ -9,7 +9,7 @@ import { mq, px } from "src/lib/mediaQueries";
 
 const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) => {
   const [sensor, setSensor] = useState<any>();
-  const [valve, setValve] = useState<any>();
+  const [radiator, setRadiator] = useState<any>();
   const [heating, setHeating] = useState<any>();
 
   const { socket } = useAppContext();
@@ -19,15 +19,15 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
     fetchPolicy: "no-cache",
     onCompleted() {
       setSensor(data?.sensor);
-      setValve(data?.valve);
+      setRadiator(data?.radiator);
       setHeating(data?.heating);
 
       socket.on(data?.sensor?._id || "", (payload: any) => {
         setSensor(payload);
       });
 
-      socket.on(data?.valve._id || "", (payload: any) => {
-        setValve(payload);
+      socket.on(data?.radiator._id || "", (payload: any) => {
+        setRadiator(payload);
       });
 
       socket.on(data?.heating._id || "", (payload: any) => {
@@ -42,7 +42,7 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
     };
   }, []); // eslint-disable-line
 
-  if (!data || !heating || !valve || !sensor) return <></>;
+  if (!data || !heating || !radiator || !sensor) return <></>;
 
   let target: any;
 
@@ -54,7 +54,7 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
         <RoomName connected={sensor.connected} onClick={close}>
           {decamelize(roomName)}
         </RoomName>
-        {!valve.state && heating.state ? <FlameIcon src={flame}></FlameIcon> : null}
+        {!radiator.valve && heating.state ? <FlameIcon src={flame}></FlameIcon> : null}
         <Vals>
           <Current>{`${sensor?.temperature ? sensor.temperature : "n/a"}°C`}</Current>
           <Setpoint val={getCurrentSetpointV2(target)[1]}>
@@ -78,8 +78,8 @@ export interface Props {
 
 const query = gql`
   query ($roomName: String) {
-    valve: getValve(room: $roomName) {
-      state
+    radiator: getRadiator(name: $roomName) {
+      valve
       connected
       _id
     }
@@ -103,7 +103,7 @@ const query = gql`
 `;
 
 type QueryResponse = {
-  valve: Plug;
+  radiator: Radiator;
   heating: Plug;
   sensor: {
     temperature: string;
@@ -121,6 +121,14 @@ type QueryResponse = {
 type Plug = {
   state?: boolean;
   connected?: boolean;
+  _id?: string;
+};
+
+type Radiator = {
+  connected?: boolean;
+  valve?: boolean;
+  fan?: boolean;
+  temperature?: number;
   _id?: string;
 };
 

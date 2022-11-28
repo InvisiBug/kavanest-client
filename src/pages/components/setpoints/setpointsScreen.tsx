@@ -9,14 +9,16 @@ const SetpointsPage: React.FC = () => {
   const [roomToShow, setRoomToShow] = useState<false | string>(false);
 
   if (!data) return <></>;
-  const roomsWithValves = data.getValves;
+  const roomsWithValves = data.radiators;
 
   const showRoomScreen = (roomToShow: string, possibleRooms: any) => {
-    for (let room in possibleRooms) {
-      if (possibleRooms[room].room === roomToShow) {
+    for (const room of possibleRooms) {
+      const { name: roomName } = room;
+
+      if (roomName === roomToShow) {
         return (
           <>
-            <RoomScreen close={() => setRoomToShow(false)} name={possibleRooms[room].room} key={Math.random()} />
+            <RoomScreen close={() => setRoomToShow(false)} name={roomName} key={Math.random()} />
           </>
         );
       }
@@ -30,8 +32,8 @@ export default SetpointsPage;
 
 const getValves = gql`
   query {
-    getValves {
-      room
+    radiators: getRadiators {
+      name
     }
     heating: getPlug(name: "heating") {
       name
@@ -43,5 +45,5 @@ const getValves = gql`
 
 type GraphqlResponse = {
   heating: Plug;
-  getValves: Plug;
+  radiators: Plug;
 };

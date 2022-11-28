@@ -22,11 +22,11 @@ export const Layout: React.FC = ({ children }) => {
 
 export default Layout;
 
-const borders: boolean = false;
+const borders = false;
 
 const AppWindow = styled.div`
   position: fixed;
-  border: ${borders ? "1px solid green" : "none"};
+  /* border: ${borders ? "1px solid green" : "none"}; */
   background-color: #1f1f1f;
 
   display: flex;
@@ -39,7 +39,7 @@ const AppWindow = styled.div`
   ${mq("large")} {
     flex-direction: row;
     align-items: flex-start;
-    overflow: scroll;
+    /* overflow: scroll; */
   }
 `;
 
@@ -102,6 +102,10 @@ const globalStyles = css`
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     user-select: none;
-    overflow: scroll;
+    /* overflow: scroll; */
+    -ms-overflow-style: none;
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;

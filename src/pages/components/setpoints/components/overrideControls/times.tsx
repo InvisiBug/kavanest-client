@@ -1,33 +1,24 @@
+//* Displays a series of buttons used for setting the new time of a timer
+//? Args
+//* Update Timer - function that returns the value of the button pressed
+//* Times - the values of the buttons
+//! The 0.01 is used to supress an error when sending 0 as a new time which mutates to a null value
 import { FC } from "react";
 import styled from "@emotion/styled";
-import { gql, useMutation } from "@apollo/client";
 
-const Buttons: FC<any> = ({ refetch }) => {
-  const [updateTime] = useMutation(mutation, {});
-
-  const times = [0, 10, 15, 30];
-
+const Times: FC<Props> = ({ updateTimer, times = [0.01, 10, 15, 30] }) => {
   return (
     <Container>
-      {/* <h1>Times</h1> */}
       <ButtonRow>
         {times.map((time) => {
           return (
             <Button
               onClick={() => {
-                updateTime({
-                  variables: {
-                    input: {
-                      value: time,
-                      name: "mattress",
-                    },
-                  },
-                });
-                refetch();
+                updateTimer(time);
               }}
               key={Math.random()}
             >
-              {time !== 0 ? time : "Off"}
+              {time === 0.01 ? "Off" : time}
             </Button>
           );
         })}
@@ -36,21 +27,17 @@ const Buttons: FC<any> = ({ refetch }) => {
   );
 };
 
-export default Buttons;
+export default Times;
 
-const mutation = gql`
-  mutation UpdateTimer($input: TimerInput) {
-    updateTimer(input: $input) {
-      value
-      name
-    }
-  }
-`;
+type Props = {
+  updateTimer: (time: number) => void;
+  times?: number[];
+};
 
 const Container = styled.div`
   padding-top: 0;
   text-align: center;
-  border-bottom: 1px solid grey;
+  /* border-bottom: 1px solid grey; */
   display: flex;
   flex-direction: column;
 `;
@@ -65,6 +52,7 @@ const Button = styled.div`
   :active {
     background-color: grey;
   }
+  cursor: pointer;
 `;
 
 const ButtonRow = styled.div`

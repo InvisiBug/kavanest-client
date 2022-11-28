@@ -6,6 +6,7 @@ import { decamelize } from "src/lib/helpers";
 import { useAppContext } from "src/lib/context";
 import { flame } from "src/lib/components";
 import SetpointList from "./setpointList";
+import OverrideControls from "./overrideControls/overrideControls";
 
 const RoomSetpoints: FC<Props> = ({ name, close }) => {
   const [deadzoneVal, setDeadzoneVal] = useState<string>("");
@@ -15,26 +16,26 @@ const RoomSetpoints: FC<Props> = ({ name, close }) => {
 
   // Socket updatable data
   const [sensor, setSensor] = useState<any>();
-  const [valve, setValve] = useState<any>();
+  const [radiator, setRadiator] = useState<any>();
   const [heating, setHeating] = useState<any>();
 
-  const { data, refetch } = useQuery(request, {
+  const { data, refetch } = useQuery<GqlResponse>(request, {
     variables: { room: name },
     fetchPolicy: "no-cache",
     onCompleted() {
-      setSensor(data.sensor);
-      setValve(data.valve);
-      setHeating(data.heating);
+      setSensor(data?.sensor);
+      setRadiator(data?.radiator);
+      setHeating(data?.heating);
 
-      socket.on(data.sensor._id, (payload: any) => {
+      socket.on(data?.sensor?._id || "", (payload: any) => {
         setSensor(payload);
       });
 
-      socket.on(data.valve._id, (payload: any) => {
-        setValve(payload);
+      socket.on(data?.radiator?._id || "", (payload: any) => {
+        setRadiator(payload);
       });
 
-      socket.on(data.heating._id, (payload: any) => {
+      socket.on(data?.heating?._id || "", (payload: any) => {
         setHeating(payload);
       });
     },
@@ -49,7 +50,7 @@ const RoomSetpoints: FC<Props> = ({ name, close }) => {
   const [updateDeadzone] = useMutation(deadzoneMutation, {});
   const [updateOffset] = useMutation(offsetMutation, {});
 
-  if (!data || !heating || !valve) return <></>;
+  if (!data || !heating || !radiator) return <></>;
 
   const target = data.room?.setpoints || "";
   const deadzone = data.room?.deadzone || 0;
@@ -73,7 +74,7 @@ const RoomSetpoints: FC<Props> = ({ name, close }) => {
           </Target>
         </Left>
 
-        {heating.state && !valve.state ? <FlameIcon src={flame} /> : null}
+        {heating.state && !radiator.valve ? <FlameIcon src={flame} /> : null}
 
         <Right>
           <Offset>
@@ -108,6 +109,7 @@ const RoomSetpoints: FC<Props> = ({ name, close }) => {
           </Deadzone>
         </Right>
       </Info>
+      <OverrideControls room={name} />
       <SetpointList room={name} data={data} refreshPage={() => refetch()} />
     </>
   );
@@ -130,9 +132,9 @@ const request = gql`
         weekday
       }
     }
-    valve: getValve(room: $room) {
-      room
-      state
+    radiator: getRadiator(name: $room) {
+      name
+      valve
       connected
       _id
     }
@@ -150,6 +152,36 @@ const request = gql`
     }
   }
 `;
+
+type GqlResponse = {
+  room: {
+    name: string;
+    demand: number;
+    deadzone: number;
+    setpoints: {
+      weekend?: string;
+      weekday?: string;
+    };
+  };
+  radiator: {
+    name: string;
+    valve: boolean;
+    connected: boolean;
+    _id: string;
+  };
+  sensor: {
+    room: string;
+    temperature: number;
+    offset: number;
+    _id: string;
+  };
+  heating: {
+    name: string;
+    state: boolean;
+    connected: boolean;
+    _id: string;
+  };
+};
 
 const deadzoneMutation = gql`
   mutation ($input: RoomInput) {
@@ -233,7 +265,6 @@ const Deadzone = styled.div`
 
 const MyInput = styled.input`
   text-align: center;
-  type: text;
   font-size: 1.2rem;
   width: 100px;
   color: red;

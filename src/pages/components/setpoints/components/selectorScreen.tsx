@@ -31,13 +31,12 @@ const SetpointsSelectorScreen: FC<any> = ({ setRoomToShow }) => {
 
       {/* <PageContents> */}
       <SelectorContainer>
-        {data.valves.length > 0 ? (
-          data.valves.map((room) => {
-            const { roomName } = room;
+        {data.radiators.length > 0 ? (
+          data.radiators.map((radiator) => {
+            const { name } = radiator;
+            console.log(name);
 
-            return (
-              <RoomSelector roomName={roomName} key={Math.random()} onClick={() => setRoomToShow(roomName)} close={() => setRoomToShow(false)} />
-            );
+            return <RoomSelector roomName={name} key={Math.random()} onClick={() => setRoomToShow(name)} close={() => setRoomToShow(false)} />;
           })
         ) : (
           <h1>No controllable rooms found</h1>
@@ -51,8 +50,8 @@ export default SetpointsSelectorScreen;
 
 const request = gql`
   query {
-    valves: getValves {
-      roomName: room
+    radiators: getRadiators {
+      name
     }
     heating: getPlug(name: "heating") {
       name
@@ -63,16 +62,16 @@ const request = gql`
 `;
 
 type Data = {
-  valves: [
+  radiators: [
     {
-      roomName: string;
+      name: string;
     }
   ];
   heating: Plug;
 };
 
 const SelectorContainer = styled.div`
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   margin-top: 50px;
@@ -81,7 +80,7 @@ const SelectorContainer = styled.div`
   }
 
   ${mq("large")} {
-    border: 1px solid white;
+    /* border: 1px solid white; */
     flex-direction: row;
     flex-wrap: wrap;
 

@@ -21,7 +21,7 @@ export const asyncRequest = async (query: string, datapoint: any, variables: any
 };
 
 export const getCurrentSetpoint = (setpoints: any) => {
-  console.log(setpoints);
+  // console.log(setpoints);
   let setpoint: number | null = null;
   let count: number = 0;
   try {
