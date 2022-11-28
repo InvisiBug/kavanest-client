@@ -1,9 +1,10 @@
 import React from "react";
 import { ApolloClient, InMemoryCache, ApolloProvider, DefaultOptions } from "@apollo/client";
-import { AppProvider } from "./app/utils";
-import { apiUrl } from "./app/utils/index";
-import { Layout } from "./app/lib/";
-import Screens from "./app/";
+import { BrowserRouter } from "react-router-dom";
+import { AppProvider } from "src/lib/context";
+import { apiUrl } from "src/lib/api";
+import { Layout } from "src/lib/components";
+import Pages from "src/pages";
 
 const defaultOptions: DefaultOptions = {
   query: {
@@ -24,13 +25,15 @@ const App: React.FC = () => {
 
   return (
     <>
-      <ApolloProvider client={client}>
-        <AppProvider>
-          <Layout>
-            <Screens />
-          </Layout>
-        </AppProvider>
-      </ApolloProvider>
+      <BrowserRouter>
+        <ApolloProvider client={client}>
+          <AppProvider>
+            <Layout>
+              <Pages />
+            </Layout>
+          </AppProvider>
+        </ApolloProvider>
+      </BrowserRouter>
     </>
   );
 };
