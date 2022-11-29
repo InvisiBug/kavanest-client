@@ -29,6 +29,7 @@ FROM arm64v8/nginx
 
 # Copy contense of the build folder to nginex root
 COPY --from=build /app/build /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Open port 80
 # EXPOSE 80
