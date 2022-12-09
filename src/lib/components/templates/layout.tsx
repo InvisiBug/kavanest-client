@@ -63,6 +63,7 @@ const Nav = styled.div`
   ${mq("large")} {
     order: -1;
     height: 100vh;
+    min-width: 100px;
     width: 5vw;
   }
   margin-top: auto;

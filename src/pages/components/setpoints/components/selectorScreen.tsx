@@ -4,14 +4,17 @@ import RoomSelector from "./selector";
 import { useQuery, gql } from "@apollo/client";
 import styled from "@emotion/styled";
 import { mq, px } from "src/lib/mediaQueries";
-import { Plug } from "src/lib/types";
+import { Plug } from "src/lib/gqlTypes";
+import { useNavigate } from "react-router-dom";
 
 const SetpointsSelectorScreen: FC<any> = ({ setRoomToShow }) => {
-  const { data } = useQuery<Data>(request, { fetchPolicy: "no-cache" });
   const [count, setCount] = useState<number>(0);
-  if (!data) return <></>;
+  const navigate = useNavigate();
 
-  const heating = data.heating;
+  const { data } = useQuery<QglResponse>(request, { fetchPolicy: "no-cache" });
+  const { radiators, heating } = data || ({} as QglResponse);
+
+  if (!data) return <></>;
 
   return (
     <>
@@ -31,12 +34,11 @@ const SetpointsSelectorScreen: FC<any> = ({ setRoomToShow }) => {
 
       {/* <PageContents> */}
       <SelectorContainer>
-        {data.radiators.length > 0 ? (
-          data.radiators.map((radiator) => {
+        {radiators.length > 0 ? (
+          radiators.map((radiator) => {
             const { name } = radiator;
-            console.log(name);
 
-            return <RoomSelector roomName={name} key={Math.random()} onClick={() => setRoomToShow(name)} close={() => setRoomToShow(false)} />;
+            return <RoomSelector roomName={name} key={Math.random()} onClick={() => navigate(name)} close={() => null} />;
           })
         ) : (
           <h1>No controllable rooms found</h1>
@@ -61,13 +63,15 @@ const request = gql`
   }
 `;
 
-type Data = {
+type QglResponse = {
+  // data: {
   radiators: [
     {
       name: string;
     }
   ];
   heating: Plug;
+  // };
 };
 
 const SelectorContainer = styled.div`

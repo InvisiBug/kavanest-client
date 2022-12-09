@@ -5,6 +5,7 @@ import { ColourWheel } from "src/lib/components";
 const RGBLightDetails: React.FC<Props> = ({ red, green, blue, mode, updateRGB }) => {
   return (
     <>
+      {/* hello */}
       <Details>
         <Wheel>
           <ColourWheel

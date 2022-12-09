@@ -2,6 +2,7 @@
 export { default as SelectorTitle } from "./elements/selectorTitle";
 export { default as PageContents } from "./elements/pageContents";
 export { default as BooleanStateIndicator } from "./elements/booleanStateIndicator";
+export { default as RBGStateIndicator } from "./elements/rgbStateIndicator";
 
 // Alloys
 export { default as NavBar } from "./alloys/navBar";
@@ -15,31 +16,7 @@ export { default as PlugSelectorV2 } from "./alloys/selectors/plugSelectorV2";
 // Templates
 export { default as Layout } from "./templates/layout";
 
-// Icons
-export {
-  plug,
-  refresh,
-  cancel,
-  home,
-  setpoints,
-  switches,
-  rightArrow,
-  downArrow,
-  flame,
-  sensor,
-  plus,
-  dog,
-  switchOff,
-  gears,
-  switchOn,
-  rgbLight,
-  power,
-  powerOn,
-  computer,
-  sinchronize,
-  valve,
-  bed,
-} from "./elements/icons";
+export * from "./elements/icons";
 
 // Elements
 export { default as button } from "./elements/button";

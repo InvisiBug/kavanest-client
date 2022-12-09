@@ -7,7 +7,11 @@ import { useQuery, gql } from "@apollo/client";
 import { useAppContext } from "src/lib/context";
 import { mq, px } from "src/lib/mediaQueries";
 
-const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) => {
+const Setpoints: React.FC<Props> = ({
+  roomName,
+  onClick = null,
+  close = null,
+}) => {
   const [sensor, setSensor] = useState<any>();
   const [radiator, setRadiator] = useState<any>();
   const [heating, setHeating] = useState<any>();
@@ -40,7 +44,7 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
     return function cleanup() {
       socket.removeAllListeners();
     };
-  }, []); // eslint-disable-line
+  }, [socket]);
 
   if (!data || !heating || !radiator || !sensor) return <></>;
 
@@ -54,11 +58,18 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
         <RoomName connected={sensor.connected} onClick={close}>
           {decamelize(roomName)}
         </RoomName>
-        {!radiator.valve && heating.state ? <FlameIcon src={flame}></FlameIcon> : null}
+        {!radiator.valve && heating.state ? (
+          <FlameIcon src={flame}></FlameIcon>
+        ) : null}
         <Vals>
-          <Current>{`${sensor?.temperature ? sensor.temperature : "n/a"}°C`}</Current>
+          <Current>{`${
+            sensor?.temperature ? sensor.temperature : "n/a"
+          }°C`}</Current>
+
           <Setpoint val={getCurrentSetpointV2(target)[1]}>
-            {getCurrentSetpointV2(target)[1] > 5 ? `${getCurrentSetpointV2(target)[1]}°C` : "Off"}
+            {getCurrentSetpointV2(target)[1] > 5
+              ? `${getCurrentSetpointV2(target)[1]}°C`
+              : "Off"}
           </Setpoint>
         </Vals>
 
@@ -164,7 +175,8 @@ const RoomName = styled.h3`
   display: item;
   align-self: center;
   flex-grow: 1;
-  color: ${(props: { connected: boolean }) => (props.connected ? "white" : "orangered")};
+  color: ${(props: { connected: boolean }) =>
+    props.connected ? "white" : "orangered"};
 
   ${mq("large")} {
     flex-grow: 0;

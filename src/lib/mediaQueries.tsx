@@ -23,6 +23,6 @@ export const px = (size: string) => {
 };
 
 interface ObjectType {
-  [key: string]: any;
+  [key: string]: number;
 }
 // export const MEDIA_SM = 640px;

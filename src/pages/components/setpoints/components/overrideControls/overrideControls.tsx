@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import styled from "@emotion/styled";
 import Times from "./times";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import Countdown from "./countdown";
+import CountdownTimer from "./countdown";
 import OverrideType from "./overrideType";
 
 const OverrideControls: FC<any> = ({ room: name }) => {
@@ -49,13 +49,15 @@ const OverrideControls: FC<any> = ({ room: name }) => {
     refetch();
   };
 
+  // https://codesandbox.io/s/provider-pattern-2-ck29r?from-embed
+
   return (
     <>
       <Container>
         <h4>Room Override Controls</h4>
         <OverrideType currentType={overrideType} types={["heating-on", "heating-off"]} updateType={updateType} />
-        <Times updateTimer={updateTime} times={[0.01, 15, 30, 60]} />
-        <Countdown time={overrideTime} />
+        <Times updateTimer={updateTime} times={[0.01, 30, 60, 120]} />
+        <CountdownTimer time={overrideTime}>RemainingTime </CountdownTimer>
       </Container>
     </>
   );

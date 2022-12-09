@@ -20,6 +20,7 @@ import computer from "./computer.png";
 import sinchronize from "./sinchronize.png";
 import valve from "./valve.png";
 import bed from "./bed.png";
+// export * as bed from "./bed.png"
 
 export {
   gears,

@@ -16,10 +16,10 @@ interface Props {
   connected?: boolean;
 }
 
-const Room = styled.h3`
+const Room = styled.h3<Props>`
   display: item;
   align-self: center;
   flex-grow: 1;
   font-size: 1.2rem;
-  color: ${(props: { connected: boolean }) => (props.connected ? "white" : "orangered")};
+  color: ${({ connected }) => (connected ? "white" : "orangered")};
 `;

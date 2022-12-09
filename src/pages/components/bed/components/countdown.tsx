@@ -1,7 +1,5 @@
-import React, { FC, useEffect, useLayoutEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styled from "@emotion/styled";
-
-//! This entire function is a mess, fix sometime
 
 const Countdown: FC<any> = ({ time }) => {
   const countdownTime = new Date(time).getTime();

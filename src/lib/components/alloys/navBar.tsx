@@ -34,6 +34,7 @@ const PhoneNav: React.FC<Props> = () => {
   //   }, 1 * 1000);
   // }, []); //eslint-disable-line
 
+  //? Navbar position is set in the layout.tsx file
   return (
     <>
       <Container>
