@@ -8,7 +8,7 @@ import { Plug } from "src/lib/gqlTypes";
 import { useNavigate } from "react-router-dom";
 
 const SetpointsSelectorScreen: FC<any> = ({ setRoomToShow }) => {
-  const [count, setCount] = useState<number>(0);
+  // const [count, setCount] = useState<number>(0);
   const navigate = useNavigate();
 
   const { data } = useQuery<QglResponse>(request, { fetchPolicy: "no-cache" });
@@ -20,12 +20,12 @@ const SetpointsSelectorScreen: FC<any> = ({ setRoomToShow }) => {
     <>
       {/* Used to set admin rights (Currently not used) */}
       <div
-        onClick={() => {
-          setCount(count + 1);
-          if (count > 3) {
-            localStorage.setItem("admin", "true");
-          }
-        }}
+      // onClick={() => {
+      //   setCount(count + 1);
+      //   if (count > 3) {
+      //     localStorage.setItem("admin", "true");
+      //   }
+      // }}
       >
         <PageTitle key={Math.random()} desc={heating.connected ? "Setpoint control for each room" : "Heating isn't connected 💥"}>
           Room Setpoints
@@ -64,14 +64,12 @@ const request = gql`
 `;
 
 type QglResponse = {
-  // data: {
   radiators: [
     {
       name: string;
     }
   ];
   heating: Plug;
-  // };
 };
 
 const SelectorContainer = styled.div`

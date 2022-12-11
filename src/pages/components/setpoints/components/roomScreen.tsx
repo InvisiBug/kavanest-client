@@ -6,7 +6,7 @@ import { decamelize } from "src/lib/helpers";
 import { useAppContext } from "src/lib/context";
 import { flame } from "src/lib/components";
 import SetpointList from "./setpointList";
-import OverrideControls from "./overrideControls/overrideControls";
+import OverrideControls from "../../../../lib/components/alloys/heating/heatingOverride/overrideControls";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const RoomSetpoints: FC<Props> = ({ name, close }) => {

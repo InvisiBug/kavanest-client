@@ -1,9 +1,9 @@
 import React, { FC, useState, createContext, useContext } from "react";
 import { getCurrentSetpointV2 as getCurrentSetpoint } from "src/lib/api";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import Title from "./title";
-import Status from "./status";
 
+// https://www.patterns.dev/posts/compound-pattern
+// https://codesandbox.io/s/provider-pattern-2-ck29r?from-embed=&file=/src/FlyOut.js
 export const RoomContext = createContext<IRoomContext | undefined>(undefined);
 
 // type IRoomContext = {
@@ -14,6 +14,9 @@ export const RoomContext = createContext<IRoomContext | undefined>(undefined);
 //   refetch: () => void;
 // };
 type IRoomContext = any;
+
+const off = false;
+const on = true;
 
 export const useRoom = (): IRoomContext => {
   const context = useContext(RoomContext);
@@ -27,29 +30,29 @@ const temperature = 12;
 
 type Props = {
   name: string;
-  temperature: number;
 };
 
 const Room: FC<Props> & {
-  Title: FC;
-  Status: FC;
+  // Title: FC;
+  // Status: FC;
+  // Override: FC;
 } = ({ name, children }) => {
-  const useRequest = (request: any, variables: any) => {
-    console.log(request);
-    const { data, refetch } = useQuery<any>(request, {
-      variables,
-      fetchPolicy: "no-cache",
-      onCompleted() {},
-    });
-    console.log(data);
+  // const useRequest = (request: any, variables: any) => {
+  //   console.log(request);
+  //   const { data, refetch } = useQuery<any>(request, {
+  //     variables,
+  //     fetchPolicy: "no-cache",
+  //     onCompleted() {},
+  //   });
+  //   console.log(data);
 
-    // const data = 2;
-    // const refetch = () => console.log("refetch");
-    // return { data, refetch };
-    return { data: 2, refetch: () => console.log("bosad") };
-  };
+  //   // const data = 2;
+  //   // const refetch = () => console.log("refetch");
+  //   // return { data, refetch };
+  //   return { data: 2, refetch: () => console.log("bosad") };
+  // };
 
-  const borders = false;
+  const borders = off;
 
   return (
     <RoomContext.Provider
@@ -57,7 +60,6 @@ const Room: FC<Props> & {
         name,
         temperature,
         getCurrentSetpoint,
-        useRequest,
         borders,
       }}
     >
@@ -66,8 +68,13 @@ const Room: FC<Props> & {
   );
 };
 
-Room.Title = Title;
-Room.Status = Status;
+export { default as Title } from "../../elements/title";
+export { default as Status } from "./roomHeatingStatus";
+export { default as Override } from "./roomHeatingOverride";
+
+// Room.Title = Title;
+// Room.Status = Status;
+// Room.Override = Override;
 
 // const Dropdown: FC & {
 //   ListItem: FC<ListItemProps>;

@@ -67,6 +67,7 @@ const Row = styled.div`
 const Add = styled.img`
   border: ${borders ? "1px solid green" : "none"};
   height: 1.8rem;
+  cursor: pointer;
   /* margin-bottom: 20px; */
 `;
 

@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 
 const Text: React.FC<Props> = ({ children }) => {

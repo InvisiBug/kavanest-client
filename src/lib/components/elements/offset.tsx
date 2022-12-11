@@ -1,15 +1,13 @@
 import React, { FC, useState } from "react";
 import styled from "@emotion/styled";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import { useAppContext } from "src/lib/context";
+import { useRoom } from "../alloys/heating/roomHeating";
+import { Sensor } from "src/lib/gqlTypes";
 
-import { useRoom } from "./room";
-
-const Offset = () => {
+const Offset: FC = () => {
   const [offsetVal, setOffsetVal] = useState<string>("");
   const [updateOffset] = useMutation(mutation, {});
-  const { socket } = useAppContext();
-  const { name, getCurrentSetpoint, borders } = useRoom();
+  const { name, borders } = useRoom();
 
   const { data } = useQuery<GqlResponse>(request, {
     variables: {
@@ -23,19 +21,24 @@ const Offset = () => {
   const { offset } = data.sensor;
 
   return (
-    <Container>
+    <Container borders={borders}>
       Offset <br />
       <MyInput
         type="text"
+        borders={borders}
         placeholder={`${offset}°C`}
         inputMode="decimal"
-        onChange={(event) => {
-          setOffsetVal(event.target.value);
-        }}
-        onBlur={() => {
-          updateOffset({ variables: { input: { room: name, offset: parseFloat(offsetVal) } } });
-          // refetch();
-        }}
+        onChange={(event) => setOffsetVal(event.target.value)}
+        onBlur={() =>
+          updateOffset({
+            variables: {
+              input: {
+                room: name,
+                offset: parseFloat(offsetVal),
+              },
+            },
+          })
+        }
       />
     </Container>
   );
@@ -60,22 +63,21 @@ const mutation = gql`
 `;
 
 type GqlResponse = {
-  sensor: {
-    offset: number;
-  };
+  sensor: Sensor;
 };
-const borders = false;
+
 const Container = styled.div`
-  border: ${borders ? "1px solid orangered" : "none"};
-  margin-bottom: 1.5rem;
+  text-align: center;
+  border: ${({ borders }: { borders: boolean }) => (borders ? "1px solid orangered" : "none")};
 `;
+
 const MyInput = styled.input`
   text-align: center;
   font-size: 1.2rem;
   width: 100px;
   color: red;
   background-color: rgba(255, 255, 255, 0);
-  border: ${borders ? "1px solid white" : "none"};
+  border: ${({ borders }: { borders: boolean }) => (borders ? "1px solid white" : "none")};
   margin: 0;
   ::placeholder {
     color: white;

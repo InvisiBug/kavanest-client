@@ -1,6 +1,6 @@
 import React from "react";
 // import RoomScreen from "./components/roomScreen";
-import RoomScreen from "./components/RoomScreenCompound/compoundRoomScreen";
+import { RoomHeating } from "src/lib/components";
 import { useQuery, gql } from "@apollo/client";
 import SelectorScreen from "./components/selectorScreen";
 import { Plug } from "src/lib/gqlTypes";
@@ -18,7 +18,7 @@ const SetpointsScreen: React.FC = () => {
       <Route path="/" element={<SelectorScreen setRoomToShow={null} />} />
 
       {data?.radiators?.map(({ name }) => {
-        return <Route path={`setpoints/${name}`} element={<RoomScreen name={name} />} key={name} />;
+        return <Route path={`setpoints/${name}`} element={<RoomHeating name={name} />} key={name} />;
       })}
     </Routes>
   );

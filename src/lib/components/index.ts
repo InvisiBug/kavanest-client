@@ -24,6 +24,13 @@ export { default as button } from "./elements/button";
 export { default as PageTitle } from "./elements/pageTitle";
 
 export { default as Text } from "./elements/text";
+export { default as TimerCountdown } from "./elements/timerCountdown";
+
+export { useRoom } from "./alloys/heating/roomHeating";
+export { default as RoomHeating } from "./alloys/compoundRoomScreen";
+export { default as FlameIcon } from "./elements/flameIcon";
+export { default as CurrentTemp } from "./elements/currentTemp";
+export { default as Target } from "./elements/heatingTarget";
 
 // Colours
 export const on = "#639628";

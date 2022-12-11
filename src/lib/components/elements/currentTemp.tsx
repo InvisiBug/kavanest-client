@@ -1,13 +1,11 @@
 import React, { FC, useState } from "react";
 import styled from "@emotion/styled";
-import { useQuery, gql, useMutation } from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
 import { useAppContext } from "src/lib/context";
-import { useRoom } from "./room";
+import { Sensor } from "src/lib/gqlTypes";
 
-//* Havent started on the flame icon yet, just copied over from currentTemp
-const FlameIcon = () => {
+const CurrentTemp: FC<Props> = ({ name, borders = false }) => {
   const { socket } = useAppContext();
-  const { name, borders } = useRoom();
   const [sensor, setSensor] = useState<Sensor>({} as Sensor);
 
   const { data } = useQuery<GqlResponse>(request, {
@@ -34,7 +32,12 @@ const FlameIcon = () => {
   );
 };
 
-export default FlameIcon;
+export default CurrentTemp;
+
+type Props = {
+  name: string;
+  borders?: boolean;
+};
 
 const request = gql`
   query GetSetpoints($room: String) {
@@ -52,15 +55,9 @@ type GqlResponse = {
   };
 };
 
-type Sensor = {
-  temperature: number;
-  connected?: boolean;
-  _id: string;
-};
-
 const Container = styled.div`
   border: ${({ borders }: { borders: boolean }) => (borders ? "1px solid white" : "none")};
   font-size: 1.2rem;
   text-align: center;
-  margin-bottom: 1.5rem;
+  /* margin-bottom: 1.5rem; */
 `;

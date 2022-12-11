@@ -1,14 +1,14 @@
 import React, { FC, useState } from "react";
 import styled from "@emotion/styled";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import { useAppContext } from "src/lib/context";
+import { Room } from "src/lib/gqlTypes";
 
-import { useRoom } from "./room";
+import { useRoom } from "../alloys/heating/roomHeating";
 
-const Deadzone = () => {
+const Deadzone: FC = () => {
   const [deadzoneVal, setDeadzoneVal] = useState<string>("");
   const [updateDeadzone] = useMutation(mutation, {});
-  const { name, getCurrentSetpoint, borders } = useRoom();
+  const { name, borders } = useRoom();
 
   const { data, refetch } = useQuery<GqlResponse>(request, {
     variables: {
@@ -22,10 +22,11 @@ const Deadzone = () => {
   const { deadzone } = data.room;
 
   return (
-    <Container>
+    <Container borders={borders}>
       Deadzone <br />
       <MyInput
         type="text"
+        borders={borders}
         placeholder={`${deadzone}°C`}
         inputMode="decimal"
         onChange={(event) => {
@@ -67,15 +68,11 @@ const mutation = gql`
 `;
 
 type GqlResponse = {
-  room: {
-    deadzone: number;
-  };
+  room: Room;
 };
 
-const borders = false;
-
 const Container = styled.div`
-  border: ${borders ? "1px solid yellow" : "none"};
+  border: ${({ borders }: { borders: boolean }) => (borders ? "1px solid yellow" : "none")};
 `;
 
 const MyInput = styled.input`
@@ -84,7 +81,7 @@ const MyInput = styled.input`
   width: 100px;
   color: red;
   background-color: rgba(255, 255, 255, 0);
-  border: ${borders ? "1px solid white" : "none"};
+  border: ${({ borders }: { borders: boolean }) => (borders ? "1px solid white" : "none")};
   margin: 0;
   ::placeholder {
     color: white;
