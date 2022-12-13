@@ -2,10 +2,10 @@ import React, { FC } from "react";
 import styled from "@emotion/styled";
 import { decamelize } from "src/lib/helpers";
 import { useNavigate } from "react-router-dom";
-import { useRoom } from "../alloys/heating/roomHeating";
+import { useHeating } from "src/lib/components";
 
 const Title: FC = () => {
-  const { name, borders } = useRoom();
+  const { name, borders } = useHeating();
   const navigate = useNavigate();
 
   return (

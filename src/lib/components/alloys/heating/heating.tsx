@@ -4,22 +4,22 @@ import { useQuery, gql, useMutation } from "@apollo/client";
 
 // https://www.patterns.dev/posts/compound-pattern
 // https://codesandbox.io/s/provider-pattern-2-ck29r?from-embed=&file=/src/FlyOut.js
-export const RoomContext = createContext<IRoomContext | undefined>(undefined);
+export const HeatingContext = createContext<IHeatingContext | undefined>(undefined);
 
-// type IRoomContext = {
+// type IHeatingContext = {
 //   name: string;
 //   temperature: number;
 //   getCurrentSetpoint: (setpoints: any) => any[];
 //   data: Object;
 //   refetch: () => void;
 // };
-type IRoomContext = any;
+type IHeatingContext = any;
 
 const off = false;
 const on = true;
 
-export const useRoom = (): IRoomContext => {
-  const context = useContext(RoomContext);
+export const useHeating = (): IHeatingContext => {
+  const context = useContext(HeatingContext);
   if (context === undefined) {
     throw new Error("This component must be rendered inside a Dropdown component");
   }
@@ -32,7 +32,7 @@ type Props = {
   name: string;
 };
 
-const Room: FC<Props> & {
+const Heating: FC<Props> & {
   // Title: FC;
   // Status: FC;
   // Override: FC;
@@ -55,7 +55,7 @@ const Room: FC<Props> & {
   const borders = off;
 
   return (
-    <RoomContext.Provider
+    <HeatingContext.Provider
       value={{
         name,
         temperature,
@@ -64,17 +64,13 @@ const Room: FC<Props> & {
       }}
     >
       {children}
-    </RoomContext.Provider>
+    </HeatingContext.Provider>
   );
 };
 
-export { default as Title } from "../../elements/title";
-export { default as Status } from "./roomHeatingStatus";
-export { default as Override } from "./roomHeatingOverride";
-
-// Room.Title = Title;
-// Room.Status = Status;
-// Room.Override = Override;
+// Heating.Title = Title;
+// Heating.Status = Status;
+// Heating.Override = Override;
 
 // const Dropdown: FC & {
 //   ListItem: FC<ListItemProps>;
@@ -90,4 +86,4 @@ export { default as Override } from "./roomHeatingOverride";
 //   );
 // };
 
-export default Room;
+export default Heating;

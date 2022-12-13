@@ -1,10 +1,7 @@
 import React, { FC, useState } from "react";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import { PageTitle, PageContents, PlugSelectorV2 as PlugSelector } from "src/lib/components";
-// import { Countdown, Times as Buttons } from "./components";
-import { Countdown } from "./components";
-import Times from "src/lib/components/alloys/heating/heatingOverride/times";
-import { TimerCountdown } from "src/lib/components";
+import { PageTitle, PageContents, PlugSelectorV2 as PlugSelector, TimerCountdown } from "src/lib/components";
+import { Times } from "src/lib/components";
 
 const Bed: FC = () => {
   const [timerVal, setTimerVal] = useState();
@@ -21,7 +18,6 @@ const Bed: FC = () => {
   if (!timerVal) return null;
 
   const updateTime = (newTime: number) => {
-    console.log(newTime);
     updateTimerVal({
       variables: {
         input: {
@@ -38,9 +34,7 @@ const Bed: FC = () => {
     <>
       <PageTitle desc={"Our heated mattress controller"}>Bed</PageTitle>
       <PageContents>
-        {/* <Buttons refetch={refetch} /> */}
         <Times updateTimer={updateTime}>Please select a time</Times>
-        {/* <Countdown time={timerVal} /> */}
         <TimerCountdown time={timerVal}>Time Remaining</TimerCountdown>
         <PlugSelector data={data.plug} margin={false} />
       </PageContents>

@@ -1,15 +1,15 @@
 import React, { FC } from "react";
-
-import Room, { Title, Status, Override } from "./heating/roomHeating";
+import { Heating, Title, Status, Override, Schedule } from "./heating";
 
 const RoomSetpoints: FC<Props> = ({ name, close }) => {
   return (
     <>
-      <Room name={name}>
+      <Heating name={name}>
         <Title />
         <Status />
         <Override />
-      </Room>
+        <Schedule />
+      </Heating>
     </>
   );
 };

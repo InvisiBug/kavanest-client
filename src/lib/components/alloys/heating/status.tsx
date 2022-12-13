@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import styled from "@emotion/styled";
-import { useRoom } from "./roomHeating";
+import { useHeating } from "./heating";
 import CurrentTemp from "../../elements/currentTemp";
 import Offset from "../../elements/offset";
 import Deadzone from "../../elements/deadzone";
@@ -8,7 +8,7 @@ import Target from "../../elements/heatingTarget";
 import FlameIcon from "../../elements/flameIcon";
 
 const Status: FC = () => {
-  const { borders, name } = useRoom();
+  const { borders, name } = useHeating();
 
   return (
     <Container borders={borders}>

@@ -1,13 +1,13 @@
 import React, { FC, useState } from "react";
 import styled from "@emotion/styled";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import { useRoom } from "../alloys/heating/roomHeating";
+import { useHeating } from "../alloys/heating/heating";
 import { Sensor } from "src/lib/gqlTypes";
 
 const Offset: FC = () => {
   const [offsetVal, setOffsetVal] = useState<string>("");
   const [updateOffset] = useMutation(mutation, {});
-  const { name, borders } = useRoom();
+  const { name, borders } = useHeating();
 
   const { data } = useQuery<GqlResponse>(request, {
     variables: {

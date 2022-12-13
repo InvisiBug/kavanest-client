@@ -26,11 +26,14 @@ export { default as PageTitle } from "./elements/pageTitle";
 export { default as Text } from "./elements/text";
 export { default as TimerCountdown } from "./elements/timerCountdown";
 
-export { useRoom } from "./alloys/heating/roomHeating";
+// export { useHeating } from "./alloys/heating/heating";
 export { default as RoomHeating } from "./alloys/compoundRoomScreen";
 export { default as FlameIcon } from "./elements/flameIcon";
 export { default as CurrentTemp } from "./elements/currentTemp";
 export { default as Target } from "./elements/heatingTarget";
+export { default as Times } from "./elements/times";
+// export { default as Override } from "./alloys/heating/override";
+export * from "./alloys/heating";
 
 // Colours
 export const on = "#639628";

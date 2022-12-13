@@ -3,12 +3,12 @@ import styled from "@emotion/styled";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import { Room } from "src/lib/gqlTypes";
 
-import { useRoom } from "../alloys/heating/roomHeating";
+import { useHeating } from "../alloys/heating/heating";
 
 const Deadzone: FC = () => {
   const [deadzoneVal, setDeadzoneVal] = useState<string>("");
   const [updateDeadzone] = useMutation(mutation, {});
-  const { name, borders } = useRoom();
+  const { name, borders } = useHeating();
 
   const { data, refetch } = useQuery<GqlResponse>(request, {
     variables: {
