@@ -7,8 +7,7 @@ import { mq, px } from "src/lib/mediaQueries";
 import { Plug } from "src/lib/gqlTypes";
 import { useNavigate } from "react-router-dom";
 
-const SetpointsSelectorScreen: FC<any> = ({ setRoomToShow }) => {
-  // const [count, setCount] = useState<number>(0);
+const SetpointsSelectorScreen: FC = () => {
   const navigate = useNavigate();
 
   const { data } = useQuery<QglResponse>(request, { fetchPolicy: "no-cache" });
@@ -18,15 +17,7 @@ const SetpointsSelectorScreen: FC<any> = ({ setRoomToShow }) => {
 
   return (
     <>
-      {/* Used to set admin rights (Currently not used) */}
-      <div
-      // onClick={() => {
-      //   setCount(count + 1);
-      //   if (count > 3) {
-      //     localStorage.setItem("admin", "true");
-      //   }
-      // }}
-      >
+      <div>
         <PageTitle key={Math.random()} desc={heating.connected ? "Setpoint control for each room" : "Heating isn't connected 💥"}>
           Room Setpoints
         </PageTitle>

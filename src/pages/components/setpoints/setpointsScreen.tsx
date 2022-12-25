@@ -12,12 +12,13 @@ const SetpointsScreen: React.FC = () => {
   });
 
   if (!data) return <></>;
+  const { radiators } = data;
 
   return (
     <Routes>
-      <Route path="/" element={<SelectorScreen setRoomToShow={null} />} />
+      <Route path="/" element={<SelectorScreen />} />
 
-      {data?.radiators?.map(({ name }) => {
+      {radiators.map(({ name }) => {
         return <Route path={`setpoints/${name}`} element={<RoomHeating name={name} />} key={name} />;
       })}
     </Routes>

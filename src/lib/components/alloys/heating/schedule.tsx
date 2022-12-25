@@ -1,11 +1,11 @@
 import React, { FC, useState } from "react";
-import SetpointList from "src/pages/components/setpoints/components/setpointListV2/";
 import { useHeating } from "src/lib/components";
 import { plus, sinchronize } from "src/lib/components";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import { decamelize, weekOrWeekend } from "src/lib/helpers";
 import { getCurrentSetpointV2 } from "src/lib/api";
 import styled from "@emotion/styled";
+import { CurrentSetpoint, NewSetpoint } from "./setpoints";
 
 const Schedule: FC = () => {
   const { name } = useHeating();
@@ -21,6 +21,11 @@ const Schedule: FC = () => {
   });
 
   if (!data) return null;
+
+  const close = () => {
+    setShowNewSetpoint(false);
+    refetch();
+  };
 
   const {
     schedule: { setpoints },
@@ -39,7 +44,6 @@ const Schedule: FC = () => {
       {setpoints && setpoints[dayType]
         ? Object.keys(setpoints[dayType]).map((time: any) => {
             const currentSetpoint = getCurrentSetpointV2(setpoints);
-            console.log(currentSetpoint);
             let highlight = false;
 
             const temp = setpoints[dayType][time];
@@ -50,15 +54,19 @@ const Schedule: FC = () => {
               }
             }
 
+            console.log(temp);
+
             return (
               <Row key={Math.random()}>
                 {/* console.log(temp) */}
-                {/* <CurrentSetpoint room={room} day={dayType} time={time} temp={temp} close={refreshPage} activeSetpoint={highlight} /> */}
+                <CurrentSetpoint room={name} day={dayType} time={time} temp={temp} close={refetch} activeSetpoint={highlight} />
               </Row>
             );
           })
         : null}
-      <div>hello from schedule{name}</div>
+      <Row>
+        {showNewSetpoint ? <NewSetpoint close={close} room={name} day={dayType} /> : <Add src={plus} onClick={() => setShowNewSetpoint(true)} />}
+      </Row>
     </>
   );
 };
@@ -90,4 +98,11 @@ const Icon = styled.img`
   height: 1.5rem;
   vertical-align: middle;
   margin: 0;
+`;
+
+const Add = styled.img`
+  border: ${borders ? "1px solid green" : "none"};
+  height: 1.8rem;
+  cursor: pointer;
+  /* margin-bottom: 20px; */
 `;
