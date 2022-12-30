@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { PageTitle, PageContents, RGBLightSelector, PlugSelector } from "src/lib/components";
-import { useQuery, gql } from "@apollo/client";
+import { PageTitle, PageContents, RGBLightSelector, PlugSelectorV2 as PlugSelector } from "src/lib/components";
+import { useQuery, gql, useMutation } from "@apollo/client";
+import Details from "./components/details";
+import { rgbToArray } from "src/lib/helpers";
 
 const RGBLights: React.FC<any> = () => {
   const [openRGBLight, setOpenRGBLight] = useState("");
-  const [rgbLights, setRgbLights] = useState<any>("");
-  const [floodlight, setFloodlight] = useState<any>();
-  const [lamp, setLamp] = useState<any>("");
-  const [sun, setSun] = useState<any>("");
+  const [rgbLights, setRgbLights] = useState<any>(undefined);
+  const [floodlight, setFloodlight] = useState<any>(undefined);
+  const [lamp, setLamp] = useState<any>(undefined);
+  const [sun, setSun] = useState<any>(undefined);
 
   const { data } = useQuery(getLights, {
     fetchPolicy: "no-cache",
@@ -24,29 +26,17 @@ const RGBLights: React.FC<any> = () => {
     },
   });
 
-  const socketUpdate = (_id: any, payload: any) => {
-    switch (payload.name) {
-      case "floodlight":
-        setFloodlight(payload);
-        break;
-      case "lamp":
-        setLamp(payload);
-        break;
-      case "sun":
-        setSun(payload);
-        break;
-    }
-  };
-
-  if (!rgbLights || !floodlight || !sun) return <></>;
+  if (!rgbLights || !lamp || !floodlight || !sun) return <></>;
 
   return (
     <>
       <PageTitle desc={"Some of these lights have alternative modes"}>Lights</PageTitle>
       <PageContents>
-        <PlugSelector thisPlug={floodlight} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} />
-        <PlugSelector thisPlug={lamp} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} />
-        <PlugSelector thisPlug={sun} socketUpdate={socketUpdate} openDetails={openRGBLight} setOpenDetails={setOpenRGBLight} />
+        <PlugSelector data={floodlight} />
+        <PlugSelector data={lamp} />
+        <PlugSelector data={sun} />
+
+        {/* Couldnt figure out how to pass in details from here */}
         {rgbLights.map((light: any) => {
           return (
             <RGBLightSelector

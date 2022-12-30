@@ -1,11 +1,13 @@
 import React, { FC, useState } from "react";
-import styled from "@emotion/styled";
-import Times from "./times";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import Countdown from "./countdown";
-import OverrideType from "./overrideType";
+import styled from "@emotion/styled";
+import Times from "../../elements/times";
+import { useHeating } from "./heating";
+import CountdownTimer from "../../elements/timerCountdown";
+import OverrideType from "../../elements/overrideTypeSelector";
 
-const OverrideControls: FC<any> = ({ room: name }) => {
+const OverrideControls: FC = () => {
+  const { name } = useHeating();
   const [updateOverrideTime] = useMutation(overrideTimeMutation, {});
   const [updateOverrideType] = useMutation(overrideTypeMutation, {});
 
@@ -54,8 +56,8 @@ const OverrideControls: FC<any> = ({ room: name }) => {
       <Container>
         <h4>Room Override Controls</h4>
         <OverrideType currentType={overrideType} types={["heating-on", "heating-off"]} updateType={updateType} />
-        <Times updateTimer={updateTime} times={[0.01, 15, 30, 60]} />
-        <Countdown time={overrideTime} />
+        <Times updateTimer={updateTime} times={[0.01, 30, 60, 120]} />
+        <CountdownTimer time={overrideTime}>Remaining Time</CountdownTimer>
       </Container>
     </>
   );
@@ -71,15 +73,6 @@ const request = gql`
     }
   }
 `;
-
-// const overrideTimeMutation = gql`
-//   mutation ($input: RoomInput) {
-//     updateRoom(input: $input) {
-//       name
-//       deadzone
-//     }
-//   }
-// `;
 
 const overrideTimeMutation = gql`
   mutation ($input: RoomInput) {

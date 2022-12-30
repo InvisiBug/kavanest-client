@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PageTitle, PageContents, PlugSelector } from "src/lib/components";
 import { useQuery, gql } from "@apollo/client";
-import { Plug } from "src/lib/types";
+import { Plug } from "src/lib/gqlTypes";
 
 const Valves = () => {
   const [valves, setValves] = useState<any>();

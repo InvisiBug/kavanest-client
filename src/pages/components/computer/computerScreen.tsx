@@ -8,16 +8,16 @@ const Computer: FC<any> = () => {
   const [computerPower, setComputerPower] = useState<any>();
   const [openDetails, setOpenDetails] = useState<string>("");
 
-  const { data } = useQuery(query, {
+  const { data } = useQuery<Data>(query, {
     fetchPolicy: "no-cache",
     variables: { name: "computerPower" },
     onCompleted() {
-      setComputerAudio(data.getComputerAudio);
-      setComputerPower(data.getPlug);
+      setComputerAudio(data?.getComputerAudio);
+      setComputerPower(data?.getPlug);
     },
   });
 
-  const socketUpdate = (_id: any, payload: any) => {
+  const socketUpdate = (_id: string, payload: any) => {
     switch (payload.name) {
       case "computerAudio":
         setComputerAudio(payload);
@@ -28,7 +28,8 @@ const Computer: FC<any> = () => {
     }
   };
 
-  if (!computerAudio || !computerPower) return <></>;
+  if (!computerAudio && !computerPower) return <></>;
+
   return (
     <>
       <PageTitle desc={"Computer power & audio"}>Computer</PageTitle>
@@ -59,6 +60,23 @@ const Computer: FC<any> = () => {
 };
 
 export default Computer;
+
+type Data = {
+  getComputerAudio: {
+    name: string;
+    left: boolean;
+    right: boolean;
+    sub: boolean;
+    mixer: boolean;
+    _id: string;
+  };
+  getPlug: {
+    name: string;
+    state: string;
+    connected: string;
+    _id: string;
+  };
+};
 
 const query = gql`
   query ($name: String) {
