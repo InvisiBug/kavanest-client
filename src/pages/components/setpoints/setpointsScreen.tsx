@@ -7,20 +7,22 @@ import { Plug } from "src/lib/gqlTypes";
 import { Routes, Route } from "react-router-dom";
 
 const SetpointsScreen: React.FC = () => {
-  const { data } = useQuery<GraphqlResponse>(getValves, {
+  const { data, error } = useQuery<any>(getValves, {
     fetchPolicy: "no-cache",
   });
 
   if (!data) return <></>;
   const { radiators } = data;
 
+  console.log(error);
+
   return (
     <Routes>
-      <Route path="/" element={<SelectorScreen />} />
+      {/* <Route path="/" element={<SelectorScreen />} /> */}
 
-      {radiators.map(({ name }) => {
+      {/* {radiators.map(({ name }) => {
         return <Route path={`setpoints/${name}`} element={<RoomHeating name={name} />} key={name} />;
-      })}
+      })} */}
     </Routes>
   );
 };
