@@ -17,6 +17,6 @@ const RoomSetpoints: FC<Props> = ({ name, close }) => {
 export default RoomSetpoints;
 
 export interface Props {
-  name: string;
+  name?: string;
   close?: () => void;
 }

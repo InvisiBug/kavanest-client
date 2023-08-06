@@ -22,6 +22,7 @@ export type Heating = {
 };
 
 export type Radiator = {
+  name?: string;
   connected?: boolean;
   temperature?: number;
   valve?: boolean;
@@ -37,7 +38,7 @@ export type Sensor = {
 };
 
 export type Room = {
-  deadzone: boolean;
+  deadzone: number;
   setpoints: {
     weekday: Record<string, string>;
     weekend: Record<string, string>;

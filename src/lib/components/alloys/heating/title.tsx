@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled from "@emotion/styled";
 import { decamelize } from "src/lib/helpers";
 import { useNavigate } from "react-router-dom";
-import { useHeating } from "src/lib/components";
+import { SelectorTitle, useHeating } from "src/lib/components";
 
 const Title: FC = () => {
   const { name, borders } = useHeating();
@@ -11,6 +11,7 @@ const Title: FC = () => {
   return (
     <PageTitle onClick={() => navigate(-1)}>
       <TitleText borders={borders}>&larr; {decamelize(name)}</TitleText>
+      {/* <SelectorTitle> {decamelize(name)}</SelectorTitle> */}
     </PageTitle>
   );
 };

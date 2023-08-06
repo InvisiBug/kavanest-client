@@ -29,7 +29,7 @@ export const useHeating = (): IHeatingContext => {
 const temperature = 12;
 
 type Props = {
-  name: string;
+  name?: string;
 };
 
 const Heating: FC<Props> & {

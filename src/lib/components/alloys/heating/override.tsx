@@ -18,8 +18,14 @@ const OverrideControls: FC = () => {
     variables: { room: name },
     fetchPolicy: "no-cache",
     onCompleted() {
-      setOverrideTime(data.room.overrideTime);
-      setOverrideType(data.room.overrideType);
+      console.log(data);
+      if (data.room) {
+        setOverrideTime(data.room.overrideTime);
+        setOverrideType(data.room.overrideType);
+      }
+
+      setOverrideTime(String(Date.now()));
+      setOverrideType("heating-on");
     },
   });
 

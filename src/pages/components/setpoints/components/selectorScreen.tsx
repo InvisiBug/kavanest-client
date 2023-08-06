@@ -11,6 +11,7 @@ const SetpointsSelectorScreen: FC = () => {
   const navigate = useNavigate();
 
   const { data } = useQuery<QglResponse>(request, { fetchPolicy: "no-cache" });
+  console.log(data);
   const { radiators, heating } = data || ({} as QglResponse);
 
   if (!data) return <></>;

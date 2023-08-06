@@ -16,16 +16,25 @@ const Schedule: FC = () => {
     variables: { room: name },
     fetchPolicy: "no-cache",
     onCompleted() {
-      console.log(data.schedule.setpoints);
+      console.log(data);
+      // console.log(data.schedule.setpoints);
     },
   });
-
-  if (!data) return null;
 
   const close = () => {
     setShowNewSetpoint(false);
     refetch();
   };
+
+  if (!data || !data.schedule) {
+    console.log("no data");
+
+    return (
+      <Row>
+        {showNewSetpoint ? <NewSetpoint close={close} room={name} day={dayType} /> : <Add src={plus} onClick={() => setShowNewSetpoint(true)} />}
+      </Row>
+    );
+  }
 
   const {
     schedule: { setpoints },
@@ -74,7 +83,7 @@ const Schedule: FC = () => {
 export default Schedule;
 
 const request = gql`
-  query GetSetpoints($room: String) {
+  query GetSchedule($room: String) {
     schedule: getRoom(name: $room) {
       setpoints {
         weekend

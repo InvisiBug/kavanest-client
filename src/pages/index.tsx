@@ -8,7 +8,7 @@ const Pages: FC = () => {
       <Route index element={<Navigate to="/setpoints" replace />} />
       <Route path="*" element={<Setpoints />} />
 
-      <Route path="/heating" element={<Setpoints />} />
+      <Route path="/setpoints" element={<Setpoints />} />
       <Route path="/sensors" element={<Sensors />} />
       <Route path="/lights" element={<RGBLights />} />
       <Route path="/bed" element={<Bed />} />

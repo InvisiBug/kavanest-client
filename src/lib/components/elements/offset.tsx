@@ -47,7 +47,7 @@ const Offset: FC = () => {
 export default Offset;
 
 const request = gql`
-  query GetSetpoints($room: String) {
+  query GetOffset($room: String) {
     sensor: getSensor(room: $room) {
       offset
     }

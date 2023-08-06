@@ -56,7 +56,7 @@ type Props = {
 };
 
 const request = gql`
-  query GetSetpoints($room: String) {
+  query GetRadiatorNHeating($room: String) {
     radiator: getRadiator(name: $room) {
       valve
       connected

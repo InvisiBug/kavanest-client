@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { decamelize } from "src/lib/helpers";
-import { FlameIcon, CurrentTemp, rightArrow, Target } from "src/lib/components";
+import { FlameIcon, CurrentTemp, rightArrow, Target, SelectorTitle } from "src/lib/components";
 import { useQuery, gql } from "@apollo/client";
 import { useAppContext } from "src/lib/context";
 import { mq, px } from "src/lib/mediaQueries";
@@ -34,6 +34,10 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
   return (
     <>
       <Container onClick={onClick}>
+        {/* <SelectorTitle connected={sensor.connected} onClick={close}>
+          {decamelize(roomName)}
+        </SelectorTitle> */}
+
         <RoomName connected={sensor.connected} onClick={close}>
           {decamelize(roomName)}
         </RoomName>

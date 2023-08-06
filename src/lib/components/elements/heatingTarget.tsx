@@ -11,7 +11,9 @@ const HeatingTarget: FC<Props> = ({ name, borders = false }) => {
     fetchPolicy: "no-cache",
   });
 
-  if (!data) return null;
+  console.log(name, data);
+
+  if (!data || !data.room) return <p>No target set</p>;
 
   const { setpoints } = data.room;
 
