@@ -61,5 +61,4 @@ const Container = styled.div`
   font-size: 1.2rem;
   text-align: center;
   color: ${textColour};
-  /* margin-bottom: 1.5rem; */
 `;

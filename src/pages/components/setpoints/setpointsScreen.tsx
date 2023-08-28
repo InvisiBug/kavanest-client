@@ -15,7 +15,7 @@ const SetpointsScreen: React.FC = () => {
   if (!data) return <></>;
   const { radiators } = data;
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <Routes>

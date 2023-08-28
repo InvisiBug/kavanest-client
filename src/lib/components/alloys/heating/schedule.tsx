@@ -16,7 +16,7 @@ const Schedule: FC = () => {
     variables: { room: name },
     fetchPolicy: "no-cache",
     onCompleted() {
-      console.log(data);
+      // console.log(data);
       // console.log(data.schedule.setpoints);
     },
   });

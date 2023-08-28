@@ -1,2 +1,2 @@
-export const textColour = "#fff";
+export const textColour = "#dcdcdc";
 export const disconnectedDeviceTextColour = "orangeRed";

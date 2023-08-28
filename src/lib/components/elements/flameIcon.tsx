@@ -35,6 +35,8 @@ const FlameIcon: FC<Props> = ({ name, borders = false }) => {
     };
   }, [socket]);
 
+  // console.log(heating, radiator);
+
   if (!data) return null;
 
   return (

@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
-    "dev": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
+    "dev": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "echo You need to specify where you want to push to with 'push--test' or 'push--live'",
     "push": "echo \"\\x1b[104m\\x1b[97m\n\n\t\t You need to specify where you want to push to with 'push--test' or 'push--live' \n\\x1b[0m\"",

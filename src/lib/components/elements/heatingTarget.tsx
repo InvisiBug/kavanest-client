@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import styled from "@emotion/styled";
 import { useQuery, gql } from "@apollo/client";
 import { getCurrentSetpointV2 as getCurrentSetpoint } from "src/lib/api";
+import { textColour } from "src/lib/constants";
 
 const HeatingTarget: FC<Props> = ({ name, borders = false }) => {
   const { data } = useQuery<GqlResponse>(request, {
@@ -11,7 +12,7 @@ const HeatingTarget: FC<Props> = ({ name, borders = false }) => {
     fetchPolicy: "no-cache",
   });
 
-  console.log(name, data);
+  // console.log(name, data);
 
   if (!data || !data.room) return <p>No target set</p>;
 
@@ -57,6 +58,7 @@ type GqlResponse = {
 const Container = styled.div`
   border: ${({ borders }: { borders: boolean }) => (borders ? "1px solid white" : "none")};
   font-size: 1.2rem;
+  color: ${textColour};
   text-align: center;
 `;
 

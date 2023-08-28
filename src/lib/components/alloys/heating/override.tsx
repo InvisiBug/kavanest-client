@@ -8,6 +8,7 @@ import OverrideType from "../../elements/overrideTypeSelector";
 
 const OverrideControls: FC = () => {
   const { name } = useHeating();
+
   const [updateOverrideTime] = useMutation(overrideTimeMutation, {});
   const [updateOverrideType] = useMutation(overrideTypeMutation, {});
 
@@ -18,14 +19,15 @@ const OverrideControls: FC = () => {
     variables: { room: name },
     fetchPolicy: "no-cache",
     onCompleted() {
-      console.log(data);
+      console.log("🚀 ~ file: override.tsx:32 ~ data:", data);
+
       if (data.room) {
         setOverrideTime(data.room.overrideTime);
         setOverrideType(data.room.overrideType);
       }
 
-      setOverrideTime(String(Date.now()));
-      setOverrideType("heating-on");
+      // setOverrideTime(String(Date.now()));
+      // setOverrideType("heating-on");
     },
   });
 

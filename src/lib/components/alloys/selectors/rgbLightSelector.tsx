@@ -37,7 +37,7 @@ const RGBLightSelector: React.FC<any> = ({
     };
   }, []); // eslint-disable-line
 
-  console.log(openRGBLight);
+  // console.log(openRGBLight);
 
   return (
     <>
