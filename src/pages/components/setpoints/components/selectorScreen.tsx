@@ -75,14 +75,23 @@ const SelectorContainer = styled.div`
 
   ${mq("large")} {
     /* border: 1px solid white; */
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0px;
+    /* flex-direction: row;
     flex-wrap: wrap;
 
-    justify-content: space-around;
+    justify-content: space-around; */
     /* background-color: orange; */
     /* max-width: ${px("medium")}px; */
     & > *:first-of-type {
       /* border-top: none; */
+    }
+    & > div {
+      // Apply to child divs
+      /* flex: 25%; */
+      /* padding: 10%; */
+      /* margin-bottom: 200px; */
     }
   }
 `;
