@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { disconnectedDeviceTextColour, textColour } from "src/lib/constants";
 
-const SelectorTitle: React.FC<Props> = ({ children, connected = true }) => {
+const SelectorTitle: React.FC<Props> = ({ children, onClick, connected = true }) => {
   return (
     <>
-      <Room connected={connected}>{children}</Room>
+      <Room connected={connected} onClick={onClick}>
+        {children}
+      </Room>
     </>
   );
 };
@@ -14,12 +17,13 @@ export default SelectorTitle;
 interface Props {
   children: string;
   connected?: boolean;
+  onClick?: () => void;
 }
 
-const Room = styled.h3`
+const Room = styled.h3<Props>`
   display: item;
   align-self: center;
   flex-grow: 1;
   font-size: 1.2rem;
-  color: ${(props: { connected: boolean }) => (props.connected ? "white" : "orangered")};
+  color: ${({ connected }) => (connected ? textColour : disconnectedDeviceTextColour)};
 `;

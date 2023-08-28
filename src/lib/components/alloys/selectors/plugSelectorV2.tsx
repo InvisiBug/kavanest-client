@@ -3,14 +3,15 @@ import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
 import { Selector, BooleanStateIndicator } from "src/lib/components";
 import { useAppContext } from "src/lib/context";
+import { Plug } from "src/lib/gqlTypes";
 
-const PlugSelector: React.FC<Props> = ({ data, margin = true }) => {
+// This version handles the socket updates in this component
+// The other versions parent handles the data
+const PlugSelector: React.FC<any> = ({ data, mqttNameOverride = null, margin = false }) => {
   const { socket } = useAppContext();
   const [updatePlug] = useMutation(mutation, {});
 
-  const [plugData, setPlugData] = useState(data);
-
-  const { name, state, connected, _id } = plugData;
+  const [{ name, state, connected, _id }, setPlugData] = useState<Plug>(data);
 
   useEffect(() => {
     if (_id) {
@@ -22,12 +23,27 @@ const PlugSelector: React.FC<Props> = ({ data, margin = true }) => {
     return () => {
       socket.off(_id);
     };
-  }, []); // eslint-disable-line
+  }, [_id, socket]);
+
+  if (!data.name) return null;
 
   return (
     <>
       <Container>
-        <Selector name={name} connected={connected} onClick={() => updatePlug({ variables: { input: { name: name, state: !state } } })}>
+        <Selector
+          name={name}
+          connected={connected}
+          onClick={() =>
+            updatePlug({
+              variables: {
+                input: {
+                  name: name,
+                  state: !state,
+                },
+              },
+            })
+          }
+        >
           <BooleanStateIndicator state={state} connected={connected} size={"large"} margin={margin} />
         </Selector>
       </Container>
@@ -38,17 +54,8 @@ const PlugSelector: React.FC<Props> = ({ data, margin = true }) => {
 export default React.memo(PlugSelector);
 
 export interface Props {
-  data: PlugData;
-  openDetails?: string;
+  data: Plug;
   margin?: boolean;
-  setOpenDetails?: (key: string) => void;
-}
-
-export interface PlugData {
-  name: string;
-  state: boolean;
-  connected: boolean;
-  _id: string;
 }
 
 const mutation = gql`

@@ -6,9 +6,10 @@
 import { FC } from "react";
 import styled from "@emotion/styled";
 
-const Times: FC<Props> = ({ updateTimer, times = [0.01, 10, 15, 30] }) => {
+const Times: FC<Props> = ({ updateTimer, times = [0.01, 10, 15, 30], children }) => {
   return (
     <Container>
+      <h2>{children}</h2>
       <ButtonRow>
         {times.map((time) => {
           return (

@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { getCurrentSetpointV2 } from "src/lib/api";
 import { decamelize } from "src/lib/helpers";
-import { rightArrow, flame } from "src/lib/components";
+import { FlameIcon, CurrentTemp, rightArrow, Target, SelectorTitle } from "src/lib/components";
 import { useQuery, gql } from "@apollo/client";
 import { useAppContext } from "src/lib/context";
 import { mq, px } from "src/lib/mediaQueries";
 
 const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) => {
   const [sensor, setSensor] = useState<any>();
-  const [radiator, setRadiator] = useState<any>();
-  const [heating, setHeating] = useState<any>();
 
   const { socket } = useAppContext();
 
@@ -19,19 +16,9 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
     fetchPolicy: "no-cache",
     onCompleted() {
       setSensor(data?.sensor);
-      setRadiator(data?.radiator);
-      setHeating(data?.heating);
 
       socket.on(data?.sensor?._id || "", (payload: any) => {
         setSensor(payload);
-      });
-
-      socket.on(data?.radiator._id || "", (payload: any) => {
-        setRadiator(payload);
-      });
-
-      socket.on(data?.heating._id || "", (payload: any) => {
-        setHeating(payload);
       });
     },
   });
@@ -40,26 +27,28 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
     return function cleanup() {
       socket.removeAllListeners();
     };
-  }, []); // eslint-disable-line
+  }, [socket]);
 
-  if (!data || !heating || !radiator || !sensor) return <></>;
-
-  let target: any;
-
-  target = data?.setpoints?.setpoints;
+  if (!data || !sensor) return <></>;
 
   return (
     <>
       <Container onClick={onClick}>
+        {/* <SelectorTitle connected={sensor.connected} onClick={close}>
+          {decamelize(roomName)}
+        </SelectorTitle> */}
+
         <RoomName connected={sensor.connected} onClick={close}>
           {decamelize(roomName)}
         </RoomName>
-        {!radiator.valve && heating.state ? <FlameIcon src={flame}></FlameIcon> : null}
+
+        <FlameContainer>
+          <FlameIcon name={roomName} borders={false} />
+        </FlameContainer>
+
         <Vals>
-          <Current>{`${sensor?.temperature ? sensor.temperature : "n/a"}°C`}</Current>
-          <Setpoint val={getCurrentSetpointV2(target)[1]}>
-            {getCurrentSetpointV2(target)[1] > 5 ? `${getCurrentSetpointV2(target)[1]}°C` : "Off"}
-          </Setpoint>
+          <CurrentTemp name={roomName} borders={false} />
+          <Target name={roomName} borders={false} />
         </Vals>
 
         <Arrow src={rightArrow} />
@@ -78,58 +67,18 @@ export interface Props {
 
 const query = gql`
   query ($roomName: String) {
-    radiator: getRadiator(name: $roomName) {
-      valve
-      connected
-      _id
-    }
-    heating: getPlug(name: "heating") {
-      state
-      connected
-      _id
-    }
     sensor: getSensor(room: $roomName) {
-      temperature
       connected
       _id
-    }
-    setpoints: getRoom(name: $roomName) {
-      setpoints {
-        weekend
-        weekday
-      }
     }
   }
 `;
 
 type QueryResponse = {
-  radiator: Radiator;
-  heating: Plug;
   sensor: {
-    temperature: string;
     connected: boolean;
     _id: string;
   };
-  setpoints: {
-    setpoints: {
-      weekday: Record<string, string>;
-      weekend: Record<string, string>;
-    };
-  };
-};
-
-type Plug = {
-  state?: boolean;
-  connected?: boolean;
-  _id?: string;
-};
-
-type Radiator = {
-  connected?: boolean;
-  valve?: boolean;
-  fan?: boolean;
-  temperature?: number;
-  _id?: string;
 };
 
 const borders = false;
@@ -171,48 +120,25 @@ const RoomName = styled.h3`
   }
 `;
 
-const FlameIcon = styled.img`
-  border: ${borders ? "1px solid blue" : "none"};
-  height: 35px;
-  margin-right: 1.5rem;
-  margin-top: -10px;
-
-  ${mq("large")} {
-    margin-right: 0;
-    margin-top: -10px;
-  }
-`;
-
 const Vals = styled.div`
   border: ${borders ? "1px solid orange" : "none"};
   display: flex;
+  flex-direction: row;
 
   align-items: center;
+  justify-content: center;
+
   min-width: 3rem;
   margin-right: 1.5rem;
+  gap: 1rem;
 
   ${mq("large")} {
     width: 100%;
     align-self: flex-start;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
     margin-bottom: 1rem;
   }
-`;
-
-const Current = styled.div`
-  border: ${borders ? "1px solid red" : "none"};
-  margin-top: 2px;
-  text-align: center;
-  margin-right: 1.5rem;
-  min-width: 3rem;
-`;
-
-const Setpoint = styled.div`
-  border: ${borders ? "1px solid purple" : "none"};
-  text-align: center;
-  /* margin-right: 1.5rem; */
-  min-width: 3.5rem;
-  color: ${(props: { val: number }) => (props.val > 5 ? "white" : "grey")};
 `;
 
 const Arrow = styled.img`
@@ -222,5 +148,13 @@ const Arrow = styled.img`
 
   ${mq("large")} {
     display: none;
+  }
+`;
+
+const FlameContainer = styled.div`
+  margin-right: 2rem;
+  ${mq("large")} {
+    margin-bottom: 1rem;
+    margin-right: 0px;
   }
 `;

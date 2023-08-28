@@ -1,17 +1,18 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
-import { Selector } from "src/lib/components";
+import { Selector, RBGStateIndicator } from "src/lib/components";
 import { useAppContext } from "src/lib/context";
-import Details from "src/pages/components/rgbLights/components/details";
+import Details from "src/pages/components/lights/components/details";
 import { gql, useMutation } from "@apollo/client";
 import { rgbToArray } from "src/lib/helpers";
 
-const RGBLightSelector: React.FC<Props> = ({
+const RGBLightSelector: React.FC<any> = ({
   thisLight: { name, red, green, blue, mode, connected, _id },
   allRgbLights,
   setRgbLights,
   openRGBLight,
   setOpenRGBLight,
+  children,
 }) => {
   const { socket } = useAppContext();
   const [updateRGB] = useMutation(mutation, {});
@@ -36,11 +37,13 @@ const RGBLightSelector: React.FC<Props> = ({
     };
   }, []); // eslint-disable-line
 
+  // console.log(openRGBLight);
+
   return (
     <>
       <Container>
         <Selector name={name} arrow={true} connected={connected} openDetails={openRGBLight} onClick={setOpenRGBLight}>
-          <ColourIndicator red={red} green={green} blue={blue} />
+          <RBGStateIndicator red={red} green={green} blue={blue} />
         </Selector>
 
         {openRGBLight === name ? (
@@ -49,8 +52,8 @@ const RGBLightSelector: React.FC<Props> = ({
             green={green}
             blue={blue}
             mode={mode}
-            updateRGB={(rgb: string) => {
-              const colours = rgbToArray(rgb);
+            updateRGB={(newRGBVal: string) => {
+              const colours = rgbToArray(newRGBVal);
               updateRGB({ variables: { input: { name, red: colours[0], green: colours[1], blue: colours[2] } } });
             }}
           />
@@ -99,12 +102,4 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin: auto;
-`;
-
-const ColourIndicator = styled.div`
-  height: 2rem;
-  width: 2rem;
-  border-radius: 1rem;
-  margin-right: 1rem;
-  background-color: ${(props: { red: number; green: number; blue: number }) => `rgba(${props.red},${props.green},${props.blue})`};
 `;

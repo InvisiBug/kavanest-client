@@ -25,5 +25,5 @@
   },
   "include": [
     "src"
-, "react-app-env.d.ts", "src/pages/components/valves/.tsx"  ]
+, "react-app-env.d.ts", "src/pages/components/valves-notUsed/.tsx"  ]
 }

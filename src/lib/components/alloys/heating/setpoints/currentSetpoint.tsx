@@ -5,7 +5,7 @@ import { makeRequest } from "src/lib/api";
 
 const CurrentSetpoint: React.FC<Props> = ({ room, day, time, temp, close, activeSetpoint }) => {
   const remove = () => {
-    makeRequest(shoo, {
+    makeRequest(deleteSetpointMutation, {
       input: {
         time,
         name: room,
@@ -38,7 +38,7 @@ interface Props {
   activeSetpoint: boolean;
 }
 
-const shoo = `
+const deleteSetpointMutation = `
   mutation DeleteSetpoint($input: DeleteSetpointInput) {
     response: deleteSetpoint(input: $input) {
       name
@@ -75,4 +75,5 @@ const Remove = styled.img`
   border: ${borders ? "1px solid orange" : null};
   height: 1.5rem;
   margin: auto 1.5rem;
+  cursor: pointer;
 `;

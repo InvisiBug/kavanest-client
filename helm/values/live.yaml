@@ -13,7 +13,7 @@ deployment:
 ingress:
   - name: client.kavanet.io
     selector: kavanest-client
-    path: /
+    path: /.*
     port: 80
     host: client.kavanet.io
 

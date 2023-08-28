@@ -4,7 +4,7 @@ import { gql, useMutation } from "@apollo/client";
 import { Selector, BooleanStateIndicator } from "src/lib/components";
 import { useAppContext } from "src/lib/context";
 
-const PlugSelector: React.FC<Props> = ({ thisPlug, mqttNameOverride = null, socketUpdate = () => {}, margin = true }) => {
+const PlugSelector: React.FC<Props> = ({ thisPlug, mqttNameOverride = null, socketUpdate = () => null, margin = true }) => {
   const { socket } = useAppContext();
   const [updatePlug] = useMutation(mutation, {});
 
@@ -20,7 +20,7 @@ const PlugSelector: React.FC<Props> = ({ thisPlug, mqttNameOverride = null, sock
     return () => {
       socket.off(_id);
     };
-  }, []); // eslint-disable-line
+  }, [socketUpdate, _id, socket]);
 
   return (
     <>

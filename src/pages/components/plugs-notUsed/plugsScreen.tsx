@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import { PageTitle, PageContents, PlugSelectorV2 as PlugSelector } from "src/lib/components";
-import { Plug } from "src/lib/types";
+import { Plug } from "src/lib/gqlTypes";
 
 /*
   Make a graphql request for all Plugs
@@ -11,10 +11,10 @@ const PlugsScreen: FC = () => {
   const [openDetails, setOpenDetails] = useState<string>("");
   const [plugs, setPlugs] = useState<Plug[]>();
 
-  const { data } = useQuery<Data>(getPlugs, {
+  const { data } = useQuery<any>(getPlugs, {
     fetchPolicy: "no-cache",
     onCompleted() {
-      setPlugs(data?.plugs);
+      setPlugs(data.plugs);
     },
   });
 

@@ -4,7 +4,7 @@
 const breakpoints: ObjectType = {
   small: 500,
   medium: 768,
-  large: 1200,
+  large: 1000,
 };
 
 export const mq = (n: any) => {
@@ -23,6 +23,6 @@ export const px = (size: string) => {
 };
 
 interface ObjectType {
-  [key: string]: any;
+  [key: string]: number;
 }
 // export const MEDIA_SM = 640px;

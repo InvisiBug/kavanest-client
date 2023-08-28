@@ -1,28 +1,44 @@
 import React, { FC, useState } from "react";
-import { useQuery, gql } from "@apollo/client";
-import { PageTitle, PageContents, PlugSelectorV2 as PlugSelector } from "src/lib/components";
-import { Countdown, Times as Buttons } from "./components";
+import { useQuery, gql, useMutation } from "@apollo/client";
+import { PageTitle, PageContents, PlugSelectorV2 as PlugSelector, TimerCountdown } from "src/lib/components";
+import { Times } from "src/lib/components";
 
 const Bed: FC = () => {
   const [timerVal, setTimerVal] = useState();
+
+  const [updateTimerVal] = useMutation(updateTimerMutation, {});
 
   const { data, refetch } = useQuery(query, {
     fetchPolicy: "no-cache",
     variables: { name: "mattress" },
     onCompleted() {
-      setTimerVal(data.response.value);
+      console.log(data);
+      setTimerVal(data.timer.value);
     },
   });
 
-  if (!timerVal) return null;
+  // if (!timerVal) return null;
+
+  const updateTime = (newTime: number) => {
+    updateTimerVal({
+      variables: {
+        input: {
+          name: "mattress",
+          value: newTime,
+        },
+      },
+    });
+
+    refetch();
+  };
 
   return (
     <>
-      <PageTitle desc={"Our heated mattress controller"}>Bed</PageTitle>
+      <PageTitle desc={"My heated mattress controller"}>Bed</PageTitle>
       <PageContents>
-        <Buttons refetch={refetch} />
-        <Countdown time={timerVal} />
-        <PlugSelector data={data.plug} margin={false} />
+        <Times updateTimer={updateTime}>Please select a time</Times>
+        <TimerCountdown time={timerVal || "0"}>Time Remaining</TimerCountdown>
+        {data?.plug ? <PlugSelector data={data.plug} margin={false} /> : null}
       </PageContents>
     </>
   );
@@ -31,8 +47,8 @@ const Bed: FC = () => {
 export default Bed;
 
 const query = gql`
-  query ($name: String) {
-    response: getTimer(name: $name) {
+  query GetMattress($name: String) {
+    timer: getTimer(name: $name) {
       value
     }
     plug: getPlug(name: "mattress") {
@@ -40,6 +56,15 @@ const query = gql`
       state
       connected
       _id
+    }
+  }
+`;
+
+const updateTimerMutation = gql`
+  mutation UpdateTimer($input: TimerInput) {
+    updateTimer(input: $input) {
+      value
+      name
     }
   }
 `;

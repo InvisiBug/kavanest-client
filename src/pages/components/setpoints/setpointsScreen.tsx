@@ -1,49 +1,43 @@
-import React, { useState } from "react";
-import RoomScreen from "./components/roomScreen";
+import React from "react";
+// import RoomScreen from "./components/roomScreen";
+import { RoomHeating } from "src/lib/components";
 import { useQuery, gql } from "@apollo/client";
 import SelectorScreen from "./components/selectorScreen";
-import { Plug } from "src/lib/types";
+import { Plug, Radiator } from "src/lib/gqlTypes";
+import { Routes, Route } from "react-router-dom";
 
-const SetpointsPage: React.FC = () => {
-  const { data } = useQuery<GraphqlResponse>(getValves, { fetchPolicy: "no-cache" });
-  const [roomToShow, setRoomToShow] = useState<false | string>(false);
+const SetpointsScreen: React.FC = () => {
+  const { data, error } = useQuery<GraphqlResponse>(getValves, {
+    fetchPolicy: "no-cache",
+    errorPolicy: "all",
+  });
 
   if (!data) return <></>;
-  const roomsWithValves = data.radiators;
+  const { radiators } = data;
 
-  const showRoomScreen = (roomToShow: string, possibleRooms: any) => {
-    for (const room of possibleRooms) {
-      const { name: roomName } = room;
+  // console.log(data);
 
-      if (roomName === roomToShow) {
-        return (
-          <>
-            <RoomScreen close={() => setRoomToShow(false)} name={roomName} key={Math.random()} />
-          </>
-        );
-      }
-    }
-  };
+  return (
+    <Routes>
+      <Route path="/" element={<SelectorScreen />} />
 
-  return <>{!roomToShow ? <SelectorScreen setRoomToShow={setRoomToShow} /> : showRoomScreen(roomToShow, roomsWithValves)}</>;
+      {radiators.map(({ name }) => {
+        return <Route path={`setpoints/${name}`} element={<RoomHeating name={name} />} key={name} />;
+      })}
+    </Routes>
+  );
 };
 
-export default SetpointsPage;
+export default SetpointsScreen;
 
 const getValves = gql`
   query {
     radiators: getRadiators {
       name
     }
-    heating: getPlug(name: "heating") {
-      name
-      state
-      connected
-    }
   }
 `;
 
 type GraphqlResponse = {
-  heating: Plug;
-  radiators: Plug;
+  radiators: Radiator[];
 };
