@@ -99,12 +99,13 @@ const Cancel = styled.img`
 
 const Container = styled.div`
   display: flex;
-  width: 50vw;
+  width: 75%;
   justify-content: space-between;
   border: ${borders ? "1px solid red" : null};
   ${mq("large")} {
     border: ${borders ? "1px solid purple" : null};
-    max-width: 25%;
+    /* max-width: 25%; */
+    /* width: 75%; */
   }
 `;
 

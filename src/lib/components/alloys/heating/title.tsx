@@ -20,6 +20,7 @@ export default Title;
 
 const PageTitle = styled.div`
   cursor: pointer;
+  grid-area: title;
 `;
 
 const TitleText = styled.h1`

@@ -1,6 +1,6 @@
-import React, { FC, useState } from "react";
-import { PageTitle, PageContents } from "src/lib/components";
-import RoomSelector from "./selector";
+import React, { FC } from "react";
+import { PageTitle } from "src/lib/components";
+import { HeatingRoomSelector } from "src/lib/components";
 import { useQuery, gql } from "@apollo/client";
 import styled from "@emotion/styled";
 import { mq, px } from "src/lib/mediaQueries";
@@ -30,7 +30,7 @@ const SetpointsSelectorScreen: FC = () => {
           radiators.map((radiator) => {
             const { name } = radiator;
 
-            return <RoomSelector roomName={name} key={Math.random()} onClick={() => navigate(name)} close={() => null} />;
+            return <HeatingRoomSelector roomName={name} key={Math.random()} onClick={() => navigate(name)} close={() => null} />;
           })
         ) : (
           <h1>No controllable rooms found</h1>

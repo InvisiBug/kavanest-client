@@ -5,7 +5,7 @@ import { useQuery, gql, useMutation } from "@apollo/client";
 import { decamelize, weekOrWeekend } from "src/lib/helpers";
 import { getCurrentSetpointV2 } from "src/lib/api";
 import styled from "@emotion/styled";
-import { CurrentSetpoint, NewSetpoint } from "./setpoints";
+import { CurrentSetpoint, NewSetpoint } from "./components/setpoints";
 
 const Schedule: FC = () => {
   const { name } = useHeating();
@@ -26,12 +26,28 @@ const Schedule: FC = () => {
     refetch();
   };
 
-  if (!data || !data.schedule) {
-    console.log("no data");
+  //* Move this to its own component
+  const AddButton = () => {
+    return (
+      <>
+        {showNewSetpoint ? (
+          <>
+            <NewSetpoint close={close} room={name} day={dayType} />
+          </>
+        ) : (
+          <>
+            <Add src={plus} onClick={() => setShowNewSetpoint(true)} />
+          </>
+        )}
+      </>
+    );
+  };
 
+  // If theres no schedule, show the add button
+  if (!data || !data.schedule) {
     return (
       <Row>
-        {showNewSetpoint ? <NewSetpoint close={close} room={name} day={dayType} /> : <Add src={plus} onClick={() => setShowNewSetpoint(true)} />}
+        <AddButton />
       </Row>
     );
   }
@@ -41,15 +57,15 @@ const Schedule: FC = () => {
   } = data;
 
   return (
-    <>
-      {/* <SetpointList /> */}
+    <div>
+      {/* This wants to stay as a div */}
       <Row>
+        {/* Make these chips instead of a h1 */}
         <h1 onClick={() => (dayType === "weekday" ? setDays("weekend") : setDays("weekday"))}>
           {`${decamelize(dayType)}s `}
           <Icon src={sinchronize} />
         </h1>
       </Row>
-
       {setpoints && setpoints[dayType]
         ? Object.keys(setpoints[dayType]).map((time: any) => {
             const currentSetpoint = getCurrentSetpointV2(setpoints);
@@ -74,9 +90,9 @@ const Schedule: FC = () => {
           })
         : null}
       <Row>
-        {showNewSetpoint ? <NewSetpoint close={close} room={name} day={dayType} /> : <Add src={plus} onClick={() => setShowNewSetpoint(true)} />}
+        <AddButton />
       </Row>
-    </>
+    </div>
   );
 };
 

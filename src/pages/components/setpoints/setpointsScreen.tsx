@@ -2,7 +2,7 @@ import React from "react";
 // import RoomScreen from "./components/roomScreen";
 import { RoomHeating } from "src/lib/components";
 import { useQuery, gql } from "@apollo/client";
-import SelectorScreen from "./components/selectorScreen";
+import SelectorScreen from "./selectorScreen";
 import { Plug, Radiator } from "src/lib/gqlTypes";
 import { Routes, Route } from "react-router-dom";
 

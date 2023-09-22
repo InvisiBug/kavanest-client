@@ -23,7 +23,7 @@ const Deadzone: FC = () => {
       <MyInput
         type="text"
         borders={borders}
-        placeholder={data?.room.deadzone ? `${data?.room.deadzone || "Not Set"}°C` : "Not Set"}
+        placeholder={data?.room?.deadzone ? `${data?.room?.deadzone || "Not Set"}°C` : "Not Set"}
         inputMode="decimal"
         onChange={(event) => {
           setDeadzoneVal(event.target.value);

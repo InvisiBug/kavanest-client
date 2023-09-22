@@ -9,6 +9,7 @@ const Valves = () => {
   const { data } = useQuery<GraphqlResponse>(getValves, {
     fetchPolicy: "no-cache",
     onCompleted() {
+      console.log(data);
       setValves(data?.valves);
     },
   });
@@ -32,12 +33,11 @@ export default Valves;
 
 const getValves = gql`
   query {
-    valves: getValves {
-      # name: room
-      room
+    valves: getRadiators {
+      name
       connected
-      state
-      _id
+      valve
+      temperature
     }
   }
 `;
