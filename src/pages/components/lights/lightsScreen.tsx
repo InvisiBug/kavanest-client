@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PageTitle, PageContents, RGBLightSelector, PlugSelectorV2 as PlugSelector } from "src/lib/components";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import Details from "./components/details";
+import Details from "../../../lib/components/alloys/selectors/rgbLightDetails";
 import { rgbToArray } from "src/lib/helpers";
 
 const RGBLights: React.FC<any> = () => {
@@ -46,7 +46,7 @@ const RGBLights: React.FC<any> = () => {
               openRGBLight={openRGBLight}
               setOpenRGBLight={setOpenRGBLight}
               key={Math.random()}
-            ></RGBLightSelector>
+            />
           );
         })}
       </PageContents>

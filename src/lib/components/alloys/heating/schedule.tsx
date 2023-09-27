@@ -5,7 +5,7 @@ import { useQuery, gql, useMutation } from "@apollo/client";
 import { decamelize, weekOrWeekend } from "src/lib/helpers";
 import { getCurrentSetpointV2 } from "src/lib/api";
 import styled from "@emotion/styled";
-import { CurrentSetpoint, NewSetpoint } from "./setpoints";
+import { CurrentSetpoint, NewSetpoint } from "./components/setpoints";
 
 const Schedule: FC = () => {
   const { name } = useHeating();
@@ -16,31 +16,56 @@ const Schedule: FC = () => {
     variables: { room: name },
     fetchPolicy: "no-cache",
     onCompleted() {
-      console.log(data.schedule.setpoints);
+      // console.log(data);
+      // console.log(data.schedule.setpoints);
     },
   });
-
-  if (!data) return null;
 
   const close = () => {
     setShowNewSetpoint(false);
     refetch();
   };
 
+  //* Move this to its own component
+  const AddButton = () => {
+    return (
+      <>
+        {showNewSetpoint ? (
+          <>
+            <NewSetpoint close={close} room={name} day={dayType} />
+          </>
+        ) : (
+          <>
+            <Add src={plus} onClick={() => setShowNewSetpoint(true)} />
+          </>
+        )}
+      </>
+    );
+  };
+
+  // If theres no schedule, show the add button
+  if (!data || !data.schedule) {
+    return (
+      <Row>
+        <AddButton />
+      </Row>
+    );
+  }
+
   const {
     schedule: { setpoints },
   } = data;
 
   return (
-    <>
-      {/* <SetpointList /> */}
+    <div>
+      {/* This wants to stay as a div */}
       <Row>
+        {/* Make these chips instead of a h1 */}
         <h1 onClick={() => (dayType === "weekday" ? setDays("weekend") : setDays("weekday"))}>
           {`${decamelize(dayType)}s `}
           <Icon src={sinchronize} />
         </h1>
       </Row>
-
       {setpoints && setpoints[dayType]
         ? Object.keys(setpoints[dayType]).map((time: any) => {
             const currentSetpoint = getCurrentSetpointV2(setpoints);
@@ -65,16 +90,16 @@ const Schedule: FC = () => {
           })
         : null}
       <Row>
-        {showNewSetpoint ? <NewSetpoint close={close} room={name} day={dayType} /> : <Add src={plus} onClick={() => setShowNewSetpoint(true)} />}
+        <AddButton />
       </Row>
-    </>
+    </div>
   );
 };
 
 export default Schedule;
 
 const request = gql`
-  query GetSetpoints($room: String) {
+  query GetSchedule($room: String) {
     schedule: getRoom(name: $room) {
       setpoints {
         weekend

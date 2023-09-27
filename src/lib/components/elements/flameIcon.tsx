@@ -20,6 +20,7 @@ const FlameIcon: FC<Props> = ({ name, borders = false }) => {
       setRadiator(data?.radiator || ({} as Radiator));
 
       socket.on(data?.heating?._id || "", (payload: Heating) => {
+        console.log(payload);
         setHeating(payload);
       });
 
@@ -34,6 +35,8 @@ const FlameIcon: FC<Props> = ({ name, borders = false }) => {
       socket.removeAllListeners();
     };
   }, [socket]);
+
+  // console.log(heating, radiator);
 
   if (!data) return null;
 
@@ -56,7 +59,7 @@ type Props = {
 };
 
 const request = gql`
-  query GetSetpoints($room: String) {
+  query GetRadiatorNHeating($room: String) {
     radiator: getRadiator(name: $room) {
       valve
       connected

@@ -2,17 +2,20 @@ import React from "react";
 // import RoomScreen from "./components/roomScreen";
 import { RoomHeating } from "src/lib/components";
 import { useQuery, gql } from "@apollo/client";
-import SelectorScreen from "./components/selectorScreen";
-import { Plug } from "src/lib/gqlTypes";
+import SelectorScreen from "./selectorScreen";
+import { Plug, Radiator } from "src/lib/gqlTypes";
 import { Routes, Route } from "react-router-dom";
 
 const SetpointsScreen: React.FC = () => {
-  const { data } = useQuery<GraphqlResponse>(getValves, {
+  const { data, error } = useQuery<GraphqlResponse>(getValves, {
     fetchPolicy: "no-cache",
+    errorPolicy: "all",
   });
 
   if (!data) return <></>;
   const { radiators } = data;
+
+  // console.log(data);
 
   return (
     <Routes>
@@ -36,5 +39,5 @@ const getValves = gql`
 `;
 
 type GraphqlResponse = {
-  radiators: Plug[];
+  radiators: Radiator[];
 };

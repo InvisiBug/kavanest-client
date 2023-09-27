@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { useQuery, gql } from "@apollo/client";
 import { useAppContext } from "src/lib/context";
 import { Sensor } from "src/lib/gqlTypes";
+import { textColour } from "src/lib/constants";
 
 const CurrentTemp: FC<Props> = ({ name, borders = false }) => {
   const { socket } = useAppContext();
@@ -16,7 +17,7 @@ const CurrentTemp: FC<Props> = ({ name, borders = false }) => {
     onCompleted() {
       setSensor(data?.sensor || ({} as Sensor));
 
-      socket.on(data?.sensor?._id || "", (payload: Sensor) => {
+      socket.on(String(data?.sensor?._id), (payload: Sensor) => {
         setSensor(payload);
       });
     },
@@ -40,7 +41,7 @@ type Props = {
 };
 
 const request = gql`
-  query GetSetpoints($room: String) {
+  query GetTemperature($room: String) {
     sensor: getSensor(room: $room) {
       temperature
       _id
@@ -59,5 +60,5 @@ const Container = styled.div`
   border: ${({ borders }: { borders: boolean }) => (borders ? "1px solid white" : "none")};
   font-size: 1.2rem;
   text-align: center;
-  /* margin-bottom: 1.5rem; */
+  color: ${textColour};
 `;

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import { useHeating } from "../alloys/heating/heating";
 import { Sensor } from "src/lib/gqlTypes";
+import { textColour } from "src/lib/constants";
 
 const Offset: FC = () => {
   const [offsetVal, setOffsetVal] = useState<string>("");
@@ -19,6 +20,7 @@ const Offset: FC = () => {
   if (!data) return null;
 
   const { offset } = data.sensor;
+  console.log(offset);
 
   return (
     <Container borders={borders}>
@@ -26,7 +28,7 @@ const Offset: FC = () => {
       <MyInput
         type="text"
         borders={borders}
-        placeholder={`${offset}°C`}
+        placeholder={offset ? `${offset}°C` : "Not Set"}
         inputMode="decimal"
         onChange={(event) => setOffsetVal(event.target.value)}
         onBlur={() =>
@@ -47,7 +49,7 @@ const Offset: FC = () => {
 export default Offset;
 
 const request = gql`
-  query GetSetpoints($room: String) {
+  query GetOffset($room: String) {
     sensor: getSensor(room: $room) {
       offset
     }
@@ -67,6 +69,7 @@ type GqlResponse = {
 };
 
 const Container = styled.div`
+  color: ${textColour};
   text-align: center;
   border: ${({ borders }: { borders: boolean }) => (borders ? "1px solid orangered" : "none")};
 `;

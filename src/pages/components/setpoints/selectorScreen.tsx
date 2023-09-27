@@ -1,6 +1,6 @@
-import React, { FC, useState } from "react";
-import { PageTitle, PageContents } from "src/lib/components";
-import RoomSelector from "./selector";
+import React, { FC } from "react";
+import { PageTitle } from "src/lib/components";
+import { HeatingRoomSelector } from "src/lib/components";
 import { useQuery, gql } from "@apollo/client";
 import styled from "@emotion/styled";
 import { mq, px } from "src/lib/mediaQueries";
@@ -11,6 +11,7 @@ const SetpointsSelectorScreen: FC = () => {
   const navigate = useNavigate();
 
   const { data } = useQuery<QglResponse>(request, { fetchPolicy: "no-cache" });
+  console.log(data);
   const { radiators, heating } = data || ({} as QglResponse);
 
   if (!data) return <></>;
@@ -29,7 +30,7 @@ const SetpointsSelectorScreen: FC = () => {
           radiators.map((radiator) => {
             const { name } = radiator;
 
-            return <RoomSelector roomName={name} key={Math.random()} onClick={() => navigate(name)} close={() => null} />;
+            return <HeatingRoomSelector roomName={name} key={Math.random()} onClick={() => navigate(name)} close={() => null} />;
           })
         ) : (
           <h1>No controllable rooms found</h1>
@@ -74,14 +75,23 @@ const SelectorContainer = styled.div`
 
   ${mq("large")} {
     /* border: 1px solid white; */
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0px;
+    /* flex-direction: row;
     flex-wrap: wrap;
 
-    justify-content: space-around;
+    justify-content: space-around; */
     /* background-color: orange; */
     /* max-width: ${px("medium")}px; */
     & > *:first-of-type {
       /* border-top: none; */
+    }
+    & > div {
+      // Apply to child divs
+      /* flex: 25%; */
+      /* padding: 10%; */
+      /* margin-bottom: 200px; */
     }
   }
 `;

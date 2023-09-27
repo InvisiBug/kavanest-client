@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { decamelize } from "src/lib/helpers";
-import { FlameIcon, CurrentTemp, rightArrow, Target } from "src/lib/components";
+import { FlameIcon, CurrentTemp, rightArrow, Target, SelectorTitle } from "src/lib/components";
 import { useQuery, gql } from "@apollo/client";
 import { useAppContext } from "src/lib/context";
 import { mq, px } from "src/lib/mediaQueries";
+import { radiatorDisconectColour, sensorDisconectColour } from "src/lib/constants";
 
-const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) => {
+const HeatingRoomSelector: React.FC<Props> = ({ roomName, onClick = null, close = null }) => {
   const [sensor, setSensor] = useState<any>();
+  const [radiator, setRadiator] = useState<any>();
 
   const { socket } = useAppContext();
 
@@ -16,9 +18,15 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
     fetchPolicy: "no-cache",
     onCompleted() {
       setSensor(data?.sensor);
+      setRadiator(data?.radiator);
 
       socket.on(data?.sensor?._id || "", (payload: any) => {
+        console.log(payload);
         setSensor(payload);
+      });
+
+      socket.on(data?.radiator?._id || "", (payload: any) => {
+        setRadiator(payload);
       });
     },
   });
@@ -29,12 +37,16 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
     };
   }, [socket]);
 
-  if (!data || !sensor) return <></>;
+  if (!data || !sensor || !radiator) return <></>;
 
   return (
     <>
       <Container onClick={onClick}>
-        <RoomName connected={sensor.connected} onClick={close}>
+        {/* <SelectorTitle connected={sensor.connected} onClick={close}>
+          {decamelize(roomName)}
+        </SelectorTitle> */}
+
+        <RoomName sensorConnected={sensor.connected} radiatorConnected={radiator.connected} onClick={close}>
           {decamelize(roomName)}
         </RoomName>
 
@@ -53,7 +65,7 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
   );
 };
 
-export default Setpoints;
+export default HeatingRoomSelector;
 
 export interface Props {
   roomName: string;
@@ -67,11 +79,19 @@ const query = gql`
       connected
       _id
     }
+    radiator: getRadiator(name: $roomName) {
+      connected
+      _id
+    }
   }
 `;
 
 type QueryResponse = {
   sensor: {
+    connected: boolean;
+    _id: string;
+  };
+  radiator: {
     connected: boolean;
     _id: string;
   };
@@ -109,7 +129,8 @@ const RoomName = styled.h3`
   display: item;
   align-self: center;
   flex-grow: 1;
-  color: ${(props: { connected: boolean }) => (props.connected ? "white" : "orangered")};
+  color: ${(props: { sensorConnected: boolean; radiatorConnected: boolean }) =>
+    props.sensorConnected && props.radiatorConnected ? "white" : props.radiatorConnected ? sensorDisconectColour : radiatorDisconectColour};
 
   ${mq("large")} {
     flex-grow: 0;

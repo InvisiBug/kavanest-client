@@ -17,17 +17,13 @@ const Deadzone: FC = () => {
     fetchPolicy: "no-cache",
   });
 
-  if (!data) return null;
-
-  const { deadzone } = data.room;
-
   return (
     <Container borders={borders}>
       Deadzone <br />
       <MyInput
         type="text"
         borders={borders}
-        placeholder={`${deadzone}°C`}
+        placeholder={data?.room?.deadzone ? `${data?.room?.deadzone || "Not Set"}°C` : "Not Set"}
         inputMode="decimal"
         onChange={(event) => {
           setDeadzoneVal(event.target.value);
@@ -51,7 +47,7 @@ const Deadzone: FC = () => {
 export default Deadzone;
 
 const request = gql`
-  query GetSetpoints($room: String) {
+  query GetDeadzone($room: String) {
     room: getRoom(name: $room) {
       deadzone
     }

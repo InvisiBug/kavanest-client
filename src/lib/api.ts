@@ -5,6 +5,8 @@ require("dotenv").config();
 export const apiUrl = process.env.REACT_APP_API ?? "";
 export const socketUrl = process.env.REACT_APP_SOCKET ?? "";
 
+console.log(apiUrl, socketUrl);
+
 export const makeRequest = async (query: string, variables: any = null) => {
   const data = await Axios.post(apiUrl, { query, variables }).then((response) => {
     return response.data.data;

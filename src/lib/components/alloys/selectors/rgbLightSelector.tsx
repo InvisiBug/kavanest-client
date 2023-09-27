@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { Selector, RBGStateIndicator } from "src/lib/components";
 import { useAppContext } from "src/lib/context";
-import Details from "src/pages/components/lights/components/details";
+import Details from "./rgbLightDetails";
 import { gql, useMutation } from "@apollo/client";
 import { rgbToArray } from "src/lib/helpers";
 
@@ -37,7 +37,7 @@ const RGBLightSelector: React.FC<any> = ({
     };
   }, []); // eslint-disable-line
 
-  console.log(openRGBLight);
+  // console.log(openRGBLight);
 
   return (
     <>

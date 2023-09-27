@@ -8,6 +8,7 @@ import OverrideType from "../../elements/overrideTypeSelector";
 
 const OverrideControls: FC = () => {
   const { name } = useHeating();
+
   const [updateOverrideTime] = useMutation(overrideTimeMutation, {});
   const [updateOverrideType] = useMutation(overrideTypeMutation, {});
 
@@ -18,8 +19,15 @@ const OverrideControls: FC = () => {
     variables: { room: name },
     fetchPolicy: "no-cache",
     onCompleted() {
-      setOverrideTime(data.room.overrideTime);
-      setOverrideType(data.room.overrideType);
+      console.log("🚀 ~ file: override.tsx:32 ~ data:", data);
+
+      if (data.room) {
+        setOverrideTime(data.room.overrideTime);
+        setOverrideType(data.room.overrideType);
+      }
+
+      // setOverrideTime(String(Date.now()));
+      // setOverrideType("heating-on");
     },
   });
 
@@ -52,14 +60,12 @@ const OverrideControls: FC = () => {
   };
 
   return (
-    <>
-      <Container>
-        <h4>Room Override Controls</h4>
-        <OverrideType currentType={overrideType} types={["heating-on", "heating-off"]} updateType={updateType} />
-        <Times updateTimer={updateTime} times={[0.01, 30, 60, 120]} />
-        <CountdownTimer time={overrideTime}>Remaining Time</CountdownTimer>
-      </Container>
-    </>
+    <Container>
+      <h4>Room Override Controls</h4>
+      <OverrideType currentType={overrideType} types={["heating-on", "heating-off"]} updateType={updateType} />
+      <Times updateTimer={updateTime} times={[0.01, 30, 60, 120]} />
+      <CountdownTimer time={overrideTime}>Remaining Time</CountdownTimer>
+    </Container>
   );
 };
 
