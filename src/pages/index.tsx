@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Home, Setpoints, Plugs, Dog, Sensors, RGBLights, Computer, Valves, Bed } from "./components";
+import { Home, Setpoints, Plugs, Sensors, RGBLights, Computer, Valves, Bed } from "./components";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 const Pages: FC = () => {
@@ -13,7 +13,7 @@ const Pages: FC = () => {
       <Route path="/lights" element={<RGBLights />} />
       <Route path="/bed" element={<Bed />} />
       <Route path="/computer" element={<Computer />} />
-      <Route path="/dog" element={<Dog />} />
+      <Route path="/valves" element={<Valves />} />
     </Routes>
   );
 };

@@ -16,9 +16,7 @@ const Status: FC = () => {
         <CurrentTemp name={name} borders={borders} />
         <Target name={name} borders={borders} />
       </Left>
-
       <FlameIcon name={name} borders={borders} />
-
       <Right>
         <Offset />
         <Deadzone />

@@ -17,7 +17,6 @@ const navButtons = [
   // { name: "plugs", icon: plug, admin: true },
   { name: "bed", icon: bed, admin: true },
   // { name: "gears", icon: gears },
-  // { name: "dog", icon: dog },
 ];
 const PhoneNav: React.FC<Props> = () => {
   const { screen, setScreen } = useAppContext();

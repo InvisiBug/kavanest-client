@@ -1,3 +1,6 @@
+/*
+  This is a compound component, even though it doesn't need to be.
+*/
 export { useHeating } from "./heating";
 export { default as Heating } from "./heating";
 export { default as Title } from "./title";

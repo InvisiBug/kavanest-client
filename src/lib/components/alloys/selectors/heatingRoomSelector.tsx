@@ -5,9 +5,11 @@ import { FlameIcon, CurrentTemp, rightArrow, Target, SelectorTitle } from "src/l
 import { useQuery, gql } from "@apollo/client";
 import { useAppContext } from "src/lib/context";
 import { mq, px } from "src/lib/mediaQueries";
+import { radiatorDisconectColour, sensorDisconectColour } from "src/lib/constants";
 
-const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) => {
+const HeatingRoomSelector: React.FC<Props> = ({ roomName, onClick = null, close = null }) => {
   const [sensor, setSensor] = useState<any>();
+  const [radiator, setRadiator] = useState<any>();
 
   const { socket } = useAppContext();
 
@@ -16,9 +18,15 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
     fetchPolicy: "no-cache",
     onCompleted() {
       setSensor(data?.sensor);
+      setRadiator(data?.radiator);
 
       socket.on(data?.sensor?._id || "", (payload: any) => {
+        console.log(payload);
         setSensor(payload);
+      });
+
+      socket.on(data?.radiator?._id || "", (payload: any) => {
+        setRadiator(payload);
       });
     },
   });
@@ -29,7 +37,7 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
     };
   }, [socket]);
 
-  if (!data || !sensor) return <></>;
+  if (!data || !sensor || !radiator) return <></>;
 
   return (
     <>
@@ -38,7 +46,7 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
           {decamelize(roomName)}
         </SelectorTitle> */}
 
-        <RoomName connected={sensor.connected} onClick={close}>
+        <RoomName sensorConnected={sensor.connected} radiatorConnected={radiator.connected} onClick={close}>
           {decamelize(roomName)}
         </RoomName>
 
@@ -57,7 +65,7 @@ const Setpoints: React.FC<Props> = ({ roomName, onClick = null, close = null }) 
   );
 };
 
-export default Setpoints;
+export default HeatingRoomSelector;
 
 export interface Props {
   roomName: string;
@@ -71,11 +79,19 @@ const query = gql`
       connected
       _id
     }
+    radiator: getRadiator(name: $roomName) {
+      connected
+      _id
+    }
   }
 `;
 
 type QueryResponse = {
   sensor: {
+    connected: boolean;
+    _id: string;
+  };
+  radiator: {
     connected: boolean;
     _id: string;
   };
@@ -101,7 +117,7 @@ const Container = styled.div`
     flex-direction: column;
     border: 1px solid grey;
     border-radius: 20px;
-    margin: 10px 100px 10px 100px;
+    /* margin: 10px 100px 10px 100px; */
     /* margin-bottom: 50px; */
     /* background-color: orange; */
     /* max-width: ${px("medium")}px; */
@@ -113,7 +129,8 @@ const RoomName = styled.h3`
   display: item;
   align-self: center;
   flex-grow: 1;
-  color: ${(props: { connected: boolean }) => (props.connected ? "white" : "orangered")};
+  color: ${(props: { sensorConnected: boolean; radiatorConnected: boolean }) =>
+    props.sensorConnected && props.radiatorConnected ? "white" : props.radiatorConnected ? sensorDisconectColour : radiatorDisconectColour};
 
   ${mq("large")} {
     flex-grow: 0;

@@ -60,14 +60,12 @@ const OverrideControls: FC = () => {
   };
 
   return (
-    <>
-      <Container>
-        <h4>Room Override Controls</h4>
-        <OverrideType currentType={overrideType} types={["heating-on", "heating-off"]} updateType={updateType} />
-        <Times updateTimer={updateTime} times={[0.01, 30, 60, 120]} />
-        <CountdownTimer time={overrideTime}>Remaining Time</CountdownTimer>
-      </Container>
-    </>
+    <Container>
+      <h4>Room Override Controls</h4>
+      <OverrideType currentType={overrideType} types={["heating-on", "heating-off"]} updateType={updateType} />
+      <Times updateTimer={updateTime} times={[0.01, 30, 60, 120]} />
+      <CountdownTimer time={overrideTime}>Remaining Time</CountdownTimer>
+    </Container>
   );
 };
 
