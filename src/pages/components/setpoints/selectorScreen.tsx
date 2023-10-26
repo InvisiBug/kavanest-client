@@ -76,14 +76,15 @@ const SelectorContainer = styled.div`
   ${mq("large")} {
     /* border: 1px solid white; */
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 0px;
+    /* grid-template-columns: 1fr 1fr 1fr; */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
     /* flex-direction: row;
     flex-wrap: wrap;
 
     justify-content: space-around; */
     /* background-color: orange; */
-    /* max-width: ${px("medium")}px; */
+    max-width: ${px("medium")}px;
     & > *:first-of-type {
       /* border-top: none; */
     }

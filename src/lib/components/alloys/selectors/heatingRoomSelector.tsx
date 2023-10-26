@@ -117,7 +117,7 @@ const Container = styled.div`
     flex-direction: column;
     border: 1px solid grey;
     border-radius: 20px;
-    margin: 10px 100px 10px 100px;
+    /* margin: 10px 100px 10px 100px; */
     /* margin-bottom: 50px; */
     /* background-color: orange; */
     /* max-width: ${px("medium")}px; */
