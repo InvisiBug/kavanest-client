@@ -4,6 +4,7 @@ import { gql, useMutation } from "@apollo/client";
 import { Selector, BooleanStateIndicator } from "src/lib/components";
 import { useAppContext } from "src/lib/context";
 import { Plug } from "src/lib/gqlTypes";
+import { mq, px } from "src/lib/mediaQueries";
 
 // This version handles the socket updates in this component
 // The other versions parent handles the data

@@ -9,9 +9,7 @@ export const Layout: React.FC = ({ children }) => {
     <>
       <Global styles={globalStyles} />
       <AppWindow>
-        <Content>
-          <Container>{children}</Container>
-        </Content>
+        <Content>{children}</Content>
         <Nav>
           <NavBar />
         </Nav>
@@ -46,12 +44,12 @@ const AppWindow = styled.div`
 const Content = styled.div`
   border: ${borders ? "1px solid yellow" : "none"};
   overflow-y: auto;
-  width: 100vw;
+  /* width: 50vw; */
   flex-grow: 1;
+  padding: 0 5% 0 5%;
   ${mq("large")} {
-    margin-left: 0;
     min-height: 100%;
-    align-items: flex-start;
+    /* align-items: flex-start; */
   }
 `;
 
@@ -67,31 +65,6 @@ const Nav = styled.div`
     width: 5vw;
   }
   margin-top: auto;
-`;
-
-const Container = styled.div`
-  max-width: 90vw;
-  margin: auto;
-  /* ${mq("small")} { */
-  /* background-color: red; */
-  /* min-width: ${px("small")}px; */
-  /* min-width: 10px; */
-  /* } */
-  /* ${mq("medium")} { */
-  /* background-color: orange; */
-  /* min-width: ${px("medium")}px; */
-  /* } */
-  ${mq("large")} {
-    margin: auto;
-    /* margin: 5%; */
-    width: 75%;
-    /* max-width: 100vw; */
-    /* max-width: 75vw; */
-    /* margin-right: 20px; */
-    /* background-color: orange; */
-    /* max-width: ${px("large")}px; */
-    /* height: 1000px; */
-  }
 `;
 
 const globalStyles = css`

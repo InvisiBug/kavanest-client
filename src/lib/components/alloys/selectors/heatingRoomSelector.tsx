@@ -21,7 +21,6 @@ const HeatingRoomSelector: React.FC<Props> = ({ roomName, onClick = null, close 
       setRadiator(data?.radiator);
 
       socket.on(data?.sensor?._id || "", (payload: any) => {
-        console.log(payload);
         setSensor(payload);
       });
 
