@@ -18,9 +18,8 @@ const OverrideControls: FC = () => {
   const { data, refetch } = useQuery(request, {
     variables: { room: name },
     fetchPolicy: "no-cache",
+    notifyOnNetworkStatusChange: true, // Needed for some reason
     onCompleted() {
-      console.log("🚀 ~ file: override.tsx:32 ~ data:", data);
-
       if (data.room) {
         setOverrideTime(data.room.overrideTime);
         setOverrideType(data.room.overrideType);

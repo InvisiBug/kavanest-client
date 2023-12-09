@@ -10,9 +10,9 @@ const Bed: FC = () => {
 
   const { data, refetch } = useQuery(query, {
     fetchPolicy: "no-cache",
+    notifyOnNetworkStatusChange: true,
     variables: { name: "mattress" },
     onCompleted() {
-      console.log(data);
       setTimerVal(data.timer.value);
     },
   });
@@ -28,6 +28,8 @@ const Bed: FC = () => {
         },
       },
     });
+
+    console.log("Here");
 
     refetch();
   };

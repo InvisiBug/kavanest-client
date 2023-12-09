@@ -18,7 +18,7 @@
     "logs": "docker logs simulator -f"
   },
   "dependencies": {
-    "@apollo/client": "^3.5.6",
+    "@apollo/client": "^3.8.7",
     "@emotion/react": "^11.6.0",
     "@emotion/styled": "^11.6.0",
     "@testing-library/jest-dom": "^5.11.4",
