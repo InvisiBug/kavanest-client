@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import styled from "@emotion/styled";
 import { decamelize } from "src/lib/helpers";
 import { SelectorTitle, downArrow, rightArrow } from "src/lib/components";
+import { mq, px } from "src/lib/mediaQueries";
 
 const Selector: FC<Props> = ({ onClick, connected = true, openDetails, name, arrow = false, children }) => {
   return (
@@ -46,6 +47,21 @@ const Frame = styled.div`
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 `;
+
+// ${mq("large")} {
+//   /* background-color: red; */
+//   /* height: 200px; */
+//   display: flex;
+
+//   width: 200px;
+//   flex-direction: column;
+//   border: 1px solid red;
+//   border-radius: 20px;
+//   /* margin: 10px 100px 10px 100px; */
+//   /* margin-bottom: 50px; */
+//   /* background-color: orange; */
+//   /* max-width: ${px("medium")}px; */
+// }
 
 const Icon = styled.img`
   border: ${borders ? "1px solid green" : null};

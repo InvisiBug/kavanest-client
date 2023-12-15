@@ -21,7 +21,7 @@ ingress:
     selector: kavanest-test-client
     path: /
     port: 80
-    host: test.client.kavanet.io
+    host: demo.kavanet.io
 
 service:
   loadBalancer:

@@ -18,9 +18,8 @@ const OverrideControls: FC = () => {
   const { data, refetch } = useQuery(request, {
     variables: { room: name },
     fetchPolicy: "no-cache",
+    notifyOnNetworkStatusChange: true, // Needed for some reason
     onCompleted() {
-      console.log("🚀 ~ file: override.tsx:32 ~ data:", data);
-
       if (data.room) {
         setOverrideTime(data.room.overrideTime);
         setOverrideType(data.room.overrideType);
@@ -63,7 +62,7 @@ const OverrideControls: FC = () => {
     <Container>
       <h4>Room Override Controls</h4>
       <OverrideType currentType={overrideType} types={["heating-on", "heating-off"]} updateType={updateType} />
-      <Times updateTimer={updateTime} times={[0.01, 30, 60, 120]} />
+      <Times updateTimer={updateTime} times={[0.01, 15, 60, 120]} />
       <CountdownTimer time={overrideTime}>Remaining Time</CountdownTimer>
     </Container>
   );

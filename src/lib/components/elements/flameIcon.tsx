@@ -20,7 +20,6 @@ const FlameIcon: FC<Props> = ({ name, borders = false }) => {
       setRadiator(data?.radiator || ({} as Radiator));
 
       socket.on(data?.heating?._id || "", (payload: Heating) => {
-        console.log(payload);
         setHeating(payload);
       });
 
