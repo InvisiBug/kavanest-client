@@ -6,7 +6,7 @@ env:
 
 deployment:
   - name: kavanest-test-client
-    image: invisibug/kavanest-client
+    image: invisibug/kavanest-test-client
     ports:
     - port: 80
     # env:
