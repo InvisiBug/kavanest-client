@@ -1,14 +1,16 @@
 name: kavanest-test-client
 
 namespace: kavanest-test
+env:
+  APP_VERSION: 4a47694374897ea2c484e18f3949bba8965d0dad
 
 deployment:
   - name: kavanest-test-client
-    image: 192.168.1.61:5000/kavanest-client:test
+    image: invisibug/kavanest-client
     ports:
     - port: 80
     # env:
-      # Handled in Dockerfile.test
+      # Handled in Dockerfile.argo.test
 
 ingress:
   - name: test.client.kavanet.io

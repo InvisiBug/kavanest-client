@@ -7,7 +7,7 @@ services:
     image: kavanest-client
     build:
       context: .
-      dockerfile: Dockerfile.local
+      dockerfile: Dockerfile.argo
     networks:
       - proxynet
     environment:
