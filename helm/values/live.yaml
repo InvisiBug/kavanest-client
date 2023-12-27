@@ -17,6 +17,12 @@ ingress:
     port: 80
     host: client.kavanet.io
 
+  - name: a.kavanet.io
+    selector: kavanest-client
+    path: /.*
+    port: 80
+    host: a.kavanet.io
+
 service:
   loadBalancer:
     - name: kavanest-client

@@ -1,0 +1,29 @@
+## Build
+FROM node:14 as build
+
+# Set working directory
+WORKDIR /app
+
+# Add node_modules.bin to path
+ENV PATH /app/node_modules.bin:$PATH
+ENV REACT_APP_API https://test.api.kavanet.io/
+ENV REACT_APP_SOCKET https://test.socket.kavanet.io/
+
+# Copy package.json & package-lock.json to container
+COPY package*.json ./
+
+# Install dependencies
+RUN yarn install
+
+# Copy all (not listed in .dockerignore) to container
+COPY . ./
+
+# Build app
+RUN yarn build
+
+
+## Production
+FROM --platform=linux/arm64 arm64v8/nginx
+COPY --from=build /app/build /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+CMD ["nginx", "-g", "daemon off;"]

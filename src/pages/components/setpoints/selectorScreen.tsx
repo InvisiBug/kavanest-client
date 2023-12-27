@@ -11,7 +11,7 @@ const SetpointsSelectorScreen: FC = () => {
   const navigate = useNavigate();
 
   const { data } = useQuery<QglResponse>(request, { fetchPolicy: "no-cache" });
-  console.log(data);
+
   const { radiators, heating } = data || ({} as QglResponse);
 
   if (!data) return <></>;
@@ -84,7 +84,7 @@ const SelectorContainer = styled.div`
 
     justify-content: space-around; */
     /* background-color: orange; */
-    max-width: ${px("medium")}px;
+    /* max-width: ${px("large")}px; */
     & > *:first-of-type {
       /* border-top: none; */
     }

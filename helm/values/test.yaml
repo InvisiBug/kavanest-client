@@ -1,14 +1,16 @@
 name: kavanest-test-client
 
 namespace: kavanest-test
+env:
+  APP_VERSION: d4fa0590d99924d4f306884d519c1c5671acd065
 
 deployment:
   - name: kavanest-test-client
-    image: 192.168.1.61:5000/kavanest-client:test
+    image: invisibug/kavanest-test-client
     ports:
     - port: 80
     # env:
-      # Handled in Dockerfile.test
+      # Handled in Dockerfile.argo.test
 
 ingress:
   - name: test.client.kavanet.io
@@ -21,7 +23,7 @@ ingress:
     selector: kavanest-test-client
     path: /
     port: 80
-    host: test.client.kavanet.io
+    host: demo.kavanet.io
 
 service:
   loadBalancer:
