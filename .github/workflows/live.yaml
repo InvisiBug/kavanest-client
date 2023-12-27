@@ -30,7 +30,11 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build Docker image
+<<<<<<< HEAD
         run: docker build -f ./Dockerfile.argo.live -t ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+=======
+        run: docker build -f ./Dockerfile.argo -t ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+>>>>>>> dev
 
       - name: Push Docker image
         run: docker push ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
