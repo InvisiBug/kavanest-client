@@ -2,11 +2,11 @@ name: kavanest-client
 
 namespace: kavanest
 env:
-  APP_VERSION: 136dee9788f52f2950719b192929011cd8cc0be2
+  APP_VERSION: 044e0b951c20aa51b5e00fa9406033289bc676ac
 
 deployment:
   - name: kavanest-client
-    image: 192.168.1.61:5000/kavanest-client:live
+    image: invisibug/kavanest-client
     ports:
     - port: 80
     # env:
