@@ -8,7 +8,7 @@ import { Plug } from "src/lib/gqlTypes";
   Create a selector for each plug and provide initial data
 */
 const PlugsScreen: FC = () => {
-  const [openDetails, setOpenDetails] = useState<string>("");
+  // const [openDetails, setOpenDetails] = useState<string>("");
   const [plugs, setPlugs] = useState<Plug[]>();
 
   const { data } = useQuery<any>(getPlugs, {
@@ -25,7 +25,7 @@ const PlugsScreen: FC = () => {
       <PageTitle desc={"Simple on / off plugs"}>Plugs</PageTitle>
       <PageContents>
         {plugs.map((plug: Plug) => {
-          return <PlugSelector data={plug} openDetails={openDetails} setOpenDetails={setOpenDetails} margin={false} key={Math.random()} />;
+          return <PlugSelector data={plug} /*openDetails={openDetails} setOpenDetails={setOpenDetails} */ margin={false} key={Math.random()} />;
         })}
       </PageContents>
     </>
