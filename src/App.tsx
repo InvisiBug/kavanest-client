@@ -6,6 +6,7 @@ import { apiUrl } from "src/lib/api";
 import { Layout } from "src/lib/components";
 import Pages from "src/pages";
 
+// Some vital change (to get the git pipeline working again)
 const defaultOptions: DefaultOptions = {
   query: {
     errorPolicy: "all",

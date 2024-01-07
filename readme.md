@@ -1,6 +1,10 @@
 # KavaNest Client
 ![Cover Image](https://i.imgur.com/ythrYHa.png)
 
+
+[![Live pipeline](https://github.com/InvisiBug/kavanest-client/actions/workflows/live.yaml/badge.svg)](https://github.com/InvisiBug/kavanest-client/actions/workflows/live.yaml)
+[![Test pipeline](https://github.com/InvisiBug/kavanest-client/actions/workflows/test.yaml/badge.svg)](https://github.com/InvisiBug/kavanest-client/actions/workflows/test.yaml)
+
 This is the `Client` microservice of my KavaNest home automation system which is made up of the following components
 * Client
 * [API](https://github.com/InvisiBug/kavanest-api)
