@@ -36,7 +36,7 @@ const HeatingRoomSelector: React.FC<Props> = ({ roomName, onClick = null, close 
     };
   }, [socket]);
 
-  if (!data || !sensor || !radiator) return <></>;
+  // if (!data || !sensor || !radiator) return <></>;
 
   return (
     <>
@@ -45,9 +45,11 @@ const HeatingRoomSelector: React.FC<Props> = ({ roomName, onClick = null, close 
           {decamelize(roomName)}
         </SelectorTitle> */}
 
-        <RoomName sensorConnected={sensor.connected} radiatorConnected={radiator.connected} onClick={close}>
-          {decamelize(roomName)}
-        </RoomName>
+        {sensor && radiator && (
+          <RoomName sensorConnected={sensor.connected} radiatorConnected={radiator.connected} onClick={close}>
+            {decamelize(roomName)}
+          </RoomName>
+        )}
 
         <FlameContainer>
           <FlameIcon name={roomName} borders={false} />

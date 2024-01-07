@@ -5,14 +5,15 @@ import Details from "../../../lib/components/alloys/selectors/rgbLightDetails";
 import { rgbToArray } from "src/lib/helpers";
 import styled from "@emotion/styled";
 import { mq, px } from "src/lib/mediaQueries";
+import { Plug, RGBLight } from "src/lib/gqlTypes";
 
 const RGBLights: React.FC<any> = () => {
   const [openRGBLight, setOpenRGBLight] = useState("");
-  const [rgbLights, setRgbLights] = useState<any>(undefined);
-  const [floodlight, setFloodlight] = useState<any>(undefined);
-  const [lamp, setLamp] = useState<any>(undefined);
-  const [sun, setSun] = useState<any>(undefined);
-  const [eggChair, setEggChair] = useState<any>(undefined);
+  const [rgbLights, setRgbLights] = useState<RGBLight[] | undefined>(undefined);
+  const [floodlight, setFloodlight] = useState<Plug | undefined>(undefined);
+  const [lamp, setLamp] = useState<Plug | undefined>(undefined);
+  const [sun, setSun] = useState<Plug | undefined>(undefined);
+  const [eggChair, setEggChair] = useState<Plug | undefined>(undefined);
 
   const { data } = useQuery(getLights, {
     fetchPolicy: "no-cache",
@@ -31,31 +32,30 @@ const RGBLights: React.FC<any> = () => {
     },
   });
 
-  if (!rgbLights || !lamp || !eggChair || !floodlight || !sun) return <></>;
-
   return (
     <>
       <PageTitle desc={"Some of these lights have alternative modes"}>Lights</PageTitle>
       <PageContents>
         {/* <SelectorContainer> */}
-        <PlugSelector data={floodlight} />
-        <PlugSelector data={eggChair} />
-        <PlugSelector data={lamp} />
-        <PlugSelector data={sun} />
+        {floodlight && <PlugSelector data={floodlight} />}
+        {eggChair && <PlugSelector data={eggChair} />}
+        {lamp && <PlugSelector data={lamp} />}
+        {sun && <PlugSelector data={sun} />}
 
         {/* Couldnt figure out how to pass in details from here */}
-        {rgbLights.map((light: any) => {
-          return (
-            <RGBLightSelector
-              thisLight={light}
-              allRgbLights={rgbLights}
-              setRgbLights={setRgbLights}
-              openRGBLight={openRGBLight}
-              setOpenRGBLight={setOpenRGBLight}
-              key={Math.random()}
-            />
-          );
-        })}
+        {rgbLights &&
+          rgbLights.map((light: any) => {
+            return (
+              <RGBLightSelector
+                thisLight={light}
+                allRgbLights={rgbLights}
+                setRgbLights={setRgbLights}
+                openRGBLight={openRGBLight}
+                setOpenRGBLight={setOpenRGBLight}
+                key={Math.random()}
+              />
+            );
+          })}
         {/* </SelectorContainer> */}
       </PageContents>
     </>
