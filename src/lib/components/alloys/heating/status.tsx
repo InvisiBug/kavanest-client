@@ -18,7 +18,7 @@ const Status: FC = () => {
       </Left>
       <FlameIcon name={name} borders={borders} />
       <Right>
-        <Offset />
+        {/* <Offset /> */}
         <Deadzone />
       </Right>
     </Container>
