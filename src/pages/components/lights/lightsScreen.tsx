@@ -14,6 +14,7 @@ const RGBLights: React.FC<any> = () => {
   const [lamp, setLamp] = useState<Plug | undefined>(undefined);
   const [sun, setSun] = useState<Plug | undefined>(undefined);
   const [eggChair, setEggChair] = useState<Plug | undefined>(undefined);
+  const [livingRoomLamp, setlivingRoomLamp] = useState<Plug | undefined>(undefined);
 
   const { data } = useQuery(getLights, {
     fetchPolicy: "no-cache",
@@ -22,6 +23,7 @@ const RGBLights: React.FC<any> = () => {
       name2: "eggChair",
       name3: "sun",
       name4: "lamp",
+      name5: "livingRoomLamp",
     },
     onCompleted() {
       setRgbLights(data.lights);
@@ -29,6 +31,7 @@ const RGBLights: React.FC<any> = () => {
       setFloodlight(data.floodlight);
       setSun(data.sun);
       setEggChair(data.eggChair);
+      setlivingRoomLamp(data.livingRoomLamp);
     },
   });
 
@@ -38,6 +41,7 @@ const RGBLights: React.FC<any> = () => {
       <PageContents>
         {/* <SelectorContainer> */}
         {floodlight && <PlugSelector data={floodlight} />}
+        {livingRoomLamp && <PlugSelector data={livingRoomLamp} />}
         {eggChair && <PlugSelector data={eggChair} />}
         {lamp && <PlugSelector data={lamp} />}
         {sun && <PlugSelector data={sun} />}
@@ -97,7 +101,7 @@ const SelectorContainer = styled.div`
 `;
 
 const getLights = gql`
-  query ($name1: String, $name2: String, $name3: String, $name4: String) {
+  query ($name1: String, $name2: String, $name3: String, $name4: String, $name5: String) {
     lights: getRGBLights {
       name
       red
@@ -126,6 +130,12 @@ const getLights = gql`
       _id
     }
     lamp: getPlug(name: $name4) {
+      name
+      state
+      connected
+      _id
+    }
+    livingRoomLamp: getPlug(name: $name5) {
       name
       state
       connected
