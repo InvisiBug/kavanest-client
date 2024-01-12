@@ -5,9 +5,10 @@ import styled from "@emotion/styled";
 import { mq, px } from "src/lib/mediaQueries";
 
 const Thermometer: FC<any> = ({ temp, set }) => {
-  const [currentTemp, setCurrentTemp] = useState<number>(temp);
-  const [setpoint, setSetpoint] = useState<number>(set);
-  const { height, width } = useWindowDimensions();
+  const [currentTemp, setCurrentTemp] = useState<number>(15);
+  const [setpoint, setSetpoint] = useState<number>(18);
+  // const { height, width } = useWindowDimensions();
+  // const { height, width } = useState<any>({ height: 100, width: 100 });
 
   console.log(setpoint);
   // useEffect(() => {
@@ -18,7 +19,7 @@ const Thermometer: FC<any> = ({ temp, set }) => {
   //   };
   // }, [width]);
 
-  if (width <= parseInt(String(px("large")))) return <></>;
+  // if (width <= parseInt(String(px("large")))) return <></>;
 
   return (
     <ThermometerContainer>
