@@ -23,7 +23,7 @@ const Thermometer: FC<any> = ({ temp, set }) => {
 
   return (
     <ThermometerContainer>
-      <ReactP5Wrapper sketch={sketch} currentTemp={currentTemp} target={15} deadzone={2} set={setpoint} />{" "}
+      <ReactP5Wrapper sketch={sketch} currentTemp={currentTemp} target={15} deadzone={2} set={setpoint} />
     </ThermometerContainer>
   );
 };

@@ -43,8 +43,8 @@ export const sketch = (p5: p5) => {
 
   p5.setup = () => {
     p5.createCanvas(200, 200);
-    thermometer = new Thermometer(config);
-    arrow = new Arrow(config);
+    // thermometer = new Thermometer(config);
+    // arrow = new Arrow(config);
     // p5.noLoop();
   };
 
@@ -54,8 +54,8 @@ export const sketch = (p5: p5) => {
     p5.fill(255);
     p5.noStroke();
 
-    thermometer.draw();
-    arrow.draw();
+    // thermometer.draw();
+    // arrow.draw();
     // arrow.update(p5.map(p5.noise(noisePos), 0, 1, 5, 15));
     // p5.rect(0, 0, p5.windowWidth, p5.windowHeight);
 
@@ -63,19 +63,19 @@ export const sketch = (p5: p5) => {
     // noisePos += 0.005;
 
     // @ts-ignore:next-line
-    p5.updateWithProps = (props) => {
-      console.log(props);
-      if (props.currentTemp) {
-        arrow.update(props.currentTemp.temperature);
-        // console.log(props.currentTemp);
-      }
+    // p5.updateWithProps = (props) => {
+    //   console.log(props);
+    //   if (props.currentTemp) {
+    //     arrow.update(props.currentTemp.temperature);
+    //     // console.log(props.currentTemp);
+    //   }
 
-      if (props.set) {
-        thermometer.update(props.set);
-        config.setpoint = parseFloat(props.set);
-        console.log(config.setpoint);
-      }
-    };
+    //   if (props.set) {
+    //     thermometer.update(props.set);
+    //     config.setpoint = parseFloat(props.set);
+    //     console.log(config.setpoint);
+    //   }
+    // };
   };
 
   p5.mouseClicked = () => {};
