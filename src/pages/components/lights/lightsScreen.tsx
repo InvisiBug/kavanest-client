@@ -11,7 +11,7 @@ const RGBLights: React.FC<any> = () => {
   const [openRGBLight, setOpenRGBLight] = useState("");
   const [rgbLights, setRgbLights] = useState<RGBLight[] | undefined>(undefined);
   const [floodlight, setFloodlight] = useState<Plug | undefined>(undefined);
-  const [lamp, setLamp] = useState<Plug | undefined>(undefined);
+  const [studyLamp, setStudyLamp] = useState<Plug | undefined>(undefined);
   const [sun, setSun] = useState<Plug | undefined>(undefined);
   const [eggChair, setEggChair] = useState<Plug | undefined>(undefined);
   const [livingRoomLamp, setlivingRoomLamp] = useState<Plug | undefined>(undefined);
@@ -22,12 +22,12 @@ const RGBLights: React.FC<any> = () => {
       name1: "floodlight",
       name2: "eggChair",
       name3: "sun",
-      name4: "lamp",
+      name4: "studyLamp",
       name5: "livingRoomLamp",
     },
     onCompleted() {
       setRgbLights(data.lights);
-      setLamp(data.lamp);
+      setStudyLamp(data.lamp);
       setFloodlight(data.floodlight);
       setSun(data.sun);
       setEggChair(data.eggChair);
@@ -43,7 +43,7 @@ const RGBLights: React.FC<any> = () => {
         {floodlight && <PlugSelector data={floodlight} />}
         {livingRoomLamp && <PlugSelector data={livingRoomLamp} />}
         {eggChair && <PlugSelector data={eggChair} />}
-        {lamp && <PlugSelector data={lamp} />}
+        {studyLamp && <PlugSelector data={studyLamp} />}
         {sun && <PlugSelector data={sun} />}
 
         {/* Couldnt figure out how to pass in details from here */}
