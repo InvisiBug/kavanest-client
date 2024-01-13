@@ -4,7 +4,7 @@ import { Global, css } from "@emotion/react";
 import { mq, px } from "src/lib/mediaQueries";
 import { NavBar } from "src/lib/components";
 
-export const Layout: React.FC = ({ children }) => {
+export const Layout: React.FC<any> = ({ children }) => {
   return (
     <>
       <Global styles={globalStyles} />

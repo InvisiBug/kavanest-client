@@ -1,7 +1,7 @@
 import React from "react";
 import { ApolloClient, InMemoryCache, ApolloProvider, DefaultOptions } from "@apollo/client";
 import { BrowserRouter } from "react-router-dom";
-import { AppProvider } from "src/lib/context";
+import { AppProvider } from "./lib/context";
 import { apiUrl } from "src/lib/api";
 import { Layout } from "src/lib/components";
 import Pages from "src/pages";
@@ -26,6 +26,7 @@ const App: React.FC = () => {
 
   return (
     <>
+
       <BrowserRouter>
         <ApolloProvider client={client}>
           <AppProvider>

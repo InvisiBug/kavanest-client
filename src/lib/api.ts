@@ -1,9 +1,12 @@
 import { weekOrWeekend, now } from "src/lib/helpers";
 import Axios from "axios";
-require("dotenv").config();
+// require("dotenv").config();
 
-export const apiUrl = process.env.REACT_APP_API ?? "";
-export const socketUrl = process.env.REACT_APP_SOCKET ?? "";
+// export const apiUrl = process.env.REACT_APP_API ?? "";
+// export const socketUrl = process.env.REACT_APP_SOCKET ?? "";
+
+export const apiUrl = "https://api.kavanet.io/";
+export const socketUrl = "https://socket.kavanet.io";
 
 console.log(apiUrl, socketUrl);
 

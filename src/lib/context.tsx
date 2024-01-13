@@ -4,7 +4,7 @@ import { socketUrl } from "src/lib/api";
 
 const AppContext = createContext<ContextState | undefined>(undefined);
 
-export const AppProvider: React.FC<Props> = ({ children }) => {
+export const AppProvider: React.FC<any> = ({ children }) => {
   const socket = openSocket(socketUrl);
 
   const [screen, setScreen] = useState("setpoints");
