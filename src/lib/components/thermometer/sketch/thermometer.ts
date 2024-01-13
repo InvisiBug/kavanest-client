@@ -22,7 +22,7 @@ export default class Thermometer {
     this.config = config;
 
     this.setpoint = config.setpoint;
-    this.current = 8;
+    this.current = config.current;
     this.deadzone = 1;
 
     this.gradients = config.gradients;

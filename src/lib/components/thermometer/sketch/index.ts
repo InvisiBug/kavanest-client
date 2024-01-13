@@ -25,8 +25,8 @@ export const sketch = (p5: p5) => {
     ///
     gradients: 10,
     ///
-    setpoint: 19.5,
-    current: 8,
+    setpoint: 16,
+    current: 15,
     deadzone: 1,
     //
     width: 25,
@@ -61,21 +61,25 @@ export const sketch = (p5: p5) => {
 
     // current = p5.map(p5.noise(noisePos), 0, 1, 5, 15);
     // noisePos += 0.005;
-
-    // @ts-ignore:next-line
+    p5.noLoop();
+  }
+    // @ts-expect-error:next-line
     p5.updateWithProps = (props) => {
-      console.log(props);
+    console.log("🚀 ~ sketch ~ props:", props)
+
       if (props.currentTemp) {
-        arrow.update(props.currentTemp.temperature);
+        arrow.update(props.currentTemp);
         // console.log(props.currentTemp);
       }
 
       if (props.set) {
-        thermometer.update(props.set);
-        config.setpoint = parseFloat(props.set);
-        console.log(config.setpoint);
+        console.log("🚀 ~ sketch ~ props.set:", props.set)
+
+        // thermometer.update(props.set);
+        // config.setpoint = parseFloat(props.set);
+        // console.log(config.setpoint);
       }
-    };
+
   };
 
   p5.mouseClicked = () => {};

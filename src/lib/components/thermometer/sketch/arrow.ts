@@ -21,8 +21,8 @@ export default class Thermometer {
     this.p5 = config.p5;
     this.config = config;
 
-    this.setpoint = 10;
-    this.current = 8;
+    this.setpoint = 16;
+    this.current = config.current;
     this.deadzone = 1;
 
     this.gradients = config.gradients;
