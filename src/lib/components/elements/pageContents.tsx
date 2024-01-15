@@ -20,4 +20,6 @@ const Container = styled.div`
     border-top: 1px solid grey;
     margin-top: 50px;
   }
+  /* border: 1px solid red; */
+  overflow: scroll;
 `;
