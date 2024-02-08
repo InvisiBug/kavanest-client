@@ -21,5 +21,9 @@ const Container = styled.div`
     margin-top: 50px;
   }
   /* border: 1px solid red; */
-  overflow: hidden;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 `;
