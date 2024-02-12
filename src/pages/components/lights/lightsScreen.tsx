@@ -45,10 +45,10 @@ const RGBLights: React.FC<any> = () => {
         {/* <SelectorContainer> */}
         {floodlight && <PlugSelector data={floodlight} />}
         {livingRoomLamp && <PlugSelector data={livingRoomLamp} />}
+        {trainingRoomLamp && <PlugSelector data={trainingRoomLamp} />}
         {eggChair && <PlugSelector data={eggChair} />}
         {studyLamp && <PlugSelector data={studyLamp} />}
         {bedRoomLamp && <PlugSelector data={bedRoomLamp} />}
-        {trainingRoomLamp && <PlugSelector data={trainingRoomLamp} />}
 
         {/* Couldnt figure out how to pass in details from here */}
         {rgbLights &&
