@@ -15,6 +15,7 @@ const RGBLights: React.FC<any> = () => {
   const [bedRoomLamp, setBedRoomLamp] = useState<Plug | undefined>(undefined);
   const [eggChair, setEggChair] = useState<Plug | undefined>(undefined);
   const [livingRoomLamp, setlivingRoomLamp] = useState<Plug | undefined>(undefined);
+  const [trainingRoomLamp, settrainingRoomLamp] = useState<Plug | undefined>(undefined);
 
   const { data } = useQuery(getLights, {
     fetchPolicy: "no-cache",
@@ -24,6 +25,7 @@ const RGBLights: React.FC<any> = () => {
       name3: "bedRoomLamp",
       name4: "studyLamp",
       name5: "livingRoomLamp",
+      name6: "trainingRoomLamp",
     },
     onCompleted() {
       setRgbLights(data.lights);
@@ -32,6 +34,7 @@ const RGBLights: React.FC<any> = () => {
       setBedRoomLamp(data.sun);
       setEggChair(data.eggChair);
       setlivingRoomLamp(data.livingRoomLamp);
+      settrainingRoomLamp(data.trainingRoomLamp);
     },
   });
 
@@ -45,6 +48,7 @@ const RGBLights: React.FC<any> = () => {
         {eggChair && <PlugSelector data={eggChair} />}
         {studyLamp && <PlugSelector data={studyLamp} />}
         {bedRoomLamp && <PlugSelector data={bedRoomLamp} />}
+        {trainingRoomLamp && <PlugSelector data={trainingRoomLamp} />}
 
         {/* Couldnt figure out how to pass in details from here */}
         {rgbLights &&
@@ -101,7 +105,7 @@ const SelectorContainer = styled.div`
 `;
 
 const getLights = gql`
-  query ($name1: String, $name2: String, $name3: String, $name4: String, $name5: String) {
+  query ($name1: String, $name2: String, $name3: String, $name4: String, $name5: String, $name6: String) {
     lights: getRGBLights {
       name
       red
@@ -136,6 +140,12 @@ const getLights = gql`
       _id
     }
     livingRoomLamp: getPlug(name: $name5) {
+      name
+      state
+      connected
+      _id
+    }
+    trainingRoomLamp: getPlug(name: $name6) {
       name
       state
       connected
