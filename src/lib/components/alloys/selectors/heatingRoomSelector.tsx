@@ -130,8 +130,16 @@ const RoomName = styled.h3`
   display: item;
   align-self: center;
   flex-grow: 1;
-  color: ${(props: { sensorConnected: boolean; radiatorConnected: boolean }) =>
-    props.sensorConnected && props.radiatorConnected ? "white" : props.radiatorConnected ? sensorDisconectColour : radiatorDisconectColour};
+  color: ${({ sensorConnected, radiatorConnected }: { sensorConnected: boolean; radiatorConnected: boolean }) =>
+    // return "blue";
+
+    sensorConnected && radiatorConnected
+      ? "white"
+      : radiatorConnected
+      ? sensorDisconectColour
+      : !sensorConnected && !radiatorConnected
+      ? "green"
+      : radiatorDisconectColour};
 
   ${mq("large")} {
     flex-grow: 0;
