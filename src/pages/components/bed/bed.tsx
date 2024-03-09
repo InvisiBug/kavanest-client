@@ -38,7 +38,9 @@ const Bed: FC = () => {
     <>
       <PageTitle desc={"My heated mattress controller"}>Bed</PageTitle>
       <PageContents>
-        <Times updateTimer={updateTime}>Please select a time</Times>
+        <Times updateTimer={updateTime} times={[0.01, 10, 20, 45]}>
+          Please select a time
+        </Times>
         <TimerCountdown time={timerVal || "0"}>Time Remaining</TimerCountdown>
         {data?.plug ? <PlugSelector data={data.plug} margin={false} /> : null}
       </PageContents>

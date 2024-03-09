@@ -21,6 +21,7 @@ const OverrideControls: FC = () => {
     notifyOnNetworkStatusChange: true, // Needed for some reason
     onCompleted() {
       if (data.room) {
+        console.log(data.room.overrideTime);
         setOverrideTime(data.room.overrideTime);
         setOverrideType(data.room.overrideType);
       }
@@ -33,6 +34,8 @@ const OverrideControls: FC = () => {
   if (!data) return <></>;
 
   const updateTime = (newTime: number) => {
+    console.log("🚀 ~ updateTime ~ newTime:", newTime);
+
     updateOverrideTime({
       variables: {
         input: {
@@ -61,8 +64,8 @@ const OverrideControls: FC = () => {
   return (
     <Container>
       <h4>Room Override Controls</h4>
-      <OverrideType currentType={overrideType} types={["heating-on", "heating-off"]} updateType={updateType} />
-      <Times updateTimer={updateTime} times={[0.01, 15, 60, 120]} />
+      <OverrideType currentType={overrideType} types={["heating-on", "heating-off", "passive"]} updateType={updateType} />
+      <Times updateTimer={updateTime} times={[0.01, 15, 60, 120, 0.05]} />
       <CountdownTimer time={overrideTime}>Remaining Time</CountdownTimer>
     </Container>
   );

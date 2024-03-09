@@ -131,8 +131,6 @@ const RoomName = styled.h3`
   align-self: center;
   flex-grow: 1;
   color: ${({ sensorConnected, radiatorConnected }: { sensorConnected: boolean; radiatorConnected: boolean }) =>
-    // return "blue";
-
     sensorConnected && radiatorConnected
       ? "white"
       : radiatorConnected

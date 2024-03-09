@@ -10,6 +10,7 @@ const TimerCountdown: FC<{ time: string }> = ({ time, children }) => {
 
   useEffect(() => {
     setRemainingTime(calcTimeDifference(now, countdownTime));
+
     const timer = setTimeout(() => {
       setNow(new Date().getTime());
     }, 100);
@@ -21,9 +22,10 @@ const TimerCountdown: FC<{ time: string }> = ({ time, children }) => {
 
   return (
     <>
-      <Container isOpen={remainingTime.split(":")[0] && remainingTime.split(":")[1] > 0}>
+      {/* <Container isOpen={remainingTime.split(":")[0] && remainingTime.split(":")[1] > 0}> */}
+      <Container isOpen={(remainingTime.split(":")[0] && remainingTime.split(":")[1] > 0) || remainingTime === "lol"}>
         <h2>{children}</h2>
-        <h1>{remainingTime.split(":")[0] && remainingTime.split(":")[1] > 1 ? remainingTime : "Off"}</h1>
+        <h1>{remainingTime.split(":")[0] && remainingTime.split(":")[1] > 1 ? remainingTime : remainingTime === "lol" ? "5 eva M9" : "Off"}</h1>
       </Container>
     </>
   );
@@ -45,8 +47,46 @@ export const calcTimeDifference = (now: number, timer: number) => {
   var ss = Math.floor(msec / 1000);
   msec -= ss * 1000;
 
-  return `${("0" + mm).slice(-2)}:${("0" + ss).slice(-2)}`;
+  if (hh > 50) return "lol";
+
+  return `${("0" + hh).slice(-2)}:${("0" + mm).slice(-2)}:${("0" + ss).slice(-2)}`;
 };
+
+// export const calcTimeDifference = (now: number, timer: number) => {
+//   var hours = Math.abs(now - timer) / 36e5;
+//   console.log(hours);
+
+//   const difference = timer - now;
+
+//   if (difference < -1) return `${-1}:${difference}`; // Handles the bed being off
+
+//   var msec = difference;
+
+//   var hh = Math.floor(msec / 1000 / 60 / 60);
+//   msec -= hh * 1000 * 60 * 60;
+//   var mm = Math.floor(msec / 1000 / 60);
+//   msec -= mm * 1000 * 60;
+//   var ss = Math.floor(msec / 1000);
+//   msec -= ss * 1000;
+
+//   return `${("0" + mm).slice(-2)}:${("0" + ss).slice(-2)}`;
+// };
+
+// export const calcTimeDifference = (now: number, timer: number) => {
+//   // Calculate the difference in milliseconds
+//   let difference = Math.abs(now - timer);
+
+//   // Convert the difference to hours and minutes
+//   let hours = Math.floor(difference / (1000 * 60 * 60));
+//   let minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+
+//   // Format the hours and minutes as strings with leading zeros if necessary
+//   let hoursStr = hours.toString().padStart(2, "0");
+//   let minutesStr = minutes.toString().padStart(2, "0");
+
+//   // Return the time difference in "hh:mm" format
+//   return `${hoursStr}:${minutesStr}`;
+// };
 
 const slide = keyframes`
   from {
