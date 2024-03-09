@@ -15,11 +15,11 @@ const Times: FC<Props> = ({ updateTimer, times = [0.01, 10, 15, 30], children })
           return (
             <Button
               onClick={() => {
-                updateTimer(time);
+                updateTimer(time === 0.05 ? 9999999999 : time);
               }}
               key={Math.random()}
             >
-              {time === 0.01 ? "Off" : time}
+              {time === 0.01 ? "Off" : time === 0.05 ? "♾️" : time}
             </Button>
           );
         })}
