@@ -49,6 +49,8 @@ export const calcTimeDifference = (now: number, timer: number) => {
 
   if (hh > 50) return "lol";
 
+  //Couldnt figure out how to hide zero hours
+  // return `${hh > 0 ? ("0" + hh).slice(-2) : ""}:${("0" + mm).slice(-2)}:${("0" + ss).slice(-2)}`;
   return `${("0" + hh).slice(-2)}:${("0" + mm).slice(-2)}:${("0" + ss).slice(-2)}`;
 };
 
