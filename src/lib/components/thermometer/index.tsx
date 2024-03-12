@@ -1,5 +1,6 @@
 import React, { useState, useEffect, FC } from "react";
-import { ReactP5Wrapper } from "react-p5-wrapper";
+// import { ReactP5Wrapper } from "react-p5-wrapper";
+import { ReactP5Wrapper } from "@p5-wrapper/react";
 import { sketch } from "./sketch";
 import styled from "@emotion/styled";
 import { mq, px } from "src/lib/mediaQueries";
@@ -18,12 +19,15 @@ const Thermometer: FC<any> = ({ temp, set }) => {
   //   };
   // }, [width]);
 
-  if (width <= parseInt(String(px("large")))) return <></>;
+  // if (width <= parseInt(String(px("large")))) return <></>;
 
   return (
-    <ThermometerContainer>
-      <ReactP5Wrapper sketch={sketch} currentTemp={currentTemp} target={15} deadzone={2} set={setpoint} />{" "}
-    </ThermometerContainer>
+    <>
+      <h1>hello</h1>
+      <ThermometerContainer>
+        <ReactP5Wrapper sketch={sketch} currentTemp={currentTemp} target={15} deadzone={2} set={setpoint} />
+      </ThermometerContainer>
+    </>
   );
 };
 

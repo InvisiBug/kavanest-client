@@ -36,6 +36,8 @@ export { default as Times } from "./elements/times";
 // export { default as Override } from "./alloys/heating/override";
 export * from "./alloys/heating";
 
+// export { default as Thermometer } from "./thermometer";
+
 // Colours
 export const on = "#639628";
 export const off = "#2c2c2c";
