@@ -36,7 +36,7 @@ export { default as Times } from "./elements/times";
 // export { default as Override } from "./alloys/heating/override";
 export * from "./alloys/heating";
 
-// export { default as Thermometer } from "./thermometer";
+// export { default as Thermometer } from "./thermometer"; //! Threres a problem running anything reletad to p5js, I think this is the error I ran into in the Sketchbook repo, Needed to upgrade to vite to get rid of it
 
 // Colours
 export const on = "#639628";
