@@ -42,6 +42,7 @@ const borders = false;
 
 const Container = styled.div`
   border: ${borders ? "1px solid purple" : "none"};
+  margin-bottom: 1rem;
   display: flex;
   justify-content: center;
   flex-direction: row;

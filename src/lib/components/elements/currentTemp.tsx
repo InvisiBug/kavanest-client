@@ -4,6 +4,7 @@ import { useQuery, gql } from "@apollo/client";
 import { useAppContext } from "src/lib/context";
 import { Sensor } from "src/lib/gqlTypes";
 import { textColour } from "src/lib/constants";
+// import { Thermometer } from "src/lib/components";
 
 const CurrentTemp: FC<Props> = ({ name, borders = false }) => {
   const { socket } = useAppContext();
