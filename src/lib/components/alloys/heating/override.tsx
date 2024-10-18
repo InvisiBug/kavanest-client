@@ -21,7 +21,8 @@ const OverrideControls: FC = () => {
     notifyOnNetworkStatusChange: true, // Needed for some reason
     onCompleted() {
       if (data.room) {
-        console.log(data.room.overrideTime);
+        // console.log(data.room.overrideTime);
+        console.log(data);
         setOverrideTime(data.room.overrideTime);
         setOverrideType(data.room.overrideType);
       }
