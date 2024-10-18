@@ -7,6 +7,8 @@ export const socketUrl = process.env.REACT_APP_SOCKET ?? "";
 
 console.log(apiUrl, socketUrl);
 
+console.log(apiUrl, socketUrl);
+
 export const makeRequest = async (query: string, variables: any = null) => {
   const data = await Axios.post(apiUrl, { query, variables }).then((response) => {
     return response.data.data;
