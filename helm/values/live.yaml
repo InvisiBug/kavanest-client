@@ -2,7 +2,7 @@ name: kavanest-client
 
 namespace: kavanest
 env:
-  APP_VERSION: d8ad99f2b31d3ea8963cefa9b70ce200655d028e
+  APP_VERSION: 95c0ff9cbc0870433ef5d5bee79c92cdfe5e1c24
 
 deployment:
   - name: kavanest-client
