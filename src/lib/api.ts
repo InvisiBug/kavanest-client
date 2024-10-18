@@ -1,6 +1,6 @@
 import { weekOrWeekend, now } from "src/lib/helpers";
 import Axios from "axios";
-require("dotenv").config();
+// require("dotenv").config();
 
 export const apiUrl = process.env.REACT_APP_API ?? "";
 export const socketUrl = process.env.REACT_APP_SOCKET ?? "";
