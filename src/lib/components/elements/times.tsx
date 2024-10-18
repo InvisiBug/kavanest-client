@@ -9,7 +9,7 @@ import styled from "@emotion/styled";
 const Times: FC<Props> = ({ updateTimer, times = [0.01, 10, 15, 30], children }) => {
   return (
     <Container>
-      <h2>{children}</h2>
+      {children && <h2>{children}</h2>}
       <ButtonRow>
         {times.map((time) => {
           return (
@@ -35,19 +35,23 @@ type Props = {
   times?: number[];
 };
 
+const borders = false;
+
 const Container = styled.div`
+  border: ${borders ? "1px solid purple" : "none"};
   padding-top: 0;
   text-align: center;
-  /* border-bottom: 1px solid grey; */
+
   display: flex;
   flex-direction: column;
+  /* max-width: 100%; */
 `;
 
 const Button = styled.div`
   padding: 1rem;
   display: grid;
   border: 1px solid grey;
-  margin: 20px;
+  margin: 0.5rem;
   align-items: center;
   border-radius: 20px;
   :active {
@@ -57,6 +61,11 @@ const Button = styled.div`
 `;
 
 const ButtonRow = styled.div`
+  border: ${borders ? "1px solid green" : "none"};
+
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+
+  flex-basis: auto;
+  /* max-width: 100%; */
 `;
