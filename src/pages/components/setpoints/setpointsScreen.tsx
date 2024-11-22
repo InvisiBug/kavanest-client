@@ -12,6 +12,8 @@ const SetpointsScreen: React.FC = () => {
     errorPolicy: "all",
   });
 
+  console.log(error)
+
   if (!data) return <></>;
   const { radiators } = data;
 

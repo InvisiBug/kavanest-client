@@ -1,5 +1,11 @@
 import React from "react";
-import { ApolloClient, InMemoryCache, ApolloProvider, DefaultOptions } from "@apollo/client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  DefaultOptions,
+  HttpLink,
+} from "@apollo/client";
 import { BrowserRouter } from "react-router-dom";
 import { AppProvider } from "./lib/context";
 import { apiUrl } from "@/lib/api";
@@ -17,12 +23,31 @@ const defaultOptions: DefaultOptions = {
   },
 };
 
+// const customFetch = (uri, options) => {
+//   options.mode = 'no-cors';
+//   return fetch(uri, options);
+// };
+
 const App: React.FC = () => {
   const client = new ApolloClient({
     defaultOptions: defaultOptions,
     uri: apiUrl,
     cache: new InMemoryCache(),
   });
+
+  // const client = new ApolloClient({
+  //   link: new HttpLink({
+  //     uri: apiUrl,
+  //     // fetchOptions: {
+  //     //   mode: "no-cors", // no-cors, *cors, same-origin
+  //     // },
+  //     // headers: {
+  //     //   "Content-Type": "application/json",
+  //     // },
+  //   }),
+  //   cache: new InMemoryCache(),
+  //   defaultOptions: defaultOptions,
+  // });
 
   return (
     <>
