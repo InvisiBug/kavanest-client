@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
-import { useAppContext } from "src/lib/context";
-import { Selector, Text } from "src/lib/components";
+import { useAppContext } from "@/lib/context";
+import { Selector, Text } from "@/lib/components";
 import SensorDetails from "./details";
 
 const Sensor: React.FC<Props> = ({

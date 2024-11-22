@@ -3,7 +3,7 @@ import React, { useState, useEffect, FC } from "react";
 import { ReactP5Wrapper } from "@p5-wrapper/react";
 import { sketch } from "./sketch";
 import styled from "@emotion/styled";
-import { mq, px } from "src/lib/mediaQueries";
+import { mq, px } from "@/lib/mediaQueries";
 
 const Thermometer: FC<any> = ({ temp, set }) => {
   const [currentTemp, setCurrentTemp] = useState<number>(temp);

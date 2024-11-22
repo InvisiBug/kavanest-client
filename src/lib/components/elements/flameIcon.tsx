@@ -1,9 +1,9 @@
 import React, { FC, useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { useQuery, gql } from "@apollo/client";
-import { useAppContext } from "src/lib/context";
-import { flame } from "src/lib/components";
-import { Heating, Radiator } from "src/lib/gqlTypes";
+import { useAppContext } from "@/lib/context";
+import { flame } from "@/lib/components";
+import { Heating, Radiator } from "@/lib/gqlTypes";
 
 const FlameIcon: FC<Props> = ({ name, borders = false }) => {
   const [heating, setHeating] = useState<Heating>({});

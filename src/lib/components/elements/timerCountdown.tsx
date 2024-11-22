@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
-import { isTimeLeft, calcTimeDifference } from "src/lib/helpers";
+import { isTimeLeft, calcTimeDifference } from "@/lib/helpers";
 
 const TimerCountdown: FC<{ time: string }> = ({ time, children }) => {
   const countdownTime = new Date(time).getTime();
