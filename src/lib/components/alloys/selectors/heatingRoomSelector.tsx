@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { decamelize } from "@/lib/helpers";
 import { FlameIcon, CurrentTemp, rightArrow, Target, SelectorTitle } from "@/lib/components";

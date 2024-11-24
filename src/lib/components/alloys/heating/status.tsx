@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styled from "@emotion/styled";
 import { useHeating } from "./heating";
 import CurrentTemp from "../../elements/currentTemp";

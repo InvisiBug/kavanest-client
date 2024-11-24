@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 // import RoomScreen from "./components/roomScreen";
 import { RoomHeating } from "@/lib/components";
 import { useQuery, gql } from "@apollo/client";

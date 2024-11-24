@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import { PageTitle, PageContents, PlugSelectorV2 as PlugSelector, TimerCountdown } from "@/lib/components";
 import { Times } from "@/lib/components";

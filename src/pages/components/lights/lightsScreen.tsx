@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { PageTitle, PageContents, RGBLightSelector, PlugSelectorV2 as PlugSelector } from "@/lib/components";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import Details from "../../../lib/components/alloys/selectors/rgbLightDetails";

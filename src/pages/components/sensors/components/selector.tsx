@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import styled from "@emotion/styled";
 import { useAppContext } from "@/lib/context";
 import { Selector, Text } from "@/lib/components";

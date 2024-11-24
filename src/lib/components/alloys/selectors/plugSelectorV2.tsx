@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
 import { Selector, BooleanStateIndicator } from "@/lib/components";
@@ -51,7 +51,7 @@ const PlugSelector: React.FC<Props> = ({ data, mqttNameOverride = null, margin =
   );
 };
 
-export default React.memo(PlugSelector);
+export default memo(PlugSelector);
 
 interface Props {
   data: Plug;

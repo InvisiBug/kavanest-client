@@ -1,4 +1,4 @@
-import React, { FC, useState, createContext, useContext } from "react";
+import { FC, useState, createContext, useContext } from "react";
 import { getCurrentSetpointV2 as getCurrentSetpoint } from "@/lib/api";
 import { mq, px } from "@/lib/mediaQueries";
 import { useQuery, gql, useMutation } from "@apollo/client";

@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Times from "../../elements/times";

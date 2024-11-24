@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { useHeating } from "@/lib/components";
 import { plus, sinchronize } from "@/lib/components";
 import { useQuery, gql, useMutation } from "@apollo/client";

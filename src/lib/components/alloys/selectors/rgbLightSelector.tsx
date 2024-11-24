@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import styled from "@emotion/styled";
 import { Selector, RBGStateIndicator } from "@/lib/components";
 import { useAppContext } from "@/lib/context";

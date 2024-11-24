@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { Heating, Title, Status, Override, Schedule } from "./heating";
 
 const RoomSetpoints: FC<Props> = ({ name, close }) => {

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { PageTitle } from "@/lib/components";
 import { HeatingRoomSelector } from "@/lib/components";
 import { useQuery, gql } from "@apollo/client";

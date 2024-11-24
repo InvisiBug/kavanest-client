@@ -1,7 +1,7 @@
 // NOTES:
 // -- Array-destructuring assignment won't work w vanilla ie11; needs babel-polyfill lol
 
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 
 // Utils:

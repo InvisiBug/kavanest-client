@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import { PageTitle, PageContents, PlugSelectorV2 as PlugSelector } from "@/lib/components";
 import { Plug } from "@/lib/gqlTypes";

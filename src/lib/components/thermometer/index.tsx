@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FC } from "react";
+import { useState, useEffect, FC } from "react";
 // import { ReactP5Wrapper } from "react-p5-wrapper";
 import { ReactP5Wrapper } from "@p5-wrapper/react";
 import { sketch } from "./sketch";

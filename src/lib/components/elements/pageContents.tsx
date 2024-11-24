@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import styled from "@emotion/styled";
 
 const PageContents: FC<Props> = ({ children }) => {

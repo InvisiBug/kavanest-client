@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect, memo } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
 import { Selector, BooleanStateIndicator } from "@/lib/components";
@@ -8,7 +8,7 @@ const PlugSelector: React.FC<Props> = ({ thisPlug, mqttNameOverride = null, sock
   const { socket } = useAppContext();
   const [updatePlug] = useMutation(mutation, {});
 
-  let { name, state, connected, _id } = thisPlug;
+  const { name, state, connected, _id } = thisPlug;
 
   useEffect(() => {
     if (_id) {
@@ -37,7 +37,7 @@ const PlugSelector: React.FC<Props> = ({ thisPlug, mqttNameOverride = null, sock
   );
 };
 
-export default React.memo(PlugSelector);
+export default memo(PlugSelector);
 
 export interface Props {
   thisPlug: PlugData;

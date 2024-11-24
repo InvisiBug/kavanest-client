@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { plus, cancel } from "@/lib/components";

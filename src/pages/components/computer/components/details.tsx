@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { switchOn, switchOff } from "@/lib/components";
 import { decamelize } from "@/lib/helpers";
 import styled from "@emotion/styled";
