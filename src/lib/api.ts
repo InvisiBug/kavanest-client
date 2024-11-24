@@ -4,12 +4,12 @@ import Axios from "axios";
 const env = import.meta.env;
 
 export const apiUrl = env.VITE_API ?? "";
+console.log("🚀 ~ apiUrl:", apiUrl);
 export const socketUrl = env.VITE_SOCKET ?? "";
+console.log("🚀 ~ socketUrl:", socketUrl);
 
 // export const apiUrl = "https://api.kavanet.io";
 // export const socketUrl = "https://test.socket.kavanet.io";
-
-console.log(apiUrl, socketUrl);
 
 export const makeRequest = async (query: string, variables: any = null) => {
   const data = await Axios.post(apiUrl, { query, variables }).then((response) => {
