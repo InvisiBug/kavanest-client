@@ -4,12 +4,12 @@ import { decamelize } from "@/lib/helpers";
 import { useNavigate } from "react-router-dom";
 import { SelectorTitle, useHeating } from "@/lib/components";
 
-const Title: FC = () => {
+const Title: FC<Props> = ({ close }) => {
   const { name, borders } = useHeating();
   const navigate = useNavigate();
 
   return (
-    <PageTitle onClick={() => navigate(-1)}>
+    <PageTitle onClick={() => close()}>
       <TitleText borders={borders}>&larr; {decamelize(name)}</TitleText>
       {/* <SelectorTitle> {decamelize(name)}</SelectorTitle> */}
     </PageTitle>
@@ -17,6 +17,10 @@ const Title: FC = () => {
 };
 
 export default Title;
+
+export interface Props {
+  close: () => void;
+}
 
 const PageTitle = styled.div`
   cursor: pointer;

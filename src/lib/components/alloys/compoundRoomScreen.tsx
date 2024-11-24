@@ -5,7 +5,7 @@ const RoomSetpoints: FC<Props> = ({ name, close }) => {
   return (
     <>
       <Heating name={name}>
-        <Title />
+        <Title close={close} />
         <Status />
         <Override />
         <Schedule />
@@ -18,5 +18,5 @@ export default RoomSetpoints;
 
 export interface Props {
   name?: string;
-  close?: () => void;
+  close: () => void;
 }
