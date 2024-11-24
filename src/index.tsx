@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import App from "./app2.tsx";
+import App from "./app.tsx";
 // import "./index.css";
 
 ReactDOM.render(
