@@ -46,7 +46,7 @@ const HeatingRoomSelector: React.FC<Props> = ({ roomName, onClick = null, close 
         </SelectorTitle> */}
 
         {sensor && radiator && (
-          <RoomName sensorConnected={sensor.connected} radiatorConnected={radiator.connected} onClick={close}>
+          <RoomName sensorConnected={sensor.connected} radiatorConnected={radiator.connected}>
             {decamelize(roomName)}
           </RoomName>
         )}
@@ -71,7 +71,6 @@ export default HeatingRoomSelector;
 export interface Props {
   roomName: string;
   onClick: any;
-  close: any;
 }
 
 const query = gql`
