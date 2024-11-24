@@ -1,11 +1,11 @@
 import { useState } from "react";
 // import RoomScreen from "./components/roomScreen";
-import { RoomHeating } from "@/lib/components";
+import { RoomHeating } from "@/lib/ui";
 import { useQuery, gql } from "@apollo/client";
 import SelectorScreen from "./selectorScreen";
 import { Plug, Radiator } from "@/lib/gqlTypes";
 import { Routes, Route } from "react-router-dom";
-import Thermometer from "@/lib/components/thermometer";
+import Thermometer from "@/lib/ui/thermometer";
 
 const SetpointsScreen: React.FC = () => {
   const [openRoom, setOpenRoom] = useState<string | undefined>(undefined);

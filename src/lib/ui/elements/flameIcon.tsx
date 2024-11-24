@@ -2,7 +2,7 @@ import { FC, useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { useQuery, gql } from "@apollo/client";
 import { useAppContext } from "@/lib/context";
-import { flame } from "@/lib/components";
+import { flame } from "@/lib/ui";
 import { Heating, Radiator } from "@/lib/gqlTypes";
 
 const FlameIcon: FC<Props> = ({ name, borders = false }) => {

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { PageTitle, PageContents, RGBLightSelector, PlugSelectorV2 as PlugSelector } from "@/lib/components";
+import { PageTitle, PageContents, RGBLightSelector, PlugSelectorV2 as PlugSelector } from "@/lib/ui";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import Details from "../../../lib/components/alloys/selectors/rgbLightDetails";
+import Details from "@/lib/ui/alloys/selectors/rgbLightDetails";
 import { rgbToArray } from "@/lib/helpers";
 import styled from "@emotion/styled";
 import { mq, px } from "@/lib/mediaQueries";

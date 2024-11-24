@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import { plus, cancel } from "@/lib/components";
+import { plus, cancel } from "@/lib/ui";
 import { mq } from "@/lib/mediaQueries";
 
 const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
-import { Selector, RBGStateIndicator } from "@/lib/components";
+import { Selector, RBGStateIndicator } from "@/lib/ui";
 import { useAppContext } from "@/lib/context";
 import Details from "./rgbLightDetails";
 import { gql, useMutation } from "@apollo/client";

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styled from "@emotion/styled";
 import { decamelize } from "@/lib/helpers";
-import { SelectorTitle, downArrow, rightArrow } from "@/lib/components";
+import { SelectorTitle, downArrow, rightArrow } from "@/lib/ui";
 import { mq, px } from "@/lib/mediaQueries";
 
 const Selector: FC<Props> = ({ onClick, connected = true, openDetails, name, arrow = false, children }) => {

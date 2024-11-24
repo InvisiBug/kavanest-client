@@ -1,7 +1,7 @@
 import { useState, useEffect, memo } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
-import { Selector, BooleanStateIndicator } from "@/lib/components";
+import { Selector, BooleanStateIndicator } from "@/lib/ui";
 import { useAppContext } from "@/lib/context";
 import { Plug } from "@/lib/gqlTypes";
 import { mq, px } from "@/lib/mediaQueries";

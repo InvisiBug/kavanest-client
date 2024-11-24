@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { home, setpoints, sensor, dog, rgbLight, plug, gears, computer, valve, bed } from "@/lib/components/elements/icons";
+import { home, setpoints, sensor, dog, rgbLight, plug, gears, computer, valve, bed } from "@/lib/ui/elements/icons";
 import { mq, px } from "../../mediaQueries";
 import { decamelize } from "@/lib/helpers";
 import { useNavigate, useLocation } from "react-router-dom";

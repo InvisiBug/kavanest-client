@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PageTitle, PageContents, PlugSelector } from "@/lib/components";
+import { PageTitle, PageContents, PlugSelector } from "@/lib/ui";
 import { useQuery, gql } from "@apollo/client";
 import { Plug } from "@/lib/gqlTypes";
 

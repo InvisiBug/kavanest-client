@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
-import { useHeating } from "@/lib/components";
-import { plus, sinchronize } from "@/lib/components";
+import { useHeating } from "@/lib/ui";
+import { plus, sinchronize } from "@/lib/ui";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import { decamelize, weekOrWeekend } from "@/lib/helpers";
 import { getCurrentSetpointV2 } from "@/lib/api";

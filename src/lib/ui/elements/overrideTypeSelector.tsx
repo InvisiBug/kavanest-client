@@ -14,7 +14,7 @@ const OverrideType: FC<any> = ({ currentType, types, updateType }) => {
   const typeToHuman = (type: string) => {
     const arr = type.split("-");
 
-    for (var i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
       arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
     }
 
@@ -50,12 +50,16 @@ const Container = styled.div`
   gap: 2rem;
 `;
 
-const Override = styled.div`
-  border: ${({ active }: { active: boolean }) => (active ? "#c73528" : "#707070")};
-  background-color: ${({ active }: { active: boolean }) => (active ? "#c73528" : "#707070")};
+const Override = styled.div<OverrideProps>`
+  border: ${({ active }) => (active ? "#c73528" : "#707070")};
+  background-color: ${({ active }) => (active ? "#c73528" : "#707070")};
   padding: 0.5rem;
   border-radius: 10% 10% 10% 10%;
   -webkit-tap-highlight-color: transparent;
 
   cursor: pointer;
 `;
+
+type OverrideProps = {
+  active: boolean;
+};

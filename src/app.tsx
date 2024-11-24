@@ -3,7 +3,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider, DefaultOptions } from "@ap
 import { BrowserRouter } from "react-router-dom";
 import { AppProvider } from "./lib/context";
 import { apiUrl } from "@/lib/api";
-import { Layout } from "@/lib/components";
+import { Layout } from "@/lib/ui";
 import Pages from "@/pages";
 
 // Some vital change (to get the git pipeline working again)

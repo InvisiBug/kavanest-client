@@ -2,7 +2,7 @@ import { FC } from "react";
 import styled from "@emotion/styled";
 import { decamelize } from "@/lib/helpers";
 import { useNavigate } from "react-router-dom";
-import { SelectorTitle, useHeating } from "@/lib/components";
+import { SelectorTitle, useHeating } from "@/lib/ui";
 
 const Title: FC<Props> = ({ close }) => {
   const { name, borders } = useHeating();

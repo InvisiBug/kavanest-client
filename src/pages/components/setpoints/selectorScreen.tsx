@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { PageTitle } from "@/lib/components";
-import { HeatingRoomSelector } from "@/lib/components";
+import { PageTitle } from "@/lib/ui";
+import { HeatingRoomSelector } from "@/lib/ui";
 import { useQuery, gql } from "@apollo/client";
 import styled from "@emotion/styled";
 import { mq, px } from "@/lib/mediaQueries";

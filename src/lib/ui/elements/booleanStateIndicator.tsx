@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styled from "@emotion/styled";
-import { on, off, disconnected } from "@/lib/components";
+import { on, off, disconnected } from "@/lib/ui";
 
 const BooleanStateIndicator: FC<Props> = ({ state, connected, size = "large", margin = false }) => {
   return (
