@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import RoomScreen from "./components/roomScreen";
 import { RoomHeating } from "@/lib/components";
 import { useQuery, gql } from "@apollo/client";
@@ -7,10 +7,15 @@ import { Plug, Radiator } from "@/lib/gqlTypes";
 import { Routes, Route } from "react-router-dom";
 
 const SetpointsScreen: React.FC = () => {
+  const [openRoom, setOpenRoom] = useState<string | undefined>(undefined);
+  console.log("🚀 ~ openRoom:", openRoom);
+
   const { data, error } = useQuery<GraphqlResponse>(getValves, {
     fetchPolicy: "no-cache",
     errorPolicy: "all",
   });
+
+  console.log("GHesadkljh");
 
   if (error) console.log(error);
 
@@ -20,13 +25,17 @@ const SetpointsScreen: React.FC = () => {
   // console.log(data);
 
   return (
-    <Routes>
-      <Route path="/" element={<SelectorScreen />} />
+    // <Routes>
+    //   <Route path="/" element={<SelectorScreen />} />
+    <>
+      {openRoom == undefined ? <SelectorScreen setOpenRoom={setOpenRoom} /> : <RoomHeating name={openRoom} close={() => setOpenRoom(undefined)} />}
+      {/* <SelectorScreen setOpenRoom={setOpenRoom} /> */}
 
-      {radiators.map(({ name }) => {
+      {/* {radiators.map(({ name }) => {
         return <Route path={`setpoints/${name}`} element={<RoomHeating name={name} />} key={name} />;
-      })}
-    </Routes>
+      })} */}
+    </>
+    // </Routes>
   );
 };
 
