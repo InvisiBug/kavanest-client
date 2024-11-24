@@ -32,6 +32,7 @@ const temperature = 12;
 
 type Props = {
   name?: string;
+  children: React.ReactNode;
 };
 
 const Heating: FC<Props> & {

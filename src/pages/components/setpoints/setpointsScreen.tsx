@@ -5,6 +5,7 @@ import { useQuery, gql } from "@apollo/client";
 import SelectorScreen from "./selectorScreen";
 import { Plug, Radiator } from "@/lib/gqlTypes";
 import { Routes, Route } from "react-router-dom";
+import Thermometer from "@/lib/components/thermometer";
 
 const SetpointsScreen: React.FC = () => {
   const [openRoom, setOpenRoom] = useState<string | undefined>(undefined);
@@ -34,6 +35,7 @@ const SetpointsScreen: React.FC = () => {
       {/* {radiators.map(({ name }) => {
         return <Route path={`setpoints/${name}`} element={<RoomHeating name={name} />} key={name} />;
       })} */}
+      {/* <Thermometer /> */}
     </>
     // </Routes>
   );

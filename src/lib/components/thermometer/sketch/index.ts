@@ -64,9 +64,9 @@ export const sketch = (p5: p5) => {
 
     // @ts-ignore:next-line
     p5.updateWithProps = (props) => {
-      console.log(props);
+      console.log("Props", props);
       if (props.currentTemp) {
-        arrow.update(props.currentTemp.temperature);
+        arrow.update(props.currentTemp);
         // console.log(props.currentTemp);
       }
 
