@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import styled from "@emotion/styled";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import { Room } from "src/lib/gqlTypes";
+import { Room } from "@/lib/gqlTypes";
 
 import { useHeating } from "../alloys/heating/heating";
 

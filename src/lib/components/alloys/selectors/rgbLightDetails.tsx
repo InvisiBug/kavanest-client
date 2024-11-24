@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { ColourWheel } from "src/lib/components";
+import { ColourWheel } from "@/lib/components";
 
 const RGBLightDetails: React.FC<Props> = ({ red, green, blue, mode, updateRGB }) => {
   return (

@@ -1,9 +1,9 @@
 import React from "react";
 // import RoomScreen from "./components/roomScreen";
-import { RoomHeating } from "src/lib/components";
+import { RoomHeating } from "@/lib/components";
 import { useQuery, gql } from "@apollo/client";
 import SelectorScreen from "./selectorScreen";
-import { Plug, Radiator } from "src/lib/gqlTypes";
+import { Plug, Radiator } from "@/lib/gqlTypes";
 import { Routes, Route } from "react-router-dom";
 
 const SetpointsScreen: React.FC = () => {
@@ -11,6 +11,8 @@ const SetpointsScreen: React.FC = () => {
     fetchPolicy: "no-cache",
     errorPolicy: "all",
   });
+
+  if (error) console.log(error);
 
   if (!data) return <></>;
   const { radiators } = data;

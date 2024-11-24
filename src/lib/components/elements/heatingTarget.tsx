@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import styled from "@emotion/styled";
 import { useQuery, gql } from "@apollo/client";
-import { getCurrentSetpointV2 as getCurrentSetpoint } from "src/lib/api";
-import { textColour } from "src/lib/constants";
+import { getCurrentSetpointV2 as getCurrentSetpoint } from "@/lib/api";
+import { textColour } from "@/lib/constants";
 
 const HeatingTarget: FC<Props> = ({ name, borders = false }) => {
   const { data } = useQuery<GqlResponse>(request, {
@@ -57,7 +57,7 @@ type GqlResponse = {
 
 const Container = styled.div`
   border: ${({ borders }: { borders: boolean }) => (borders ? "1px solid white" : "none")};
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: ${textColour};
   text-align: center;
 `;
