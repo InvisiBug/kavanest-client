@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
-import { Selector, BooleanStateIndicator } from "src/lib/components";
-import { useAppContext } from "src/lib/context";
-import { Plug } from "src/lib/gqlTypes";
-import { mq, px } from "src/lib/mediaQueries";
+import { Selector, BooleanStateIndicator } from "@/lib/components";
+import { useAppContext } from "@/lib/context";
+import { Plug } from "@/lib/gqlTypes";
+import { mq, px } from "@/lib/mediaQueries";
 
 // This version handles the socket updates in this component
 // The other versions parent handles the data
-const PlugSelector: React.FC<any> = ({ data, mqttNameOverride = null, margin = false }) => {
+
+const PlugSelector: React.FC<Props> = ({ data, mqttNameOverride = null, margin = false }) => {
   const { socket } = useAppContext();
   const [updatePlug] = useMutation(mutation, {});
 
@@ -25,8 +26,6 @@ const PlugSelector: React.FC<any> = ({ data, mqttNameOverride = null, margin = f
       socket.off(_id);
     };
   }, [_id, socket]);
-
-  if (!data.name) return null;
 
   return (
     <>
@@ -54,8 +53,9 @@ const PlugSelector: React.FC<any> = ({ data, mqttNameOverride = null, margin = f
 
 export default React.memo(PlugSelector);
 
-export interface Props {
+interface Props {
   data: Plug;
+  mqttNameOverride?: string;
   margin?: boolean;
 }
 

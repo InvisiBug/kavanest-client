@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { disconnectedDeviceTextColour, textColour } from "src/lib/constants";
+import { disconnectedDeviceTextColour, textColour } from "@/lib/constants";
 
 const SelectorTitle: React.FC<Props> = ({ children, onClick, connected = true }) => {
   return (

@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import { PageTitle, PageContents, PlugSelectorV2 as PlugSelector, TimerCountdown } from "src/lib/components";
-import { Times } from "src/lib/components";
+import { PageTitle, PageContents, PlugSelectorV2 as PlugSelector, TimerCountdown } from "@/lib/components";
+import { Times } from "@/lib/components";
 
 const Bed: FC = () => {
   const [timerVal, setTimerVal] = useState();
@@ -38,7 +38,9 @@ const Bed: FC = () => {
     <>
       <PageTitle desc={"My heated mattress controller"}>Bed</PageTitle>
       <PageContents>
-        <Times updateTimer={updateTime}>Please select a time</Times>
+        <Times updateTimer={updateTime} times={[0.01, 10, 20, 45]}>
+          Please select a time
+        </Times>
         <TimerCountdown time={timerVal || "0"}>Time Remaining</TimerCountdown>
         {data?.plug ? <PlugSelector data={data.plug} margin={false} /> : null}
       </PageContents>

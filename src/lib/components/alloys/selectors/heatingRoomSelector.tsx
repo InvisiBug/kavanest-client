@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { decamelize } from "src/lib/helpers";
-import { FlameIcon, CurrentTemp, rightArrow, Target, SelectorTitle } from "src/lib/components";
+import { decamelize } from "@/lib/helpers";
+import { FlameIcon, CurrentTemp, rightArrow, Target, SelectorTitle } from "@/lib/components";
 import { useQuery, gql } from "@apollo/client";
-import { useAppContext } from "src/lib/context";
-import { mq, px } from "src/lib/mediaQueries";
-import { radiatorDisconectColour, sensorDisconectColour } from "src/lib/constants";
+import { useAppContext } from "@/lib/context";
+import { mq, px } from "@/lib/mediaQueries";
+import { radiatorDisconectColour, sensorDisconectColour } from "@/lib/constants";
 
 const HeatingRoomSelector: React.FC<Props> = ({ roomName, onClick = null, close = null }) => {
   const [sensor, setSensor] = useState<any>();
@@ -36,7 +36,7 @@ const HeatingRoomSelector: React.FC<Props> = ({ roomName, onClick = null, close 
     };
   }, [socket]);
 
-  if (!data || !sensor || !radiator) return <></>;
+  // if (!data || !sensor || !radiator) return <></>;
 
   return (
     <>
@@ -45,9 +45,11 @@ const HeatingRoomSelector: React.FC<Props> = ({ roomName, onClick = null, close 
           {decamelize(roomName)}
         </SelectorTitle> */}
 
-        <RoomName sensorConnected={sensor.connected} radiatorConnected={radiator.connected} onClick={close}>
-          {decamelize(roomName)}
-        </RoomName>
+        {sensor && radiator && (
+          <RoomName sensorConnected={sensor.connected} radiatorConnected={radiator.connected} onClick={close}>
+            {decamelize(roomName)}
+          </RoomName>
+        )}
 
         <FlameContainer>
           <FlameIcon name={roomName} borders={false} />
@@ -128,8 +130,15 @@ const RoomName = styled.h3`
   display: item;
   align-self: center;
   flex-grow: 1;
-  color: ${(props: { sensorConnected: boolean; radiatorConnected: boolean }) =>
-    props.sensorConnected && props.radiatorConnected ? "white" : props.radiatorConnected ? sensorDisconectColour : radiatorDisconectColour};
+  font-size: 1rem;
+  color: ${({ sensorConnected, radiatorConnected }: { sensorConnected: boolean; radiatorConnected: boolean }) =>
+    sensorConnected && radiatorConnected
+      ? "white"
+      : radiatorConnected
+      ? sensorDisconectColour
+      : !sensorConnected && !radiatorConnected
+      ? "green"
+      : radiatorDisconectColour};
 
   ${mq("large")} {
     flex-grow: 0;
@@ -145,8 +154,9 @@ const Vals = styled.div`
   justify-content: center;
 
   min-width: 3rem;
-  margin-right: 1.5rem;
+  margin-right: 1rem;
   gap: 1rem;
+  font-size: 1rem;
 
   ${mq("large")} {
     width: 100%;

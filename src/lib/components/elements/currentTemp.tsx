@@ -1,9 +1,10 @@
 import React, { FC, useState } from "react";
 import styled from "@emotion/styled";
 import { useQuery, gql } from "@apollo/client";
-import { useAppContext } from "src/lib/context";
-import { Sensor } from "src/lib/gqlTypes";
-import { textColour } from "src/lib/constants";
+import { useAppContext } from "@/lib/context";
+import { Sensor } from "@/lib/gqlTypes";
+import { textColour } from "@/lib/constants";
+// import { Thermometer } from "@/lib/components";
 
 const CurrentTemp: FC<Props> = ({ name, borders = false }) => {
   const { socket } = useAppContext();
@@ -58,7 +59,7 @@ type GqlResponse = {
 
 const Container = styled.div`
   border: ${({ borders }: { borders: boolean }) => (borders ? "1px solid white" : "none")};
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-align: center;
   color: ${textColour};
 `;

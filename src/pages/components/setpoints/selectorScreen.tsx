@@ -1,10 +1,10 @@
 import React, { FC } from "react";
-import { PageTitle } from "src/lib/components";
-import { HeatingRoomSelector } from "src/lib/components";
+import { PageTitle } from "@/lib/components";
+import { HeatingRoomSelector } from "@/lib/components";
 import { useQuery, gql } from "@apollo/client";
 import styled from "@emotion/styled";
-import { mq, px } from "src/lib/mediaQueries";
-import { Plug } from "src/lib/gqlTypes";
+import { mq, px } from "@/lib/mediaQueries";
+import { Plug } from "@/lib/gqlTypes";
 import { useNavigate } from "react-router-dom";
 
 const SetpointsSelectorScreen: FC = () => {

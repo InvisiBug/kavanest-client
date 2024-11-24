@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
-import { Selector, RBGStateIndicator } from "src/lib/components";
-import { useAppContext } from "src/lib/context";
+import { Selector, RBGStateIndicator } from "@/lib/components";
+import { useAppContext } from "@/lib/context";
 import Details from "./rgbLightDetails";
 import { gql, useMutation } from "@apollo/client";
-import { rgbToArray } from "src/lib/helpers";
+import { rgbToArray } from "@/lib/helpers";
 
 const RGBLightSelector: React.FC<any> = ({
   thisLight: { name, red, green, blue, mode, connected, _id },

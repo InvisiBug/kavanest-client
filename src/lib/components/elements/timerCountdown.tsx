@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
+import { isTimeLeft, calcTimeDifference } from "@/lib/helpers";
 
 const TimerCountdown: FC<{ time: string }> = ({ time, children }) => {
   const countdownTime = new Date(time).getTime();
@@ -10,6 +11,7 @@ const TimerCountdown: FC<{ time: string }> = ({ time, children }) => {
 
   useEffect(() => {
     setRemainingTime(calcTimeDifference(now, countdownTime));
+
     const timer = setTimeout(() => {
       setNow(new Date().getTime());
     }, 100);
@@ -19,34 +21,23 @@ const TimerCountdown: FC<{ time: string }> = ({ time, children }) => {
 
   // if (remainingTime.split(":")[0] && remainingTime.split(":")[1] < 0) return null;
 
+  const hours = remainingTime.split(":")[0];
+  const mins = remainingTime.split(":")[1];
+  const secs = remainingTime.split(":")[2];
+
+  const timeLeft = isTimeLeft(hours, mins, secs);
+
   return (
     <>
-      <Container isOpen={remainingTime.split(":")[0] && remainingTime.split(":")[1] > 0}>
+      <Container isOpen={timeLeft || remainingTime === "lol"}>
         <h2>{children}</h2>
-        <h1>{remainingTime.split(":")[0] && remainingTime.split(":")[1] > 1 ? remainingTime : "Off"}</h1>
+        <h1>{timeLeft ? remainingTime : remainingTime === "lol" ? "5 eva M9" : "Off"}</h1>
       </Container>
     </>
   );
 };
 
 export default TimerCountdown;
-
-export const calcTimeDifference = (now: number, timer: number) => {
-  const difference = timer - now;
-
-  if (difference < -1) return `${-1}:${difference}`; // Handles the bed being off
-
-  var msec = difference;
-
-  var hh = Math.floor(msec / 1000 / 60 / 60);
-  msec -= hh * 1000 * 60 * 60;
-  var mm = Math.floor(msec / 1000 / 60);
-  msec -= mm * 1000 * 60;
-  var ss = Math.floor(msec / 1000);
-  msec -= ss * 1000;
-
-  return `${("0" + mm).slice(-2)}:${("0" + ss).slice(-2)}`;
-};
 
 const slide = keyframes`
   from {

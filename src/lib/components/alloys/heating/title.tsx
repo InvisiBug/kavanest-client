@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import styled from "@emotion/styled";
-import { decamelize } from "src/lib/helpers";
+import { decamelize } from "@/lib/helpers";
 import { useNavigate } from "react-router-dom";
-import { SelectorTitle, useHeating } from "src/lib/components";
+import { SelectorTitle, useHeating } from "@/lib/components";
 
 const Title: FC = () => {
   const { name, borders } = useHeating();

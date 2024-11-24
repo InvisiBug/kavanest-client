@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { home, setpoints, sensor, dog, rgbLight, plug, gears, computer, valve, bed } from "../elements/icons";
 import { mq, px } from "../../mediaQueries";
-import { decamelize } from "src/lib/helpers";
+import { decamelize } from "@/lib/helpers";
 import { useNavigate, useLocation } from "react-router-dom";
 
-import { useAppContext } from "src/lib/context";
+import { useAppContext } from "@/lib/context";
 
 const navButtons = [
   // { name: "home", icon: home },

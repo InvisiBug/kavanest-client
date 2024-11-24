@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PageTitle, powerOn } from "src/lib/components";
+import { PageTitle, powerOn } from "@/lib/components";
 import styled from "@emotion/styled";
 import palettes from "nice-color-palettes";
 

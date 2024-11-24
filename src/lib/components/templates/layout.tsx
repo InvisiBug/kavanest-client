@@ -1,10 +1,14 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Global, css } from "@emotion/react";
-import { mq, px } from "src/lib/mediaQueries";
-import { NavBar } from "src/lib/components";
+import { mq, px } from "@/lib/mediaQueries";
+import { NavBar } from "@/lib/components";
 
-export const Layout: React.FC = ({ children }) => {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <Global styles={globalStyles} />
@@ -23,32 +27,34 @@ export default Layout;
 const borders = false;
 
 const AppWindow = styled.div`
-  position: fixed;
+  /* position: fixed; */
   /* border: ${borders ? "1px solid green" : "none"}; */
   background-color: #1f1f1f;
 
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100vh;
   min-width: 100vw;
   padding: 0;
+  margin: 0 0 0 0;
   /* border: 1px solid red; */
 
   ${mq("large")} {
     flex-direction: row;
     align-items: flex-start;
-    /* overflow: scroll; */
+    /* overflow: auto; */
   }
 `;
 
 const Content = styled.div`
   border: ${borders ? "1px solid yellow" : "none"};
-  overflow-y: auto;
+  /* overflow-y: auto; */
+  /* height: 1000px; */
   /* width: 50vw; */
   flex-grow: 1;
   padding: 0 5% 0 5%;
   ${mq("large")} {
-    min-height: 100%;
+    /* min-height: 100%; */
     /* align-items: flex-start; */
   }
 `;
@@ -64,7 +70,7 @@ const Nav = styled.div`
     min-width: 100px;
     width: 5vw;
   }
-  margin-top: auto;
+  margin-top: 0;
 `;
 
 const globalStyles = css`

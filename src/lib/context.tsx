@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import openSocket, { Socket } from "socket.io-client";
-import { socketUrl } from "src/lib/api";
+import { socketUrl } from "@/lib/api";
 
 const AppContext = createContext<ContextState | undefined>(undefined);
 
@@ -47,7 +47,9 @@ export function useAppContext(): ContextState {
 
 export default AppContext;
 
-interface Props {}
+interface Props {
+  children: React.ReactNode;
+}
 
 interface ContextState {
   screen: string;

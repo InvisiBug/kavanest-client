@@ -20,4 +20,10 @@ const Container = styled.div`
     border-top: 1px solid grey;
     margin-top: 50px;
   }
+  /* border: 1px solid red; */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 `;

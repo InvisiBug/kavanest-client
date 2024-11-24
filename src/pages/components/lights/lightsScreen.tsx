@@ -1,61 +1,69 @@
 import React, { useState } from "react";
-import { PageTitle, PageContents, RGBLightSelector, PlugSelectorV2 as PlugSelector } from "src/lib/components";
+import { PageTitle, PageContents, RGBLightSelector, PlugSelectorV2 as PlugSelector } from "@/lib/components";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import Details from "../../../lib/components/alloys/selectors/rgbLightDetails";
-import { rgbToArray } from "src/lib/helpers";
+import { rgbToArray } from "@/lib/helpers";
 import styled from "@emotion/styled";
-import { mq, px } from "src/lib/mediaQueries";
+import { mq, px } from "@/lib/mediaQueries";
+import { Plug, RGBLight } from "@/lib/gqlTypes";
 
 const RGBLights: React.FC<any> = () => {
   const [openRGBLight, setOpenRGBLight] = useState("");
-  const [rgbLights, setRgbLights] = useState<any>(undefined);
-  const [floodlight, setFloodlight] = useState<any>(undefined);
-  const [lamp, setLamp] = useState<any>(undefined);
-  const [sun, setSun] = useState<any>(undefined);
-  const [eggChair, setEggChair] = useState<any>(undefined);
+  const [rgbLights, setRgbLights] = useState<RGBLight[] | undefined>(undefined);
+  const [floodlight, setFloodlight] = useState<Plug | undefined>(undefined);
+  const [studyLamp, setStudyLamp] = useState<Plug | undefined>(undefined);
+  const [bedRoomLamp, setBedRoomLamp] = useState<Plug | undefined>(undefined);
+  const [eggChair, setEggChair] = useState<Plug | undefined>(undefined);
+  const [livingRoomLamp, setlivingRoomLamp] = useState<Plug | undefined>(undefined);
+  const [trainingRoomLamp, settrainingRoomLamp] = useState<Plug | undefined>(undefined);
 
   const { data } = useQuery(getLights, {
     fetchPolicy: "no-cache",
     variables: {
       name1: "floodlight",
       name2: "eggChair",
-      name3: "sun",
-      name4: "lamp",
+      name3: "bedRoomLamp",
+      name4: "studyLamp",
+      name5: "livingRoomLamp",
+      name6: "trainingRoomLamp",
     },
     onCompleted() {
       setRgbLights(data.lights);
-      setLamp(data.lamp);
+      setStudyLamp(data.lamp);
       setFloodlight(data.floodlight);
-      setSun(data.sun);
+      setBedRoomLamp(data.sun);
       setEggChair(data.eggChair);
+      setlivingRoomLamp(data.livingRoomLamp);
+      settrainingRoomLamp(data.trainingRoomLamp);
     },
   });
-
-  if (!rgbLights || !lamp || !eggChair || !floodlight || !sun) return <></>;
 
   return (
     <>
       <PageTitle desc={"Some of these lights have alternative modes"}>Lights</PageTitle>
       <PageContents>
         {/* <SelectorContainer> */}
-        <PlugSelector data={floodlight} />
-        <PlugSelector data={eggChair} />
-        <PlugSelector data={lamp} />
-        <PlugSelector data={sun} />
+        {floodlight && <PlugSelector data={floodlight} />}
+        {livingRoomLamp && <PlugSelector data={livingRoomLamp} />}
+        {trainingRoomLamp && <PlugSelector data={trainingRoomLamp} />}
+        {eggChair && <PlugSelector data={eggChair} />}
+        {studyLamp && <PlugSelector data={studyLamp} />}
+        {bedRoomLamp && <PlugSelector data={bedRoomLamp} />}
 
         {/* Couldnt figure out how to pass in details from here */}
-        {rgbLights.map((light: any) => {
-          return (
-            <RGBLightSelector
-              thisLight={light}
-              allRgbLights={rgbLights}
-              setRgbLights={setRgbLights}
-              openRGBLight={openRGBLight}
-              setOpenRGBLight={setOpenRGBLight}
-              key={Math.random()}
-            />
-          );
-        })}
+        {rgbLights &&
+          rgbLights.map((light: any) => {
+            return (
+              <RGBLightSelector
+                thisLight={light}
+                allRgbLights={rgbLights}
+                setRgbLights={setRgbLights}
+                openRGBLight={openRGBLight}
+                setOpenRGBLight={setOpenRGBLight}
+                key={Math.random()}
+              />
+            );
+          })}
         {/* </SelectorContainer> */}
       </PageContents>
     </>
@@ -97,7 +105,7 @@ const SelectorContainer = styled.div`
 `;
 
 const getLights = gql`
-  query ($name1: String, $name2: String, $name3: String, $name4: String) {
+  query ($name1: String, $name2: String, $name3: String, $name4: String, $name5: String, $name6: String) {
     lights: getRGBLights {
       name
       red
@@ -126,6 +134,18 @@ const getLights = gql`
       _id
     }
     lamp: getPlug(name: $name4) {
+      name
+      state
+      connected
+      _id
+    }
+    livingRoomLamp: getPlug(name: $name5) {
+      name
+      state
+      connected
+      _id
+    }
+    trainingRoomLamp: getPlug(name: $name6) {
       name
       state
       connected

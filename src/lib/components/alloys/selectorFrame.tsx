@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import styled from "@emotion/styled";
-import { decamelize } from "src/lib/helpers";
-import { SelectorTitle, downArrow, rightArrow } from "src/lib/components";
-import { mq, px } from "src/lib/mediaQueries";
+import { decamelize } from "@/lib/helpers";
+import { SelectorTitle, downArrow, rightArrow } from "@/lib/components";
+import { mq, px } from "@/lib/mediaQueries";
 
 const Selector: FC<Props> = ({ onClick, connected = true, openDetails, name, arrow = false, children }) => {
   return (
