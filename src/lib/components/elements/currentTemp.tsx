@@ -59,7 +59,7 @@ type GqlResponse = {
 
 const Container = styled.div`
   border: ${({ borders }: { borders: boolean }) => (borders ? "1px solid white" : "none")};
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-align: center;
   color: ${textColour};
 `;

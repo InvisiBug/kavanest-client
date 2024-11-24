@@ -130,6 +130,7 @@ const RoomName = styled.h3`
   display: item;
   align-self: center;
   flex-grow: 1;
+  font-size: 1rem;
   color: ${({ sensorConnected, radiatorConnected }: { sensorConnected: boolean; radiatorConnected: boolean }) =>
     sensorConnected && radiatorConnected
       ? "white"
@@ -153,8 +154,9 @@ const Vals = styled.div`
   justify-content: center;
 
   min-width: 3rem;
-  margin-right: 1.5rem;
+  margin-right: 1rem;
   gap: 1rem;
+  font-size: 1rem;
 
   ${mq("large")} {
     width: 100%;

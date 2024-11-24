@@ -21,6 +21,7 @@ const defaultOptions: DefaultOptions = {
   watchQuery: {
     fetchPolicy: "network-only",
   },
+  // "Apollo-Require-Preflight": true,
 };
 
 // const customFetch = (uri, options) => {
@@ -29,25 +30,32 @@ const defaultOptions: DefaultOptions = {
 // };
 
 const App: React.FC = () => {
-  const client = new ApolloClient({
-    defaultOptions: defaultOptions,
-    uri: apiUrl,
-    cache: new InMemoryCache(),
-  });
+  // const client = new ApolloClient({
+  //   defaultOptions: defaultOptions,
+  //   uri: apiUrl,
+  //   cache: new InMemoryCache(),
+  // });
 
   // const client = new ApolloClient({
   //   link: new HttpLink({
-  //     uri: apiUrl,
-  //     // fetchOptions: {
-  //     //   mode: "no-cors", // no-cors, *cors, same-origin
-  //     // },
-  //     // headers: {
-  //     //   "Content-Type": "application/json",
-  //     // },
+  //     uri: "http://api.kavanet.io",
+  //     fetchOptions: {
+  //       mode: "no-cors", // no-cors, *cors, same-origin
+  //     },
+  //     headers: {
+  //       "Apollo-Require-Preflight": "true",
+  //       "Content-Type": "application/json",
+  //     },
   //   }),
   //   cache: new InMemoryCache(),
   //   defaultOptions: defaultOptions,
   // });
+
+  const client = new ApolloClient({
+    uri: apiUrl,
+    cache: new InMemoryCache(),
+    defaultOptions,
+  });
 
   return (
     <>

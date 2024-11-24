@@ -1,0 +1,32 @@
+name: kavanest-client
+
+namespace: kavanest
+env:
+  APP_VERSION: 2bded734db59977d02e0d4aa7db49a7f7bed1688
+
+deployment:
+  - name: kavanest-client
+    image: invisibug/kavanest-client
+    ports:
+    - port: 80
+    # env:
+      # Handled in Dockerfile.live
+
+ingress:
+  - name: client.kavanet.io
+    selector: kavanest-client
+    path: /.*
+    port: 80
+    host: client.kavanet.io
+
+  - name: a.kavanet.io
+    selector: kavanest-client
+    path: /.*
+    port: 80
+    host: a.kavanet.io
+
+service:
+  loadBalancer:
+    - name: kavanest-client
+      selector: kavanest-client
+      port: 80
