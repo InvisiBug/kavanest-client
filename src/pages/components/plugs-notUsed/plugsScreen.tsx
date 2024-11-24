@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { useQuery, gql } from "@apollo/client";
-import { PageTitle, PageContents, PlugSelectorV2 as PlugSelector } from "src/lib/components";
-import { Plug } from "src/lib/gqlTypes";
+import { PageTitle, PageContents, PlugSelectorV2 as PlugSelector } from "@/lib/components";
+import { Plug } from "@/lib/gqlTypes";
 
 /*
   Make a graphql request for all Plugs

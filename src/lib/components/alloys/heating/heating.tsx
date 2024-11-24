@@ -1,6 +1,6 @@
 import React, { FC, useState, createContext, useContext } from "react";
-import { getCurrentSetpointV2 as getCurrentSetpoint } from "src/lib/api";
-import { mq, px } from "src/lib/mediaQueries";
+import { getCurrentSetpointV2 as getCurrentSetpoint } from "@/lib/api";
+import { mq, px } from "@/lib/mediaQueries";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import Styled from "@emotion/styled";
 
@@ -32,6 +32,7 @@ const temperature = 12;
 
 type Props = {
   name?: string;
+  children: React.ReactNode;
 };
 
 const Heating: FC<Props> & {

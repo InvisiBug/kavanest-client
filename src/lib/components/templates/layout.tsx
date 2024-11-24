@@ -1,10 +1,14 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Global, css } from "@emotion/react";
-import { mq, px } from "src/lib/mediaQueries";
-import { NavBar } from "src/lib/components";
+import { mq, px } from "@/lib/mediaQueries";
+import { NavBar } from "@/lib/components";
 
-export const Layout: React.FC = ({ children }) => {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <Global styles={globalStyles} />

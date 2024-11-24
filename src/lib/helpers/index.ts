@@ -41,17 +41,17 @@ export const formatTime = (hh: number, mm: number, ss: number) => {
 
 export const calcTimeDifference = (now: number, timer: number) => {
   const difference = timer - now;
-  console.log(difference);
+  // console.log(difference);
 
   if (difference < -1) return `${-1}:${difference}`; // Handles the bed being off
 
-  var msec = difference;
+  let msec = difference;
 
-  var hh = Math.floor(msec / 1000 / 60 / 60);
+  const hh = Math.floor(msec / 1000 / 60 / 60);
   msec -= hh * 1000 * 60 * 60;
-  var mm = Math.floor(msec / 1000 / 60);
+  const mm = Math.floor(msec / 1000 / 60);
   msec -= mm * 1000 * 60;
-  var ss = Math.floor(msec / 1000);
+  const ss = Math.floor(msec / 1000);
   msec -= ss * 1000;
 
   if (hh > 50) return "lol";

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { decamelize } from "src/lib/helpers";
-import { FlameIcon, CurrentTemp, rightArrow, Target, SelectorTitle } from "src/lib/components";
+import { decamelize } from "@/lib/helpers";
+import { FlameIcon, CurrentTemp, rightArrow, Target, SelectorTitle } from "@/lib/components";
 import { useQuery, gql } from "@apollo/client";
-import { useAppContext } from "src/lib/context";
-import { mq, px } from "src/lib/mediaQueries";
-import { radiatorDisconectColour, sensorDisconectColour } from "src/lib/constants";
+import { useAppContext } from "@/lib/context";
+import { mq, px } from "@/lib/mediaQueries";
+import { radiatorDisconectColour, sensorDisconectColour } from "@/lib/constants";
 
 const HeatingRoomSelector: React.FC<Props> = ({ roomName, onClick = null, close = null }) => {
   const [sensor, setSensor] = useState<any>();
@@ -46,7 +46,7 @@ const HeatingRoomSelector: React.FC<Props> = ({ roomName, onClick = null, close 
         </SelectorTitle> */}
 
         {sensor && radiator && (
-          <RoomName sensorConnected={sensor.connected} radiatorConnected={radiator.connected} onClick={close}>
+          <RoomName sensorConnected={sensor.connected} radiatorConnected={radiator.connected}>
             {decamelize(roomName)}
           </RoomName>
         )}
@@ -71,7 +71,6 @@ export default HeatingRoomSelector;
 export interface Props {
   roomName: string;
   onClick: any;
-  close: any;
 }
 
 const query = gql`
@@ -130,6 +129,7 @@ const RoomName = styled.h3`
   display: item;
   align-self: center;
   flex-grow: 1;
+  font-size: 1rem;
   color: ${({ sensorConnected, radiatorConnected }: { sensorConnected: boolean; radiatorConnected: boolean }) =>
     sensorConnected && radiatorConnected
       ? "white"
@@ -153,8 +153,9 @@ const Vals = styled.div`
   justify-content: center;
 
   min-width: 3rem;
-  margin-right: 1.5rem;
+  margin-right: 1rem;
   gap: 1rem;
+  font-size: 1rem;
 
   ${mq("large")} {
     width: 100%;

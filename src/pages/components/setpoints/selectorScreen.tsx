@@ -1,13 +1,13 @@
 import React, { FC } from "react";
-import { PageTitle } from "src/lib/components";
-import { HeatingRoomSelector } from "src/lib/components";
+import { PageTitle } from "@/lib/components";
+import { HeatingRoomSelector } from "@/lib/components";
 import { useQuery, gql } from "@apollo/client";
 import styled from "@emotion/styled";
-import { mq, px } from "src/lib/mediaQueries";
-import { Plug } from "src/lib/gqlTypes";
+import { mq, px } from "@/lib/mediaQueries";
+import { Plug } from "@/lib/gqlTypes";
 import { useNavigate } from "react-router-dom";
 
-const SetpointsSelectorScreen: FC = () => {
+const SetpointsSelectorScreen: FC<any> = ({ setOpenRoom }) => {
   const navigate = useNavigate();
 
   const { data } = useQuery<QglResponse>(request, { fetchPolicy: "no-cache" });
@@ -30,7 +30,7 @@ const SetpointsSelectorScreen: FC = () => {
           radiators.map((radiator) => {
             const { name } = radiator;
 
-            return <HeatingRoomSelector roomName={name} key={Math.random()} onClick={() => navigate(name)} close={() => null} />;
+            return <HeatingRoomSelector roomName={name} key={Math.random()} onClick={() => setOpenRoom(name)} />;
           })
         ) : (
           <h1>No controllable rooms found</h1>

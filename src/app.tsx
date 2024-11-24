@@ -1,10 +1,10 @@
 import React from "react";
 import { ApolloClient, InMemoryCache, ApolloProvider, DefaultOptions } from "@apollo/client";
 import { BrowserRouter } from "react-router-dom";
-import { AppProvider } from "src/lib/context";
-import { apiUrl } from "src/lib/api";
-import { Layout } from "src/lib/components";
-import Pages from "src/pages";
+import { AppProvider } from "./lib/context";
+import { apiUrl } from "@/lib/api";
+import { Layout } from "@/lib/components";
+import Pages from "@/pages";
 
 // Some vital change (to get the git pipeline working again)
 const defaultOptions: DefaultOptions = {
@@ -19,9 +19,9 @@ const defaultOptions: DefaultOptions = {
 
 const App: React.FC = () => {
   const client = new ApolloClient({
-    defaultOptions: defaultOptions,
     uri: apiUrl,
     cache: new InMemoryCache(),
+    defaultOptions,
   });
 
   return (

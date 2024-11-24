@@ -2,8 +2,8 @@ import React, { FC, useState } from "react";
 import styled from "@emotion/styled";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import { useHeating } from "../alloys/heating/heating";
-import { Sensor } from "src/lib/gqlTypes";
-import { textColour } from "src/lib/constants";
+import { Sensor } from "@/lib/gqlTypes";
+import { textColour } from "@/lib/constants";
 
 const Offset: FC = () => {
   const [offsetVal, setOffsetVal] = useState<string>("");

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { PageTitle, PageContents, RGBLightSelector, PlugSelectorV2 as PlugSelector } from "src/lib/components";
+import { PageTitle, PageContents, RGBLightSelector, PlugSelectorV2 as PlugSelector } from "@/lib/components";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import Details from "../../../lib/components/alloys/selectors/rgbLightDetails";
-import { rgbToArray } from "src/lib/helpers";
+import { rgbToArray } from "@/lib/helpers";
 import styled from "@emotion/styled";
-import { mq, px } from "src/lib/mediaQueries";
-import { Plug, RGBLight } from "src/lib/gqlTypes";
+import { mq, px } from "@/lib/mediaQueries";
+import { Plug, RGBLight } from "@/lib/gqlTypes";
 
 const RGBLights: React.FC<any> = () => {
   const [openRGBLight, setOpenRGBLight] = useState("");
@@ -37,6 +37,8 @@ const RGBLights: React.FC<any> = () => {
       settrainingRoomLamp(data.trainingRoomLamp);
     },
   });
+
+  console.log("hello from lights");
 
   return (
     <>

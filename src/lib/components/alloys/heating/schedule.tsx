@@ -1,9 +1,9 @@
 import React, { FC, useState } from "react";
-import { useHeating } from "src/lib/components";
-import { plus, sinchronize } from "src/lib/components";
+import { useHeating } from "@/lib/components";
+import { plus, sinchronize } from "@/lib/components";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import { decamelize, weekOrWeekend } from "src/lib/helpers";
-import { getCurrentSetpointV2 } from "src/lib/api";
+import { decamelize, weekOrWeekend } from "@/lib/helpers";
+import { getCurrentSetpointV2 } from "@/lib/api";
 import styled from "@emotion/styled";
 import { CurrentSetpoint, NewSetpoint } from "./components/setpoints";
 

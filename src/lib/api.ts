@@ -1,11 +1,15 @@
-import { weekOrWeekend, now } from "src/lib/helpers";
+import { weekOrWeekend, now } from "@/lib/helpers";
 import Axios from "axios";
 // require("dotenv").config();
+const env = import.meta.env;
 
-export const apiUrl = process.env.REACT_APP_API ?? "";
-export const socketUrl = process.env.REACT_APP_SOCKET ?? "";
+export const apiUrl = env.VITE_API ?? "";
+console.log("🚀 ~ apiUrl:", apiUrl);
+export const socketUrl = env.VITE_SOCKET ?? "";
+console.log("🚀 ~ socketUrl:", socketUrl);
 
-console.log(apiUrl, socketUrl);
+// export const apiUrl = "https://api.kavanet.io";
+// export const socketUrl = "https://test.socket.kavanet.io";
 
 export const makeRequest = async (query: string, variables: any = null) => {
   const data = await Axios.post(apiUrl, { query, variables }).then((response) => {
@@ -56,8 +60,8 @@ export const getCurrentSetpointV2 = (setpoints: any) => {
     });
     const obj = setpoints[weekOrWeekend()];
 
-    var lastTime = Object.keys(obj).sort().reverse()[0];
-    var lastSetpoint = obj[lastTime];
+    const lastTime = Object.keys(obj).sort().reverse()[0];
+    const lastSetpoint = obj[lastTime];
 
     if (!setpoint) return [lastTime, lastSetpoint];
 

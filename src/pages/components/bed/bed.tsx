@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import { PageTitle, PageContents, PlugSelectorV2 as PlugSelector, TimerCountdown } from "src/lib/components";
-import { Times } from "src/lib/components";
+import { PageTitle, PageContents, PlugSelectorV2 as PlugSelector, TimerCountdown } from "@/lib/components";
+import { Times } from "@/lib/components";
 
 const Bed: FC = () => {
   const [timerVal, setTimerVal] = useState();
