@@ -24,7 +24,7 @@ const SetpointsSelectorScreen: FC = () => {
   return (
     <>
       <div>
-        <>{`Width:${windowDimensions.width} Height:${windowDimensions.height}`}</>
+        {/* <>{`Width:${windowDimensions.width} Height:${windowDimensions.height}`}</> */}
         <PageTitle key={Math.random()} desc={heating.connected ? "Setpoint control for each room" : "Heating isn't connected 💥"}>
           Room Setpoints
         </PageTitle>
