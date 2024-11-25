@@ -5,7 +5,7 @@ import CurrentTemp from "../../elements/currentTemp";
 import Offset from "../../elements/offset";
 import Deadzone from "../../elements/deadzone";
 import Target from "../../elements/heatingTarget";
-import FlameIcon from "../../elements/flameIcon";
+import FlameIndicator from "../../elements/flameIndicator";
 
 const Status: FC = () => {
   const { borders, name } = useHeating();
@@ -16,7 +16,7 @@ const Status: FC = () => {
         <CurrentTemp name={name} borders={borders} />
         <Target name={name} borders={borders} />
       </Left>
-      <FlameIcon name={name} borders={borders} />
+      <FlameIndicator name={name} borders={borders} />
       <Right>
         {/* <Offset /> */}
         <Deadzone />

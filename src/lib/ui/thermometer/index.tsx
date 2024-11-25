@@ -44,16 +44,16 @@ const ThermometerContainer = styled.div`
 
 export default Thermometer;
 
-function getWindowDimensions() {
+const getWindowDimensions = () => {
   const { innerWidth: width, innerHeight: height } = window;
 
   return {
     width,
     height,
   };
-}
+};
 
-function useWindowDimensions() {
+const useWindowDimensions = () => {
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
   useEffect(() => {
@@ -66,4 +66,4 @@ function useWindowDimensions() {
   }, []);
 
   return windowDimensions;
-}
+};

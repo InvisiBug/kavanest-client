@@ -33,6 +33,7 @@ export default Times;
 type Props = {
   updateTimer: (time: number) => void;
   times?: number[];
+  children: React.ReactNode;
 };
 
 const borders = false;

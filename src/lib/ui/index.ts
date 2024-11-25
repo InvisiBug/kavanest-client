@@ -29,7 +29,7 @@ export { default as TimerCountdown } from "./elements/timerCountdown";
 
 // export { useHeating } from "./alloys/heating/heating";
 export { default as RoomHeating } from "./alloys/compoundRoomScreen";
-export { default as FlameIcon } from "./elements/flameIcon";
+export { default as FlameIndicator } from "./elements/flameIndicator";
 export { default as CurrentTemp } from "./elements/currentTemp";
 export { default as Target } from "./elements/heatingTarget";
 export { default as Times } from "./elements/times";

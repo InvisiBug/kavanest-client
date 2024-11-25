@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { decamelize } from "@/lib/helpers";
-import { FlameIcon, CurrentTemp, rightArrow, Target, SelectorTitle } from "@/lib/ui";
+import { FlameIndicator, CurrentTemp, rightArrow, Target, SelectorTitle } from "@/lib/ui";
 import { useQuery, gql } from "@apollo/client";
 import { useAppContext } from "@/lib/context";
 import { mq, px } from "@/lib/mediaQueries";
@@ -52,7 +52,7 @@ const HeatingRoomSelector: React.FC<Props> = ({ roomName, onClick = null, close 
         )}
 
         <FlameContainer>
-          <FlameIcon name={roomName} borders={false} />
+          <FlameIndicator name={roomName} borders={false} />
         </FlameContainer>
 
         <Vals>

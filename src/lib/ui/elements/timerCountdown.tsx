@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
 import { isTimeLeft, calcTimeDifference } from "@/lib/helpers";
 
-const TimerCountdown: FC<{ time: string }> = ({ time, children }) => {
+const TimerCountdown: FC<Props> = ({ time, children }) => {
   const countdownTime = new Date(time).getTime();
 
   const [now, setNow] = useState(new Date().getTime());
@@ -38,6 +38,11 @@ const TimerCountdown: FC<{ time: string }> = ({ time, children }) => {
 };
 
 export default TimerCountdown;
+
+type Props = {
+  time: string;
+  children: React.ReactNode;
+};
 
 const slide = keyframes`
   from {

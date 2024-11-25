@@ -5,7 +5,7 @@ import { useAppContext } from "@/lib/context";
 import { flame } from "@/lib/ui";
 import { Heating, Radiator } from "@/lib/gqlTypes";
 
-const FlameIcon: FC<Props> = ({ name, borders = false }) => {
+const FlameIndicator: FC<Props> = ({ name, borders = false }) => {
   const [heating, setHeating] = useState<Heating>({});
   const [radiator, setRadiator] = useState<Radiator>({});
   const { socket } = useAppContext();
@@ -50,7 +50,7 @@ const FlameIcon: FC<Props> = ({ name, borders = false }) => {
   );
 };
 
-export default FlameIcon;
+export default FlameIndicator;
 
 type Props = {
   name: string;
