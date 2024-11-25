@@ -1,56 +1,104 @@
-import React, { useState } from "react";
-// import RoomScreen from "./components/roomScreen";
-import { RoomHeating } from "@/lib/components";
+import { FC, useState } from "react";
+import { PageTitle } from "@/lib/ui";
+import { HeatingRoomSelector, RoomHeating } from "@/lib/ui";
 import { useQuery, gql } from "@apollo/client";
-import SelectorScreen from "./selectorScreen";
-import { Plug, Radiator } from "@/lib/gqlTypes";
-import { Routes, Route } from "react-router-dom";
-import Thermometer from "@/lib/components/thermometer";
+import styled from "@emotion/styled";
+import { mq, px } from "@/lib/mediaQueries";
+import { Plug } from "@/lib/gqlTypes";
+import useWindowDimensions from "@/lib/helpers/useWindow";
 
-const SetpointsScreen: React.FC = () => {
+/*
+  If a room is selected, the RoomHeating component is rendered (the controls for that room)
+*/
+const SetpointsSelectorScreen: FC = () => {
   const [openRoom, setOpenRoom] = useState<string | undefined>(undefined);
-  console.log("🚀 ~ openRoom:", openRoom);
+  const { data } = useQuery<QglResponse>(request, { fetchPolicy: "no-cache" });
 
-  const { data, error } = useQuery<GraphqlResponse>(getValves, {
-    fetchPolicy: "no-cache",
-    errorPolicy: "all",
-  });
+  const { radiators, heating } = data || ({} as QglResponse);
 
-  console.log("GHesadkljh");
+  const windowDimensions = useWindowDimensions();
 
-  if (error) console.log(error);
-
-  if (!data) return <></>;
-  const { radiators } = data;
-
-  // console.log(data);
+  if (!data) return <>Loading</>;
+  if (openRoom) return <RoomHeating name={openRoom} close={() => setOpenRoom(undefined)} />;
 
   return (
-    // <Routes>
-    //   <Route path="/" element={<SelectorScreen />} />
     <>
-      {openRoom == undefined ? <SelectorScreen setOpenRoom={setOpenRoom} /> : <RoomHeating name={openRoom} close={() => setOpenRoom(undefined)} />}
-      {/* <SelectorScreen setOpenRoom={setOpenRoom} /> */}
+      <div>
+        <>{`Width:${windowDimensions.width} Height:${windowDimensions.height}`}</>
+        <PageTitle key={Math.random()} desc={heating.connected ? "Setpoint control for each room" : "Heating isn't connected 💥"}>
+          Room Setpoints
+        </PageTitle>
+      </div>
 
-      {/* {radiators.map(({ name }) => {
-        return <Route path={`setpoints/${name}`} element={<RoomHeating name={name} />} key={name} />;
-      })} */}
-      {/* <Thermometer /> */}
+      {/* <PageContents> */}
+      <SelectorContainer>
+        {radiators.length > 0 ? (
+          radiators.map((radiator) => {
+            const { name } = radiator;
+
+            return <HeatingRoomSelector roomName={name} key={Math.random()} onClick={() => setOpenRoom(name)} />;
+          })
+        ) : (
+          <h1>No controllable rooms found</h1>
+        )}
+      </SelectorContainer>
+      {/* </PageContents> */}
     </>
-    // </Routes>
   );
 };
+export default SetpointsSelectorScreen;
 
-export default SetpointsScreen;
-
-const getValves = gql`
+const request = gql`
   query {
     radiators: getRadiators {
       name
     }
+    heating: getPlug(name: "heating") {
+      name
+      state
+      connected
+    }
   }
 `;
 
-type GraphqlResponse = {
-  radiators: Radiator[];
+type QglResponse = {
+  radiators: [
+    {
+      name: string;
+    }
+  ];
+  heating: Plug;
 };
+
+const SelectorContainer = styled.div`
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  & > *:first-of-type {
+    border-top: 1px solid grey;
+  }
+
+  ${mq("large")} {
+    /* border: 1px solid white; */
+    display: grid;
+    /* grid-template-columns: 1fr 1fr 1fr; */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+    /* flex-direction: row;
+    flex-wrap: wrap;
+
+    justify-content: space-around; */
+    /* background-color: orange; */
+    /* max-width: ${px("large")}px; */
+    & > *:first-of-type {
+      /* border-top: none; */
+    }
+    & > div {
+      // Apply to child divs
+      /* flex: 25%; */
+      /* padding: 10%; */
+      /* margin-bottom: 200px; */
+    }
+  }
+`;

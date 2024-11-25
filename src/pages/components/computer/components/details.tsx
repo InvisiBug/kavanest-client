@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { switchOn, switchOff } from "@/lib/components";
+import { FC } from "react";
+import { switchOn, switchOff } from "@/lib/ui";
 import { decamelize } from "@/lib/helpers";
 import styled from "@emotion/styled";
 

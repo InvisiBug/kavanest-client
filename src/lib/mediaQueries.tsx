@@ -7,7 +7,7 @@ const breakpoints: ObjectType = {
   large: 1000,
 };
 
-export const mq = (n: any) => {
+export const mq = (n: string) => {
   const bpArray = Object.keys(breakpoints).map((key: any) => [key, breakpoints[key]]);
 
   const [result] = bpArray.reduce((acc, [name, size]) => {

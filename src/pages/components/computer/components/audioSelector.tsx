@@ -1,7 +1,7 @@
-import React, { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { gql, useMutation } from "@apollo/client";
-import { Selector, on, off, disconnected, BooleanStateIndicator } from "@/lib/components";
+import { Selector, on, off, disconnected, BooleanStateIndicator } from "@/lib/ui";
 import { useAppContext } from "@/lib/context";
 import Details from "./details";
 
