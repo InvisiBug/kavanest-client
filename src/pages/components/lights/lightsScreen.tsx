@@ -38,8 +38,6 @@ const RGBLights: React.FC<any> = () => {
     },
   });
 
-  console.log("hello from lights");
-
   return (
     <>
       <PageTitle desc={"Some of these lights have alternative modes"}>Lights</PageTitle>

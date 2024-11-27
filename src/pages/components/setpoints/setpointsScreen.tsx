@@ -16,7 +16,7 @@ const SetpointsSelectorScreen: FC = () => {
 
   const { radiators, heating } = data || ({} as QglResponse);
 
-  const windowDimensions = useWindowDimensions();
+  // const windowDimensions = useWindowDimensions();
 
   if (!data) return <>Loading</>;
   if (openRoom) return <RoomHeating name={openRoom} close={() => setOpenRoom(undefined)} />;
