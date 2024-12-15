@@ -1,5 +1,6 @@
 import { FC } from "react";
 import styled from "@emotion/styled";
+import { mq } from "@/lib/mediaQueries";
 
 /*
   Generates a list of chips based on the types passed in.
@@ -55,6 +56,9 @@ const Override = styled.div<OverrideProps>`
   background-color: ${({ active }) => (active ? "#c73528" : "#707070")};
   padding: 0.5rem;
   font-size: 0.8rem;
+  ${mq("large")} {
+    font-size: 1rem;
+  }
   border-radius: 10% 10% 10% 10%;
   -webkit-tap-highlight-color: transparent;
 
