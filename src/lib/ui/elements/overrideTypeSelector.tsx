@@ -54,6 +54,7 @@ const Override = styled.div<OverrideProps>`
   border: ${({ active }) => (active ? "#c73528" : "#707070")};
   background-color: ${({ active }) => (active ? "#c73528" : "#707070")};
   padding: 0.5rem;
+  font-size: 0.8rem;
   border-radius: 10% 10% 10% 10%;
   -webkit-tap-highlight-color: transparent;
 

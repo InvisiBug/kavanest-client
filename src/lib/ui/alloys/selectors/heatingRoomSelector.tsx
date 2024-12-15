@@ -6,6 +6,7 @@ import { useQuery, gql } from "@apollo/client";
 import { useAppContext } from "@/lib/context";
 import { mq, px } from "@/lib/mediaQueries";
 import { radiatorDisconectColour, sensorDisconectColour } from "@/lib/constants";
+import Thermometer from "../../thermometer";
 
 const HeatingRoomSelector: React.FC<Props> = ({ roomName, onClick = null, close = null }) => {
   const [sensor, setSensor] = useState<any>();
@@ -36,7 +37,7 @@ const HeatingRoomSelector: React.FC<Props> = ({ roomName, onClick = null, close 
     };
   }, [socket]);
 
-  // if (!data || !sensor || !radiator) return <></>;
+  if (!data) return <></>;
 
   return (
     <>
@@ -61,6 +62,8 @@ const HeatingRoomSelector: React.FC<Props> = ({ roomName, onClick = null, close 
         </Vals>
 
         <Arrow src={rightArrow} />
+
+        {/* <Thermometer temp={data.sensor.temperature} setpoint={10} /> */}
       </Container>
     </>
   );
@@ -77,6 +80,7 @@ const query = gql`
   query ($roomName: String) {
     sensor: getSensor(room: $roomName) {
       connected
+      temperature
       _id
     }
     radiator: getRadiator(name: $roomName) {
@@ -89,6 +93,7 @@ const query = gql`
 type QueryResponse = {
   sensor: {
     connected: boolean;
+    temperature: number;
     _id: string;
   };
   radiator: {
