@@ -6,3 +6,5 @@ export { RGBLightsScreen as RGBLights } from "./lights";
 export { Computer } from "./computer";
 export { Valves } from "./valves";
 export { Bed } from "./bed";
+export { default as Study } from "./study";
+export { default as Bedroom } from "./bedroom";

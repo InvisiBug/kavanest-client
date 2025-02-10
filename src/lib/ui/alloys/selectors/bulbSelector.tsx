@@ -11,7 +11,7 @@ import { mq, px } from "@/lib/mediaQueries";
 
 const PlugSelector: React.FC<Props> = ({ initialData, mqttNameOverride = null, margin = false }) => {
   const { socket } = useAppContext();
-  const [updatePlug] = useMutation(mutation, {});
+  const [updateBulb] = useMutation(mutation, {});
 
   const [{ name, state, connected, _id }, setPlugData] = useState<Plug>(initialData);
 
@@ -34,7 +34,7 @@ const PlugSelector: React.FC<Props> = ({ initialData, mqttNameOverride = null, m
           name={name}
           connected={connected}
           onClick={() =>
-            updatePlug({
+            updateBulb({
               variables: {
                 input: {
                   name: name,
@@ -60,8 +60,8 @@ interface Props {
 }
 
 const mutation = gql`
-  mutation ($input: PlugInput) {
-    updatePlug(input: $input) {
+  mutation ($input: BulbInput) {
+    updateBulb(input: $input) {
       name
       state
       connected
@@ -75,7 +75,6 @@ const Container = styled.div`
   border: ${borders ? "1px solid green" : null};
   color: white;
   border-bottom: 1px solid grey;
-  width: 100%;
 
   display: flex;
   flex-direction: column;

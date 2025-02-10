@@ -11,13 +11,16 @@ const navButtons = [
   // { name: "home", icon: home },
   { name: "setpoints", icon: setpoints, guest: true },
   { name: "lights", icon: rgbLight, admin: true },
-  { name: "computer", icon: computer, admin: true },
-  // { name: "sensors", icon: sensor, admin: true },
+  { name: "bed", icon: bed, admin: true },
+  // { name: "computer", icon: computer, admin: true },
   // { name: "valves", icon: valve, admin: true },
   // { name: "plugs", icon: plug, admin: true },
-  { name: "bed", icon: bed, admin: true },
+  { name: "xxxxxx", icon: gears, admin: true },
+  { name: "bedroom", icon: bed, admin: true },
+  { name: "study", icon: computer, admin: true },
   // { name: "gears", icon: gears },
 ];
+
 const PhoneNav: React.FC<Props> = () => {
   const { screen, setScreen } = useAppContext();
   const navigate = useNavigate();

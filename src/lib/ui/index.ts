@@ -11,6 +11,7 @@ export { default as Selector } from "./alloys/selectorFrame";
 // Selectors
 export { default as RGBLightSelector } from "./alloys/selectors/rgbLightSelector";
 export { default as PlugSelector } from "./alloys/selectors/plugSelector";
+export { default as BulbSelector } from "./alloys/selectors/bulbSelector";
 export { default as PlugSelectorV2 } from "./alloys/selectors/plugSelectorV2";
 export { default as HeatingRoomSelector } from "./alloys/selectors/heatingRoomSelector";
 

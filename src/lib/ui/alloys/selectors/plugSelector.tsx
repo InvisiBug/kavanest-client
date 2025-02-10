@@ -28,7 +28,16 @@ const PlugSelector: React.FC<Props> = ({ thisPlug, mqttNameOverride = null, sock
         <Selector
           name={name}
           connected={connected}
-          onClick={() => updatePlug({ variables: { input: { name: mqttNameOverride ? mqttNameOverride : name, state: !state } } })}
+          onClick={() =>
+            updatePlug({
+              variables: {
+                input: {
+                  name: mqttNameOverride ? mqttNameOverride : name,
+                  state: !state,
+                },
+              },
+            })
+          }
         >
           <BooleanStateIndicator state={state} connected={connected} size={"large"} margin={margin} />
         </Selector>
