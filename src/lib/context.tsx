@@ -7,7 +7,7 @@ const AppContext = createContext<ContextState | undefined>(undefined);
 export const AppProvider: React.FC<Props> = ({ children }) => {
   const socket = openSocket(socketUrl);
 
-  const [screen, setScreen] = useState("kitchen");
+  const [screen, setScreen] = useState("study");
   // const [admin, setAdmin] = useState<boolean>(true);
 
   const [openPlug, setOpenPlug] = useState("");
