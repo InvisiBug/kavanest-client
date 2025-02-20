@@ -6,16 +6,21 @@ import { rgbToArray } from "@/lib/helpers";
 import styled from "@emotion/styled";
 import { mq, px } from "@/lib/mediaQueries";
 import { Plug, RGBLight } from "@/lib/gqlTypes";
+import BulbSelector from "@/lib/ui/alloys/selectors/bulbSelector";
 
 const RGBLights: React.FC<any> = () => {
   const [openRGBLight, setOpenRGBLight] = useState("");
   const [rgbLights, setRgbLights] = useState<RGBLight[] | undefined>(undefined);
   const [floodlight, setFloodlight] = useState<Plug | undefined>(undefined);
-  const [studyLamp, setStudyLamp] = useState<Plug | undefined>(undefined);
   const [bedRoomLamp, setBedRoomLamp] = useState<Plug | undefined>(undefined);
+  const [studyLamp, setStudyLamp] = useState<Plug | undefined>(undefined);
   const [eggChair, setEggChair] = useState<Plug | undefined>(undefined);
   const [livingRoomLamp, setlivingRoomLamp] = useState<Plug | undefined>(undefined);
-  const [trainingRoomLamp, settrainingRoomLamp] = useState<Plug | undefined>(undefined);
+  const [trainingRoomLamp, setTrainingRoomLamp] = useState<Plug | undefined>(undefined);
+  const [landingLight, setLandingLight] = useState<Plug | undefined>(undefined);
+  const [printerRoomLight, setPrinterRoomLight] = useState<Plug | undefined>(undefined);
+
+  const [testObject, setTestObject] = useState<any>({});
 
   const { data } = useQuery(getLights, {
     fetchPolicy: "no-cache",
@@ -26,6 +31,8 @@ const RGBLights: React.FC<any> = () => {
       name4: "studyLamp",
       name5: "livingRoomLamp",
       name6: "trainingRoomLamp",
+      name7: "landingLight",
+      name8: "printerRoomLight",
     },
     onCompleted() {
       setRgbLights(data.lights);
@@ -34,7 +41,19 @@ const RGBLights: React.FC<any> = () => {
       setBedRoomLamp(data.sun);
       setEggChair(data.eggChair);
       setlivingRoomLamp(data.livingRoomLamp);
-      settrainingRoomLamp(data.trainingRoomLamp);
+      setTrainingRoomLamp(data.trainingRoomLamp);
+      setLandingLight(data.landingLight);
+      setPrinterRoomLight(data.printerRoomLight);
+
+      console.log(data.lights);
+
+      // This didnt work, had a problem with not being able to map over plugs while loading
+      setTestObject({
+        plugs: [data.floodlight, data.eggChair, data.sun, data.lamp, data.livingRoomLamp, data.trainingRoomLamp],
+        bulbs: [data.printerRoomLight, data.landingLight],
+      });
+
+      console.log(testObject);
     },
   });
 
@@ -43,12 +62,22 @@ const RGBLights: React.FC<any> = () => {
       <PageTitle desc={"Some of these lights have alternative modes"}>Lights</PageTitle>
       <PageContents>
         {/* <SelectorContainer> */}
-        {floodlight && <PlugSelector data={floodlight} />}
-        {livingRoomLamp && <PlugSelector data={livingRoomLamp} />}
-        {trainingRoomLamp && <PlugSelector data={trainingRoomLamp} />}
-        {eggChair && <PlugSelector data={eggChair} />}
-        {studyLamp && <PlugSelector data={studyLamp} />}
-        {bedRoomLamp && <PlugSelector data={bedRoomLamp} />}
+        {floodlight && <PlugSelector initialData={floodlight} />}
+        {livingRoomLamp && <PlugSelector initialData={livingRoomLamp} />}
+        {trainingRoomLamp && <PlugSelector initialData={trainingRoomLamp} />}
+        {eggChair && <PlugSelector initialData={eggChair} />}
+        {studyLamp && <PlugSelector initialData={studyLamp} />}
+        {bedRoomLamp && <PlugSelector initialData={bedRoomLamp} />}
+
+        {/* {testObject &&
+          testObject.plugs.map((plug: Plug) => {
+            return plug && <PlugSelector data={plug} />;
+          })} */}
+
+        {/* {testObject && <div>{testObject}</div>} */}
+
+        {landingLight && <BulbSelector initialData={landingLight} />}
+        {printerRoomLight && <BulbSelector initialData={printerRoomLight} />}
 
         {/* Couldnt figure out how to pass in details from here */}
         {rgbLights &&
@@ -104,8 +133,9 @@ const SelectorContainer = styled.div`
   }
 `;
 
+// TODO: (feat): add types https://www.apollographql.com/docs/react/development-testing/static-typing#setting-up-your-project
 const getLights = gql`
-  query ($name1: String, $name2: String, $name3: String, $name4: String, $name5: String, $name6: String) {
+  query ($name1: String, $name2: String, $name3: String, $name4: String, $name5: String, $name6: String, $name7: String, $name8: String) {
     lights: getRGBLights {
       name
       red
@@ -146,6 +176,18 @@ const getLights = gql`
       _id
     }
     trainingRoomLamp: getPlug(name: $name6) {
+      name
+      state
+      connected
+      _id
+    }
+    landingLight: getBulb(name: $name7) {
+      name
+      state
+      connected
+      _id
+    }
+    printerRoomLight: getBulb(name: $name8) {
       name
       state
       connected

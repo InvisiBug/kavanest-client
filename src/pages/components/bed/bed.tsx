@@ -42,7 +42,7 @@ const Bed: FC = () => {
           Please select a time
         </Times>
         <TimerCountdown time={timerVal || "0"}>Time Remaining</TimerCountdown>
-        {data?.plug ? <PlugSelector data={data.plug} margin={false} /> : null}
+        {data?.plug ? <PlugSelector initialData={data.plug} margin={false} /> : null}
       </PageContents>
     </>
   );

@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { Heating, Title, Status, Override, Schedule } from "./heating";
 
-const RoomSetpoints: FC<Props> = ({ name, close }) => {
+const RoomSetpoints: FC<Props> = ({ name, close, showTitle = true }) => {
   return (
     <>
       <Heating name={name}>
-        <Title close={close} />
+        {showTitle && <Title close={close} />}
         <Status />
         <Override />
         <Schedule />
@@ -18,5 +18,6 @@ export default RoomSetpoints;
 
 export interface Props {
   name?: string;
-  close: () => void;
+  close?: () => void;
+  showTitle?: boolean;
 }

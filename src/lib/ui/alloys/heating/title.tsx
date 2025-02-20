@@ -9,8 +9,14 @@ const Title: FC<Props> = ({ close }) => {
   const navigate = useNavigate();
 
   return (
-    <PageTitle onClick={() => close()}>
-      <TitleText borders={borders}>&larr; {decamelize(name)}</TitleText>
+    <PageTitle
+      onClick={() => {
+        if (close) close();
+      }}
+    >
+      <TitleText borders={borders}>
+        {close && <div>&larr;</div>} {decamelize(name)}
+      </TitleText>
       {/* <SelectorTitle> {decamelize(name)}</SelectorTitle> */}
     </PageTitle>
   );
@@ -19,7 +25,7 @@ const Title: FC<Props> = ({ close }) => {
 export default Title;
 
 export interface Props {
-  close: () => void;
+  close?: () => void;
 }
 
 const PageTitle = styled.div`
@@ -27,9 +33,13 @@ const PageTitle = styled.div`
   grid-area: title;
 `;
 
-const TitleText = styled.h1`
-  border: ${({ borders }: { borders: boolean }) => (borders ? "1px solid green" : "none")};
+const TitleText = styled.h1<{
+  borders: boolean;
+}>`
+  border: ${({ borders }) => (borders ? "1px solid green" : "none")};
   border-bottom: 1px solid grey;
   padding-bottom: 5px; // Required
   margin-bottom: 0;
+  display: flex;
+  flex-direction: row;
 `;

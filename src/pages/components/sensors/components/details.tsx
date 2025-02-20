@@ -32,7 +32,7 @@ const ShowDetails: React.FC<Props> = ({ rawTemperature, temperature, humidity, o
             type="text"
             placeholder={`${offset}°C`}
             inputMode="decimal"
-            onChange={(event) => {
+            onChange={() => {
               // setOffsetVal(event.target.value);
               console.log("cange");
             }}

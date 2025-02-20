@@ -20,6 +20,8 @@ import computer from "./computer.png";
 import sinchronize from "./sinchronize.png";
 import valve from "./valve.png";
 import bed from "./bed.png";
+import sofa from "./sofa.png";
+import kitchen from "./kitchen.png";
 // export * as bed from "./bed.png"
 
 export {
@@ -45,4 +47,6 @@ export {
   sinchronize,
   valve,
   bed,
+  sofa,
+  kitchen,
 };

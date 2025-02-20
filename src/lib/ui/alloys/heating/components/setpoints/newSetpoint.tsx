@@ -3,17 +3,24 @@ import { gql, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { plus, cancel } from "@/lib/ui";
 import { mq } from "@/lib/mediaQueries";
+import OverrideType from "@/lib/ui/elements/overrideTypeSelector";
 
 const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
   const [mins, setMins] = useState<string | null>("00");
   const [hours, setHours] = useState<string | null>("00");
   const [temp, setTemp] = useState<string>("0");
+  const [overrideType, setOverrideType] = useState("");
 
   const [addSetpoint] = useMutation(addSetpointMutation, {
     onCompleted() {
       close();
     },
   });
+
+  const updateType = (type: string) => {
+    console.log("🚀 ~ type:", type);
+    setOverrideType(type);
+  };
 
   // move to next input when max length is reached
   // https://linguinecode.com/post/focus-next-input-in-react
@@ -41,6 +48,16 @@ const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
           />
         </Time>
 
+        <Temp>
+          <MyInput type="text" name="field-3" placeholder="00" inputMode="decimal" onChange={(event) => setTemp(event.target.value)} />
+          °C
+        </Temp>
+
+        {/* </form> */}
+
+        <OverrideType currentType={overrideType} types={["on", "off", "passive"]} updateType={updateType} />
+
+        <Cancel src={cancel} onClick={close} />
         <Accept
           src={plus}
           onClick={() => {
@@ -51,21 +68,16 @@ const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
                   setpoints: {
                     day: day,
                     time: `${hours}:${mins}`,
-                    temp: temp,
+                    values: {
+                      temp: parseInt(temp),
+                      type: overrideType,
+                    },
                   },
                 },
               },
             });
           }}
         />
-
-        <Cancel src={cancel} onClick={close} />
-
-        <Temp>
-          <MyInput type="text" name="field-3" placeholder="00" inputMode="decimal" onChange={(event) => setTemp(event.target.value)} />
-          °C
-        </Temp>
-        {/* </form> */}
       </Container>
     </>
   );
@@ -101,10 +113,13 @@ const Container = styled.div`
   display: flex;
   width: 75%;
   justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
   border: ${borders ? "1px solid red" : null};
   ${mq("large")} {
     border: ${borders ? "1px solid purple" : null};
     /* max-width: 25%; */
+    width: 95%;
     /* width: 75%; */
   }
 `;
@@ -123,7 +138,7 @@ const Time = styled.div`
   border: ${borders ? "1px solid orange" : null};
   font-size: 1.2rem;
   margin: 0;
-  transform: translateX(-2px);
+  /* transform: translateX(-2px); */
 `;
 
 const Temp = styled.div`

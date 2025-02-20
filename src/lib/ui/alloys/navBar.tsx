@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { home, setpoints, sensor, dog, rgbLight, plug, gears, computer, valve, bed } from "@/lib/ui/elements/icons";
+import { home, setpoints, sensor, dog, rgbLight, plug, gears, computer, valve, bed, sofa, kitchen } from "@/lib/ui/elements/icons";
 import { mq, px } from "../../mediaQueries";
 import { decamelize } from "@/lib/helpers";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -9,16 +9,21 @@ import { useAppContext } from "@/lib/context";
 
 const navButtons = [
   // { name: "home", icon: home },
+  { name: "livingRoom", icon: sofa, admin: true },
+  { name: "kitchen", icon: kitchen, admin: true },
+  { name: "study", icon: computer, admin: true },
+  { name: "bedroom", icon: bed, admin: true },
+  { name: "xxxxxx", icon: gears, admin: true },
   { name: "setpoints", icon: setpoints, guest: true },
   { name: "lights", icon: rgbLight, admin: true },
-  { name: "computer", icon: computer, admin: true },
-  // { name: "sensors", icon: sensor, admin: true },
+  { name: "bed", icon: bed, admin: true },
+  // { name: "computer", icon: computer, admin: true },
   // { name: "valves", icon: valve, admin: true },
   // { name: "plugs", icon: plug, admin: true },
-  { name: "bed", icon: bed, admin: true },
   // { name: "gears", icon: gears },
 ];
-const PhoneNav: React.FC<Props> = () => {
+
+const PhoneNav: React.FC = () => {
   const { screen, setScreen } = useAppContext();
   const navigate = useNavigate();
 
@@ -38,7 +43,9 @@ const PhoneNav: React.FC<Props> = () => {
     <>
       <Container>
         {navButtons.map((button) => {
-          if (isAdmin) {
+          if (button.name == "xxxxxx") {
+            return <Seperator />;
+          } else {
             return (
               <Group onClick={() => setScreen(button.name)} key={Math.random()}>
                 {/* <Group onClick={() => navigate(button.name)} key={Math.random()}> */}
@@ -46,23 +53,35 @@ const PhoneNav: React.FC<Props> = () => {
                 <Text>{decamelize(button.name)}</Text>
               </Group>
             );
-          } else if (!button.admin) {
-            return (
-              <Icon
-                src={button.icon}
-                alt={button.name}
-                name={button.name}
-                screen={currentLocation}
-                onClick={() => setScreen(button.name)}
-                key={Math.random()}
-              />
-            );
           }
         })}
       </Container>
     </>
   );
 };
+
+// *old admin check
+// if (isAdmin) {
+//   return (
+//     <Group onClick={() => setScreen(button.name)} key={Math.random()}>
+//       {/* <Group onClick={() => navigate(button.name)} key={Math.random()}> */}
+//       <Icon src={button.icon} alt={button.name} name={button.name} screen={screen} />
+//       <Text>{decamelize(button.name)}</Text>
+//     </Group>
+//   );
+// } else if (!button.admin) {
+//   return (
+//     <Icon
+//       src={button.icon}
+//       alt={button.name}
+//       name={button.name}
+//       screen={currentLocation}
+//       onClick={() => setScreen(button.name)}
+//       key={Math.random()}
+//     />
+//   );
+// }
+// })}
 
 export default PhoneNav;
 
@@ -116,6 +135,12 @@ const Group = styled.div`
   }
 `;
 
+const Seperator = styled.div`
+  height: 0.5%;
+  background-color: grey;
+  width: 100%;
+`;
+
 const Icon = styled.img`
   height: 100%;
   border: ${borders ? "1px solid green" : "none"};
@@ -139,5 +164,3 @@ const Icon = styled.img`
 
   /* filter: brightness(100%) sepia(100%) saturate(10000%) opacity(50%) hue-rotate(55deg); */
 `;
-
-export interface Props {}

@@ -7,7 +7,7 @@ const TimerCountdown: FC<Props> = ({ time, children }) => {
   const countdownTime = new Date(time).getTime();
 
   const [now, setNow] = useState(new Date().getTime());
-  const [remainingTime, setRemainingTime] = useState<any>(calcTimeDifference(now, countdownTime));
+  const [remainingTime, setRemainingTime] = useState<string>(calcTimeDifference(now, countdownTime));
 
   useEffect(() => {
     setRemainingTime(calcTimeDifference(now, countdownTime));
@@ -27,6 +27,7 @@ const TimerCountdown: FC<Props> = ({ time, children }) => {
 
   const timeLeft = isTimeLeft(hours, mins, secs);
 
+  // TODO: Remove the lol from here
   return (
     <>
       <Container isOpen={timeLeft || remainingTime === "lol"}>

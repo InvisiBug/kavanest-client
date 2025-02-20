@@ -1,8 +1,9 @@
-import { FC, useState, createContext, useContext } from "react";
+import { FC, useState, useRef, createContext, useContext } from "react";
 import { getCurrentSetpointV2 as getCurrentSetpoint } from "@/lib/api";
 import { mq, px } from "@/lib/mediaQueries";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import Styled from "@emotion/styled";
+import { useDimensions } from "@/lib/helpers/useDimension";
 
 // https://www.patterns.dev/posts/compound-pattern
 // https://codesandbox.io/s/provider-pattern-2-ck29r?from-embed=&file=/src/FlyOut.js
@@ -55,6 +56,8 @@ const Heating: FC<Props> & {
   //   return { data: 2, refetch: () => console.log("bosad") };
   // };
 
+  const ref = useRef(null);
+  const { width, height } = useDimensions(ref);
   const borders = off;
 
   return (
@@ -66,35 +69,66 @@ const Heating: FC<Props> & {
         borders,
       }}
     >
-      <Container>{children}</Container>
+      <Container ref={ref} width={width}>
+        {children}
+      </Container>
     </HeatingContext.Provider>
   );
 };
+// const getDynamicStyles = (width: number) => {
+//   if (width > 500) {
+//     return {
+//       // backgroundColor: "red",
+//       display: "grid",
+//       gridTemplateColumns: "1fr 1fr 1.5fr",
+//       gridAutoRows: "1fr 1fr",
+//       gap: "10px",
+//       gridTemplateAreas: `
+//         "title title title"
+//         "main main sidebar"
+//       `,
+//       "& > div": {
+//         border: "1px solid grey",
+//         borderRadius: "5px",
+//       },
+//     };
+//   } else {
+//     return {
+//       flexDirection: "row",
+//     };
+//   }
+// };
 
-const Container = Styled.div`
+// const Container = Styled.div<{ width: number }>`
+//   ${({ width }) => getDynamicStyles(width)}
+// `;
+const Container = Styled.div<{ width: number }>`
   /* border:1px solid white; */
-  ${mq("large")} {
-    /* background-color:orange; */
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-audo-rows: 1fr 1fr;
-    gap: 10px;
-    grid-template-areas:
-    "title title title"
-    "main main sidebar";
 
-    & > div {
-      border:1px solid grey;
-      border-radius: 5px;
-      // Apply to child divs
-      /* flex: 25%; */
-      /* padding: 10%; */
-      /* margin-bottom: 200px; */
-    }
-  }
+  width:100%;
 
 
-`;
+ `;
+
+// ${mq("large")} {
+//   /* background-color:orange; */
+//   display: grid;
+//   grid-template-columns: 1fr 1fr 1.5fr;
+//   grid-audo-rows: 1fr 1fr;
+//   gap: 10px;
+//   grid-template-areas:
+//   "title title title"
+//   "main main sidebar";
+
+//   & > div {
+//     border:1px solid grey;
+//     border-radius: 5px;
+//     // Apply to child divs
+//     /* flex: 25%; */
+//     /* padding: 10%; */
+//     /* margin-bottom: 200px; */
+//   }
+// }
 
 // border:1px solid white;
 //     height:vh;

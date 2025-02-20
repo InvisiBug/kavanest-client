@@ -8,7 +8,7 @@ import { mq, px } from "@/lib/mediaQueries";
 import { radiatorDisconectColour, sensorDisconectColour } from "@/lib/constants";
 import Thermometer from "../../thermometer";
 
-const HeatingRoomSelector: React.FC<Props> = ({ roomName, onClick = null, close = null }) => {
+const HeatingRoomSelector: React.FC<Props> = ({ roomName, onClick = null }) => {
   const [sensor, setSensor] = useState<any>();
   const [radiator, setRadiator] = useState<any>();
 
@@ -42,10 +42,6 @@ const HeatingRoomSelector: React.FC<Props> = ({ roomName, onClick = null, close 
   return (
     <>
       <Container onClick={onClick}>
-        {/* <SelectorTitle connected={sensor.connected} onClick={close}>
-          {decamelize(roomName)}
-        </SelectorTitle> */}
-
         {sensor && radiator && (
           <RoomName sensorConnected={sensor.connected} radiatorConnected={radiator.connected}>
             {decamelize(roomName)}

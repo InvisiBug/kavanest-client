@@ -20,7 +20,6 @@ const OverrideControls: FC = () => {
     fetchPolicy: "no-cache",
     notifyOnNetworkStatusChange: true, // Needed for some reason
     onCompleted() {
-      console.log(data, data);
       if (data.room) {
         // console.log(data.room.overrideTime);
         setOverrideTime(data.room.overrideTime);
@@ -65,7 +64,9 @@ const OverrideControls: FC = () => {
   return (
     <Container>
       <h4>Room Override Controls</h4>
-      <OverrideType currentType={overrideType} types={["heating-on", "heating-off", "passive"]} updateType={updateType} />
+      <TimeContainer>
+        <OverrideType currentType={overrideType} types={["on", "off", "passive"]} updateType={updateType} />
+      </TimeContainer>
       <Times updateTimer={updateTime} times={[0.01, 15, 60, 120, 0.05]} />
       <CountdownTimer time={overrideTime}>Remaining Time</CountdownTimer>
     </Container>
@@ -108,4 +109,8 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   border-bottom: 1px solid grey;
+`;
+
+const TimeContainer = styled.div`
+  padding: 1rem;
 `;

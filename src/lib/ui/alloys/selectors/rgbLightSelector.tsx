@@ -22,7 +22,7 @@ const RGBLightSelector: React.FC<any> = ({
       socket.on(_id, (payload: any) => {
         const updatedRgbLights: Array<any> = [...allRgbLights];
 
-        for (let key in updatedRgbLights) {
+        for (const key in updatedRgbLights) {
           if (updatedRgbLights[key].name === name) {
             updatedRgbLights[key] = payload;
           }
@@ -93,6 +93,7 @@ const mutation = gql`
 
 const Container = styled.div`
   color: white;
+  width: 100%;
   border-bottom: 1px solid grey;
   :first-of-type {
     border-top: 1px solid grey;
