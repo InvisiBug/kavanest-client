@@ -11,7 +11,7 @@ import useWindowDimensions from "@/lib/helpers/useWindow";
   If a room is selected, the RoomHeating component is rendered (the controls for that room)
 */
 const SetpointsSelectorScreen: FC = () => {
-  const [openRoom, setOpenRoom] = useState<string | undefined>("study");
+  const [openRoom, setOpenRoom] = useState<string | undefined>("");
   const { data } = useQuery<QglResponse>(request, { fetchPolicy: "no-cache" });
 
   const { radiators, heating } = data || ({} as QglResponse);
