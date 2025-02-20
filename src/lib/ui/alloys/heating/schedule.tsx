@@ -86,8 +86,6 @@ const Schedule: FC = () => {
               }
             }
 
-            console.log(highlight);
-
             return (
               <Row key={Math.random()}>
                 <CurrentSetpoint room={name} day={dayType} setpoint={thisSetpoint} close={refetch} activeSetpoint={highlight} />

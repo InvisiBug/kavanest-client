@@ -138,7 +138,15 @@ const Group = styled.div`
 const Seperator = styled.div`
   height: 0.5%;
   background-color: grey;
-  width: 100%;
+  width: 1px;
+  height: 100%;
+  /* transform: rotateX(90deg); */
+  /* border: 1px solid red; */
+
+  ${mq("large")} {
+    width: 100%;
+    height: 3px;
+  }
 `;
 
 const Icon = styled.img`

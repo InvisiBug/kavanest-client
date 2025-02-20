@@ -7,31 +7,30 @@ import {
   TimerCountdown,
   HeatingRoomSelector,
   RoomHeating,
-  RGBLightSelector,
+  RGBLightSelectorV2 as RGBLightSelector,
 } from "@/lib/ui";
 import { Plug, RGBLight } from "@/lib/gqlTypes";
 
 import styled from "@emotion/styled";
 import { mq, px } from "@/lib/mediaQueries";
 
-const filteredData = (data: any) => {
-  return data.filter((item: any) => ["deskLEDs", "tableLamp", "screenLEDs"].includes(item.name));
-};
-
 const Study: FC = () => {
   const [lamp, setLamp] = useState<Plug | undefined>(undefined);
   const [floodLight, setFloodLight] = useState<Plug | undefined>(undefined);
+  const [kitchenStrip, setKitchenStrip] = useState<RGBLight | undefined>(undefined);
+
+  const [openRGBLight, setOpenRGBLight] = useState("");
+
   const ref = useRef(null);
 
   const { data } = useQuery(getLights, {
     fetchPolicy: "no-cache",
-    variables: {
-      name1: "kitchenLamp",
-      name2: "trainingRoomLamp",
-    },
     onCompleted() {
       setLamp(data.lamp);
       setFloodLight(data.floodlight);
+
+      setKitchenStrip(data.kitchenStrip);
+      console.log("🚀 ~ onCompleted ~ data.kitchenStrip:", data.kitchenStrip);
     },
   });
 
@@ -47,6 +46,9 @@ const Study: FC = () => {
           <h1>Lights</h1>
           {lamp && <PlugSelector initialData={lamp} />}
           {floodLight && <PlugSelector initialData={floodLight} />}
+          {kitchenStrip && (
+            <RGBLightSelector initialData={kitchenStrip} openRGBLight={openRGBLight} setOpenRGBLight={setOpenRGBLight} key={Math.random()} />
+          )}
         </Right>
       </Container>
     </>
@@ -96,18 +98,27 @@ const Right = styled.div`
 `;
 
 const getLights = gql`
-  query ($name1: String, $name2: String) {
-    lamp: getPlug(name: $name1) {
+  query {
+    lamp: getPlug(name: "kitchenLamp") {
       name
       state
       connected
       _id
     }
-    floodlight: getPlug(name: $name2) {
+    floodlight: getPlug(name: "trainingRoomLamp") {
       name
       state
       connected
       _id
+    }
+    kitchenStrip: getRGBLight(name: "kitchenStrip") {
+      name
+      connected
+      red
+      green
+      blue
+      _id
+      state
     }
   }
 `;

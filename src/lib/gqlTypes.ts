@@ -5,6 +5,7 @@ export type RGBLight = {
   blue: number;
   mode: number;
   connected: boolean;
+  state:boolean
   _id: string;
 };
 
