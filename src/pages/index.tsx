@@ -27,7 +27,7 @@ const Pages: FC = () => {
     case "kitchen":
       return <Kitchen />;
     default:
-      return <Setpoints />;
+      return <Study />;
   }
 };
 

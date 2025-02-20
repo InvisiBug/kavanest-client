@@ -28,7 +28,7 @@ const borders = false;
 
 const AppWindow = styled.div`
   /* position: fixed; */
-  /* border: ${borders ? "1px solid green" : "none"}; */
+  border: ${borders ? "1px solid green" : "none"};
   background-color: #1f1f1f;
 
   display: flex;
@@ -51,7 +51,8 @@ const Content = styled.div`
   /* overflow-y: auto; */
   /* height: 1000px; */
   /* width: 50vw; */
-  flex-grow: 1;
+  /* flex-grow: 1; */
+  flex: 1 0 auto;
   padding: 0 5% 0 5%;
   ${mq("large")} {
     /* min-height: 100%; */
@@ -70,7 +71,8 @@ const Nav = styled.div`
     min-width: 100px;
     width: 5vw;
   }
-  margin-top: 0;
+  /* margin-top: auto; */
+  flex-shrink: 0;
 `;
 
 const globalStyles = css`

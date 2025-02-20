@@ -76,11 +76,6 @@ export const getCurrentSetpointV3 = (setpoints: {
   weekend: Record<string, { temp: number; type: string }>;
   weekday: Record<string, { temp: number; type: string }>;
 }) => {
-  // let setpoint: number | null = null;
-  // let time: string = "";
-
-  console.log(setpoints);
-
   const setpoint = {} as Setpoint;
 
   try {
@@ -92,7 +87,7 @@ export const getCurrentSetpointV3 = (setpoints: {
       }
     });
 
-    if (!setpoint.temp) {
+    if (!setpoint.time) {
       const obj = setpoints[weekOrWeekend()];
       const lastTime = Object.keys(obj).sort().reverse()[0];
       const lastSetpoint = obj[lastTime];
@@ -109,6 +104,7 @@ export const getCurrentSetpointV3 = (setpoints: {
     return setpoint;
   }
 };
+
 export type Setpoint = {
   time: string;
   temp: number;

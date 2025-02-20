@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styled from "@emotion/styled";
 import { useQuery, gql } from "@apollo/client";
-import { getCurrentSetpointV2 as getCurrentSetpoint } from "@/lib/api";
+import { getCurrentSetpointV3 as getCurrentSetpoint } from "@/lib/api";
 import { textColour } from "@/lib/constants";
 
 const HeatingTarget: FC<Props> = ({ name, borders = false }) => {
@@ -18,12 +18,12 @@ const HeatingTarget: FC<Props> = ({ name, borders = false }) => {
 
   const { setpoints } = data.room;
 
-  const targetVal = getCurrentSetpoint(setpoints)![1];
+  const { temp } = getCurrentSetpoint(setpoints);
 
   return (
     <Container borders={borders}>
       Target
-      <br /> <TargetVal val={targetVal}>{targetVal > 5 ? `${targetVal}°C` : "Off"}</TargetVal>
+      <br /> <TargetVal val={temp}>{temp > 5 ? `${temp}°C` : "Off"}</TargetVal>
     </Container>
   );
 };
@@ -49,8 +49,8 @@ const request = gql`
 type GqlResponse = {
   room: {
     setpoints: {
-      weekday: Record<string, string>;
-      weekend: Record<string, string>;
+      weekday: Record<string, { temp: number; type: string }>;
+      weekend: Record<string, { temp: number; type: string }>;
     };
   };
 };
