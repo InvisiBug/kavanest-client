@@ -36,7 +36,7 @@ const PageTitle = styled.div`
 const TitleText = styled.h1<{
   borders: boolean;
 }>`
-  border: ${(borders) => (borders ? "1px solid green" : "none")};
+  border: ${({ borders }) => (borders ? "1px solid green" : "none")};
   border-bottom: 1px solid grey;
   padding-bottom: 5px; // Required
   margin-bottom: 0;

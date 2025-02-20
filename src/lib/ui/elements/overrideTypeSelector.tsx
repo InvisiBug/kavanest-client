@@ -43,7 +43,7 @@ const borders = false;
 
 const Container = styled.div`
   border: ${borders ? "1px solid purple" : "none"};
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   display: flex;
   justify-content: center;
   flex-direction: row;
@@ -57,7 +57,7 @@ const Override = styled.div<OverrideProps>`
   padding: 0.5rem;
   font-size: 0.8rem;
   ${mq("large")} {
-    font-size: 1rem;
+    font-size: 0%.9;
   }
   border-radius: 10% 10% 10% 10%;
   -webkit-tap-highlight-color: transparent;

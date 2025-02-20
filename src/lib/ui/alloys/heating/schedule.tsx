@@ -1,23 +1,27 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { useHeating } from "@/lib/ui";
 import { plus, sinchronize } from "@/lib/ui";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import { decamelize, weekOrWeekend } from "@/lib/helpers";
-import { getCurrentSetpointV2 } from "@/lib/api";
+import { getCurrentSetpointV2, getCurrentSetpointV3, Setpoint } from "@/lib/api";
 import styled from "@emotion/styled";
 import { CurrentSetpoint, NewSetpoint } from "./components/setpoints";
+import { mq } from "@/lib/mediaQueries";
 
 const Schedule: FC = () => {
   const { name } = useHeating();
-  const [dayType, setDays] = useState<string>(weekOrWeekend());
+  const [dayType, setDays] = useState<"weekend" | "weekday">(weekOrWeekend());
   const [showNewSetpoint, setShowNewSetpoint] = useState<boolean>(false);
+  // const [currentSetpoint, setCurrentSetpoint] = useState<Setpoint>({} as Setpoint);
+  const [highlight, sethighlight] = useState(false);
 
-  const { data, refetch } = useQuery<any>(request, {
+  const { data, refetch } = useQuery<GQLData>(request, {
     variables: { room: name },
     fetchPolicy: "no-cache",
     onCompleted() {
       // console.log(data);
       // console.log(data.schedule.setpoints);
+      // if (data) setCurrentSetpoint(getCurrentSetpointV3(data.schedule.setpoints));
     },
   });
 
@@ -68,23 +72,25 @@ const Schedule: FC = () => {
       </Row>
       {setpoints && setpoints[dayType]
         ? Object.keys(setpoints[dayType]).map((time: any) => {
-            const currentSetpoint = getCurrentSetpointV2(setpoints);
-            let highlight = false;
+            const thisSetpoint = {
+              time,
+              ...setpoints[dayType][time],
+            };
 
-            const temp = setpoints[dayType][time];
+            let highlight = false;
+            const currentSetpoint = getCurrentSetpointV3(data.schedule.setpoints);
 
             if (currentSetpoint && dayType === weekOrWeekend()) {
-              if (time === currentSetpoint[0]) {
+              if (time === currentSetpoint.time) {
                 highlight = true;
               }
             }
 
-            console.log(temp);
+            console.log(highlight);
 
             return (
               <Row key={Math.random()}>
-                {/* console.log(temp) */}
-                <CurrentSetpoint room={name} day={dayType} time={time} temp={temp} close={refetch} activeSetpoint={highlight} />
+                <CurrentSetpoint room={name} day={dayType} setpoint={thisSetpoint} close={refetch} activeSetpoint={highlight} />
               </Row>
             );
           })
@@ -109,10 +115,21 @@ const request = gql`
   }
 `;
 
+type GQLData = {
+  schedule: {
+    setpoints: {
+      weekend: Record<string, { temp: number; type: string }>;
+      weekday: Record<string, { temp: number; type: string }>;
+    };
+  };
+};
+
 const borders = false;
+
 const Row = styled.div`
   border: ${borders ? "1px solid white" : "none"};
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 2.5rem;

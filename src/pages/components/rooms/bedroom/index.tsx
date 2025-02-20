@@ -56,9 +56,8 @@ const Study: FC = () => {
 
   return (
     <>
-      <Container ref={ref}>
+      <Container ref={ref} width={width}>
         <Left>
-          {`Container width: ${width} Container height: ${height}`}
           <h1>Bed</h1>
 
           <Times updateTimer={updateTime} times={[0.01, 10, 20, 45]}>
@@ -80,9 +79,14 @@ const Study: FC = () => {
 
 export default Study;
 
-const Container = styled.div`
+const Container = styled.div<{ width: number }>`
   display: flex;
-  flex-direction: row;
+  ${mq("large")} {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  flex-direction: ${({ width }) => (width > 1000 ? "wolumn" : "row")};
+  flex-direction: column;
 `;
 
 const Left = styled.div`
@@ -91,10 +95,13 @@ const Left = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 50%;
-  height: 100%;
+  width: 100%;
+  /* height: 100%; */
   background-color: #1f1f1f;
-  /* border: 1px solid red; */
+
+  ${mq("large")} {
+    width: 45%;
+  }
 `;
 
 const Right = styled.div`
@@ -103,10 +110,12 @@ const Right = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 50%;
+  width: 100%;
+  ${mq("large")} {
+    width: 45%;
+  }
   height: 100%;
   background-color: #1f1f1f;
-  /* border: 1px solid red; */
 `;
 
 const getLights = gql`

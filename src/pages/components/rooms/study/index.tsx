@@ -44,10 +44,10 @@ const Study: FC = () => {
 
   return (
     <>
-      <Container ref={ref}>
-        <Left>
-          {`Container width: ${width} Container height: ${height}`}
-          <h1>Heating</h1>
+      <Container ref={ref} width={width}>
+        <Left width={width}>
+          {/* {`Container width: ${width} Container height: ${height}`} */}
+          <h1>Study</h1>
           <RoomHeating showTitle={false} name={"study"} />
         </Left>
 
@@ -77,33 +77,44 @@ const Study: FC = () => {
 
 export default Study;
 
-const Container = styled.div`
+const Container = styled.div<{ width: number }>`
   display: flex;
-  flex-direction: row;
+  ${mq("large")} {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  flex-direction: column;
 `;
 
-const Left = styled.div`
+const Left = styled.div<{ width: number }>`
   display: flex;
-  padding: 1rem;
+  /* padding: 1rem; */
   flex-direction: column;
+  /* flex-direction: ${({ width }) => (width > 1000 ? "column" : "row")}; */
   align-items: center;
   justify-content: center;
-  width: 50%;
-  height: 100%;
+  width: 100%;
+  /* height: 100%; */
   background-color: #1f1f1f;
-  /* border: 1px solid red; */
+
+  ${mq("large")} {
+    width: 45%;
+  }
 `;
 
 const Right = styled.div`
   display: flex;
-  padding: 1rem;
+  /* padding: 1rem; */
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 50%;
+  width: 100%;
+  ${mq("large")} {
+    width: 45%;
+  }
   height: 100%;
   background-color: #1f1f1f;
-  /* border: 1px solid red; */
 `;
 
 const getLights = gql`

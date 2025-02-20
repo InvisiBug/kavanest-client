@@ -1,11 +1,9 @@
 import { FC } from "react";
-import { Home, Setpoints, Plugs, Sensors, RGBLights, Computer, Bedroom, Valves, Bed, Study } from "./components";
+import { Home, Setpoints, Plugs, Livingroom, Sensors, RGBLights, Computer, Bedroom, Valves, Bed, Study, Kitchen } from "./components";
 import { useAppContext } from "@/lib/context";
 
 const Pages: FC = () => {
   const { screen } = useAppContext();
-
-  console.log(screen);
 
   switch (screen) {
     case "setpoints":
@@ -24,6 +22,10 @@ const Pages: FC = () => {
       return <Bedroom />;
     case "valves":
       return <Valves />;
+    case "livingRoom":
+      return <Livingroom />;
+    case "kitchen":
+      return <Kitchen />;
     default:
       return <Setpoints />;
   }
