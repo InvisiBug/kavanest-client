@@ -85,13 +85,13 @@ const Container = styled.div<{ width: number }>`
     flex-direction: row;
     justify-content: space-around;
   }
-  flex-direction: ${({ width }) => (width > 1000 ? "wolumn" : "row")};
+  flex-direction: ${({ width }) => (width > 1000 ? "column" : "row")};
   flex-direction: column;
 `;
 
 const Left = styled.div`
   display: flex;
-  padding: 1rem;
+
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -106,7 +106,7 @@ const Left = styled.div`
 
 const Right = styled.div`
   display: flex;
-  padding: 1rem;
+
   flex-direction: column;
   align-items: center;
   justify-content: center;
