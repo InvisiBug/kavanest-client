@@ -69,7 +69,7 @@ const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
                     day: day,
                     time: `${hours}:${mins}`,
                     values: {
-                      temp: parseInt(temp),
+                      temp: parseFloat(temp),
                       type: overrideType,
                     },
                   },
