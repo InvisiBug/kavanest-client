@@ -1,18 +1,10 @@
 import { FC, useState, useRef } from "react";
-import { useQuery, gql, useMutation } from "@apollo/client";
-import {
-  PageTitle,
-  PageContents,
-  PlugSelectorV2 as PlugSelector,
-  TimerCountdown,
-  HeatingRoomSelector,
-  RoomHeating,
-  RGBLightSelectorV2 as RGBLightSelector,
-} from "@/lib/ui";
+import styled from "@emotion/styled";
+import { useQuery, gql } from "@apollo/client";
+import { PlugSelectorV2 as PlugSelector, RoomHeating, RGBLightSelectorV2 as RGBLightSelector } from "@/lib/ui";
 import { Plug, RGBLight } from "@/lib/gqlTypes";
 
-import styled from "@emotion/styled";
-import { mq, px } from "@/lib/mediaQueries";
+import { mq } from "@/lib/mediaQueries";
 
 const Study: FC = () => {
   const [lamp, setLamp] = useState<Plug | undefined>(undefined);
@@ -23,14 +15,14 @@ const Study: FC = () => {
 
   const ref = useRef(null);
 
-  const { data } = useQuery(getLights, {
+  const { data } = useQuery<{ lamp: Plug; floodlight: Plug; kitchenStrip: RGBLight }>(getLights, {
     fetchPolicy: "no-cache",
     onCompleted() {
-      setLamp(data.lamp);
-      setFloodLight(data.floodlight);
+      setLamp(data?.lamp);
+      setFloodLight(data?.floodlight);
 
-      setKitchenStrip(data.kitchenStrip);
-      console.log("🚀 ~ onCompleted ~ data.kitchenStrip:", data.kitchenStrip);
+      setKitchenStrip(data?.kitchenStrip);
+      console.log("🚀 ~ onCompleted ~ data.kitchenStrip:", data?.kitchenStrip);
     },
   });
 
@@ -38,7 +30,7 @@ const Study: FC = () => {
     <>
       <Container ref={ref}>
         <Left>
-          <h1>Kitchen</h1>
+          <h1>Heating</h1>
           <RoomHeating showTitle={false} name={"trainingRoom"} />
         </Left>
 
@@ -46,9 +38,7 @@ const Study: FC = () => {
           <h1>Lights</h1>
           {lamp && <PlugSelector initialData={lamp} />}
           {floodLight && <PlugSelector initialData={floodLight} />}
-          {kitchenStrip && (
-            <RGBLightSelector initialData={kitchenStrip} openRGBLight={openRGBLight} setOpenRGBLight={setOpenRGBLight} key={Math.random()} />
-          )}
+          {kitchenStrip && <RGBLightSelector initialData={kitchenStrip} openRGBLight={openRGBLight} setOpenRGBLight={setOpenRGBLight} key={Math.random()} />}
         </Right>
       </Container>
     </>

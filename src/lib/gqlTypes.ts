@@ -5,7 +5,7 @@ export type RGBLight = {
   blue: number;
   mode: number;
   connected: boolean;
-  state:boolean
+  state: boolean;
   _id: string;
 };
 
@@ -35,6 +35,16 @@ export type Sensor = {
   temperature: number;
   connected?: boolean;
   offset?: number;
+  _id: string;
+};
+
+export type ComputerAudio = {
+  name: string;
+  left: boolean;
+  right: boolean;
+  sub: boolean;
+  mixer: boolean;
+  connected: boolean;
   _id: string;
 };
 

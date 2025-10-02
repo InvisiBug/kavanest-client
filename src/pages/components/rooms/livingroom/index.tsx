@@ -1,37 +1,24 @@
 import { FC, useState, useRef } from "react";
-import { useQuery, gql, useMutation } from "@apollo/client";
-import {
-  PageTitle,
-  PageContents,
-  PlugSelectorV2 as PlugSelector,
-  TimerCountdown,
-  HeatingRoomSelector,
-  RoomHeating,
-  RGBLightSelector,
-} from "@/lib/ui";
-import { Plug, RGBLight } from "@/lib/gqlTypes";
-
 import styled from "@emotion/styled";
-import { mq, px } from "@/lib/mediaQueries";
-
-const filteredData = (data: any) => {
-  return data.filter((item: any) => ["deskLEDs", "tableLamp", "screenLEDs"].includes(item.name));
-};
+import { useQuery, gql } from "@apollo/client";
+import { PlugSelectorV2 as PlugSelector, RoomHeating } from "@/lib/ui";
+import { Plug } from "@/lib/gqlTypes";
+import { mq } from "@/lib/mediaQueries";
 
 const Study: FC = () => {
   const [lamp, setLamp] = useState<Plug | undefined>(undefined);
   const [floodLight, setFloodLight] = useState<Plug | undefined>(undefined);
   const ref = useRef(null);
 
-  const { data } = useQuery(getLights, {
+  const { data } = useQuery<{ lamp: Plug; floodlight: Plug }>(getLights, {
     fetchPolicy: "no-cache",
     variables: {
       name1: "livingRoomLamp",
       name2: "floodlight",
     },
     onCompleted() {
-      setLamp(data.lamp);
-      setFloodLight(data.floodlight);
+      setLamp(data?.lamp);
+      setFloodLight(data?.floodlight);
     },
   });
 
@@ -39,7 +26,7 @@ const Study: FC = () => {
     <>
       <Container ref={ref}>
         <Left>
-          <h1>LivingRoom</h1>
+          <h1>Heating</h1>
           <RoomHeating showTitle={false} name={"livingRoom"} />
         </Left>
 
