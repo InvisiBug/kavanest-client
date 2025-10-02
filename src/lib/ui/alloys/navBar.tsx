@@ -17,7 +17,7 @@ const navButtons = [
   { name: "setpoints", icon: setpoints, guest: true },
   { name: "lights", icon: rgbLight, admin: true },
   { name: "bed", icon: bed, admin: true },
-  // { name: "computer", icon: computer, admin: true },
+  { name: "computer", icon: computer, admin: true },
   // { name: "valves", icon: valve, admin: true },
   // { name: "plugs", icon: plug, admin: true },
   // { name: "gears", icon: gears },

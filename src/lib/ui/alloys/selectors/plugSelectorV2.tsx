@@ -13,7 +13,8 @@ const PlugSelector: React.FC<Props> = ({ initialData, mqttNameOverride = null, m
   const { socket } = useAppContext();
   const [updatePlug] = useMutation(mutation, {});
 
-  const [{ name, state, connected, _id }, setPlugData] = useState<Plug>(initialData);
+  const [plugData, setPlugData] = useState<Plug>(initialData);
+  const { name, connected, _id, state } = plugData;
 
   useEffect(() => {
     if (_id) {

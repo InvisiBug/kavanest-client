@@ -9,6 +9,7 @@ export { default as NavBar } from "./alloys/navBar";
 export { default as Selector } from "./alloys/selectorFrame";
 
 // Selectors
+export { default as AudioSelectorV2 } from "./alloys/selectors/audioSelectorV2";
 export { default as RGBLightSelector } from "./alloys/selectors/rgbLightSelector";
 export { default as RGBLightSelectorV2 } from "./alloys/selectors/rgbLightSelectorV2";
 export { default as PlugSelector } from "./alloys/selectors/plugSelector";
