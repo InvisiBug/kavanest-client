@@ -34,9 +34,12 @@ const AppWindow = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  min-width: 100vw;
+  width: 100vw;
+  max-width: 100vw;
+  overflow-x: hidden;
   padding: 0;
   margin: 0 0 0 0;
+  box-sizing: border-box;
   /* border: 1px solid red; */
 
   ${mq("large")} {
@@ -54,6 +57,10 @@ const Content = styled.div`
   /* flex-grow: 1; */
   flex: 1 0 auto;
   padding: 0 5% 0 5%;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   ${mq("large")} {
     /* min-height: 100%; */
     /* align-items: flex-start; */
@@ -63,7 +70,8 @@ const Content = styled.div`
 const Nav = styled.div`
   border: ${borders ? "1px solid pink" : "none"};
   height: 50px; // This need to be a pixel value for the navbar to work
-  width: 100vw;
+  width: 100%;
+  box-sizing: border-box;
 
   ${mq("large")} {
     order: -1;
@@ -76,18 +84,35 @@ const Nav = styled.div`
 `;
 
 const globalStyles = css`
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
   body {
     margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    box-sizing: border-box;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     user-select: none;
     /* overflow: scroll; */
     -ms-overflow-style: none;
-    ::-webkit-scrollbar {
-      display: none;
-    }
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  #root {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 `;

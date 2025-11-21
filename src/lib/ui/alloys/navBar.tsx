@@ -91,7 +91,9 @@ const Container = styled.div`
   border: ${borders ? "1px solid yellow" : "none"};
   margin: auto;
   height: 100%;
-  /* width: 100vw; */
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   background-color: rgb(255, 255, 255, 0.01);
   display: flex;
   align-items: center;
@@ -165,8 +167,7 @@ const Icon = styled.img`
   /* background: linear-gradient(to top, #3204fdba, #9907facc) no-repeat top center; */
 
   /* background-color: ${(props: { name: string; screen: string }) => (props.name === props.screen ? "red" : null)}; */
-  /* filter: ${(props: { name: string; screen: string }) =>
-    props.name === props.screen ? "brightness(40%) sepia(100%) saturate(300%) opacity(90%) hue-rotate(75deg)" : null}; */
+  /* filter: ${(props: { name: string; screen: string }) => (props.name === props.screen ? "brightness(40%) sepia(100%) saturate(300%) opacity(90%) hue-rotate(75deg)" : null)}; */
 
   filter: ${(props: { name: string; screen: string }) => (props.name === props.screen ? "opacity(100%)" : "opacity(50%)")};
 
