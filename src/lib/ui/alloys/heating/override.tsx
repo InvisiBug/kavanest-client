@@ -67,7 +67,7 @@ const OverrideControls: FC = () => {
       <TimeContainer>
         <OverrideType currentType={overrideType} types={["on", "off", "passive"]} updateType={updateType} />
       </TimeContainer>
-      <Times updateTimer={updateTime} times={[0.01, 15, 60, 120, 0.05]} />
+      <Times updateTimer={updateTime} times={[0.01, 15, 30, 60, 0.05]} />
       <CountdownTimer time={overrideTime}>Remaining Time</CountdownTimer>
     </Container>
   );
