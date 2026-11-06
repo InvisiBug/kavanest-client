@@ -122,7 +122,7 @@ type GQLData = {
   };
 };
 
-const borders = false;
+const borders = true;
 
 const Row = styled.div`
   border: ${borders ? "1px solid white" : "none"};
@@ -130,7 +130,8 @@ const Row = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 2.5rem;
+  height: 3rem;
+  flex-wrap: none;
 `;
 
 const Icon = styled.img`
