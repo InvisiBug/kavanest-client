@@ -44,4 +44,4 @@ service:
   name: kavanest-client
   selector: kavanest-client
   port: 80
-  targetPort: 3100
+  targetPort: 80
