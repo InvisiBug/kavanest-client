@@ -122,7 +122,7 @@ type GQLData = {
   };
 };
 
-const borders = true;
+const borders = false;
 
 const Row = styled.div`
   border: ${borders ? "1px solid white" : "none"};
