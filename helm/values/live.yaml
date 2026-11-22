@@ -2,7 +2,7 @@ name: kavanest-client
 
 namespace: kavanest
 env:
-  APP_VERSION: 68e5fdb17dfd4ce024f442353aec7a261e22ad92
+  APP_VERSION: 052414dc1b9a5e4e5b12ae34494878754bdc1ad2
 
 deployment:
   - name: kavanest-client
@@ -44,4 +44,4 @@ service:
   name: kavanest-client
   selector: kavanest-client
   port: 80
-  targetPort: 3100
+  targetPort: 80
