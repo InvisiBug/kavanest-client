@@ -8,25 +8,40 @@ deployment:
   - name: kavanest-client
     image: invisibug/kavanest-client
     ports:
-    - port: 80
+      - port: 80
     # env:
-      # Handled in Dockerfile.live
+    # Handled in Dockerfile.live
 
-ingress:
-  - name: client.kavanet.io
-    selector: kavanest-client
-    path: /.*
-    port: 80
-    host: client.kavanet.io
+# ingress:
+#   - name: client.kavanet.io
+#     selector: kavanest-client
+#     path: /.*
+#     port: 80
+#     host: client.kavanet.io
 
-  - name: a.kavanet.io
-    selector: kavanest-client
-    path: /.*
-    port: 80
-    host: a.kavanet.io
+#   - name: a.kavanet.io
+#     selector: kavanest-client
+#     path: /.*
+#     port: 80
+#     host: a.kavanet.io
+
+# service:
+#   loadBalancer:
+#     - name: kavanest-client
+#       selector: kavanest-client
+#       port: 80
+
+httpRoute:
+  name: client.kavanet.io
+  gatewayName: kavanetes-gateway
+  gatewayNamespace: nginx-gateway
+  host: client.kavanet.io
+  path: /
+  serviceName: kavanest-client
+  servicePort: 80
 
 service:
-  loadBalancer:
-    - name: kavanest-client
-      selector: kavanest-client
-      port: 80
+  name: kavanest-client
+  selector: kavanest-client
+  port: 80
+  targetPort: 3100
