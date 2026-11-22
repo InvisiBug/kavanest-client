@@ -39,13 +39,7 @@ const NewSetpoint: React.FC<Props> = ({ close, room, day }) => {
             }}
           />
           :
-          <MyInput
-            type="text"
-            name="field-2"
-            placeholder="00"
-            inputMode="decimal"
-            onChange={(event) => setMins(("0" + event.target.value).slice(-2))}
-          />
+          <MyInput type="text" name="field-2" placeholder="00" inputMode="decimal" onChange={(event) => setMins(("0" + event.target.value).slice(-2))} />
         </Time>
 
         <Temp>
@@ -99,7 +93,7 @@ const addSetpointMutation = gql`
   }
 `;
 
-const borders: boolean = false;
+const borders: boolean = true;
 
 const Accept = styled.img`
   height: 1.5rem;
@@ -111,15 +105,16 @@ const Cancel = styled.img`
 
 const Container = styled.div`
   display: flex;
-  width: 75%;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
   margin-top: 1rem;
+  margin-bottom: 1rem;
   border: ${borders ? "1px solid red" : null};
   ${mq("large")} {
     border: ${borders ? "1px solid purple" : null};
     /* max-width: 25%; */
-    width: 95%;
+    width: 90%;
     /* width: 75%; */
   }
 `;
@@ -127,7 +122,7 @@ const Container = styled.div`
 const MyInput = styled.input`
   text-align: center;
   font-size: 1.2rem;
-  width: 1.3rem;
+  width: 2rem;
   color: white;
   background-color: rgba(255, 255, 255, 0);
   border: ${borders ? "1px solid white" : "none"};
