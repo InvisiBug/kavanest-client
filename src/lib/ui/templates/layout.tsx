@@ -55,10 +55,12 @@ const Content = styled.div`
   /* height: 1000px; */
   /* width: 50vw; */
   /* flex-grow: 1; */
-  flex: 1 0 auto;
+  flex: 1 1 auto;
+  min-width: 0;
   padding: 0 5% 0 5%;
   box-sizing: border-box;
-  width: 100%;
+
+  width: auto;
   max-width: 100%;
   overflow-x: hidden;
   ${mq("large")} {
