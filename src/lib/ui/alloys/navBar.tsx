@@ -115,7 +115,7 @@ const Text = styled.div`
   ${mq("large")} {
     visibility: visible;
     max-width: none;
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
   }
 `;
 
@@ -129,7 +129,8 @@ const Group = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    height: 5%;
+    height: 10%;
+    flex-shrink: 0;
     align-items: center;
     border-bottom: 1px solid grey;
 
@@ -159,9 +160,8 @@ const Icon = styled.img`
   max-width: 100%;
 
   ${mq("large")} {
-    /* width: 50%; */
-    height: 50%;
-    padding: 0.5rem;
+    height: 55%;
+    padding: 0.25rem;
     /* object-fit: cover; */
     /* margin-top: 20px; */
     /* background-color: orange; */
