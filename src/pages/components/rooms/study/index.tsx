@@ -89,6 +89,10 @@ const borders = false;
 const Container = styled.div<{ width: number }>`
   border: ${borders ? "1px solid white" : "none"};
   display: flex;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   ${mq("large")} {
     flex-direction: row;
     justify-content: space-around;
@@ -106,6 +110,7 @@ const Left = styled.div<{ width: number }>`
   align-items: center;
   justify-content: flex-start;
   width: 100%;
+  min-width: 0;
   /* height: 100%; */
   background-color: #1f1f1f;
 
@@ -121,6 +126,7 @@ const Right = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+  min-width: 0;
   ${mq("large")} {
     width: 45%;
   }

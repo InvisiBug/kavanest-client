@@ -129,7 +129,7 @@ const Group = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    height: 10%;
+    height: 5%;
     align-items: center;
     border-bottom: 1px solid grey;
 
@@ -153,10 +153,15 @@ const Seperator = styled.div`
 
 const Icon = styled.img`
   height: 100%;
+  width: auto;
+  object-fit: contain;
   border: ${borders ? "1px solid green" : "none"};
+  max-width: 100%;
+
   ${mq("large")} {
     /* width: 50%; */
     height: 50%;
+    padding: 0.5rem;
     /* object-fit: cover; */
     /* margin-top: 20px; */
     /* background-color: orange; */
