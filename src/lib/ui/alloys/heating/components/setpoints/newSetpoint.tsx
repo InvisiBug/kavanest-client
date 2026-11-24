@@ -93,7 +93,7 @@ const addSetpointMutation = gql`
   }
 `;
 
-const borders: boolean = true;
+const borders = false;
 
 const Accept = styled.img`
   height: 1.5rem;
